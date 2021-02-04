@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
-import './MainLayout.css';
+import './MainLayout.scss';
 
 class MainLayout extends PureComponent {
     render(): JSX.Element {
