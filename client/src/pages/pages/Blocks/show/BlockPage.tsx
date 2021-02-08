@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
-import { Card } from '../../../../components';
+import { Card } from 'components';
 import moment from 'moment';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
