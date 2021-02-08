@@ -1,5 +1,5 @@
 {
-    "name": "awesome-project",
+    "name": "explorer",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -11,6 +11,7 @@
         "class-transformer": "^0.3.2",
         "i18n-js": "^3.8.0",
         "moment": "^2.29.1",
+        "moment-timezone": "^0.5.33",
         "node-sass": "^5.0.0",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",

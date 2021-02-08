@@ -3,7 +3,8 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import { Card } from 'components';
-import moment from 'moment';
+import moment from 'moment-timezone';
+import { SystemConstants } from 'constant';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -45,9 +46,10 @@ class BlockPage extends PureComponent<Props> {
                 <div>Height: {block.height}</div>
                 <div>
                     Date:{' '}
-                    {`${moment(block.dispatchedAt).fromNow()} (${moment(block.dispatchedAt).format(
-                        'YYYY-MM-DD HH:mm:ss',
-                    )})`}
+                    {`${moment.utc(block.dispatchedAt).fromNow()} (${moment
+                        .utc(block.dispatchedAt)
+                        .tz(SystemConstants.TIMEZONE)
+                        .format('YYYY-MM-DD HH:mm:ss')})`}
                 </div>
                 <div>Transactions: {block.numTxs}</div>
                 <div>Proposer: {block.proposerAddress}</div>
