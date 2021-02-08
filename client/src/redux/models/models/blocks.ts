@@ -1,7 +1,7 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
-import BlocksModel from 'models/models/blocks';
-import { ApiBlocks } from '../../../api';
+import { BlocksModel } from 'models';
+import { ApiBlocks } from 'api';
 
 interface BlocksState {
     blocks: BlocksModel[];
