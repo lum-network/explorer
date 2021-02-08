@@ -14,9 +14,7 @@ class RootNavigator extends PureComponent {
                         <Route path={NavigationConstants.HOME}>
                             <HomePage />
                         </Route>
-                        <Route path={`${NavigationConstants.BLOCKS}/:id`}>
-                            <BlockPage />
-                        </Route>
+                        <Route path={`${NavigationConstants.BLOCKS}/:id`} component={BlockPage} />
                         <Route path={NavigationConstants.BLOCKS}>
                             <BlocksPage />
                         </Route>

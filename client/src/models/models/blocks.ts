@@ -7,7 +7,7 @@ class BlocksModel {
 
     hash?: string;
 
-    height?: number;
+    height?: string;
 
     @Expose({ name: 'dispatched_at' })
     dispatchedAt?: string;
