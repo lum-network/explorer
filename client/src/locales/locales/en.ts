@@ -1,5 +1,7 @@
 export default {
-    Home: 'Home',
-    Blocks: 'Blocks',
-    Transactions: 'Transactions',
+    // Layout
+    home: 'Home',
+    blocks: 'Blocks',
+    transactions: 'Transactions',
+    validators: 'Validators',
 };

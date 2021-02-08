@@ -1,7 +1,12 @@
 import { Models } from '@rematch/core';
+import blocks from './models/blocks';
 
-export interface RootModel extends Models<RootModel> {}
+export interface RootModel extends Models<RootModel> {
+    blocks: typeof blocks;
+}
 
-const models: RootModel = {};
+const models: RootModel = {
+    blocks,
+};
 
 export default models;
