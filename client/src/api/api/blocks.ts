@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ApiConstants } from 'constant';
-import BlocksModel from 'models/models/blocks';
+import { BlocksModel } from 'models';
 import { plainToClass } from 'class-transformer';
 
 export const fetchBlocks = (): Promise<BlocksModel[]> => {

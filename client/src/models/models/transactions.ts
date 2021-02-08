@@ -2,7 +2,7 @@ import { TransactionsAction } from 'constant';
 import { Expose } from 'class-transformer';
 
 class TransactionsModel {
-    height?: number;
+    height?: string;
 
     hash?: string;
 
@@ -27,7 +27,7 @@ class TransactionsModel {
     name?: string;
 
     @Expose({ name: 'dispatched_at' })
-    dispatched_at?: string;
+    dispatchedAt?: string;
 }
 
 export default TransactionsModel;
