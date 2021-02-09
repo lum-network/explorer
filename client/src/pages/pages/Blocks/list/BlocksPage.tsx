@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
-import { RootState } from 'redux/store';
+import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import { Card, Table } from 'components';
 import { BlocksModel } from 'models';
 import { Link } from 'react-router-dom';
 import moment from 'moment-timezone';
+import Pusher from 'pusher-js';
 
-import { NavigationConstants, SystemConstants } from 'constant';
+import { NavigationConstants, SocketConstants, SystemConstants } from 'constant';
 
 interface IProps {}
 
@@ -14,10 +15,42 @@ const mapState = (state: RootState) => ({
     blocks: state.blocks.blocks,
 });
 
+const mapDispatch = (dispatch: Dispatch) => ({
+    fetchBlocks: () => dispatch.blocks.fetchBlocks(),
+    addBlock: (block: BlocksModel) => dispatch.blocks.addBlock(block),
+});
+
 type StateProps = ReturnType<typeof mapState>;
-type Props = IProps & StateProps;
+type DispatchProps = ReturnType<typeof mapDispatch>;
+type Props = IProps & StateProps & DispatchProps;
 
 class BlocksPage extends PureComponent<Props> {
+    pusher: Pusher | null = null;
+
+    componentDidMount(): void {
+        const { addBlock, fetchBlocks } = this.props;
+
+        fetchBlocks().finally(() => null);
+
+        //TODO: Finish socket implem
+        // Maybe: Init the sockets in App core
+        this.pusher = new Pusher(process.env.REACT_APP_PUSHER_APP_KEY || '', {
+            cluster: process.env.REACT_APP_PUSHER_APP_CLUSTER,
+        });
+
+        const channel = this.pusher.subscribe(SocketConstants.BLOCKS);
+
+        channel.bind(SocketConstants.NEW_BLOCK_EVENT, async (data: BlocksModel) => {
+            addBlock(data);
+        });
+    }
+
+    componentWillUnmount() {
+        if (this.pusher) {
+            this.pusher.unsubscribe(SocketConstants.BLOCKS);
+        }
+    }
+
     renderRow(block: BlocksModel): JSX.Element {
         return (
             <tr key={block.height}>
@@ -48,4 +81,4 @@ class BlocksPage extends PureComponent<Props> {
     }
 }
 
-export default connect(mapState)(BlocksPage);
+export default connect(mapState, mapDispatch)(BlocksPage);

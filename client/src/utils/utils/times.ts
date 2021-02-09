@@ -1,3 +1,3 @@
-import { INTERVAL_TIME } from 'constant/constant/time';
+import { TimeConstants } from 'constant';
 
-export const INTERVAL_IN_MS = INTERVAL_TIME * 1000;
+export const INTERVAL_IN_MS = TimeConstants.INTERVAL_TIME * 1000;

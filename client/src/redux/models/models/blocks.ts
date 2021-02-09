@@ -3,6 +3,7 @@ import { RootModel } from '../index';
 import { BlocksModel } from 'models';
 import { ApiBlocks } from 'api';
 import { plainToClass } from 'class-transformer';
+import moment from 'moment-timezone';
 
 interface BlocksState {
     blocks: BlocksModel[];
@@ -35,6 +36,19 @@ const blocks = createModel<RootModel>()({
                 block: plainToClass(BlocksModel, {}),
             };
         },
+
+        addBlock(state, blocks: BlocksModel) {
+            let newBlocks = state.blocks;
+
+            newBlocks.unshift(blocks);
+            newBlocks = [...new Set(newBlocks)];
+            newBlocks.sort((a, b) => moment(b.dispatchedAt).date() - moment(a.dispatchedAt).date());
+
+            return {
+                ...state,
+                blocks: newBlocks,
+            };
+        },
     },
     effects: (dispatch) => ({
         async fetchBlocks() {
@@ -52,6 +66,10 @@ const blocks = createModel<RootModel>()({
             const block = await ApiBlocks.getBlock(id);
 
             dispatch.blocks.setBlock(block);
+        },
+
+        addBlock(block: BlocksModel) {
+            dispatch.blocks.addBlock(block);
         },
     }),
 });

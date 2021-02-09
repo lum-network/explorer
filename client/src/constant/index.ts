@@ -3,8 +3,9 @@ export { default as MessagesType } from './enums/MessagesType';
 
 import * as NavigationConstants from './constant/navigation';
 import * as ApiConstants from './constant/api';
-import * as TimeContants from './constant/time';
+import * as TimeConstants from './constant/time';
+import * as SocketConstants from './constant/sockets';
 
 import * as SystemConstants from './constant/system';
 
-export { NavigationConstants, ApiConstants, SystemConstants, TimeContants };
+export { NavigationConstants, ApiConstants, SystemConstants, TimeConstants, SocketConstants };
