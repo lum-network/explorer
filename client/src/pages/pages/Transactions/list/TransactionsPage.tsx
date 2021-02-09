@@ -6,7 +6,8 @@ import { TransactionsModel } from 'models';
 import { Link } from 'react-router-dom';
 import moment from 'moment-timezone';
 
-import { NavigationConstants, SystemConstants } from 'constant';
+import { NavigationConstants } from 'constant';
+import { Strings } from 'utils';
 
 interface IProps {}
 
@@ -32,18 +33,18 @@ class TransactionsPage extends PureComponent<Props> {
     renderRow(transaction: TransactionsModel): JSX.Element {
         return (
             <tr key={transaction.height}>
-                <td>
-                    <Link to={`${NavigationConstants.TRANSACTIONS}/${transaction.hash}`}>{transaction.hash}</Link>
+                <td title={transaction.hash}>
+                    <Link to={`${NavigationConstants.TRANSACTIONS}/${transaction.hash}`}>
+                        {Strings.trunc(transaction.hash || '')}
+                    </Link>
                 </td>
-                <td>{`${moment.utc(transaction.dispatchedAt).fromNow()} (${moment
-                    .utc(transaction.dispatchedAt)
-                    .tz(SystemConstants.TIMEZONE)
-                    .format('YYYY-MM-DD HH:mm:ss')})`}</td>
                 <td>{transaction.action}</td>
-                <td>{transaction.height}</td>
-                <td>{transaction.fromAddress}</td>
-                <td>{transaction.toAddress}</td>
+                <td>{transaction.success ? 'Success' : 'Failure'}</td>
                 <td>{transaction.amount}</td>
+                <td>
+                    <Link to={`${NavigationConstants.BLOCKS}/${transaction.height}`}>{transaction.height}</Link>
+                </td>
+                <td>{moment.utc(transaction.dispatchedAt).fromNow()}</td>
             </tr>
         );
     }
@@ -54,7 +55,7 @@ class TransactionsPage extends PureComponent<Props> {
         return (
             <Card>
                 <h1>Transactions</h1>
-                <Table head={['Hash', 'Time', 'Type', 'Block', 'From', 'To', 'Amount']}>
+                <Table head={['Hash', 'Type', 'Result', 'Amount', 'Block', 'Time']}>
                     {transactions.map((transaction) => this.renderRow(transaction))}
                 </Table>
             </Card>
