@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Dispatch, RootState } from 'redux/store';
+import { RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import { Card, Table } from 'components';
 import { TransactionsModel } from 'models';
@@ -15,21 +15,10 @@ const mapState = (state: RootState) => ({
     transactions: state.transactions.transactions,
 });
 
-const mapDispatch = (dispatch: Dispatch) => ({
-    fetchTransactions: () => dispatch.transactions.fetchTransactions(),
-});
-
 type StateProps = ReturnType<typeof mapState>;
-type DispatchProps = ReturnType<typeof mapDispatch>;
-type Props = IProps & StateProps & DispatchProps;
+type Props = IProps & StateProps;
 
 class TransactionsPage extends PureComponent<Props> {
-    componentDidMount(): void {
-        const { fetchTransactions } = this.props;
-
-        fetchTransactions().finally(() => null);
-    }
-
     renderRow(transaction: TransactionsModel): JSX.Element {
         return (
             <tr key={transaction.height}>
@@ -63,4 +52,4 @@ class TransactionsPage extends PureComponent<Props> {
     }
 }
 
-export default connect(mapState, mapDispatch)(TransactionsPage);
+export default connect(mapState)(TransactionsPage);

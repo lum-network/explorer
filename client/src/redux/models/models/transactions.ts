@@ -12,7 +12,7 @@ interface TransactionsState {
 const transactions = createModel<RootModel>()({
     state: {
         transactions: [],
-        transaction: plainToClass(TransactionsModel, {}),
+        transaction: plainToClass(TransactionsModel, null),
     } as TransactionsState,
     reducers: {
         setTransactions(state, transactions: TransactionsModel[]) {

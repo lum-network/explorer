@@ -12,7 +12,7 @@ interface BlocksState {
 const blocks = createModel<RootModel>()({
     state: {
         blocks: [],
-        block: plainToClass(BlocksModel, {}),
+        block: plainToClass(BlocksModel, null),
     } as BlocksState,
     reducers: {
         setBlocks(state, blocks: BlocksModel[]) {

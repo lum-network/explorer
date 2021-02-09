@@ -29,20 +29,33 @@ class TransactionPage extends PureComponent<Props> {
         getTransaction(id).finally(() => null);
     }
 
-    renderLoading(): JSX.Element {
-        return (
-            <div className="spinner-grow" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        );
-    }
+    renderMessages(): JSX.Element | null {
+        const { messages } = this.props.transaction;
 
-    renderContent(): JSX.Element {
-        const { transaction } = this.props;
+        if (!messages || !messages.length) {
+            return null;
+        }
 
         return (
             <Card>
-                <h1>Transaction details</h1>
+                <h2>Messages</h2>
+                {messages.map((message, index) => (
+                    <Card key={index}>
+                        <h3>{message.type}</h3>
+                    </Card>
+                ))}
+            </Card>
+        );
+    }
+
+    renderInformation(): JSX.Element {
+        const { transaction } = this.props;
+
+        console.log(transaction);
+
+        return (
+            <Card className="mb-4">
+                <h2>Information</h2>
                 <div>Hash: {transaction.hash}</div>
                 <div>
                     Date:{' '}
@@ -55,6 +68,24 @@ class TransactionPage extends PureComponent<Props> {
                 <div>To: {transaction.toAddress}</div>
                 <div>Value: {transaction.amount}</div>
             </Card>
+        );
+    }
+
+    renderContent(): JSX.Element {
+        return (
+            <>
+                <h1>Transaction details</h1>
+                {this.renderInformation()}
+                {this.renderMessages()}
+            </>
+        );
+    }
+
+    renderLoading(): JSX.Element {
+        return (
+            <div className="spinner-grow" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
         );
     }
 

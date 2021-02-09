@@ -1,5 +1,6 @@
 import { TransactionsAction } from 'constant';
-import { Expose } from 'class-transformer';
+import { deserializeArray, Expose, Transform, Type } from 'class-transformer';
+import MessageModel from './message';
 
 class TransactionsModel {
     height?: string;
@@ -28,6 +29,17 @@ class TransactionsModel {
 
     @Expose({ name: 'dispatched_at' })
     dispatchedAt?: string;
+
+    @Expose({ name: 'msgs' })
+    @Type(() => MessageModel)
+    @Transform(({ value }) => {
+        if (!value) {
+            return [];
+        }
+
+        return deserializeArray(MessageModel, value);
+    })
+    messages: MessageModel[] = [];
 }
 
 export default TransactionsModel;

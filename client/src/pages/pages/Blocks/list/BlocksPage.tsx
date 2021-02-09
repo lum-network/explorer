@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Dispatch, RootState } from 'redux/store';
+import { RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import { Card, Table } from 'components';
 import { BlocksModel } from 'models';
@@ -14,21 +14,10 @@ const mapState = (state: RootState) => ({
     blocks: state.blocks.blocks,
 });
 
-const mapDispatch = (dispatch: Dispatch) => ({
-    fetchBlocks: () => dispatch.blocks.fetchBlocks(),
-});
-
 type StateProps = ReturnType<typeof mapState>;
-type DispatchProps = ReturnType<typeof mapDispatch>;
-type Props = IProps & StateProps & DispatchProps;
+type Props = IProps & StateProps;
 
 class BlocksPage extends PureComponent<Props> {
-    componentDidMount(): void {
-        const { fetchBlocks } = this.props;
-
-        fetchBlocks().finally(() => null);
-    }
-
     renderRow(block: BlocksModel): JSX.Element {
         return (
             <tr key={block.height}>
@@ -59,4 +48,4 @@ class BlocksPage extends PureComponent<Props> {
     }
 }
 
-export default connect(mapState, mapDispatch)(BlocksPage);
+export default connect(mapState)(BlocksPage);
