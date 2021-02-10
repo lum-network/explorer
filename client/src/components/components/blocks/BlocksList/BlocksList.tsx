@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import { Card, Table } from 'components';
 import { BlocksModel } from 'models';
 import { Link } from 'react-router-dom';
-import { NavigationConstants, SystemConstants } from 'constant';
+import { NavigationConstants } from 'constant';
 import moment from 'moment-timezone';
+import { Strings } from 'utils';
 
 interface IProps {
     blocks: BlocksModel[];
@@ -16,12 +17,9 @@ class BlocksList extends PureComponent<IProps> {
                 <td>
                     <Link to={`${NavigationConstants.BLOCKS}/${block.height}`}>{block.height}</Link>
                 </td>
-                <td>{`${moment.utc(block.dispatchedAt).fromNow()} (${moment
-                    .utc(block.dispatchedAt)
-                    .tz(SystemConstants.TIMEZONE)
-                    .format('YYYY-MM-DD HH:mm:ss')})`}</td>
+                <td title={block.proposerAddress}>{Strings.trunc(block.proposerAddress || '')}</td>
                 <td>{block.numTxs}</td>
-                <td>{block.proposerAddress}</td>
+                <td>{moment.utc(block.dispatchedAt).fromNow()}</td>
             </tr>
         );
     }
@@ -32,7 +30,7 @@ class BlocksList extends PureComponent<IProps> {
         return (
             <Card>
                 <h1>Blocks</h1>
-                <Table head={['Height', 'Time', 'Transactions', 'Proposer']}>
+                <Table head={['Height', 'Proposer', 'Transactions', 'Time']}>
                     {blocks.map((block) => this.renderRow(block))}
                 </Table>
             </Card>
