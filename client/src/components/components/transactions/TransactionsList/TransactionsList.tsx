@@ -8,10 +8,13 @@ import moment from 'moment-timezone';
 
 interface IProps {
     transactions: TransactionsModel[];
+    rej?: boolean;
 }
 
 class TransactionsList extends PureComponent<IProps> {
     renderRow(transaction: TransactionsModel): JSX.Element {
+        const { rej } = this.props;
+
         return (
             <tr key={transaction.height}>
                 <td title={transaction.hash}>
@@ -20,8 +23,12 @@ class TransactionsList extends PureComponent<IProps> {
                     </Link>
                 </td>
                 <td>{transaction.action}</td>
-                <td>{transaction.success ? 'Success' : 'Failure'}</td>
-                <td>{transaction.amount}</td>
+                {!rej && (
+                    <>
+                        <td>{transaction.success ? 'Success' : 'Failure'}</td>
+                        <td>{transaction.amount}</td>
+                    </>
+                )}
                 <td>
                     <Link to={`${NavigationConstants.BLOCKS}/${transaction.height}`}>{transaction.height}</Link>
                 </td>
@@ -31,12 +38,14 @@ class TransactionsList extends PureComponent<IProps> {
     }
 
     render(): JSX.Element {
-        const { transactions } = this.props;
+        const { transactions, rej } = this.props;
+        const full = ['Hash', 'Type', 'Result', 'Amount', 'Block', 'Time'];
+        const simplified = ['Hash', 'Type', 'Block', 'Time'];
 
         return (
             <Card>
                 <h1>Transactions</h1>
-                <Table head={['Hash', 'Type', 'Result', 'Amount', 'Block', 'Time']}>
+                <Table head={rej ? simplified : full}>
                     {transactions.map((transaction) => this.renderRow(transaction))}
                 </Table>
             </Card>

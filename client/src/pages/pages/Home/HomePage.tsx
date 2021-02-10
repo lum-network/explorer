@@ -26,7 +26,7 @@ class HomePage extends PureComponent<Props> {
                         <BlocksList blocks={blocks.slice(0, 5)} />
                     </div>
                     <div className="col-12 col-xl-6 mt-3">
-                        <TransactionsList transactions={transactions.slice(0, 5)} />
+                        <TransactionsList rej transactions={transactions.slice(0, 5)} />
                     </div>
                 </div>
             </>
