@@ -12,11 +12,11 @@ interface IProps {
 }
 
 class TransactionsList extends PureComponent<IProps> {
-    renderRow(transaction: TransactionsModel): JSX.Element {
+    renderRow(transaction: TransactionsModel, index: number): JSX.Element {
         const { rej } = this.props;
 
         return (
-            <tr key={transaction.height}>
+            <tr key={index}>
                 <td title={transaction.hash}>
                     <Link to={`${NavigationConstants.TRANSACTIONS}/${transaction.hash}`}>
                         {Strings.trunc(transaction.hash || '')}
@@ -46,7 +46,7 @@ class TransactionsList extends PureComponent<IProps> {
             <Card>
                 <h1>Transactions</h1>
                 <Table head={rej ? simplified : full}>
-                    {transactions.map((transaction) => this.renderRow(transaction))}
+                    {transactions.map((transaction, index) => this.renderRow(transaction, index))}
                 </Table>
             </Card>
         );

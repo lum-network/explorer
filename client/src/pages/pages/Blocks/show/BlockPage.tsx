@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
-import { Card } from 'components';
+import { Card, TransactionsList } from 'components';
 import moment from 'moment-timezone';
 import { SystemConstants } from 'constant';
 
@@ -29,20 +29,22 @@ class BlockPage extends PureComponent<Props> {
         getBlock(id).finally(() => null);
     }
 
-    renderLoading(): JSX.Element {
-        return (
-            <div className="spinner-grow" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        );
+    renderTransactions(): JSX.Element | null {
+        const { transactions } = this.props.block;
+
+        if (!transactions || !transactions.length) {
+            return null;
+        }
+
+        return <TransactionsList transactions={transactions} />;
     }
 
-    renderContent(): JSX.Element {
+    renderInformation(): JSX.Element {
         const { block } = this.props;
 
         return (
-            <Card>
-                <h1>Block details</h1>
+            <Card className="mb-4">
+                <h2>Information</h2>
                 <div>Height: {block.height}</div>
                 <div>
                     Date:{' '}
@@ -54,6 +56,24 @@ class BlockPage extends PureComponent<Props> {
                 <div>Transactions: {block.numTxs}</div>
                 <div>Proposer: {block.proposerAddress}</div>
             </Card>
+        );
+    }
+
+    renderContent(): JSX.Element {
+        return (
+            <>
+                <h1>Block details</h1>
+                {this.renderInformation()}
+                {this.renderTransactions()}
+            </>
+        );
+    }
+
+    renderLoading(): JSX.Element {
+        return (
+            <div className="spinner-grow" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
         );
     }
 

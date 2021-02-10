@@ -11,9 +11,9 @@ interface IProps {
 }
 
 class BlocksList extends PureComponent<IProps> {
-    renderRow(block: BlocksModel): JSX.Element {
+    renderRow(block: BlocksModel, index: number): JSX.Element {
         return (
-            <tr key={block.height}>
+            <tr key={index}>
                 <td>
                     <Link to={`${NavigationConstants.BLOCKS}/${block.height}`}>{block.height}</Link>
                 </td>
@@ -31,7 +31,7 @@ class BlocksList extends PureComponent<IProps> {
             <Card>
                 <h1>Blocks</h1>
                 <Table head={['Height', 'Proposer', 'Transactions', 'Time']}>
-                    {blocks.map((block) => this.renderRow(block))}
+                    {blocks.map((block, index) => this.renderRow(block, index))}
                 </Table>
             </Card>
         );
