@@ -59,7 +59,7 @@ const blocks = createModel<RootModel>()({
 
         async getBlock(id: string, state) {
             // We reset "block" only when we request a different block
-            if (state.blocks.block.height !== id) {
+            if (state.blocks.block && state.blocks.block.height !== id) {
                 dispatch.blocks.resetBlock();
             }
 

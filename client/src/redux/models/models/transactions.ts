@@ -59,7 +59,7 @@ const transactions = createModel<RootModel>()({
 
         async getTransaction(id: string, state) {
             // We reset "transaction" only when we request a different transaction
-            if (state.transactions.transaction.hash !== id) {
+            if (state.transactions.transaction && state.transactions.transaction.hash !== id) {
                 dispatch.transactions.resetTransaction();
             }
 
