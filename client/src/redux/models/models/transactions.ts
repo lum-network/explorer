@@ -3,6 +3,7 @@ import { RootModel } from '../index';
 import { TransactionsModel } from 'models';
 import { ApiTransactions } from 'api';
 import { plainToClass } from 'class-transformer';
+import moment from 'moment-timezone';
 
 interface TransactionsState {
     transactions: TransactionsModel[];
@@ -35,6 +36,19 @@ const transactions = createModel<RootModel>()({
                 transaction: plainToClass(TransactionsModel, {}),
             };
         },
+
+        addTransaction(state, transaction: TransactionsModel) {
+            let newTransactions = state.transactions;
+
+            newTransactions.unshift(transaction);
+            newTransactions = [...new Set(newTransactions)];
+            newTransactions.sort((a, b) => moment(b.dispatchedAt).date() - moment(a.dispatchedAt).date());
+
+            return {
+                ...state,
+                transactions: newTransactions,
+            };
+        },
     },
     effects: (dispatch) => ({
         async fetchTransactions() {
@@ -52,6 +66,10 @@ const transactions = createModel<RootModel>()({
             const transaction = await ApiTransactions.getTransaction(id);
 
             dispatch.transactions.setTransaction(transaction);
+        },
+
+        addTransaction(transaction: TransactionsModel) {
+            dispatch.transactions.addTransaction(transaction);
         },
     }),
 });

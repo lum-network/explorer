@@ -8,6 +8,7 @@ import moment from 'moment-timezone';
 import Pusher from 'pusher-js';
 
 import { NavigationConstants, SocketConstants, SystemConstants } from 'constant';
+import { plainToClass } from 'class-transformer';
 
 interface IProps {}
 
@@ -33,15 +34,16 @@ class BlocksPage extends PureComponent<Props> {
         fetchBlocks().finally(() => null);
 
         //TODO: Finish socket implem
-        // Maybe: Init the sockets in App core
         this.pusher = new Pusher(process.env.REACT_APP_PUSHER_APP_KEY || '', {
             cluster: process.env.REACT_APP_PUSHER_APP_CLUSTER,
         });
 
         const channel = this.pusher.subscribe(SocketConstants.BLOCKS);
 
-        channel.bind(SocketConstants.NEW_BLOCK_EVENT, async (data: BlocksModel) => {
-            addBlock(data);
+        channel.bind(SocketConstants.NEW_BLOCK_EVENT, (data: Record<string, unknown>) => {
+            const block = plainToClass(BlocksModel, data);
+
+            addBlock(block);
         });
     }
 

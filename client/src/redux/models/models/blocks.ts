@@ -37,10 +37,10 @@ const blocks = createModel<RootModel>()({
             };
         },
 
-        addBlock(state, blocks: BlocksModel) {
+        addBlock(state, block: BlocksModel) {
             let newBlocks = state.blocks;
 
-            newBlocks.unshift(blocks);
+            newBlocks.unshift(block);
             newBlocks = [...new Set(newBlocks)];
             newBlocks.sort((a, b) => moment(b.dispatchedAt).date() - moment(a.dispatchedAt).date());
 
