@@ -37,6 +37,9 @@ class TransactionPage extends PureComponent<Props> {
                 <>
                     <div>From: {value.fromAddress}</div>
                     <div>To: {value.toAddress}</div>
+                    <div>
+                        Amount: {value.amount[0].amount} {value.amount[0].denom.toUpperCase()}
+                    </div>
                 </>
             );
         }

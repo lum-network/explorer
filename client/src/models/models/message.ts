@@ -5,12 +5,19 @@ abstract class Base {
     type?: MessagesType;
 }
 
+type Amount = {
+    denom: string;
+    amount: string;
+};
+
 export class Send extends Base {
     @Expose({ name: 'from_address' })
     fromAddress?: string;
 
     @Expose({ name: 'to_address' })
     toAddress?: string;
+
+    amount: Amount[] = [];
 }
 
 export class CreateValidator extends Base {
