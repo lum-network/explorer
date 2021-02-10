@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { TransactionsModel } from 'models';
-import { Card, Table } from '../../../index';
+import { Card, Table } from 'components';
 import { Link } from 'react-router-dom';
-import { NavigationConstants } from '../../../../constant';
-import { Strings } from '../../../../utils';
+import { NavigationConstants } from 'constant';
+import { StringsUtils } from 'utils';
 import moment from 'moment-timezone';
 
 interface IProps {
@@ -19,7 +19,7 @@ class TransactionsList extends PureComponent<IProps> {
             <tr key={index}>
                 <td title={transaction.hash}>
                     <Link to={`${NavigationConstants.TRANSACTIONS}/${transaction.hash}`}>
-                        {Strings.trunc(transaction.hash || '')}
+                        {StringsUtils.trunc(transaction.hash || '')}
                     </Link>
                 </td>
                 <td>{transaction.action}</td>

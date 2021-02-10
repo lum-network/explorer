@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import RootNavigator from 'navigation';
 import { connect } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
-import { Times } from 'utils';
+import { TimesUtils } from 'utils';
 import { BlocksModel, TransactionsModel } from 'models';
 import Pusher from 'pusher-js';
 import { SocketConstants } from 'constant';
@@ -35,7 +35,7 @@ class Core extends PureComponent<Props> {
         this.fetch();
         this.interval = setInterval(() => {
             this.fetch();
-        }, Times.INTERVAL_IN_MS);
+        }, TimesUtils.INTERVAL_IN_MS);
 
         this.sockets();
     }

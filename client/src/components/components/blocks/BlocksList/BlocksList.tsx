@@ -4,7 +4,7 @@ import { BlocksModel } from 'models';
 import { Link } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import moment from 'moment-timezone';
-import { Strings } from 'utils';
+import { StringsUtils } from 'utils';
 
 interface IProps {
     blocks: BlocksModel[];
@@ -17,7 +17,7 @@ class BlocksList extends PureComponent<IProps> {
                 <td>
                     <Link to={`${NavigationConstants.BLOCKS}/${block.height}`}>{block.height}</Link>
                 </td>
-                <td title={block.proposerAddress}>{Strings.trunc(block.proposerAddress || '')}</td>
+                <td title={block.proposerAddress}>{StringsUtils.trunc(block.proposerAddress || '')}</td>
                 <td>{block.numTxs}</td>
                 <td>{moment.utc(block.dispatchedAt).fromNow()}</td>
             </tr>

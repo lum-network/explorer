@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Card } from 'components';
 import moment from 'moment-timezone';
 import { SystemConstants } from 'constant';
+import { MessagesUtils } from 'utils';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -41,7 +42,7 @@ class TransactionPage extends PureComponent<Props> {
                 <h2>Messages</h2>
                 {messages.map((message, index) => (
                     <Card key={index}>
-                        <h3>{message.type}</h3>
+                        <h3>{MessagesUtils.name(message.type)}</h3>
                     </Card>
                 ))}
             </Card>

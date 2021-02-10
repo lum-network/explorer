@@ -4,4 +4,11 @@ export default {
     blocks: 'Blocks',
     transactions: 'Transactions',
     validators: 'Validators',
+
+    // Transaction Messages
+    createValidatorMessage: 'Create validator',
+    sendMessage: 'Send',
+    delegateMessage: 'Delegate',
+    undelegateMessage: 'Undelegate',
+    editValidatorMessage: 'Edit validator',
 };
