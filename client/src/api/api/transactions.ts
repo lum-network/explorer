@@ -24,6 +24,16 @@ export const getTransaction = (id: string): Promise<TransactionsModel> => {
     return new Promise((resolve, reject) => {
         axios(`${ApiConstants.TRANSACTIONS_URL}/${id}`, { baseURL: ApiConstants.BASE_URL, method: 'GET' })
             .then((result) => {
+                const messages = JSON.parse(result.data.result.msgs);
+
+                messages.map((message: any) => {
+                    message.value.type = message.type;
+
+                    return message;
+                });
+
+                result.data.result.msgs = JSON.stringify(messages);
+
                 const transaction = plainToClass(TransactionsModel, result.data.result);
 
                 resolve(transaction);

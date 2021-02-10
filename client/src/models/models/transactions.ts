@@ -1,6 +1,6 @@
 import { TransactionsAction } from 'constant';
 import { deserializeArray, Expose, Transform, Type } from 'class-transformer';
-import MessageModel from './message';
+import { MessageModel } from './message';
 
 class TransactionsModel {
     height?: string;

@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { Card } from 'components';
 import moment from 'moment-timezone';
 import { SystemConstants } from 'constant';
-import { MessagesUtils } from 'utils';
+import { i18n, MessagesUtils } from 'utils';
+import { MessageModel } from 'models';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -30,6 +31,40 @@ class TransactionPage extends PureComponent<Props> {
         getTransaction(id).finally(() => null);
     }
 
+    renderMessage(value: MessageModel.Value): JSX.Element {
+        if (value instanceof MessageModel.Send) {
+            return (
+                <>
+                    <div>From: {value.fromAddress}</div>
+                    <div>To: {value.toAddress}</div>
+                </>
+            );
+        }
+
+        if (value instanceof MessageModel.CreateValidator) {
+            return (
+                <>
+                    <div>Delegator: {value.delegatorAddress}</div>
+                    <div>Validator: {value.validatorAddress}</div>
+                </>
+            );
+        }
+
+        if (value instanceof MessageModel.Delegate) {
+            return <div>Delegate</div>;
+        }
+
+        if (value instanceof MessageModel.Undelegate) {
+            return <div>Undelegate</div>;
+        }
+
+        if (value instanceof MessageModel.EditValidator) {
+            return <div>EditValidator</div>;
+        }
+
+        return <div>{i18n.t('errorOccurred')}</div>;
+    }
+
     renderMessages(): JSX.Element | null {
         const { messages } = this.props.transaction;
 
@@ -40,11 +75,14 @@ class TransactionPage extends PureComponent<Props> {
         return (
             <Card>
                 <h2>Messages</h2>
-                {messages.map((message, index) => (
-                    <Card key={index}>
-                        <h3>{MessagesUtils.name(message.type)}</h3>
-                    </Card>
-                ))}
+                {messages.map((message, index) => {
+                    return (
+                        <Card key={index}>
+                            <h3>{MessagesUtils.name(message.type)}</h3>
+                            {this.renderMessage(message.value)}
+                        </Card>
+                    );
+                })}
             </Card>
         );
     }

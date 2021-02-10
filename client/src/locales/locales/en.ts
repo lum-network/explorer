@@ -11,4 +11,7 @@ export default {
     delegateMessage: 'Delegate',
     undelegateMessage: 'Undelegate',
     editValidatorMessage: 'Edit validator',
+
+    // Errors
+    errorOccurred: 'An error occurred',
 };
