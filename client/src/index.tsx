@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import './index.scss';
 import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom';

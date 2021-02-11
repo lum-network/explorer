@@ -1,0 +1,89 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/scss/bootstrap';
+@import 'fonts';
+
+// primary font
+$primary_font: 'Work Sans';
+
+// Font Weights
+$extralight: 100;
+$thin: 200;
+$light: 300;
+$regular: 400;
+$medium: 500;
+$semibold: 600;
+$bold: 700;
+$extrabold: 700;
+$black: 900;
+
+// Font sizes
+$font-xs: 12px;
+$font-sm: 14px;
+$primary-fs: 16px;
+$font-md: 18px;
+$font-lg: 20px;
+$font-xl: 25px;
+
+// Colors
+$color-background: #FCFDFF;
+$color-grey: #B5B5B5;
+$color-primary: #2E2E2E;
+$color-white: #FFF;
+$color-black: #000;
+$color-link: #48A7FF;
+$color-striped: #F7FAFF;
+$color-input: #F4F6F8;
+
+@mixin no-margin {
+    margin-bottom: 0 !important;
+}
+
+body {
+    font-family: $primary_font;
+    font-size: $primary-fs;
+    font-weight: $regular;
+}
+
+h1 {
+    font-weight: $medium;
+    font-size: $font-xl;
+    @include no-margin()
+}
+
+h2 {
+    font-weight: $regular;
+    font-size: $font-xl;
+    @include no-margin()
+}
+
+h3 {
+    font-weight: $regular;
+    @include no-margin()
+}
+
+h4 {
+    font-weight: $regular;
+    @include no-margin()
+}
+
+h5 {
+    font-weight: $regular;
+    @include no-margin()
+}
+
+h6 {
+    font-weight: $regular;
+    color: $color-grey;
+    @include no-margin()
+}
+
+p {
+    font-weight: $regular;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    @include no-margin()
+}
+
+a {
+    color: $color-link;
+}

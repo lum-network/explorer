@@ -1,9 +1,10 @@
 export default {
     // Layout
-    home: 'Home',
+    dashboard: 'Board',
     blocks: 'Blocks',
     transactions: 'Transactions',
     validators: 'Validators',
+    wallet: 'Wallet',
 
     // Transaction Messages
     createValidatorMessage: 'Create validator',

@@ -1,4 +1,5 @@
 import * as ApiBlocks from './api/blocks';
 import * as ApiTransactions from './api/transactions';
+import * as ApiAccounts from './api/accounts';
 
-export { ApiBlocks, ApiTransactions };
+export { ApiBlocks, ApiTransactions, ApiAccounts };

@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import { Card } from 'components';
 import moment from 'moment-timezone';
-import { SystemConstants } from 'constant';
+import { NavigationConstants, SystemConstants } from 'constant';
 import { i18n, MessagesUtils } from 'utils';
 import { MessageModel } from 'models';
 
@@ -35,8 +35,13 @@ class TransactionPage extends PureComponent<Props> {
         if (value instanceof MessageModel.Send) {
             return (
                 <>
-                    <div>From: {value.fromAddress}</div>
-                    <div>To: {value.toAddress}</div>
+                    <div>
+                        From:{' '}
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.fromAddress}`}>{value.fromAddress}</Link>
+                    </div>
+                    <div>
+                        To: <Link to={`${NavigationConstants.ACCOUNT}/${value.toAddress}`}>{value.toAddress}</Link>
+                    </div>
                     <div>
                         Amount: {value.amount[0].amount} {value.amount[0].denom.toUpperCase()}
                     </div>

@@ -5,3 +5,4 @@ export { default as BlockPage } from './pages/Blocks/show/BlockPage';
 export { default as TransactionsPage } from './pages/Transactions/list/TransactionsPage';
 export { default as TransactionPage } from './pages/Transactions/show/TransactionPage';
 export { default as ValidatorsPage } from './pages/Validators/ValidatorsPage';
+export { default as AccountPage } from './pages/Accounts/show/AccountPage';

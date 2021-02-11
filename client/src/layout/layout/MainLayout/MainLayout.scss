@@ -1,10 +1,102 @@
-.main {
+@import "src/styles/main";
+
+.main-layout {
     display: flex;
+    flex-direction: column;
     flex: 1;
     min-height: 100vh;
-    background-color: #F5F5F5;
+    background-color: $color-background;
 }
 
 .main-layout .active-link {
-    color: coral;
+    opacity: 1 !important;
+    font-weight: $semibold;
+    padding-bottom: 4px;
+    border-bottom: $color-white solid 3px;
+}
+
+.main-layout .link {
+    color: $color-white;
+    opacity: 0.6;
+    text-decoration: none;
+    font-size: $font-lg;
+    display: flex;
+    align-items: center;
+}
+
+.main-layout .logo {
+    color: $color-white;
+    display: flex;
+    align-items: center;
+}
+
+.main-layout img {
+    height: 18px;
+    width: 18px;
+    margin-right: 6px;
+}
+
+.main-layout .logo img {
+    height: 28px;
+    width: 28px;
+    margin-right: 6px;
+}
+
+.main-layout ul {
+    background-color: $color-primary;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+}
+
+@include media-breakpoint-down(xxl) {
+    .main-layout .link {
+        font-size: $font-md;
+    }
+
+    .main-layout img {
+        height: 16px;
+        width: 16px;
+        margin-right: 5px;
+    }
+}
+
+@include media-breakpoint-down(xl) {
+    .main-layout .link {
+        font-size: $primary-fs;
+    }
+
+    .main-layout img {
+        height: 14px;
+        width: 14px;
+        margin-right: 4px;
+    }
+}
+
+@include media-breakpoint-down(lg) {
+    .main-layout .logo > h1 {
+        display: none;
+    }
+    .main-layout .link {
+        font-size: $font-sm;
+    }
+
+    .main-layout img {
+        height: 12px;
+        width: 12px;
+        margin-right: 3px;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .main-layout {
+        margin-top: 12px;
+    }
+
+    .main-layout ul {
+        display: none;
+    }
 }
