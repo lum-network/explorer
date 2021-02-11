@@ -18,8 +18,8 @@ class BlocksList extends PureComponent<IProps> {
                     <Link to={`${NavigationConstants.BLOCKS}/${block.height}`}>{block.height}</Link>
                 </td>
                 <td title={block.proposerAddress}>{StringsUtils.trunc(block.proposerAddress || '')}</td>
-                <td>{block.numTxs}</td>
-                <td>{moment.utc(block.dispatchedAt).fromNow()}</td>
+                <td className="text-end">{block.numTxs}</td>
+                <td className="text-end">{moment.utc(block.dispatchedAt).fromNow()}</td>
             </tr>
         );
     }

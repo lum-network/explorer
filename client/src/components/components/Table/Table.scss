@@ -1,0 +1,12 @@
+@import "src/styles/main";
+
+.app-table-striped>tbody>tr:nth-child(odd)>td,
+.app-table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: $color-striped;
+
+}
+
+td {
+    vertical-align: middle;
+    height: 48px;
+}

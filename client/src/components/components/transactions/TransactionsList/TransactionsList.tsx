@@ -26,13 +26,13 @@ class TransactionsList extends PureComponent<IProps> {
                 {!rej && (
                     <>
                         <td>{transaction.success ? 'Success' : 'Failure'}</td>
-                        <td>{transaction.amount}</td>
+                        <td className="text-end">{transaction.amount}</td>
                     </>
                 )}
-                <td>
+                <td className="text-end">
                     <Link to={`${NavigationConstants.BLOCKS}/${transaction.height}`}>{transaction.height}</Link>
                 </td>
-                <td>{moment.utc(transaction.dispatchedAt).fromNow()}</td>
+                <td className="text-end">{moment.utc(transaction.dispatchedAt).fromNow()}</td>
             </tr>
         );
     }
