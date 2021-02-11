@@ -10,7 +10,7 @@ class Table extends PureComponent<IProps> {
 
         return (
             <div className="table-responsive">
-                <table className="table">
+                <table className="table table-striped">
                     <thead>
                         <tr>
                             {head.map((value: string, index) => (

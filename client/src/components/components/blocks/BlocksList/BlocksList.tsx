@@ -29,7 +29,7 @@ class BlocksList extends PureComponent<IProps> {
 
         return (
             <Card>
-                <h1>Blocks</h1>
+                <h3>Blocks</h3>
                 <Table head={['Height', 'Proposer', 'Transactions', 'Time']}>
                     {blocks.map((block, index) => this.renderRow(block, index))}
                 </Table>

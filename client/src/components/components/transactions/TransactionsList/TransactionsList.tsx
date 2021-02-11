@@ -44,7 +44,7 @@ class TransactionsList extends PureComponent<IProps> {
 
         return (
             <Card>
-                <h1>Transactions</h1>
+                <h3>Transactions</h3>
                 <Table head={rej ? simplified : full}>
                     {transactions.map((transaction, index) => this.renderRow(transaction, index))}
                 </Table>
