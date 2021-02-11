@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import { BlocksList } from 'components';
+import blockLogo from 'assets/images/blockDark.svg';
+import { i18n } from 'utils';
 
 interface IProps {}
 
@@ -27,7 +29,14 @@ class BlocksPage extends PureComponent<Props> {
     render(): JSX.Element {
         const { blocks } = this.props;
 
-        return <BlocksList blocks={blocks} />;
+        return (
+            <>
+                <h2 className="mb-3">
+                    <img alt="block" src={blockLogo} /> {i18n.t('blocks')}
+                </h2>
+                <BlocksList blocks={blocks} />
+            </>
+        );
     }
 }
 

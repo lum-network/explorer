@@ -51,9 +51,18 @@ h1 {
 }
 
 h2 {
-    font-weight: $regular;
-    font-size: $font-xl;
-    @include no-margin()
+    font-weight: $bold;
+    font-size: $font-lg;
+    color: $color-primary;
+    @include no-margin();
+    display: flex;
+    align-items: center;
+}
+
+h2 > img {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
 }
 
 h3 {

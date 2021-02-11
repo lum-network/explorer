@@ -3,12 +3,13 @@ import { TransactionsModel } from 'models';
 import { Card, Table } from 'components';
 import { Link } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
-import { StringsUtils } from 'utils';
+import { i18n, StringsUtils } from 'utils';
 import moment from 'moment-timezone';
 
 interface IProps {
     transactions: TransactionsModel[];
     rej?: boolean;
+    title?: boolean;
 }
 
 class TransactionsList extends PureComponent<IProps> {
@@ -38,13 +39,13 @@ class TransactionsList extends PureComponent<IProps> {
     }
 
     render(): JSX.Element {
-        const { transactions, rej } = this.props;
+        const { transactions, rej, title } = this.props;
         const full = ['Hash', 'Type', 'Result', 'Amount', 'Block', 'Time'];
         const simplified = ['Hash', 'Type', 'Block', 'Time'];
 
         return (
             <Card>
-                <h3>Transactions</h3>
+                {title && <h3>{i18n.t('transactions')}</h3>}
                 <Table head={rej ? simplified : full}>
                     {transactions.map((transaction, index) => this.renderRow(transaction, index))}
                 </Table>

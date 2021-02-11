@@ -4,10 +4,11 @@ import { BlocksModel } from 'models';
 import { Link } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import moment from 'moment-timezone';
-import { StringsUtils } from 'utils';
+import { i18n, StringsUtils } from 'utils';
 
 interface IProps {
     blocks: BlocksModel[];
+    title?: boolean;
 }
 
 class BlocksList extends PureComponent<IProps> {
@@ -25,11 +26,11 @@ class BlocksList extends PureComponent<IProps> {
     }
 
     render(): JSX.Element {
-        const { blocks } = this.props;
+        const { blocks, title } = this.props;
 
         return (
             <Card>
-                <h3>Blocks</h3>
+                {title && <h3>{i18n.t('blocks')}</h3>}
                 <Table head={['Height', 'Proposer', 'Transactions', 'Time']}>
                     {blocks.map((block, index) => this.renderRow(block, index))}
                 </Table>

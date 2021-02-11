@@ -26,27 +26,28 @@ class MainLayout extends PureComponent {
                     </li>
                     <li>
                         <NavLink to={NavigationConstants.HOME} className="link" activeClassName="active-link">
-                            <img alt="dashboard" src={dashboardLogo} /> {i18n.t('dashboard')}
+                            <img className="icon-nav" alt="dashboard" src={dashboardLogo} /> {i18n.t('dashboard')}
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to={NavigationConstants.BLOCKS} className="link" activeClassName="active-link">
-                            <img alt="block" src={blockLogo} /> {i18n.t('blocks')}
+                            <img className="icon-nav" alt="block" src={blockLogo} /> {i18n.t('blocks')}
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to={NavigationConstants.TRANSACTIONS} className="link" activeClassName="active-link">
-                            <img alt="transaction" src={transactionLogo} /> {i18n.t('transactions')}
+                            <img className="icon-nav" alt="transaction" src={transactionLogo} />{' '}
+                            {i18n.t('transactions')}
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to={NavigationConstants.VALIDATORS} className="link" activeClassName="active-link">
-                            <img alt="validator" src={validatorLogo} /> {i18n.t('validators')}
+                            <img className="icon-nav" alt="validator" src={validatorLogo} /> {i18n.t('validators')}
                         </NavLink>
                     </li>
                     <li>
                         <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank" className="link">
-                            <img alt="validator" src={walletLogo} /> {i18n.t('wallet')}
+                            <img className="icon-nav" alt="validator" src={walletLogo} /> {i18n.t('wallet')}
                         </a>
                     </li>
                 </ul>

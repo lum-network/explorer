@@ -30,7 +30,7 @@
     align-items: center;
 }
 
-.main-layout img {
+.main-layout img.icon-nav {
     height: 18px;
     width: 18px;
     margin-right: 6px;
@@ -57,7 +57,7 @@
         font-size: $font-md;
     }
 
-    .main-layout img {
+    .main-layout img.icon-nav {
         height: 16px;
         width: 16px;
         margin-right: 5px;
@@ -69,7 +69,7 @@
         font-size: $primary-fs;
     }
 
-    .main-layout img {
+    .main-layout img.icon-nav {
         height: 14px;
         width: 14px;
         margin-right: 4px;
@@ -84,7 +84,7 @@
         font-size: $font-sm;
     }
 
-    .main-layout img {
+    .main-layout img.icon-nav {
         height: 12px;
         width: 12px;
         margin-right: 3px;

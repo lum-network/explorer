@@ -20,13 +20,12 @@ class HomePage extends PureComponent<Props> {
 
         return (
             <>
-                <h1>Dashboard</h1>
                 <div className="row">
                     <div className="col-12 col-xl-6 mt-3">
-                        <BlocksList blocks={blocks.slice(0, 5)} />
+                        <BlocksList title blocks={blocks.slice(0, 5)} />
                     </div>
                     <div className="col-12 col-xl-6 mt-3">
-                        <TransactionsList rej transactions={transactions.slice(0, 5)} />
+                        <TransactionsList title rej transactions={transactions.slice(0, 5)} />
                     </div>
                 </div>
             </>

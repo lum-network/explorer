@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import { TransactionsList } from 'components';
+import transactionLogo from 'assets/images/transactionDark.svg';
+import { i18n } from 'utils';
 
 interface IProps {}
 
@@ -27,7 +29,14 @@ class TransactionsPage extends PureComponent<Props> {
     render(): JSX.Element {
         const { transactions } = this.props;
 
-        return <TransactionsList transactions={transactions} />;
+        return (
+            <>
+                <h2 className="mb-3">
+                    <img alt="transaction" src={transactionLogo} /> {i18n.t('transactions')}
+                </h2>
+                <TransactionsList transactions={transactions} />
+            </>
+        );
     }
 }
 
