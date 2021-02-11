@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Card, TransactionsList } from 'components';
 import moment from 'moment-timezone';
 import { SystemConstants } from 'constant';
+import blockLogo from 'assets/images/blockDark.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -44,7 +45,6 @@ class BlockPage extends PureComponent<Props> {
 
         return (
             <Card className="mb-4">
-                <h2>Information</h2>
                 <div>Height: {block.height}</div>
                 <div>
                     Date:{' '}
@@ -60,9 +60,13 @@ class BlockPage extends PureComponent<Props> {
     }
 
     renderContent(): JSX.Element {
+        const { block } = this.props;
+
         return (
             <>
-                <h1>Block details</h1>
+                <h2 className="mb-3">
+                    <img alt="block" src={blockLogo} /> Details for Block #{block.height}
+                </h2>
                 {this.renderInformation()}
                 {this.renderTransactions()}
             </>
