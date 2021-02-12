@@ -1,0 +1,30 @@
+@import "src/styles/main";
+
+.app-badge {
+    display: flex;
+    border-radius: 20px;
+    width: 100px;
+    height: 28px;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-badge.success {
+    background-color: $color-light-green;
+}
+
+.app-badge.failure {
+    background-color: $color-light-red;
+}
+
+.app-badge .text {
+    font-size: $font-xs;
+}
+
+.app-badge .text.success {
+    color: $color-green;
+}
+
+.app-badge .text.failure {
+    color: $color-red;
+}

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { TransactionsModel } from 'models';
-import { Card, Table } from 'components';
+import { Badge, Card, Table } from 'components';
 import { Link } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import { i18n, StringsUtils } from 'utils';
@@ -26,7 +26,9 @@ class TransactionsList extends PureComponent<IProps> {
                 <td>{transaction.action}</td>
                 {!rej && (
                     <>
-                        <td>{transaction.success ? 'Success' : 'Failure'}</td>
+                        <td>
+                            <Badge success={transaction.success} />
+                        </td>
                         <td className="text-end">{transaction.amount}</td>
                     </>
                 )}
@@ -40,7 +42,7 @@ class TransactionsList extends PureComponent<IProps> {
 
     render(): JSX.Element {
         const { transactions, rej, title } = this.props;
-        const full = ['Hash', 'Type', 'Result', 'Amount', 'Block', 'Time'];
+        const full = ['Hash', 'Type', 'Status', 'Amount', 'Block', 'Time'];
         const simplified = ['Hash', 'Type', 'Block', 'Time'];
 
         return (

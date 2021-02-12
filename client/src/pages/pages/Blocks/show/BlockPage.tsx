@@ -51,40 +51,40 @@ class BlockPage extends PureComponent<Props> {
 
         return (
             <Card className="mb-4">
-                <div className="row">
-                    <div className="mb-sm-3 col-lg-2 col-md-3 col-sm-4">
+                <div className="row align-items-center">
+                    <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
                             <img alt="block" src={blockLogo} /> Height
                         </h4>
                     </div>
-                    <div className="mb-3 col-lg-4 col-md-9 col-sm-8">
+                    <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
                         <p>{block.height}</p>
                     </div>
-                    <div className="mb-sm-3 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
+                    <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
                             <img alt="block" src={transactionLogo} /> Number of txs
                         </h4>
                     </div>
-                    <div className="mb-3 col-lg-3 col-md-9 col-sm-8">
+                    <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                         <p>{block.numTxs}</p>
                     </div>
-                    <div className="mb-sm-3 col-lg-2 col-md-3 col-sm-4">
+                    <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
                             <img alt="block" src={clockLogo} /> Block Time
                         </h4>
                     </div>
-                    <div className="mb-3 col-lg-4 col-md-9 col-sm-8">
+                    <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
                         <p>{`${moment.utc(block.dispatchedAt).fromNow()} (${moment
                             .utc(block.dispatchedAt)
                             .tz(SystemConstants.TIMEZONE)
                             .format('lll')})`}</p>
                     </div>
-                    <div className="mb-sm-3 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
+                    <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
                             <img alt="block" src={validatorLogo} /> Proposer
                         </h4>
                     </div>
-                    <div className="mb-3 col-lg-3 col-md-9 col-sm-8">
+                    <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                         <p title={block.proposerAddress}>
                             <Link to={`${NavigationConstants.VALIDATORS}/${block.proposerAddress}`}>
                                 {StringsUtils.trunc(block.proposerAddress || '', 5)}

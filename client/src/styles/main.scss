@@ -33,6 +33,10 @@ $color-black: #000;
 $color-link: #48A7FF;
 $color-striped: #f2f6fd;
 $color-input: #F4F6F8;
+$color-green: #5ECD42;
+$color-light-green: #DBFFD2;
+$color-red: #FF7245;
+$color-light-red: #FFDDD3;
 
 @mixin no-margin {
     margin-bottom: 0 !important;
@@ -99,7 +103,6 @@ h6 {
 p {
     font-weight: $light;
     font-size: $primary-fs;
-    margin-bottom: 0.5rem;
     @include no-margin()
 }
 

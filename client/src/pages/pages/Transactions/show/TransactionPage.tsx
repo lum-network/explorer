@@ -2,11 +2,19 @@ import React, { PureComponent } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
-import { Card } from 'components';
+import { Badge, Card } from 'components';
 import moment from 'moment-timezone';
 import { NavigationConstants, SystemConstants } from 'constant';
-import { i18n, MessagesUtils } from 'utils';
+import { i18n, MessagesUtils, StringsUtils } from 'utils';
 import { MessageModel } from 'models';
+import blockLogo from 'assets/images/blockDark.svg';
+import transactionLogo from 'assets/images/transactionDark.svg';
+import clockLogo from 'assets/images/clockDark.svg';
+import gasLogo from 'assets/images/gasDark.svg';
+import hashLogo from 'assets/images/hashDark.svg';
+import searchLogo from 'assets/images/searchDark.svg';
+import feeLogo from 'assets/images/feeDark.svg';
+import memoLogo from 'assets/images/memoDark.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -98,22 +106,73 @@ class TransactionPage extends PureComponent<Props> {
     renderInformation(): JSX.Element {
         const { transaction } = this.props;
 
-        console.log(transaction);
-
         return (
             <Card className="mb-4">
-                <h2>Information</h2>
-                <div>Hash: {transaction.hash}</div>
-                <div>
-                    Date:{' '}
-                    {`${moment.utc(transaction.dispatchedAt).fromNow()} (${moment
-                        .utc(transaction.dispatchedAt)
-                        .tz(SystemConstants.TIMEZONE)
-                        .format('YYYY-MM-DD HH:mm:ss')})`}
+                <div className="row align-items-center">
+                    <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={hashLogo} /> Tx hash
+                        </h4>
+                    </div>
+                    <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
+                        <p title={transaction.hash}>{StringsUtils.trunc(transaction.hash || '', 10)}</p>
+                    </div>
+                    <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={blockLogo} /> Block height
+                        </h4>
+                    </div>
+                    <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
+                        <p>
+                            <Link to={`${NavigationConstants.BLOCKS}/${transaction.height}`}>{transaction.height}</Link>
+                        </p>
+                    </div>
+                    <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={clockLogo} /> Tx Time
+                        </h4>
+                    </div>
+                    <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
+                        <p>{`${moment.utc(transaction.dispatchedAt).fromNow()} (${moment
+                            .utc(transaction.dispatchedAt)
+                            .tz(SystemConstants.TIMEZONE)
+                            .format('lll')})`}</p>
+                    </div>
+                    <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={searchLogo} /> Status
+                        </h4>
+                    </div>
+                    <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
+                        <Badge success={transaction.success} />
+                    </div>
+                    <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={gasLogo} /> Gas&nbsp;<small>(used/wanted)</small>
+                        </h4>
+                    </div>
+                    <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
+                        <p>
+                            {transaction.gasUsed} / {transaction.gasWanted}
+                        </p>
+                    </div>
+                    <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="transaction" src={feeLogo} /> Fee
+                        </h4>
+                    </div>
+                    <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
+                        <p>Soon</p>
+                    </div>
+                    <div className="col-lg-2 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={memoLogo} /> Memo
+                        </h4>
+                    </div>
+                    <div className="col-lg-4 col-md-9 col-sm-8">
+                        <p>{transaction.name || '-'}</p>
+                    </div>
                 </div>
-                <div>From: {transaction.fromAddress}</div>
-                <div>To: {transaction.toAddress}</div>
-                <div>Value: {transaction.amount}</div>
             </Card>
         );
     }
@@ -121,7 +180,9 @@ class TransactionPage extends PureComponent<Props> {
     renderContent(): JSX.Element {
         return (
             <>
-                <h1>Transaction details</h1>
+                <h2 className="mb-3">
+                    <img alt="block" src={transactionLogo} /> Details for Transactions
+                </h2>
                 {this.renderInformation()}
                 {this.renderMessages()}
             </>
