@@ -50,7 +50,7 @@ class BlockPage extends PureComponent<Props> {
         const { block } = this.props;
 
         return (
-            <Card className="mb-4">
+            <Card className="mb-5">
                 <div className="row align-items-center">
                     <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
@@ -109,7 +109,7 @@ class BlockPage extends PureComponent<Props> {
 
         return (
             <>
-                <h2 className="mb-3">
+                <h2 className="mt-3 mb-4">
                     <img alt="block" src={blockLogo} /> Details for Block #{block.height}
                 </h2>
                 {this.renderInformation()}

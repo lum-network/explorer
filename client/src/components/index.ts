@@ -5,3 +5,4 @@ export { default as TransactionsList } from './components/transactions/Transacti
 export { default as TextInput } from './components/Inputs/TextInput';
 export { default as Search } from './components/Search/Search';
 export { default as Badge } from './components/Badge/Badge';
+export { default as MessageType } from './components/MessageType/MessageType';

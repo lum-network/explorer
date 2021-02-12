@@ -107,7 +107,7 @@ class TransactionPage extends PureComponent<Props> {
         const { transaction } = this.props;
 
         return (
-            <Card className="mb-4">
+            <Card className="mb-5">
                 <div className="row align-items-center">
                     <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
@@ -180,7 +180,7 @@ class TransactionPage extends PureComponent<Props> {
     renderContent(): JSX.Element {
         return (
             <>
-                <h2 className="mb-3">
+                <h2 className="mt-3 mb-4">
                     <img alt="block" src={transactionLogo} /> Details for Transactions
                 </h2>
                 {this.renderInformation()}
