@@ -1,11 +1,17 @@
 import React, { PureComponent } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import { Card, TransactionsList } from 'components';
+
 import moment from 'moment-timezone';
-import { SystemConstants } from 'constant';
+import { SystemConstants, NavigationConstants } from 'constant';
 import blockLogo from 'assets/images/blockDark.svg';
+import transactionLogo from 'assets/images/transactionDark.svg';
+import clockLogo from 'assets/images/clockDark.svg';
+import hashLogo from 'assets/images/hashDark.svg';
+import validatorLogo from 'assets/images/validatorDark.svg';
+import { StringsUtils } from 'utils';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -45,16 +51,55 @@ class BlockPage extends PureComponent<Props> {
 
         return (
             <Card className="mb-4">
-                <div>Height: {block.height}</div>
-                <div>
-                    Date:{' '}
-                    {`${moment.utc(block.dispatchedAt).fromNow()} (${moment
-                        .utc(block.dispatchedAt)
-                        .tz(SystemConstants.TIMEZONE)
-                        .format('YYYY-MM-DD HH:mm:ss')})`}
+                <div className="row">
+                    <div className="mb-sm-3 col-lg-2 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={blockLogo} /> Height
+                        </h4>
+                    </div>
+                    <div className="mb-3 col-lg-4 col-md-9 col-sm-8">
+                        <p>{block.height}</p>
+                    </div>
+                    <div className="mb-sm-3 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={transactionLogo} /> Number of txs
+                        </h4>
+                    </div>
+                    <div className="mb-3 col-lg-3 col-md-9 col-sm-8">
+                        <p>{block.numTxs}</p>
+                    </div>
+                    <div className="mb-sm-3 col-lg-2 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={clockLogo} /> Block Time
+                        </h4>
+                    </div>
+                    <div className="mb-3 col-lg-4 col-md-9 col-sm-8">
+                        <p>{`${moment.utc(block.dispatchedAt).fromNow()} (${moment
+                            .utc(block.dispatchedAt)
+                            .tz(SystemConstants.TIMEZONE)
+                            .format('lll')})`}</p>
+                    </div>
+                    <div className="mb-sm-3 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={validatorLogo} /> Proposer
+                        </h4>
+                    </div>
+                    <div className="mb-3 col-lg-3 col-md-9 col-sm-8">
+                        <p title={block.proposerAddress}>
+                            <Link to={`${NavigationConstants.VALIDATORS}/${block.proposerAddress}`}>
+                                {StringsUtils.trunc(block.proposerAddress || '', 5)}
+                            </Link>
+                        </p>
+                    </div>
+                    <div className="col-lg-2 col-md-3 col-sm-4">
+                        <h4>
+                            <img alt="block" src={hashLogo} /> Block hash
+                        </h4>
+                    </div>
+                    <div className="col-lg-4 col-md-9 col-sm-8">
+                        <p title={block.hash}>{StringsUtils.trunc(block.hash || '', 10)}</p>
+                    </div>
                 </div>
-                <div>Transactions: {block.numTxs}</div>
-                <div>Proposer: {block.proposerAddress}</div>
             </Card>
         );
     }

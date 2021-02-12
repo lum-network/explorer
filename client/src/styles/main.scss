@@ -71,8 +71,18 @@ h3 {
 }
 
 h4 {
-    font-weight: $regular;
-    @include no-margin()
+    font-weight: $semibold;
+    font-size: $primary-fs;
+    color: $color-primary;
+    @include no-margin();
+    display: flex;
+    align-items: center;
+}
+
+h4 > img {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
 }
 
 h5 {
@@ -87,12 +97,13 @@ h6 {
 }
 
 p {
-    font-weight: $regular;
-    font-size: 1.125rem;
+    font-weight: $light;
+    font-size: $primary-fs;
     margin-bottom: 0.5rem;
     @include no-margin()
 }
 
 a {
     color: $color-link;
+    text-decoration: none;
 }
