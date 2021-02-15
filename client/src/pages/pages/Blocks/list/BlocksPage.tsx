@@ -31,7 +31,7 @@ class BlocksPage extends PureComponent<Props> {
 
         return (
             <>
-                <h2 className="mb-3">
+                <h2 className="mt-3 mb-4">
                     <img alt="block" src={blockLogo} /> {i18n.t('blocks')}
                 </h2>
                 <BlocksList blocks={blocks} />

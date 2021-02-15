@@ -10,7 +10,7 @@ type amount = {
     amount: string;
 };
 
-class Commission {
+export class Commission {
     @Expose({ name: 'max_change_rate' })
     maxChangeRate?: string;
 
@@ -20,7 +20,7 @@ class Commission {
     maxRate?: string;
 }
 
-class Description {
+export class Description {
     details = '-';
 
     identity = '-';

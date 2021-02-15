@@ -31,7 +31,7 @@ class TransactionsPage extends PureComponent<Props> {
 
         return (
             <>
-                <h2 className="mb-3">
+                <h2 className="mt-3 mb-4">
                     <img alt="transaction" src={transactionLogo} /> {i18n.t('transactions')}
                 </h2>
                 <TransactionsList transactions={transactions} />

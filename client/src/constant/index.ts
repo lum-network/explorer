@@ -1,5 +1,6 @@
 export { default as TransactionsAction } from './enums/TransactionsAction';
 export { default as MessagesType } from './enums/MessagesType';
+export { default as ValidatorsType } from './enums/ValidatorsType';
 
 import * as NavigationConstants from './constant/navigation';
 import * as ApiConstants from './constant/api';

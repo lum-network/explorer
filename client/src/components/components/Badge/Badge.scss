@@ -13,6 +13,10 @@
     background-color: $color-light-green;
 }
 
+.app-badge.warning {
+    background-color: $color-light-orange;
+}
+
 .app-badge.failure {
     background-color: $color-light-red;
 }
@@ -23,6 +27,10 @@
 
 .app-badge .text.success {
     color: $color-green;
+}
+
+.app-badge .text.warning {
+    color: $color-orange;
 }
 
 .app-badge .text.failure {
