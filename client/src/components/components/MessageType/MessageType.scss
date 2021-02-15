@@ -1,0 +1,22 @@
+@import "src/styles/main";
+
+.app-message-type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 2px $color-type;
+    border-radius: 20px;
+    width: 180px;
+    height: 30px;
+
+}
+
+.app-message-type > p.text {
+    color: $color-type
+}
+
+.app-message-type > p > img {
+    height: 12px;
+    width: 12px;
+    margin-right: 6px;
+}

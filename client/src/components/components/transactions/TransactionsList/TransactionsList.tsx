@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { TransactionsModel } from 'models';
-import { Badge, Card, Table } from 'components';
+import { Badge, Card, MessageType, Table } from 'components';
 import { Link } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import { i18n, StringsUtils } from 'utils';
@@ -23,7 +23,9 @@ class TransactionsList extends PureComponent<IProps> {
                         {StringsUtils.trunc(transaction.hash || '')}
                     </Link>
                 </td>
-                <td>{transaction.action}</td>
+                <td>
+                    <MessageType badge type={transaction.action} />
+                </td>
                 {!rej && (
                     <>
                         <td>

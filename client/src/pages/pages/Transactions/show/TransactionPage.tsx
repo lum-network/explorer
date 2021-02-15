@@ -15,8 +15,14 @@ import hashLogo from 'assets/images/hashDark.svg';
 import searchLogo from 'assets/images/searchDark.svg';
 import feeLogo from 'assets/images/feeDark.svg';
 import memoLogo from 'assets/images/memoDark.svg';
+import copyLogo from 'assets/images/copyDark.svg';
+import checkLogo from 'assets/images/check.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
+
+interface IState {
+    copied: boolean;
+}
 
 const mapState = (state: RootState) => ({
     transaction: state.transactions.transaction,
@@ -31,13 +37,32 @@ type StateProps = ReturnType<typeof mapState>;
 type DispatchProps = ReturnType<typeof mapDispatch>;
 type Props = IProps & StateProps & DispatchProps;
 
-class TransactionPage extends PureComponent<Props> {
+class TransactionPage extends PureComponent<Props, IState> {
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            copied: false,
+        };
+    }
+
     componentDidMount(): void {
         const { getTransaction } = this.props;
         const { id } = this.props.match.params;
 
         getTransaction(id).finally(() => null);
     }
+
+    copyHash = (): void => {
+        const { hash } = this.props.transaction;
+
+        if (!hash) {
+            return;
+        }
+
+        navigator.clipboard.writeText(hash).finally(() => null);
+        this.setState({ copied: true });
+    };
 
     renderMessage(value: MessageModel.Value): JSX.Element {
         if (value instanceof MessageModel.Send) {
@@ -94,7 +119,7 @@ class TransactionPage extends PureComponent<Props> {
                 {messages.map((message, index) => {
                     return (
                         <Card key={index}>
-                            <h3>{MessagesUtils.name(message.type)}</h3>
+                            <h3>{MessagesUtils.name(message.type).text}</h3>
                             {this.renderMessage(message.value)}
                         </Card>
                     );
@@ -105,6 +130,7 @@ class TransactionPage extends PureComponent<Props> {
 
     renderInformation(): JSX.Element {
         const { transaction } = this.props;
+        const { copied } = this.state;
 
         return (
             <Card className="mb-5">
@@ -115,7 +141,15 @@ class TransactionPage extends PureComponent<Props> {
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                        <p title={transaction.hash}>{StringsUtils.trunc(transaction.hash || '', 10)}</p>
+                        <p title={transaction.hash}>
+                            {StringsUtils.trunc(transaction.hash || '', 10)}&nbsp;
+                            <img
+                                alt="copy"
+                                src={copied ? checkLogo : copyLogo}
+                                onClick={this.copyHash}
+                                className="btn img-cpy"
+                            />
+                        </p>
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
