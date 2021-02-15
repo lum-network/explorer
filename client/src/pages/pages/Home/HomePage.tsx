@@ -22,10 +22,10 @@ class HomePage extends PureComponent<Props> {
             <>
                 <div className="row">
                     <div className="col-12 col-xl-6 mt-3">
-                        <BlocksList title blocks={blocks.slice(0, 5)} />
+                        <BlocksList more title blocks={blocks.slice(0, 5)} />
                     </div>
                     <div className="col-12 col-xl-6 mt-3">
-                        <TransactionsList title rej transactions={transactions.slice(0, 5)} />
+                        <TransactionsList more title rej transactions={transactions.slice(0, 5)} />
                     </div>
                 </div>
             </>

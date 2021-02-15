@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
-import { Card, Table } from 'components';
+import { Button, Card, Table } from 'components';
 import { BlocksModel } from 'models';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import moment from 'moment-timezone';
 import { i18n, StringsUtils } from 'utils';
 
-interface IProps {
+interface IProps extends RouteComponentProps {
     blocks: BlocksModel[];
     title?: boolean;
+    more?: boolean;
 }
 
 class BlocksList extends PureComponent<IProps> {
@@ -26,11 +27,14 @@ class BlocksList extends PureComponent<IProps> {
     }
 
     render(): JSX.Element {
-        const { blocks, title } = this.props;
+        const { blocks, title, more, history } = this.props;
 
         return (
             <Card>
-                {title && <h3>{i18n.t('blocks')}</h3>}
+                <div className="d-flex justify-content-between">
+                    {title && <h3>{i18n.t('blocks')}</h3>}
+                    {more && <Button onPress={() => history.push(NavigationConstants.BLOCKS)}>View all</Button>}
+                </div>
                 <Table head={['Height', 'Proposer', 'Transactions', 'Time']}>
                     {blocks.map((block, index) => this.renderRow(block, index))}
                 </Table>
@@ -39,4 +43,4 @@ class BlocksList extends PureComponent<IProps> {
     }
 }
 
-export default BlocksList;
+export default withRouter(BlocksList);

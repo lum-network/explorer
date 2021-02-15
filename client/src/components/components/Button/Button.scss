@@ -1,0 +1,20 @@
+@import "src/styles/main";
+
+.app-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 18px;
+    background-color: $color-primary;
+    color: $color-white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.app-btn-outline {
+
+}
+
+.app-btn-plain {
+
+}

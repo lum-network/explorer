@@ -7,3 +7,4 @@ export { default as Search } from './components/Search/Search';
 export { default as Badge } from './components/Badge/Badge';
 export { default as MessageType } from './components/MessageType/MessageType';
 export { default as Loading } from './components/Loading/Loading';
+export { default as Button } from './components/Button/Button';
