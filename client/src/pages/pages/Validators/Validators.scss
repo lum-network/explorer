@@ -1,0 +1,11 @@
+@import "src/styles/main";
+
+p.rank {
+    font-size: $font-xxl;
+    font-weight: $bold;
+}
+
+p.top-rank {
+    font-size: $font-xxl;
+    font-weight: $black;
+}

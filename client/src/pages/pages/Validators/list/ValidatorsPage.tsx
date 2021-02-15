@@ -8,6 +8,7 @@ import { ValidatorsModel } from 'models';
 import numeral from 'numeral';
 import { NavigationConstants } from 'constant';
 import { Link } from 'react-router-dom';
+import '../Validators.scss';
 
 interface IProps {}
 
@@ -55,12 +56,10 @@ class ValidatorsPage extends PureComponent<Props, IState> {
     renderRow(validator: ValidatorsModel, index: number): JSX.Element {
         const { totalVotingPower } = this.state;
 
-        console.log(validator);
-
         return (
             <tr key={index}>
                 <td>
-                    <p>{index + 1}</p>
+                    <p className={index + 1 > 5 ? 'rank' : 'top-rank'}>{index + 1}</p>
                 </td>
                 <td>
                     <Link
@@ -71,18 +70,21 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                     </Link>
                 </td>
                 <td>
-                    <p>
-                        {numeral(validator.delegatorShares).format('0,0')}
-                        <br />
-                        {totalVotingPower &&
-                            numeral(parseFloat(validator.delegatorShares || '0') / totalVotingPower).format('0.00%')}
-                    </p>
+                    <Badge jailed={validator.jailed} validatorsType={validator.status} />
+                </td>
+                <td>
+                    <div className="d-flex flex-column align-items-end">
+                        <p>{numeral(validator.delegatorShares).format('0,0')}</p>
+                        <p className="text-muted">
+                            {totalVotingPower &&
+                                numeral(parseFloat(validator.delegatorShares || '0') / totalVotingPower).format(
+                                    '0.00%',
+                                )}
+                        </p>
+                    </div>
                 </td>
                 <td className="text-end">
                     <p>{numeral(parseFloat(validator.commission.rate || '')).format('0.00%')}</p>
-                </td>
-                <td className="text-end">
-                    <Badge jailed={validator.jailed} validatorsType={validator.status} />
                 </td>
             </tr>
         );
@@ -100,7 +102,7 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                     {!validators || !validators.length || loading ? (
                         <Loading />
                     ) : (
-                        <Table head={['Rank', 'Validator', 'Voting power', 'Commission', 'Status']}>
+                        <Table head={['Rank', 'Validator', 'Status', 'Voting power', 'Commission']}>
                             {validators.map((value, index) => this.renderRow(value, index))}
                         </Table>
                     )}

@@ -17,7 +17,7 @@ class Badge extends PureComponent<IProps> {
 
         if (jailed) {
             return (
-                <div className="d-flex justify-content-end">
+                <div className="d-flex align-items-center">
                     <div className="app-badge failure">
                         <p className="text failure">
                             <img alt="checkmark" src={cross} /> Jailed
@@ -32,7 +32,7 @@ class Badge extends PureComponent<IProps> {
                 switch (validatorsType) {
                     case ValidatorsType.ACTIVE:
                         return (
-                            <div className="d-flex justify-content-end">
+                            <div>
                                 <div className="app-badge success">
                                     <p className="text success">
                                         <img alt="checkmark" src={check} /> Active
@@ -43,7 +43,7 @@ class Badge extends PureComponent<IProps> {
 
                     case ValidatorsType.UNBOUNDING:
                         return (
-                            <div className="d-flex justify-content-end">
+                            <div>
                                 <div className="app-badge warning">
                                     <p className="text warning">
                                         <img alt="checkmark" src={warning} /> Unbounding
@@ -54,7 +54,7 @@ class Badge extends PureComponent<IProps> {
 
                     default:
                         return (
-                            <div className="d-flex justify-content-end">
+                            <div>
                                 <div className="app-badge failure">
                                     <p className="text failure">
                                         <img alt="checkmark" src={cross} /> Unbounded
