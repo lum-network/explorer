@@ -18,8 +18,8 @@ class MessageType extends PureComponent<IProps> {
 
         if (badge) {
             return (
-                <div className="app-message-type">
-                    <p className="text">
+                <div className="app-message-type-badge">
+                    <p className="text-badge">
                         <img alt="logo" src={icon} />
                         {text}
                     </p>
@@ -27,7 +27,14 @@ class MessageType extends PureComponent<IProps> {
             );
         }
 
-        return <div></div>;
+        return (
+            <div className="app-message-type">
+                <p className="text">
+                    <img alt="logo" src={icon} />
+                    {text}
+                </p>
+            </div>
+        );
     }
 }
 

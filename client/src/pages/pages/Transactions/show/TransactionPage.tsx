@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
-import { Badge, Card } from 'components';
+import { Badge, Card, MessageType } from 'components';
 import moment from 'moment-timezone';
 import { NavigationConstants, SystemConstants } from 'constant';
-import { i18n, MessagesUtils, StringsUtils } from 'utils';
+import { i18n, StringsUtils } from 'utils';
 import { MessageModel } from 'models';
 import blockLogo from 'assets/images/blockDark.svg';
 import transactionLogo from 'assets/images/transactionDark.svg';
@@ -67,18 +67,26 @@ class TransactionPage extends PureComponent<Props, IState> {
     renderMessage(value: MessageModel.Value): JSX.Element {
         if (value instanceof MessageModel.Send) {
             return (
-                <>
-                    <div>
-                        From:{' '}
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-lg-2 col-xxl-1 mb-md-3">
+                        <h5>From</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-lg-10 col-xxl-11 mb-3">
                         <Link to={`${NavigationConstants.ACCOUNT}/${value.fromAddress}`}>{value.fromAddress}</Link>
                     </div>
-                    <div>
-                        To: <Link to={`${NavigationConstants.ACCOUNT}/${value.toAddress}`}>{value.toAddress}</Link>
+                    <div className="col-12 col-md-3 col-lg-2 col-xxl-1 mb-md-3">
+                        <h5>To</h5>
                     </div>
-                    <div>
-                        Amount: {value.amount[0].amount} {value.amount[0].denom.toUpperCase()}
+                    <div className="col-12 col-md-9 col-lg-10 col-xxl-11 mb-3">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.toAddress}`}>{value.toAddress}</Link>
                     </div>
-                </>
+                    <div className="col-12 col-md-3 col-lg-2 col-xxl-1 mb-md-3">
+                        <h5>Amount</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-lg-10 col-xxl-11 mb-3">
+                        {value.amount[0].amount} {value.amount[0].denom.toUpperCase()}
+                    </div>
+                </div>
             );
         }
 
@@ -115,13 +123,13 @@ class TransactionPage extends PureComponent<Props, IState> {
 
         return (
             <Card>
-                <h2>Messages</h2>
+                <h3 className="mb-4">Messages</h3>
                 {messages.map((message, index) => {
                     return (
-                        <Card key={index}>
-                            <h3>{MessagesUtils.name(message.type).text}</h3>
-                            {this.renderMessage(message.value)}
-                        </Card>
+                        <div key={index}>
+                            <MessageType type={message.type} />
+                            <Card message>{this.renderMessage(message.value)}</Card>
+                        </div>
                     );
                 })}
             </Card>

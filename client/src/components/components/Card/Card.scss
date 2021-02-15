@@ -1,7 +1,16 @@
 @import "src/styles/main";
 
 .app-card {
+    background-color: $color-white;
     box-shadow: 0 3.32571px 14.9657px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     margin-bottom: 12px;
+}
+
+.app-card.message {
+    background-color: $color-striped;
+    padding: 24px !important;
+    margin-top: 6px;
+    margin-bottom: 24px;
+    box-shadow: none;
 }

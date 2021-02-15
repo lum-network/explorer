@@ -1,6 +1,6 @@
 @import "src/styles/main";
 
-.app-message-type {
+.app-message-type-badge {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,12 +11,30 @@
 
 }
 
-.app-message-type > p.text {
+.app-message-type-badge > p.text-badge {
     color: $color-type
 }
 
-.app-message-type > p > img {
+.app-message-type-badge > p > img {
     height: 12px;
     width: 12px;
     margin-right: 6px;
+}
+
+.app-message-type {
+    display: flex;
+    align-items: center;
+
+}
+
+.app-message-type > p.text {
+    color: $color-type;
+    font-size: $font-xl;
+    font-weight: $medium;
+}
+
+.app-message-type > p > img {
+    height: 28px;
+    width: 28px;
+    margin-right: 8px;
 }
