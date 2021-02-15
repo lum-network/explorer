@@ -5,10 +5,33 @@ abstract class Base {
     type?: MessagesType;
 }
 
-type Amount = {
+type amount = {
     denom: string;
     amount: string;
 };
+
+class Commission {
+    @Expose({ name: 'max_change_rate' })
+    maxChangeRate?: string;
+
+    rate?: string;
+
+    @Expose({ name: 'max_rate' })
+    maxRate?: string;
+}
+
+class Description {
+    details = '-';
+
+    identity = '-';
+
+    moniker = '-';
+
+    @Expose({ name: 'security_contact' })
+    securityContact = '-';
+
+    website = '-';
+}
 
 export class Send extends Base {
     @Expose({ name: 'from_address' })
@@ -17,7 +40,7 @@ export class Send extends Base {
     @Expose({ name: 'to_address' })
     toAddress?: string;
 
-    amount: Amount[] = [];
+    amount: amount[] = [];
 }
 
 export class CreateValidator extends Base {
@@ -26,6 +49,19 @@ export class CreateValidator extends Base {
 
     @Expose({ name: 'validator_address' })
     validatorAddress?: string;
+
+    pubkey?: string;
+
+    @Expose({ name: 'min_self_delegation' })
+    minSelfDelegation?: string;
+
+    value?: amount;
+
+    @Type(() => Commission)
+    commission: Commission = new Commission();
+
+    @Type(() => Description)
+    description: Description = new Description();
 }
 
 export class Delegate extends Base {}
@@ -45,6 +81,9 @@ export class MessageModel {
             subTypes: [
                 { value: Send, name: MessagesType.SEND },
                 { value: CreateValidator, name: MessagesType.CREATE_VALIDATOR },
+                { value: Delegate, name: MessagesType.DELEGATE },
+                { value: Undelegate, name: MessagesType.UNDELEGATE },
+                { value: EditValidator, name: MessagesType.EDIT_VALIDATOR },
             ],
         },
         keepDiscriminatorProperty: true,

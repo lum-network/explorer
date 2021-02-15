@@ -17,6 +17,7 @@ import feeLogo from 'assets/images/feeDark.svg';
 import memoLogo from 'assets/images/memoDark.svg';
 import copyLogo from 'assets/images/copyDark.svg';
 import checkLogo from 'assets/images/check.svg';
+import numeral from 'numeral';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -91,11 +92,86 @@ class TransactionPage extends PureComponent<Props, IState> {
         }
 
         if (value instanceof MessageModel.CreateValidator) {
+            console.log(value);
             return (
-                <>
-                    <div>Delegator: {value.delegatorAddress}</div>
-                    <div>Validator: {value.validatorAddress}</div>
-                </>
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Min self delegation</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        {numeral(value.minSelfDelegation).format('0.000000')}
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Delegator address</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
+                            {value.delegatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Validator address</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Pubkey</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.pubkey}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Value</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        {value.value?.amount} {value.value?.denom.toLocaleUpperCase()}
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Details</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.details || '-'}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Moniker</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.moniker || '-'}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Website</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        {value.description.website ? (
+                            <a href={value.description.website}>{value.description.website}</a>
+                        ) : (
+                            '-'
+                        )}
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Identity</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.identity || '-'}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Details</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.details || '-'}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Com rate</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        {numeral(value.commission.rate).format('0.00%') || '-'}
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Com max rate</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        {numeral(value.commission.maxRate).format('0.00%') || '-'}
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>Com max change rate</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        {numeral(value.commission.maxChangeRate).format('0.00%') || '-'}
+                    </div>
+                </div>
             );
         }
 
