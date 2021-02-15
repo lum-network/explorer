@@ -12,8 +12,9 @@ import clockLogo from 'assets/images/clockDark.svg';
 import hashLogo from 'assets/images/hashDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import { StringsUtils } from 'utils';
-import checkLogo from '../../../../assets/images/check.svg';
-import copyLogo from '../../../../assets/images/copyDark.svg';
+import checkLogo from 'assets/images/check.svg';
+import copyLogo from 'assets/images/copyDark.svg';
+import placeholderTx from 'assets/images/placeholderTx.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -65,7 +66,12 @@ class BlockPage extends PureComponent<Props, IState> {
         const { transactions } = this.props.block;
 
         if (!transactions || !transactions.length) {
-            return null;
+            return (
+                <Card className="d-flex justify-content-center align-items-center flex-column">
+                    <img className="mb-2" alt="placeholder" src={placeholderTx} />
+                    No transaction
+                </Card>
+            );
         }
 
         return <TransactionsList transactions={transactions} />;

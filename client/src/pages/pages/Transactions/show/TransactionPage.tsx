@@ -275,6 +275,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
+                            {/*TODO: Add fee */}
                             <img alt="transaction" src={feeLogo} /> Fee
                         </h4>
                     </div>
