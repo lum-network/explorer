@@ -12,8 +12,14 @@ import clockLogo from 'assets/images/clockDark.svg';
 import hashLogo from 'assets/images/hashDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import { StringsUtils } from 'utils';
+import checkLogo from '../../../../assets/images/check.svg';
+import copyLogo from '../../../../assets/images/copyDark.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
+
+interface IState {
+    copied: boolean;
+}
 
 const mapState = (state: RootState) => ({
     block: state.blocks.block,
@@ -28,13 +34,32 @@ type StateProps = ReturnType<typeof mapState>;
 type DispatchProps = ReturnType<typeof mapDispatch>;
 type Props = IProps & StateProps & DispatchProps;
 
-class BlockPage extends PureComponent<Props> {
+class BlockPage extends PureComponent<Props, IState> {
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            copied: false,
+        };
+    }
+
     componentDidMount(): void {
         const { getBlock } = this.props;
         const { id } = this.props.match.params;
 
         getBlock(id).finally(() => null);
     }
+
+    copyHash = (): void => {
+        const { hash } = this.props.block;
+
+        if (!hash) {
+            return;
+        }
+
+        navigator.clipboard.writeText(hash).finally(() => null);
+        this.setState({ copied: true });
+    };
 
     renderTransactions(): JSX.Element | null {
         const { transactions } = this.props.block;
@@ -48,6 +73,7 @@ class BlockPage extends PureComponent<Props> {
 
     renderInformation(): JSX.Element {
         const { block } = this.props;
+        const { copied } = this.state;
 
         return (
             <Card className="mb-5">
@@ -97,7 +123,15 @@ class BlockPage extends PureComponent<Props> {
                         </h4>
                     </div>
                     <div className="col-lg-4 col-md-9 col-sm-8">
-                        <p title={block.hash}>{StringsUtils.trunc(block.hash || '', 10)}</p>
+                        <p title={block.hash}>
+                            {StringsUtils.trunc(block.hash || '', 10)}&nbsp;
+                            <img
+                                alt="copy"
+                                src={copied ? checkLogo : copyLogo}
+                                onClick={this.copyHash}
+                                className="btn img-cpy"
+                            />
+                        </p>
                     </div>
                 </div>
             </Card>
