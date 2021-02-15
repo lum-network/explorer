@@ -139,7 +139,9 @@ class TransactionPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {value.description.website ? (
-                            <a href={value.description.website}>{value.description.website}</a>
+                            <a rel="noreferrer" target="_blank" href={value.description.website}>
+                                {value.description.website}
+                            </a>
                         ) : (
                             '-'
                         )}
