@@ -9,6 +9,7 @@ import {
     TransactionPage,
     ValidatorsPage,
     AccountPage,
+    ValidatorPage,
 } from 'pages';
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
@@ -31,6 +32,7 @@ class RootNavigator extends PureComponent {
                         <Route path={NavigationConstants.TRANSACTIONS}>
                             <TransactionsPage />
                         </Route>
+                        <Route path={`${NavigationConstants.VALIDATORS}/:id`} component={ValidatorPage} />
                         <Route path={NavigationConstants.VALIDATORS}>
                             <ValidatorsPage />
                         </Route>
