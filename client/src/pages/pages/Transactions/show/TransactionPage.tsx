@@ -69,22 +69,22 @@ class TransactionPage extends PureComponent<Props, IState> {
         if (value instanceof MessageModel.Send) {
             return (
                 <div className="row align-items-center">
-                    <div className="col-12 col-md-3 col-lg-2 col-xxl-1 mb-md-3">
-                        <h5>From</h5>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>From address</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-lg-10 col-xxl-11 mb-3">
+                    <div className="col-12 col-md-9 col-xl-10 mb-3">
                         <Link to={`${NavigationConstants.ACCOUNT}/${value.fromAddress}`}>{value.fromAddress}</Link>
                     </div>
-                    <div className="col-12 col-md-3 col-lg-2 col-xxl-1 mb-md-3">
-                        <h5>To</h5>
+                    <div className="col-12 col-md-3 col-xl-2  mb-md-3">
+                        <h5>To address</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-lg-10 col-xxl-11 mb-3">
+                    <div className="col-12 col-md-9 col-xl-10 mb-3">
                         <Link to={`${NavigationConstants.ACCOUNT}/${value.toAddress}`}>{value.toAddress}</Link>
                     </div>
-                    <div className="col-12 col-md-3 col-lg-2 col-xxl-1 mb-md-3">
+                    <div className="col-12 col-md-3 col-xl-2">
                         <h5>Amount</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-lg-10 col-xxl-11 mb-3">
+                    <div className="col-12 col-md-9 col-xl-10">
                         {value.amount[0].amount} {value.amount[0].denom.toUpperCase()}
                     </div>
                 </div>
@@ -92,7 +92,6 @@ class TransactionPage extends PureComponent<Props, IState> {
         }
 
         if (value instanceof MessageModel.CreateValidator) {
-            console.log(value);
             return (
                 <div className="row align-items-center">
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
@@ -165,10 +164,10 @@ class TransactionPage extends PureComponent<Props, IState> {
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {numeral(value.commission.maxRate).format('0.00%') || '-'}
                     </div>
-                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                    <div className="col-12 col-md-3 col-xl-2">
                         <h5>Com max change rate</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
                         {numeral(value.commission.maxChangeRate).format('0.00%') || '-'}
                     </div>
                 </div>
