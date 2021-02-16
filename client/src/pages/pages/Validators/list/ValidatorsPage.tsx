@@ -40,12 +40,8 @@ class ValidatorsPage extends PureComponent<Props, IState> {
     componentDidMount() {
         const { fetchValidators } = this.props;
 
-        fetchValidators().finally(() => {
+        fetchValidators().then(() => {
             const { validators } = this.props;
-
-            if (!validators || !validators.length) {
-                return;
-            }
 
             const total = ValidatorsUtils.calculateTotalVotingPower(validators);
 
