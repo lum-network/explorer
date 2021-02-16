@@ -19,11 +19,12 @@ interface IState {
 const mapState = (state: RootState) => ({
     validator: state.validators.validator,
     validators: state.validators.validators,
-    loading: state.loading.effects.validators.getValidator,
+    loading: state.loading.models.validators,
 });
 
 const mapDispatch = (dispatch: Dispatch) => ({
     getValidator: (id: string) => dispatch.validators.getValidator(id),
+    fetchValidators: () => dispatch.validators.fetchValidators(),
 });
 
 type StateProps = ReturnType<typeof mapState>;
@@ -40,10 +41,11 @@ class BlockPage extends PureComponent<Props, IState> {
         };
     }
 
-    componentDidMount(): void {
-        const { getValidator } = this.props;
+    async componentDidMount(): Promise<void> {
+        const { getValidator, fetchValidators } = this.props;
         const { id } = this.props.match.params;
 
+        await fetchValidators();
         getValidator(id).then(() => {
             const { validators, validator } = this.props;
 
