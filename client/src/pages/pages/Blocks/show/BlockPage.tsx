@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
-import { Card, TransactionsList } from 'components';
+import { Card, Loading, TransactionsList } from 'components';
 
 import moment from 'moment-timezone';
 import { SystemConstants, NavigationConstants } from 'constant';
@@ -63,6 +63,16 @@ class BlockPage extends PureComponent<Props, IState> {
     };
 
     renderTransactions(): JSX.Element | null {
+        const { block, loading } = this.props;
+
+        if (!block || loading) {
+            return (
+                <Card>
+                    <Loading />
+                </Card>
+            );
+        }
+
         const { transactions } = this.props.block;
 
         if (!transactions || !transactions.length) {
@@ -78,8 +88,16 @@ class BlockPage extends PureComponent<Props, IState> {
     }
 
     renderInformation(): JSX.Element {
-        const { block } = this.props;
+        const { block, loading } = this.props;
         const { copied } = this.state;
+
+        if (!block || loading) {
+            return (
+                <Card>
+                    <Loading />
+                </Card>
+            );
+        }
 
         return (
             <Card className="mb-5">
@@ -144,36 +162,19 @@ class BlockPage extends PureComponent<Props, IState> {
         );
     }
 
-    renderContent(): JSX.Element {
+    render(): JSX.Element {
         const { block } = this.props;
+        const { id } = this.props.match.params;
 
         return (
             <>
                 <h2 className="mt-3 mb-4">
-                    <img alt="block" src={blockLogo} /> Details for Block #{block.height}
+                    <img alt="block" src={blockLogo} /> Details for Block #{(block && block.height) || id}
                 </h2>
                 {this.renderInformation()}
                 {this.renderTransactions()}
             </>
         );
-    }
-
-    renderLoading(): JSX.Element {
-        return (
-            <div className="spinner-grow" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        );
-    }
-
-    render(): JSX.Element {
-        const { block, loading } = this.props;
-
-        if (!block || loading) {
-            return this.renderLoading();
-        }
-
-        return this.renderContent();
     }
 }
 

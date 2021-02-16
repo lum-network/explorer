@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
-import { Badge, Card, MessageType } from 'components';
+import { Badge, Card, Loading, MessageType } from 'components';
 import moment from 'moment-timezone';
 import { NavigationConstants, SystemConstants } from 'constant';
 import { i18n, StringsUtils } from 'utils';
@@ -192,6 +192,16 @@ class TransactionPage extends PureComponent<Props, IState> {
     }
 
     renderMessages(): JSX.Element | null {
+        const { transaction, loading } = this.props;
+
+        if (!transaction || loading) {
+            return (
+                <Card>
+                    <Loading />
+                </Card>
+            );
+        }
+
         const { messages } = this.props.transaction;
 
         if (!messages || !messages.length) {
@@ -216,8 +226,16 @@ class TransactionPage extends PureComponent<Props, IState> {
     }
 
     renderInformation(): JSX.Element {
-        const { transaction } = this.props;
+        const { transaction, loading } = this.props;
         const { copied } = this.state;
+
+        if (!transaction || loading) {
+            return (
+                <Card>
+                    <Loading />
+                </Card>
+            );
+        }
 
         return (
             <Card className="mb-5">
@@ -299,7 +317,7 @@ class TransactionPage extends PureComponent<Props, IState> {
         );
     }
 
-    renderContent(): JSX.Element {
+    render(): JSX.Element {
         return (
             <>
                 <h2 className="mt-3 mb-4">
@@ -309,24 +327,6 @@ class TransactionPage extends PureComponent<Props, IState> {
                 {this.renderMessages()}
             </>
         );
-    }
-
-    renderLoading(): JSX.Element {
-        return (
-            <div className="spinner-grow" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        );
-    }
-
-    render(): JSX.Element {
-        const { transaction, loading } = this.props;
-
-        if (!transaction || loading) {
-            return this.renderLoading();
-        }
-
-        return this.renderContent();
     }
 }
 

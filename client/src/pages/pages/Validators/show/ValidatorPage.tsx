@@ -57,8 +57,16 @@ class BlockPage extends PureComponent<Props, IState> {
     }
 
     renderInformation(): JSX.Element {
-        const { validator } = this.props;
+        const { validator, loading } = this.props;
         const { rank, totalVotingPower } = this.state;
+
+        if (!validator || loading) {
+            return (
+                <Card>
+                    <Loading />
+                </Card>
+            );
+        }
 
         return (
             <Card badge={<Badge jailed={validator.jailed} validatorsType={validator.status} />} className="mb-5">
@@ -159,7 +167,7 @@ class BlockPage extends PureComponent<Props, IState> {
         );
     }
 
-    renderContent(): JSX.Element {
+    render(): JSX.Element {
         return (
             <>
                 <h2 className="mt-3 mb-4">
@@ -168,16 +176,6 @@ class BlockPage extends PureComponent<Props, IState> {
                 {this.renderInformation()}
             </>
         );
-    }
-
-    render(): JSX.Element {
-        const { validator, loading } = this.props;
-
-        if (!validator || loading) {
-            return <Loading />;
-        }
-
-        return this.renderContent();
     }
 }
 
