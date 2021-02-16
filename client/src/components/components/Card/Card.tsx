@@ -4,13 +4,21 @@ import './Card.scss';
 interface IProps {
     className?: string;
     message?: boolean;
+    badge?: JSX.Element;
 }
 
 class Card extends PureComponent<IProps> {
     render(): JSX.Element {
-        const { children, className, message } = this.props;
+        const { children, className, message, badge } = this.props;
 
-        return <div className={`p-4 p-xl-5 app-card ${message && 'message'} ${className}`}>{children}</div>;
+        return (
+            <div>
+                <div className={`p-4 p-xl-5 position-relative app-card ${message && 'message'} ${className}`}>
+                    <div className="badge-position">{badge}</div>
+                    {children}
+                </div>
+            </div>
+        );
     }
 }
 

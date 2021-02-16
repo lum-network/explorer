@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
-import { Card, Loading } from 'components';
+import { Badge, Card, Loading } from 'components';
 import validatorLogo from 'assets/images/validatorDark.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
@@ -29,7 +29,11 @@ class BlockPage extends PureComponent<Props> {
     }
 
     renderInformation(): JSX.Element {
-        return <Card className="mb-5"></Card>;
+        const { validator } = this.props;
+
+        return (
+            <Card badge={<Badge jailed={validator.jailed} validatorsType={validator.status} />} className="mb-5"></Card>
+        );
     }
 
     renderContent(): JSX.Element {
