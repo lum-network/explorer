@@ -10,11 +10,11 @@ export const calculateTotalVotingPower = (validators: ValidatorsModel[]): number
     return total;
 };
 
-export const findRank = (validators: ValidatorsModel[], validator: ValidatorsModel): number | undefined => {
+export const findRank = (validators: ValidatorsModel[], validator: ValidatorsModel): number | null => {
     const index = validators.findIndex((value) => value.operatorAddress === validator.operatorAddress);
 
     if (index === -1) {
-        return undefined;
+        return null;
     }
 
     return index + 1;

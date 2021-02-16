@@ -205,7 +205,9 @@ class TransactionPage extends PureComponent<Props, IState> {
                     return (
                         <div key={index}>
                             <MessageType type={message.type} />
-                            <Card message>{this.renderMessage(message.value)}</Card>
+                            <Card flat className="mt-2 mb-5">
+                                {this.renderMessage(message.value)}
+                            </Card>
                         </div>
                     );
                 })}
