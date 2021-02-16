@@ -3,13 +3,14 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
-import { Card, CodeQr, Loading } from 'components';
+import { Card, CodeQr, Loading, TransactionsList } from 'components';
 import '../Accounts.scss';
 import checkLogo from 'assets/images/check.svg';
 import copyLogo from 'assets/images/copy.svg';
 import { PieChart } from 'react-minimal-pie-chart';
 import numeral from 'numeral';
 import ticker from 'assets/images/ticker.svg';
+import placeholderTx from '../../../../assets/images/placeholderTx.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -57,6 +58,31 @@ class AccountPage extends PureComponent<Props, IState> {
         this.setState({ copied: true });
     };
 
+    renderTransactions(): JSX.Element | null {
+        const { account, loading } = this.props;
+
+        if (!account || loading) {
+            return (
+                <Card>
+                    <Loading />
+                </Card>
+            );
+        }
+
+        const { transactions } = this.props.account;
+
+        if (!transactions || !transactions.length) {
+            return (
+                <Card className="d-flex justify-content-center align-items-center flex-column">
+                    <img className="mb-2" alt="placeholder" src={placeholderTx} />
+                    No transaction
+                </Card>
+            );
+        }
+
+        return <TransactionsList transactions={transactions} />;
+    }
+
     renderInformation(): JSX.Element {
         const { account, loading } = this.props;
         const { copied } = this.state;
@@ -96,7 +122,7 @@ class AccountPage extends PureComponent<Props, IState> {
                         </div>
                     )}
                 </Card>
-                <Card>
+                <Card className="mb-5">
                     {!account || loading ? (
                         <Loading />
                     ) : (
@@ -194,6 +220,7 @@ class AccountPage extends PureComponent<Props, IState> {
                     <img alt="block" src={accountLogo} /> Account details
                 </h2>
                 {this.renderInformation()}
+                {this.renderTransactions()}
             </>
         );
     }
