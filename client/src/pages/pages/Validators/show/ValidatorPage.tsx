@@ -32,7 +32,9 @@ class BlockPage extends PureComponent<Props> {
         const { validator } = this.props;
 
         return (
-            <Card badge={<Badge jailed={validator.jailed} validatorsType={validator.status} />} className="mb-5"></Card>
+            <Card badge={<Badge jailed={validator.jailed} validatorsType={validator.status} />} className="mb-5">
+                logo
+            </Card>
         );
     }
 
