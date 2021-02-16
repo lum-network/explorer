@@ -62,7 +62,9 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                         title={validator.operatorAddress}
                         to={`${NavigationConstants.VALIDATORS}/${validator.operatorAddress}`}
                     >
-                        {StringsUtils.trunc(validator.operatorAddress || '')}
+                        {validator.description.identity ||
+                            validator.description.moniker ||
+                            StringsUtils.trunc(validator.operatorAddress || '')}
                     </Link>
                 </td>
                 <td>

@@ -32,7 +32,7 @@ const blocks = createModel<RootModel>()({
         resetBlock(state) {
             return {
                 ...state,
-                block: plainToClass(BlocksModel, {}),
+                block: plainToClass(BlocksModel, null),
             };
         },
 

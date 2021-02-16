@@ -228,15 +228,15 @@ class TransactionPage extends PureComponent<Props, IState> {
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                        <p title={transaction.hash}>
-                            {StringsUtils.trunc(transaction.hash || '', 10)}&nbsp;
+                        <div className="d-flex align-items-center">
+                            <p title={transaction.hash}>{StringsUtils.trunc(transaction.hash || '', 10)}&nbsp;</p>
                             <img
                                 alt="copy"
                                 src={copied ? checkLogo : copyLogo}
                                 onClick={this.copyHash}
-                                className="btn img-cpy"
+                                className="pointer img-cpy"
                             />
-                        </p>
+                        </div>
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>

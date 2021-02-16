@@ -129,15 +129,15 @@ class BlockPage extends PureComponent<Props, IState> {
                         </h4>
                     </div>
                     <div className="col-lg-4 col-md-9 col-sm-8">
-                        <p title={block.hash}>
-                            {StringsUtils.trunc(block.hash || '', 10)}&nbsp;
+                        <div className="d-flex align-items-center">
+                            <p title={block.hash}>{StringsUtils.trunc(block.hash || '', 10)}&nbsp;</p>
                             <img
                                 alt="copy"
                                 src={copied ? checkLogo : copyLogo}
                                 onClick={this.copyHash}
-                                className="btn img-cpy"
+                                className="pointer img-cpy"
                             />
-                        </p>
+                        </div>
                     </div>
                 </div>
             </Card>

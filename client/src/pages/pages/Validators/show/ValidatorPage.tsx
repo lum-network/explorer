@@ -74,7 +74,11 @@ class BlockPage extends PureComponent<Props, IState> {
                         <div className="row mb-4 mt-3 mt-md-0">
                             <div className="col-12">
                                 {/*TODO: Add title */}
-                                <h1>{StringsUtils.trunc(validator.operatorAddress || '')}</h1>
+                                <h1>
+                                    {validator.description.identity ||
+                                        validator.description.moniker ||
+                                        StringsUtils.trunc(validator.operatorAddress || '')}
+                                </h1>
                             </div>
                         </div>
                         <div className="row">

@@ -13,6 +13,11 @@
     box-shadow: none;
 }
 
+.app-card.dark {
+    background-color: $color-primary;
+    color: $color-white !important;
+}
+
 .badge-position {
     position: absolute;
     right: 12px;
