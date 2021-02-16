@@ -6,16 +6,19 @@ interface IProps {
     flat?: boolean;
     badge?: JSX.Element;
     dark?: boolean;
+    withoutPadding?: boolean;
 }
 
 class Card extends PureComponent<IProps> {
     render(): JSX.Element {
-        const { children, className, flat, badge, dark } = this.props;
+        const { children, className, flat, badge, dark, withoutPadding } = this.props;
 
         return (
             <div>
                 <div
-                    className={`p-4 p-xl-5 position-relative app-card ${flat && 'flat'} ${dark && 'dark'} ${className}`}
+                    className={`${withoutPadding ? '' : 'p-4 p-xl-5'} position-relative app-card ${flat && 'flat'} ${
+                        dark && 'dark'
+                    } ${className}`}
                 >
                     <div className="badge-position">{badge}</div>
                     {children}

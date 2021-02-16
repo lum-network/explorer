@@ -8,3 +8,30 @@
     width: 96px;
     height: 96px;
 }
+
+.app-pie-container {
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.app-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+}
+
+.app-dot.green {
+    background-color: $color-dot-green;
+}
+
+.app-dot.orange {
+    background-color: $color-dot-orange;
+}
+
+.app-dot.blue {
+    background-color: $color-dot-blue;
+}
+
+.app-dot.cyan {
+    background-color: $color-dot-cyan;
+}
