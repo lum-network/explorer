@@ -7,3 +7,4 @@ export { default as TransactionPage } from './pages/Transactions/show/Transactio
 export { default as ValidatorsPage } from './pages/Validators/list/ValidatorsPage';
 export { default as ValidatorPage } from './pages/Validators/show/ValidatorPage';
 export { default as AccountPage } from './pages/Accounts/show/AccountPage';
+export { default as SearchPage } from './pages/Search/SearchPage';

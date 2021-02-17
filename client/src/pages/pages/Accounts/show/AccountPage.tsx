@@ -87,8 +87,6 @@ class AccountPage extends PureComponent<Props, IState> {
         const { account, loading } = this.props;
         const { copied } = this.state;
 
-        console.log(account);
-
         return (
             <>
                 <Card dark withoutPadding={!loading} className="p-3 p-xl-3 mb-5">
