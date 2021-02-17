@@ -29,6 +29,11 @@
     font-size: $font-lg;
     display: flex;
     align-items: center;
+    transition: all linear 150ms;
+}
+
+.main-layout .link:hover {
+    opacity: 1;
 }
 
 .main-layout .logo {

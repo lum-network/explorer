@@ -49,7 +49,12 @@ class MainLayout extends PureComponent {
                 </li>
                 {!footer && (
                     <li>
-                        <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank" className="link">
+                        <a
+                            href={NavigationConstants.WALLET}
+                            rel="noreferrer"
+                            target="_blank"
+                            className="link link-icon"
+                        >
                             <img className="icon-nav" alt="validator" src={walletLogo} /> {i18n.t('wallet')}
                         </a>
                     </li>
