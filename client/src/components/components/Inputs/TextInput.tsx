@@ -10,7 +10,7 @@ class TextInput extends PureComponent<IProps> {
     render(): JSX.Element {
         const { onChangeText, value } = this.props;
 
-        return <input className="text" value={value} onChange={(event) => onChangeText(event.target.value)} />;
+        return <input className="text w-100" value={value} onChange={(event) => onChangeText(event.target.value)} />;
     }
 }
 

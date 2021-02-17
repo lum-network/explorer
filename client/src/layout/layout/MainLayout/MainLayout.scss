@@ -6,6 +6,7 @@
     flex: 1;
     min-height: 100vh;
     background-color: $color-background;
+    margin-top: 112px;
 }
 
 .main-layout .active-link {
@@ -50,6 +51,11 @@
     justify-content: space-around;
     align-items: center;
     height: 100px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1000;
 }
 
 @include media-breakpoint-down(xxl) {
@@ -93,10 +99,15 @@
 
 @include media-breakpoint-down(md) {
     .main-layout {
-        margin-top: 12px;
+        margin-top: 72px;
     }
 
     .main-layout ul {
+        justify-content: center;
+        height: 60px;
+    }
+
+    .main-layout ul li .link {
         display: none;
     }
 }

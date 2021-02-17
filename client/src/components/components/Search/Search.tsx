@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { TextInput } from 'components';
+import './Search.scss';
 
 interface IProps {}
 
@@ -23,7 +24,11 @@ class Search extends PureComponent<IProps, IState> {
     render(): JSX.Element {
         const { text } = this.state;
 
-        return <TextInput value={text} onChangeText={this.onChangeText} />;
+        return (
+            <div className="search-container">
+                <TextInput value={text} onChangeText={this.onChangeText} />
+            </div>
+        );
     }
 }
 
