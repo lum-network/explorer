@@ -9,6 +9,11 @@
     color: $color-white;
     border-radius: 20px;
     cursor: pointer;
+    transition: all linear 150ms;
+}
+
+.app-btn:hover {
+    transform: scale(1.050);
 }
 
 .app-btn-outline {
