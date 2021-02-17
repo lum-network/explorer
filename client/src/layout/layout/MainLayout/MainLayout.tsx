@@ -9,6 +9,8 @@ import blockLogo from 'assets/images/block.svg';
 import transactionLogo from 'assets/images/transaction.svg';
 import validatorLogo from 'assets/images/validator.svg';
 import walletLogo from 'assets/images/wallet.svg';
+import walletBis from 'assets/images/walletBis.svg';
+import github from 'assets/images/github.svg';
 import { Search } from 'components';
 
 class MainLayout extends PureComponent {
@@ -66,9 +68,24 @@ class MainLayout extends PureComponent {
                     <div className="container">{children}</div>
                 </div>
                 <footer>
-                    <li className="logo">
-                        <img alt="logo" src={logo} /> <h1>Explorer</h1>
-                    </li>
+                    <div className="container-fluid d-flex align-items-center justify-content-between">
+                        <div className="d-flex align-items-center">
+                            <div className="logo">
+                                <img alt="logo" src={logo} /> <h1>Explorer</h1>
+                            </div>
+                            <div className="ms-5 button-wallet">
+                                <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank">
+                                    <img alt="wallet" src={walletBis} />
+                                    Web Wallet
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <a href={NavigationConstants.GITHUB} rel="noreferrer" target="_blank">
+                                <img alt="github" src={github} className="link-icon" />
+                            </a>
+                        </div>
+                    </div>
                 </footer>
                 {this.renderNav(true)}
             </div>

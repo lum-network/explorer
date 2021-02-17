@@ -75,6 +75,40 @@ footer {
     min-height: 100px;
 }
 
+.button-wallet {
+    display: flex;
+    padding: 8px 22px;
+    background-color: $color-white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all linear 150ms;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-wallet:hover {
+    transform: scale(1.050);
+}
+
+.button-wallet > a,
+.button-wallet > a:hover
+{
+    color: $color-primary;
+}
+
+.button-wallet > a > img {
+    margin-right: 8px;
+}
+
+.link-icon {
+    opacity: 0.6;
+    transition: all linear 150ms;
+}
+
+.link-icon:hover {
+    opacity: 1;
+}
+
 @include media-breakpoint-down(xxl) {
     .main-layout .link {
         font-size: $font-md;
