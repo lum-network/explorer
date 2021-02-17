@@ -6,7 +6,13 @@
     flex: 1;
     min-height: 100vh;
     background-color: $color-background;
-    margin-top: 112px;
+    padding-top: 112px;
+}
+
+.main-layout .content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
 }
 
 .main-layout .active-link {
@@ -58,6 +64,17 @@
     z-index: 1000;
 }
 
+.main-layout ul.footer {
+    display: none;
+}
+
+footer {
+    display: flex;
+    background-color: $color-primary;
+    flex-shrink: 0;
+    min-height: 100px;
+}
+
 @include media-breakpoint-down(xxl) {
     .main-layout .link {
         font-size: $font-md;
@@ -83,7 +100,7 @@
 }
 
 @include media-breakpoint-down(lg) {
-    .main-layout .logo > h1 {
+    .main-layout .logo.nav-logo > h1 {
         display: none;
     }
     .main-layout .link {
@@ -99,7 +116,8 @@
 
 @include media-breakpoint-down(md) {
     .main-layout {
-        margin-top: 72px;
+        padding-top: 72px;
+        padding-bottom: 100px;
     }
 
     .main-layout ul {
@@ -109,5 +127,52 @@
 
     .main-layout ul li .link {
         display: none;
+    }
+
+    .main-layout ul.footer {
+        display: flex;
+        height: 100px;
+        bottom: 0;
+        top: unset;
+        justify-content: space-around;
+        align-items: flex-start;
+        padding-top: 16px;
+    }
+
+    .main-layout ul.footer li .link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: $primary-fs;
+    }
+
+    .main-layout ul.footer img.icon-nav {
+        width: 25px;
+        height: 25px;
+        margin-bottom: 3px;
+    }
+
+    .main-layout .active-link {
+        padding-bottom: 1px;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .main-layout {
+        padding-bottom: 90px;
+    }
+
+    .main-layout ul.footer {
+        height: 90px;
+    }
+
+    .main-layout ul.footer img.icon-nav {
+        width: 18px;
+        height: 18px;
+    }
+
+    .main-layout ul.footer li .link {
+        font-size: $font-xs;
     }
 }
