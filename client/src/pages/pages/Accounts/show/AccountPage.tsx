@@ -10,7 +10,7 @@ import copyLogo from 'assets/images/copy.svg';
 import { PieChart } from 'react-minimal-pie-chart';
 import numeral from 'numeral';
 import ticker from 'assets/images/ticker.svg';
-import placeholderTx from '../../../../assets/images/placeholderTx.svg';
+import placeholderTx from 'assets/images/placeholderTx.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
