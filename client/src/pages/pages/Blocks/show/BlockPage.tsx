@@ -67,7 +67,7 @@ class BlockPage extends PureComponent<Props, IState> {
 
         if (!block || loading) {
             return (
-                <Card>
+                <Card className="mb-5">
                     <Loading />
                 </Card>
             );
@@ -93,7 +93,7 @@ class BlockPage extends PureComponent<Props, IState> {
 
         if (!block || loading) {
             return (
-                <Card>
+                <Card className="mb-5">
                     <Loading />
                 </Card>
             );

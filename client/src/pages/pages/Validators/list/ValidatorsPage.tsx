@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Dispatch, RootState } from 'redux/store';
 import validatorLogo from 'assets/images/validatorDark.svg';
+import placeholderValidator from 'assets/images/placeholderValidator.svg';
 import { i18n, StringsUtils, ValidatorsUtils } from 'utils';
 import { Badge, Card, Loading, Table } from 'components';
 import { connect } from 'react-redux';
@@ -62,6 +63,7 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                         title={validator.operatorAddress}
                         to={`${NavigationConstants.VALIDATORS}/${validator.operatorAddress}`}
                     >
+                        <img alt="logo validator" src={placeholderValidator} className="me-3" />
                         {validator.description.identity ||
                             validator.description.moniker ||
                             StringsUtils.trunc(validator.operatorAddress || '')}

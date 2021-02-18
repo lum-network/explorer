@@ -28,6 +28,10 @@ class Search extends PureComponent<IProps, IState> {
         const { push } = this.props.history;
         const { text } = this.state;
 
+        if (!text) {
+            return;
+        }
+
         push(`${NavigationConstants.SEARCH}/${text}`);
     };
 
