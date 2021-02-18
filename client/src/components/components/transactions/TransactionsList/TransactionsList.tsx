@@ -49,9 +49,9 @@ class TransactionsList extends PureComponent<IProps> {
         const simplified = ['Hash', 'Type', 'Block', 'Time'];
 
         return (
-            <Card>
+            <Card className="mb-5">
                 <div className="d-flex justify-content-between">
-                    {title && <h3>{i18n.t('transactions')}</h3>}
+                    {title && <h3 className="mb-4">{i18n.t('transactions')}</h3>}
                     {more && <Button onPress={() => history.push(NavigationConstants.TRANSACTIONS)}>View all</Button>}
                 </div>
                 <Table head={rej ? simplified : full}>

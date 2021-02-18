@@ -1,18 +1,15 @@
 @import "src/styles/main";
 
 .app-message-type-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-block;
     border: solid 2px $color-type;
     border-radius: 20px;
-    width: 180px;
-    height: 30px;
-
+    padding: 1px 18px;
+    white-space: nowrap;
 }
 
 .app-message-type-badge > p.text-badge {
-    color: $color-type
+    color: $color-type;
 }
 
 .app-message-type-badge > p > img {

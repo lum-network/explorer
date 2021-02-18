@@ -84,7 +84,7 @@ class BlockPage extends PureComponent<Props, IState> {
             );
         }
 
-        return <TransactionsList transactions={transactions} />;
+        return <TransactionsList title transactions={transactions} />;
     }
 
     renderInformation(): JSX.Element {

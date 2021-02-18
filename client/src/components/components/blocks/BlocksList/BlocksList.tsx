@@ -30,9 +30,9 @@ class BlocksList extends PureComponent<IProps> {
         const { blocks, title, more, history } = this.props;
 
         return (
-            <Card>
+            <Card className="mb-5">
                 <div className="d-flex justify-content-between">
-                    {title && <h3>{i18n.t('blocks')}</h3>}
+                    {title && <h3 className="mb-4">{i18n.t('blocks')}</h3>}
                     {more && <Button onPress={() => history.push(NavigationConstants.BLOCKS)}>View all</Button>}
                 </div>
                 <Table head={['Height', 'Proposer', 'Transactions', 'Time']}>
