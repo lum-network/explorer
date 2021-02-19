@@ -26,7 +26,7 @@ export const getTransaction = (id: string): Promise<TransactionsModel> => {
             .then((result) => {
                 const messages = JSON.parse(result.data.result.msgs);
 
-                messages.map((message: any) => {
+                messages.map((message: Record<string, string & Record<string, unknown>>) => {
                     message.value.type = message.type;
 
                     return message;
