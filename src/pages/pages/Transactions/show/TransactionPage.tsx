@@ -72,19 +72,19 @@ class TransactionPage extends PureComponent<Props, IState> {
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('fromAddress')}</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-xl-10 mb-3">
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <Link to={`${NavigationConstants.ACCOUNT}/${value.fromAddress}`}>{value.fromAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2  mb-md-3">
                         <h5>{i18n.t('toAddress')}</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-xl-10 mb-3">
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <Link to={`${NavigationConstants.ACCOUNT}/${value.toAddress}`}>{value.toAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('amount')}</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-xl-10">
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
                         {value.amount[0].amount} {value.amount[0].denom.toUpperCase()}
                     </div>
                 </div>

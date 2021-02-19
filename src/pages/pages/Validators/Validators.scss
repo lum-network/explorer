@@ -34,3 +34,9 @@ p.top-rank {
     font-weight: $bold;
     font-size: $font-md;
 }
+
+@include media-breakpoint-down(md) {
+    p.rank, p.top-rank {
+        font-size: $font-lg;
+    }
+}

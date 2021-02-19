@@ -50,15 +50,15 @@ class ValidatorsPage extends PureComponent<Props, IState> {
         });
     }
 
-    renderRow(validator: ValidatorsModel, index: number): JSX.Element {
+    renderRow(validator: ValidatorsModel, index: number, head: string[]): JSX.Element {
         const { totalVotingPower } = this.state;
 
         return (
             <tr key={index}>
-                <td>
+                <td data-label={head[0]}>
                     <p className={index + 1 > 5 ? 'rank' : 'top-rank'}>{index + 1}</p>
                 </td>
-                <td>
+                <td data-label={head[1]}>
                     <Link
                         title={validator.operatorAddress}
                         to={`${NavigationConstants.VALIDATORS}/${validator.operatorAddress}`}
@@ -69,10 +69,10 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                             StringsUtils.trunc(validator.operatorAddress || '')}
                     </Link>
                 </td>
-                <td>
+                <td data-label={head[2]}>
                     <Badge jailed={validator.jailed} validatorsType={validator.status} />
                 </td>
-                <td>
+                <td data-label={head[3]}>
                     <div className="d-flex flex-column align-items-end">
                         <p>{numeral(validator.delegatorShares).format('0,0')}</p>
                         <p className="text-muted">
@@ -83,7 +83,7 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                         </p>
                     </div>
                 </td>
-                <td className="text-end">
+                <td data-label={head[4]} className="text-end">
                     <p>{numeral(parseFloat(validator.commission.rate || '')).format('0.00%')}</p>
                 </td>
             </tr>
@@ -92,6 +92,13 @@ class ValidatorsPage extends PureComponent<Props, IState> {
 
     render(): JSX.Element {
         const { validators, loading } = this.props;
+        const head = [
+            i18n.t('rank'),
+            i18n.t('validator'),
+            i18n.t('status'),
+            i18n.t('votingPower'),
+            i18n.t('commission'),
+        ];
 
         return (
             <>
@@ -102,16 +109,8 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                     {!validators || !validators.length || loading ? (
                         <Loading />
                     ) : (
-                        <Table
-                            head={[
-                                i18n.t('rank'),
-                                i18n.t('validator'),
-                                i18n.t('status'),
-                                i18n.t('votingPower'),
-                                i18n.t('commission'),
-                            ]}
-                        >
-                            {validators.map((value, index) => this.renderRow(value, index))}
+                        <Table head={head}>
+                            {validators.map((value, index) => this.renderRow(value, index, head))}
                         </Table>
                     )}
                 </Card>

@@ -1,12 +1,10 @@
 @import "src/styles/main";
 
 .app-badge {
-    display: flex;
+    display: inline-block;
     border-radius: 20px;
-    width: 100px;
-    height: 28px;
-    justify-content: center;
-    align-items: center;
+    padding: 4.5px 18px;
+    white-space: nowrap;
 }
 
 .app-badge.success {
@@ -22,7 +20,7 @@
 }
 
 .app-badge .text {
-    font-size: $font-xs;
+    font-size: $font-sm;
 }
 
 .app-badge .text.success {
