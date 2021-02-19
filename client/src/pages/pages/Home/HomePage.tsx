@@ -1,10 +1,36 @@
 import React, { PureComponent } from 'react';
-import { Card } from 'components';
+import { BlocksList, TransactionsList } from 'components';
+import { RootState } from 'redux/store';
+import { connect } from 'react-redux';
 
-class HomePage extends PureComponent {
+interface IProps {}
+
+const mapState = (state: RootState) => ({
+    blocks: state.blocks.blocks,
+    transactions: state.transactions.transactions,
+});
+
+type StateProps = ReturnType<typeof mapState>;
+
+type Props = IProps & StateProps;
+
+class HomePage extends PureComponent<Props> {
     render(): JSX.Element {
-        return <Card>Hello, World! Home!</Card>;
+        const { blocks, transactions } = this.props;
+
+        return (
+            <>
+                <div className="row">
+                    <div className="col-12 col-xl-6 mt-3">
+                        <BlocksList more title blocks={blocks.slice(0, 5)} />
+                    </div>
+                    <div className="col-12 col-xl-6 mt-3">
+                        <TransactionsList more title rej transactions={transactions.slice(0, 5)} />
+                    </div>
+                </div>
+            </>
+        );
     }
 }
 
-export default HomePage;
+export default connect(mapState)(HomePage);

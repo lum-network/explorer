@@ -1,6 +1,17 @@
 import React, { PureComponent } from 'react';
 import { MainLayout } from 'layout';
-import { BlocksPage, HomePage, NotFoundPage, TransactionsPage } from 'pages';
+import {
+    BlockPage,
+    BlocksPage,
+    HomePage,
+    NotFoundPage,
+    TransactionsPage,
+    TransactionPage,
+    ValidatorsPage,
+    AccountPage,
+    ValidatorPage,
+    SearchPage,
+} from 'pages';
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 
@@ -14,12 +25,20 @@ class RootNavigator extends PureComponent {
                         <Route path={NavigationConstants.HOME}>
                             <HomePage />
                         </Route>
+                        <Route path={`${NavigationConstants.BLOCKS}/:id`} component={BlockPage} />
                         <Route path={NavigationConstants.BLOCKS}>
                             <BlocksPage />
                         </Route>
+                        <Route path={`${NavigationConstants.TRANSACTIONS}/:id`} component={TransactionPage} />
                         <Route path={NavigationConstants.TRANSACTIONS}>
                             <TransactionsPage />
                         </Route>
+                        <Route path={`${NavigationConstants.VALIDATORS}/:id`} component={ValidatorPage} />
+                        <Route path={NavigationConstants.VALIDATORS}>
+                            <ValidatorsPage />
+                        </Route>
+                        <Route path={`${NavigationConstants.ACCOUNT}/:id`} component={AccountPage} />
+                        <Route path={`${NavigationConstants.SEARCH}/:text`} component={SearchPage} />
                         <Route path="/">
                             <NotFoundPage />
                         </Route>

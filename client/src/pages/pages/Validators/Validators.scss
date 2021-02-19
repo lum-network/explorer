@@ -1,0 +1,36 @@
+@import "src/styles/main";
+
+p.rank {
+    font-size: $font-xxl;
+    font-weight: $bold;
+}
+
+p.top-rank {
+    font-size: $font-xxl;
+    font-weight: $black;
+}
+
+.validator-logo {
+    width: 72px;
+    height: 72px;
+}
+
+.rank-dot-container {
+    position: absolute;
+    right: -6px;
+    top: -6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-white;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    box-shadow: 0 3.5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.rank-dot-text {
+    color: $color-type;
+    font-weight: $bold;
+    font-size: $font-md;
+}

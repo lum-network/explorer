@@ -9,6 +9,7 @@ const userLang = 'en';
 
 I18n.locale = userLang;
 moment.locale(userLang);
+moment.relativeTimeThreshold('ss', 3);
 
 I18n.fallbacks = true;
 I18n.translations = {

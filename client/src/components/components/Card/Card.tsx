@@ -1,11 +1,30 @@
 import React, { PureComponent } from 'react';
 import './Card.scss';
 
-class Card extends PureComponent {
-    render(): JSX.Element {
-        const { children } = this.props;
+interface IProps {
+    className?: string;
+    flat?: boolean;
+    badge?: JSX.Element;
+    dark?: boolean;
+    withoutPadding?: boolean;
+}
 
-        return <div className="p-3 shadow rounded-3">{children}</div>;
+class Card extends PureComponent<IProps> {
+    render(): JSX.Element {
+        const { children, className, flat, badge, dark, withoutPadding } = this.props;
+
+        return (
+            <div>
+                <div
+                    className={`${withoutPadding ? '' : 'p-2 py-4 p-sm-4 p-xl-5'} position-relative app-card ${
+                        flat && 'flat'
+                    } ${dark && 'dark'} ${className}`}
+                >
+                    <div className="badge-position">{badge}</div>
+                    {children}
+                </div>
+            </div>
+        );
     }
 }
 
