@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Badge, Card, Loading } from 'components';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import placeholderValidator from 'assets/images/placeholderValidator.svg';
-import { StringsUtils, ValidatorsUtils } from 'utils';
+import { i18n, StringsUtils, ValidatorsUtils } from 'utils';
 import tickerLogo from 'assets/images/ticker.svg';
 import numeral from 'numeral';
 
@@ -91,12 +91,12 @@ class BlockPage extends PureComponent<Props, IState> {
                         </div>
                         <div className="row">
                             <div className="col-xl-6">
-                                <h4 className="mb-1">Operator address</h4>
+                                <h4 className="mb-1">{i18n.t('operatorAddress')}</h4>
                                 <p className="text-break">{validator.operatorAddress}</p>
                             </div>
                             <div className="mt-3 mt-xl-0 col-xl-6 offset-xxl-1 col-xxl-5">
                                 {/*TODO: Add address */}
-                                <h4 className="mb-1">Address</h4>
+                                <h4 className="mb-1">{i18n.t('address')}</h4>
                                 <p className="text-break">Soon</p>
                             </div>
                         </div>
@@ -105,7 +105,7 @@ class BlockPage extends PureComponent<Props, IState> {
                 <Card className="mt-5" flat>
                     <div className="row align-items-center">
                         <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
-                            <h4>Website</h4>
+                            <h4>{i18n.t('website')}</h4>
                         </div>
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
                             <p className="text-break">
@@ -119,37 +119,37 @@ class BlockPage extends PureComponent<Props, IState> {
                             </p>
                         </div>
                         <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
-                            <h4>Bonded height</h4>
+                            <h4>{i18n.t('bondedHeight')}</h4>
                         </div>
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                             <p>Soon</p>
                         </div>
                         <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
-                            <h4>Commission</h4>
+                            <h4>{i18n.t('commission')}</h4>
                         </div>
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
                             <p>{numeral(validator.commission.rate).format('0.00%')}</p>
                         </div>
                         <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
-                            <h4>Self bonded</h4>
+                            <h4>{i18n.t('selfBonded')}</h4>
                         </div>
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                             <p>Soon</p>
                         </div>
                         <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
-                            <h4>Uptime</h4>
+                            <h4>{i18n.t('uptime')}</h4>
                         </div>
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
                             <p>Soon</p>
                         </div>
                         <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
-                            <h4>Details</h4>
+                            <h4>{i18n.t('details')}</h4>
                         </div>
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                             <p>{validator.description.details || '-'}</p>
                         </div>
                         <div className="col-lg-2 col-md-3 col-sm-4">
-                            <h4>Voting power</h4>
+                            <h4>{i18n.t('votingPower')}</h4>
                         </div>
                         <div className="col-lg-4 col-md-9 col-sm-8">
                             <p>
@@ -171,7 +171,7 @@ class BlockPage extends PureComponent<Props, IState> {
         return (
             <>
                 <h2 className="mt-3 mb-4">
-                    <img alt="block" src={validatorLogo} /> Validator details
+                    <img alt="block" src={validatorLogo} /> {i18n.t('validatorDetails')}
                 </h2>
                 {this.renderInformation()}
             </>

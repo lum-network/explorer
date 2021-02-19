@@ -29,6 +29,6 @@ export const name = (type?: MessagesType | TransactionsAction): { text: string; 
             return { text: i18n.t('editValidatorMessage'), icon: editLogo };
 
         default:
-            return { text: type || '', icon: 'tatouen' };
+            return { text: type || '', icon: '' };
     }
 };

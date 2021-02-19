@@ -4,6 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import searchLogo from 'assets/images/searchDark.svg';
 import './Search.scss';
 import { NavigationConstants } from 'constant';
+import { i18n } from 'utils';
 
 interface IProps extends RouteComponentProps {}
 
@@ -41,7 +42,7 @@ class Search extends PureComponent<IProps, IState> {
         return (
             <div className="search-container">
                 <TextInput
-                    placeholder="Search by address / height / tx hash / etc"
+                    placeholder={i18n.t('searchPlaceholder')}
                     icon={searchLogo}
                     value={text}
                     onSubmit={this.onSubmit}

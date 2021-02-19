@@ -45,8 +45,15 @@ class TransactionsList extends PureComponent<IProps> {
 
     render(): JSX.Element {
         const { transactions, rej, title, more, history } = this.props;
-        const full = ['Hash', 'Type', 'Status', 'Amount', 'Block', 'Time'];
-        const simplified = ['Hash', 'Type', 'Block', 'Time'];
+        const full = [
+            i18n.t('hash'),
+            i18n.t('type'),
+            i18n.t('status'),
+            i18n.t('amount'),
+            i18n.t('block'),
+            i18n.t('time'),
+        ];
+        const simplified = [i18n.t('hash'), i18n.t('type'), i18n.t('block'), i18n.t('time')];
 
         return (
             <Card className="mb-5">

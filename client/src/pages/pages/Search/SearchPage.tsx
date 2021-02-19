@@ -6,6 +6,7 @@ import { Dispatch, RootState } from 'redux/store';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { connect } from 'react-redux';
 import { NavigationConstants } from 'constant';
+import { i18n } from '../../../utils';
 
 interface IProps extends RouteComponentProps<{ text: string }> {}
 
@@ -73,7 +74,7 @@ class SearchPage extends PureComponent<Props> {
 
         if (loading) {
             return (
-                <Card>
+                <Card className="mb-5">
                     <Loading />
                 </Card>
             );
@@ -83,7 +84,7 @@ class SearchPage extends PureComponent<Props> {
             return (
                 <Card className="d-flex justify-content-center align-items-center flex-column">
                     <img className="mb-2" alt="placeholder" src={placeholderTx} />
-                    No result found
+                    {i18n.t('noResultFound')}
                 </Card>
             );
         }
@@ -95,7 +96,7 @@ class SearchPage extends PureComponent<Props> {
         return (
             <>
                 <h2 className="mt-3 mb-4">
-                    <img alt="block" src={searchLogo} /> Search
+                    <img alt="block" src={searchLogo} /> {i18n.t('search')}
                 </h2>
                 {this.renderContent()}
             </>

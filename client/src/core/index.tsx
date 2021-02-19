@@ -7,6 +7,7 @@ import { BlocksModel, TransactionsModel } from 'models';
 import Pusher from 'pusher-js';
 import { SocketConstants } from 'constant';
 import { plainToClass } from 'class-transformer';
+import { Loading } from 'components';
 
 interface IProps {}
 
@@ -85,20 +86,14 @@ class Core extends PureComponent<Props> {
         return <RootNavigator />;
     }
 
-    renderLoading(): JSX.Element {
-        return (
-            <div className="spinner-grow" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        );
-    }
-
     render(): JSX.Element {
         const { loading, blocks, transactions } = this.props;
 
-        return (!blocks || !blocks.length || !transactions || !transactions.length) && loading
-            ? this.renderLoading()
-            : this.renderContent();
+        return (!blocks || !blocks.length || !transactions || !transactions.length) && loading ? (
+            <Loading />
+        ) : (
+            this.renderContent()
+        );
     }
 }
 

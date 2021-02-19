@@ -70,19 +70,19 @@ class TransactionPage extends PureComponent<Props, IState> {
             return (
                 <div className="row align-items-center">
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>From address</h5>
+                        <h5>{i18n.t('fromAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3">
                         <Link to={`${NavigationConstants.ACCOUNT}/${value.fromAddress}`}>{value.fromAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2  mb-md-3">
-                        <h5>To address</h5>
+                        <h5>{i18n.t('toAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3">
                         <Link to={`${NavigationConstants.ACCOUNT}/${value.toAddress}`}>{value.toAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2">
-                        <h5>Amount</h5>
+                        <h5>{i18n.t('amount')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10">
                         {value.amount[0].amount} {value.amount[0].denom.toUpperCase()}
@@ -95,13 +95,13 @@ class TransactionPage extends PureComponent<Props, IState> {
             return (
                 <div className="row align-items-center">
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Min self delegation</h5>
+                        <h5>{i18n.t('minSelfDelegation')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {numeral(value.minSelfDelegation).format('0.000000')}
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Delegator address</h5>
+                        <h5>{i18n.t('delegatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
@@ -109,7 +109,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                         </Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Validator address</h5>
+                        <h5>{i18n.t('validatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
@@ -117,25 +117,25 @@ class TransactionPage extends PureComponent<Props, IState> {
                         </Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Pubkey</h5>
+                        <h5>{i18n.t('pubkey')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.pubkey}</div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Value</h5>
+                        <h5>{i18n.t('value')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {value.value?.amount} {value.value?.denom.toLocaleUpperCase()}
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Details</h5>
+                        <h5>{i18n.t('details')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.details || '-'}</div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Moniker</h5>
+                        <h5>{i18n.t('moniker')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.moniker || '-'}</div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Website</h5>
+                        <h5>{i18n.t('website')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {value.description.website ? (
@@ -147,27 +147,23 @@ class TransactionPage extends PureComponent<Props, IState> {
                         )}
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Identity</h5>
+                        <h5>{i18n.t('identity')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.identity || '-'}</div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Details</h5>
-                    </div>
-                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.details || '-'}</div>
-                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Com rate</h5>
+                        <h5>{i18n.t('comRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {numeral(value.commission.rate).format('0.00%') || '-'}
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>Com max rate</h5>
+                        <h5>{i18n.t('comMaxRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {numeral(value.commission.maxRate).format('0.00%') || '-'}
                     </div>
                     <div className="col-12 col-md-3 col-xl-2">
-                        <h5>Com max change rate</h5>
+                        <h5>{i18n.t('comMaxChangeRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         {numeral(value.commission.maxChangeRate).format('0.00%') || '-'}
@@ -210,7 +206,7 @@ class TransactionPage extends PureComponent<Props, IState> {
 
         return (
             <Card>
-                <h3 className="mb-4">Messages</h3>
+                <h3 className="mb-4">{i18n.t('messages')}</h3>
                 {messages.map((message, index) => {
                     return (
                         <div key={index}>
@@ -242,7 +238,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                 <div className="row align-items-center">
                     <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={hashLogo} /> Tx hash
+                            <img alt="block" src={hashLogo} /> {i18n.t('txHash')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
@@ -258,7 +254,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={blockLogo} /> Block height
+                            <img alt="block" src={blockLogo} /> {i18n.t('blockHeight')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
@@ -268,7 +264,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={clockLogo} /> Tx Time
+                            <img alt="block" src={clockLogo} /> {i18n.t('txTime')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
@@ -279,7 +275,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={searchLogo} /> Status
+                            <img alt="block" src={searchLogo} /> {i18n.t('status')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
@@ -287,7 +283,10 @@ class TransactionPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={gasLogo} /> Gas&nbsp;<small>(used/wanted)</small>
+                            <img alt="block" src={gasLogo} /> {i18n.t('gas')}&nbsp;
+                            <small>
+                                ({i18n.t('gasUsed')}/{i18n.t('gasWanted')})
+                            </small>
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
@@ -298,7 +297,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
                             {/*TODO: Add fee */}
-                            <img alt="transaction" src={feeLogo} /> Fee
+                            <img alt="transaction" src={feeLogo} /> {i18n.t('fee')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
@@ -306,7 +305,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="col-lg-2 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={memoLogo} /> Memo
+                            <img alt="block" src={memoLogo} /> {i18n.t('memo')}
                         </h4>
                     </div>
                     <div className="col-lg-4 col-md-9 col-sm-8">
@@ -321,7 +320,7 @@ class TransactionPage extends PureComponent<Props, IState> {
         return (
             <>
                 <h2 className="mt-3 mb-4">
-                    <img alt="block" src={transactionLogo} /> Details for Transactions
+                    <img alt="block" src={transactionLogo} /> {i18n.t('transactionDetails')}
                 </h2>
                 {this.renderInformation()}
                 {this.renderMessages()}

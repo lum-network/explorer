@@ -81,7 +81,7 @@ class MainLayout extends PureComponent {
                             <div className="ms-5 button-wallet">
                                 <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank">
                                     <img alt="wallet" src={walletBis} />
-                                    Web Wallet
+                                    {i18n.t('webWallet')}
                                 </a>
                             </div>
                         </div>

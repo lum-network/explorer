@@ -11,7 +11,7 @@ import transactionLogo from 'assets/images/transactionDark.svg';
 import clockLogo from 'assets/images/clockDark.svg';
 import hashLogo from 'assets/images/hashDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
-import { StringsUtils } from 'utils';
+import { i18n, StringsUtils } from 'utils';
 import checkLogo from 'assets/images/check.svg';
 import copyLogo from 'assets/images/copyDark.svg';
 import placeholderTx from 'assets/images/placeholderTx.svg';
@@ -79,7 +79,7 @@ class BlockPage extends PureComponent<Props, IState> {
             return (
                 <Card className="d-flex justify-content-center align-items-center flex-column">
                     <img className="mb-2" alt="placeholder" src={placeholderTx} />
-                    No transaction
+                    {i18n.t('noTransaction')}
                 </Card>
             );
         }
@@ -104,7 +104,7 @@ class BlockPage extends PureComponent<Props, IState> {
                 <div className="row align-items-center">
                     <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={blockLogo} /> Height
+                            <img alt="block" src={blockLogo} /> {i18n.t('height')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
@@ -112,7 +112,7 @@ class BlockPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={transactionLogo} /> Number of txs
+                            <img alt="block" src={transactionLogo} /> {i18n.t('numberOfTxs')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
@@ -120,7 +120,7 @@ class BlockPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={clockLogo} /> Block Time
+                            <img alt="block" src={clockLogo} /> {i18n.t('blockTime')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
@@ -131,7 +131,7 @@ class BlockPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={validatorLogo} /> Proposer
+                            <img alt="block" src={validatorLogo} /> {i18n.t('proposer')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
@@ -143,7 +143,7 @@ class BlockPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="col-lg-2 col-md-3 col-sm-4">
                         <h4>
-                            <img alt="block" src={hashLogo} /> Block hash
+                            <img alt="block" src={hashLogo} /> {i18n.t('blockHash')}
                         </h4>
                     </div>
                     <div className="col-lg-4 col-md-9 col-sm-8">
@@ -169,7 +169,7 @@ class BlockPage extends PureComponent<Props, IState> {
         return (
             <>
                 <h2 className="mt-3 mb-4">
-                    <img alt="block" src={blockLogo} /> Details for Block #{(block && block.height) || id}
+                    <img alt="block" src={blockLogo} /> {i18n.t('detailsForBlock')} #{(block && block.height) || id}
                 </h2>
                 {this.renderInformation()}
                 {this.renderTransactions()}

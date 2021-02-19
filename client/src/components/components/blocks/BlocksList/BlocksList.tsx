@@ -19,7 +19,11 @@ class BlocksList extends PureComponent<IProps> {
                 <td>
                     <Link to={`${NavigationConstants.BLOCKS}/${block.height}`}>{block.height}</Link>
                 </td>
-                <td title={block.proposerAddress}>{StringsUtils.trunc(block.proposerAddress || '')}</td>
+                <td title={block.proposerAddress}>
+                    <Link to={`${NavigationConstants.VALIDATORS}/${block.proposerAddress}`}>
+                        {StringsUtils.trunc(block.proposerAddress || '')}
+                    </Link>
+                </td>
                 <td className="text-end">{block.numTxs}</td>
                 <td className="text-end">{moment.utc(block.dispatchedAt).fromNow()}</td>
             </tr>
@@ -33,9 +37,11 @@ class BlocksList extends PureComponent<IProps> {
             <Card className="mb-5">
                 <div className="d-flex justify-content-between">
                     {title && <h3 className="mb-4">{i18n.t('blocks')}</h3>}
-                    {more && <Button onPress={() => history.push(NavigationConstants.BLOCKS)}>View all</Button>}
+                    {more && (
+                        <Button onPress={() => history.push(NavigationConstants.BLOCKS)}>{i18n.t('viewAll')}</Button>
+                    )}
                 </div>
-                <Table head={['Height', 'Proposer', 'Transactions', 'Time']}>
+                <Table head={[i18n.t('height'), i18n.t('proposer'), i18n.t('transactions'), i18n.t('time')]}>
                     {blocks.map((block, index) => this.renderRow(block, index))}
                 </Table>
             </Card>

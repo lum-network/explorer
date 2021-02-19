@@ -11,6 +11,7 @@ import { PieChart } from 'react-minimal-pie-chart';
 import numeral from 'numeral';
 import ticker from 'assets/images/ticker.svg';
 import placeholderTx from 'assets/images/placeholderTx.svg';
+import { i18n } from 'utils';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -75,7 +76,7 @@ class AccountPage extends PureComponent<Props, IState> {
             return (
                 <Card className="d-flex justify-content-center align-items-center flex-column">
                     <img className="mb-2" alt="placeholder" src={placeholderTx} />
-                    No transaction
+                    {i18n.t('noTransaction')}
                 </Card>
             );
         }
@@ -101,7 +102,7 @@ class AccountPage extends PureComponent<Props, IState> {
                                 <div className="row mt-3 mt-sm-0">
                                     <div className="col-xl-6">
                                         <div className="d-flex flex-row align-items-center">
-                                            <h4 className="mb-1 text-white">Address&nbsp;</h4>
+                                            <h4 className="mb-1 text-white">{i18n.t('address')}&nbsp;</h4>
                                             <img
                                                 alt="copy"
                                                 src={copied ? checkLogo : copyLogo}
@@ -112,7 +113,7 @@ class AccountPage extends PureComponent<Props, IState> {
                                         <p className="text-break">{account.address}</p>
                                     </div>
                                     <div className="mt-3 mt-xl-0 col-xl-6 offset-xxl-1 col-xxl-5">
-                                        <h4 className="mb-1 text-white">Reward address</h4>
+                                        <h4 className="mb-1 text-white">{i18n.t('rewardAddress')}</h4>
                                         <p className="text-break">{account.withdrawAddress}</p>
                                     </div>
                                 </div>
@@ -144,19 +145,19 @@ class AccountPage extends PureComponent<Props, IState> {
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2">
                                 <div className="d-flex align-items-center mb-2">
                                     <div className="app-dot green me-2" />
-                                    Available
+                                    {i18n.t('available')}
                                 </div>
                                 <div className="d-flex align-items-center mb-2">
                                     <div className="app-dot orange me-2" />
-                                    Delegated
+                                    {i18n.t('delegated')}
                                 </div>
                                 <div className="d-flex align-items-center mb-2">
                                     <div className="app-dot blue me-2" />
-                                    Unbonding
+                                    {i18n.t('unbonding')}
                                 </div>
                                 <div className="d-flex align-items-center">
                                     <div className="app-dot cyan me-2" />
-                                    Reward
+                                    {i18n.t('reward')}
                                 </div>
                             </div>
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2">
@@ -186,7 +187,7 @@ class AccountPage extends PureComponent<Props, IState> {
                                     <div className="d-flex flex-xxl-column justify-content-around">
                                         <div className="d-flex flex-column align-items-xxl-end">
                                             <div className="d-flex align-items-center">
-                                                <p className="text-muted">Total</p>&nbsp;
+                                                <p className="text-muted">{i18n.t('total')}</p>&nbsp;
                                                 <img alt="ticker" src={ticker} />
                                             </div>
                                             {/*TODO: get value */}
@@ -215,7 +216,7 @@ class AccountPage extends PureComponent<Props, IState> {
         return (
             <>
                 <h2 className="mt-3 mb-4">
-                    <img alt="block" src={accountLogo} /> Account details
+                    <img alt="block" src={accountLogo} /> {i18n.t('accountDetails')}
                 </h2>
                 {this.renderInformation()}
                 {this.renderTransactions()}

@@ -102,7 +102,15 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                     {!validators || !validators.length || loading ? (
                         <Loading />
                     ) : (
-                        <Table head={['Rank', 'Validator', 'Status', 'Voting power', 'Commission']}>
+                        <Table
+                            head={[
+                                i18n.t('rank'),
+                                i18n.t('validator'),
+                                i18n.t('status'),
+                                i18n.t('votingPower'),
+                                i18n.t('commission'),
+                            ]}
+                        >
                             {validators.map((value, index) => this.renderRow(value, index))}
                         </Table>
                     )}

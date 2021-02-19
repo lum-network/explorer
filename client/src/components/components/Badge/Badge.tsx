@@ -4,6 +4,7 @@ import cross from 'assets/images/cross.svg';
 import warning from 'assets/images/warning.svg';
 import './Badge.scss';
 import { ValidatorsType } from 'constant';
+import { i18n } from 'utils';
 
 interface IProps {
     validatorsType?: ValidatorsType;
@@ -20,7 +21,7 @@ class Badge extends PureComponent<IProps> {
                 <div className="d-flex align-items-center">
                     <div className="app-badge failure">
                         <p className="text failure">
-                            <img alt="checkmark" src={cross} /> Jailed
+                            <img alt="checkmark" src={cross} /> {i18n.t('badgeJailed')}
                         </p>
                     </div>
                 </div>
@@ -35,7 +36,7 @@ class Badge extends PureComponent<IProps> {
                             <div>
                                 <div className="app-badge success">
                                     <p className="text success">
-                                        <img alt="checkmark" src={check} /> Active
+                                        <img alt="checkmark" src={check} /> {i18n.t('badgeActive')}
                                     </p>
                                 </div>
                             </div>
@@ -46,7 +47,7 @@ class Badge extends PureComponent<IProps> {
                             <div>
                                 <div className="app-badge warning">
                                     <p className="text warning">
-                                        <img alt="checkmark" src={warning} /> Unbounding
+                                        <img alt="checkmark" src={warning} /> {i18n.t('badgeUnbounding')}
                                     </p>
                                 </div>
                             </div>
@@ -57,7 +58,7 @@ class Badge extends PureComponent<IProps> {
                             <div>
                                 <div className="app-badge failure">
                                     <p className="text failure">
-                                        <img alt="checkmark" src={cross} /> Unbounded
+                                        <img alt="checkmark" src={cross} /> {i18n.t('badgeUnbounded')}
                                     </p>
                                 </div>
                             </div>
@@ -72,11 +73,11 @@ class Badge extends PureComponent<IProps> {
                     <p className={`text ${success ? 'success' : 'failure'}`}>
                         {success ? (
                             <>
-                                <img alt="checkmark" src={check} /> Success
+                                <img alt="checkmark" src={check} /> {i18n.t('badgeSuccess')}
                             </>
                         ) : (
                             <>
-                                <img alt="checkmark" src={cross} /> Fail
+                                <img alt="checkmark" src={cross} /> {i18n.t('badgeFail')}
                             </>
                         )}
                     </p>
