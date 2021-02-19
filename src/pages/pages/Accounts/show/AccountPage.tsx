@@ -121,7 +121,7 @@ class AccountPage extends PureComponent<Props, IState> {
                         </div>
                     )}
                 </Card>
-                <Card className="mb-5">
+                <Card className="mb-5 p-2">
                     {!account || loading ? (
                         <Loading />
                     ) : (

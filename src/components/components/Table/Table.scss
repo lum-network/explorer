@@ -9,3 +9,26 @@ td {
     vertical-align: middle;
     height: 48px;
 }
+
+@include media-breakpoint-down(md) {
+    table.table thead {
+        display: none;
+    }
+
+    table.table tr {
+        display: block;
+        margin: 12px 0;
+    }
+
+    table.table td {
+        display: block;
+        text-align: right;
+        height: 40px;
+    }
+
+    table.table td:before {
+        content:attr(data-label);
+        float: left;
+        font-weight: $medium;
+    }
+}

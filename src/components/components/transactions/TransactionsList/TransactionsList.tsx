@@ -14,31 +14,35 @@ interface IProps extends RouteComponentProps {
 }
 
 class TransactionsList extends PureComponent<IProps> {
-    renderRow(transaction: TransactionsModel, index: number): JSX.Element {
+    renderRow(transaction: TransactionsModel, index: number, head: string[]): JSX.Element {
         const { rej } = this.props;
 
         return (
             <tr key={index}>
-                <td title={transaction.hash}>
+                <td data-label={head[0]} title={transaction.hash}>
                     <Link to={`${NavigationConstants.TRANSACTIONS}/${transaction.hash}`}>
                         {StringsUtils.trunc(transaction.hash || '')}
                     </Link>
                 </td>
-                <td>
+                <td data-label={head[1]}>
                     <MessageType badge type={transaction.action} />
                 </td>
                 {!rej && (
                     <>
-                        <td>
+                        <td data-label={head[2]}>
                             <Badge success={transaction.success} />
                         </td>
-                        <td className="text-end">{transaction.amount}</td>
+                        <td data-label={head[3]} className="text-end">
+                            {transaction.amount}
+                        </td>
                     </>
                 )}
-                <td className="text-end">
+                <td data-label={head[4]} className="text-end">
                     <Link to={`${NavigationConstants.BLOCKS}/${transaction.height}`}>{transaction.height}</Link>
                 </td>
-                <td className="text-end">{moment.utc(transaction.dispatchedAt).fromNow()}</td>
+                <td data-label={head[5]} className="text-end">
+                    {moment.utc(transaction.dispatchedAt).fromNow()}
+                </td>
             </tr>
         );
     }
@@ -62,7 +66,7 @@ class TransactionsList extends PureComponent<IProps> {
                     {more && <Button onPress={() => history.push(NavigationConstants.TRANSACTIONS)}>View all</Button>}
                 </div>
                 <Table head={rej ? simplified : full}>
-                    {transactions.map((transaction, index) => this.renderRow(transaction, index))}
+                    {transactions.map((transaction, index) => this.renderRow(transaction, index, full))}
                 </Table>
             </Card>
         );

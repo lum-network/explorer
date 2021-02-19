@@ -16,7 +16,7 @@ class Card extends PureComponent<IProps> {
         return (
             <div>
                 <div
-                    className={`${withoutPadding ? '' : 'p-2 py-4 p-sm-4 p-xl-5'} position-relative app-card ${
+                    className={`${withoutPadding ? '' : 'p-3 py-4 p-sm-4 p-xl-5'} position-relative app-card ${
                         flat && 'flat'
                     } ${dark && 'dark'} ${className}`}
                 >
