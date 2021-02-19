@@ -78,7 +78,7 @@ class BlockPage extends PureComponent<Props, IState> {
         if (!transactions || !transactions.length) {
             return (
                 <Card className="d-flex justify-content-center align-items-center flex-column">
-                    <img className="mb-2" alt="placeholder" src={placeholderTx} />
+                    <img className="mb-2 placeholder-image" alt="placeholder" src={placeholderTx} />
                     {i18n.t('noTransaction')}
                 </Card>
             );

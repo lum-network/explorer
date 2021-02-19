@@ -5,6 +5,18 @@
     background-color: $color-striped;
 }
 
+@media (prefers-color-scheme: dark) {
+    .app-table-striped>tbody>tr:nth-child(odd)>td,
+    .app-table-striped>tbody>tr:nth-child(odd)>th {
+        background-color: $color-dark-striped;
+    }
+
+    table {
+        color: $color-white !important;
+    }
+}
+
+
 td {
     vertical-align: middle;
     height: 48px;

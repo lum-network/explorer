@@ -24,3 +24,10 @@
 .app-btn-plain {
 
 }
+
+@media (prefers-color-scheme: dark) {
+    .app-btn {
+        background-color: $color-white;
+        color: $color-primary;
+    }
+}
