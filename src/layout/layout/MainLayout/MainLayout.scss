@@ -139,7 +139,7 @@ footer {
 }
 
 @include media-breakpoint-down(lg) {
-    .main-layout .logo.nav-logo > h1 {
+    .main-layout .logo > h1 {
         display: none;
     }
     .main-layout .link {
