@@ -9,6 +9,12 @@
     padding-top: 112px;
 }
 
+@media (prefers-color-scheme: dark) {
+    .main-layout {
+        background-color: $color-dark-background;
+    }
+}
+
 .main-layout .content {
     display: flex;
     flex-direction: column;
@@ -144,6 +150,10 @@ footer {
     }
     .main-layout .link {
         font-size: $font-sm;
+    }
+
+    .main-layout .logo img {
+        margin-right: 12px;
     }
 
     .main-layout img.icon-nav {

@@ -25,6 +25,17 @@
     top: 12px;
 }
 
+@media (prefers-color-scheme: dark) {
+    .app-card {
+        background-color: $color-primary;
+        color: $color-white;
+    }
+
+    .app-card.flat {
+        background-color: $color-dark-striped;
+    }
+}
+
 @keyframes cardShow {
     0% {
         opacity: 0;

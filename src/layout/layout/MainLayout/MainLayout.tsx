@@ -67,7 +67,7 @@ class MainLayout extends PureComponent {
         const { children } = this.props;
 
         return (
-            <div className="main-layout">
+            <div className="main-layout dark-mode">
                 <div className="content">
                     {this.renderNav()}
                     <div className="container">{children}</div>

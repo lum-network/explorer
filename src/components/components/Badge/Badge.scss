@@ -34,3 +34,13 @@
 .app-badge .text.failure {
     color: $color-red;
 }
+
+@media (prefers-color-scheme: dark) {
+    .app-badge {
+        background-color: $color-badge-dark !important;
+    }
+
+    .app-badge .text {
+        color: $color-black !important;
+    }
+}
