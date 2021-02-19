@@ -19,7 +19,7 @@ class MainLayout extends PureComponent {
             <ul className={footer ? 'footer' : ''}>
                 {!footer && (
                     <>
-                        <li className="logo nav-logo">
+                        <li className="logo">
                             <img alt="logo" src={logo} /> <h1>Explorer</h1>
                         </li>
                         <li>
@@ -78,7 +78,7 @@ class MainLayout extends PureComponent {
                             <div className="logo">
                                 <img alt="logo" src={logo} /> <h1>Explorer</h1>
                             </div>
-                            <div className="ms-5 button-wallet">
+                            <div className="ms-sm-5 ms-3 button-wallet">
                                 <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank">
                                     <img alt="wallet" src={walletBis} />
                                     {i18n.t('webWallet')}

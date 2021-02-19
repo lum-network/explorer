@@ -3,8 +3,8 @@
 <g filter="url(#filter0_d)">
 <circle cx="49" cy="20" r="20" fill="white"/>
 </g>
-<path d="M44 15L55 26" stroke="#FF7245" stroke-width="2.65349" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M44 26L55 15" stroke="#FF7245" stroke-width="2.65349" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M44 15L55 26" stroke="#C9C9C9" stroke-width="2.65349" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M44 26L55 15" stroke="#C9C9C9" stroke-width="2.65349" stroke-linecap="round" stroke-linejoin="round"/>
 <defs>
 <filter id="filter0_d" x="25" y="0" width="48" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
