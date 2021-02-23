@@ -6,16 +6,11 @@ import { TimesUtils } from 'utils';
 import { BlocksModel, TransactionsModel } from 'models';
 import { ApiConstants, SocketConstants } from 'constant';
 import { plainToClass } from 'class-transformer';
-import { Loading } from 'components';
 import io, { Socket } from 'socket.io-client';
 
 interface IProps {}
 
-const mapState = (state: RootState) => ({
-    loading: state.loading.global,
-    blocks: state.blocks.blocks,
-    transactions: state.transactions.transactions,
-});
+const mapState = (state: RootState) => ({});
 
 const mapDispatch = (dispatch: Dispatch) => ({
     fetchBlocks: () => dispatch.blocks.fetchBlocks(),
@@ -91,18 +86,8 @@ class Core extends PureComponent<Props> {
         });
     };
 
-    renderContent(): JSX.Element {
-        return <RootNavigator />;
-    }
-
     render(): JSX.Element {
-        const { loading, blocks, transactions } = this.props;
-
-        return (!blocks || !blocks.length || !transactions || !transactions.length) && loading ? (
-            <Loading />
-        ) : (
-            this.renderContent()
-        );
+        return <RootNavigator />;
     }
 }
 

@@ -26,8 +26,12 @@ class BlocksPage extends PureComponent<Props> {
         fetchBlocks().finally(() => null);
     }
 
-    render(): JSX.Element {
+    render(): JSX.Element | null {
         const { blocks } = this.props;
+
+        if (!blocks) {
+            return null;
+        }
 
         return (
             <>

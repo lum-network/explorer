@@ -51,9 +51,11 @@ const blocks = createModel<RootModel>()({
     },
     effects: (dispatch) => ({
         async fetchBlocks() {
-            const blocks = await ApiBlocks.fetchBlocks();
+            try {
+                const blocks = await ApiBlocks.fetchBlocks();
 
-            dispatch.blocks.setBlocks(blocks);
+                dispatch.blocks.setBlocks(blocks);
+            } catch (e) {}
         },
 
         async getBlock(id: string, state) {
@@ -62,9 +64,11 @@ const blocks = createModel<RootModel>()({
                 dispatch.blocks.resetBlock();
             }
 
-            const block = await ApiBlocks.getBlock(id);
+            try {
+                const block = await ApiBlocks.getBlock(id);
 
-            dispatch.blocks.setBlock(block);
+                dispatch.blocks.setBlock(block);
+            } catch (e) {}
         },
 
         addBlock(block: BlocksModel) {

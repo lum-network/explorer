@@ -38,9 +38,11 @@ const validators = createModel<RootModel>()({
     },
     effects: (dispatch) => ({
         async fetchValidators() {
-            const validators = await ApiValidators.fetchValidators();
+            try {
+                const validators = await ApiValidators.fetchValidators();
 
-            dispatch.validators.setValidators(validators);
+                dispatch.validators.setValidators(validators);
+            } catch (e) {}
         },
 
         async getValidator(id: string, state) {
@@ -49,9 +51,11 @@ const validators = createModel<RootModel>()({
                 dispatch.validators.resetValidator();
             }
 
-            const validator = await ApiValidators.getValidator(id);
+            try {
+                const validator = await ApiValidators.getValidator(id);
 
-            dispatch.validators.setValidator(validator);
+                dispatch.validators.setValidator(validator);
+            } catch (e) {}
         },
     }),
 });

@@ -53,13 +53,15 @@ const search = createModel<RootModel>()({
             dispatch.search.resetSearch();
             dispatch.search.setSearchText(text);
 
-            const result = await ApiSearch.search(text);
+            try {
+                const result = await ApiSearch.search(text);
 
-            if (result) {
-                dispatch.search.setSearchResult(result);
-            } else {
-                dispatch.search.setSearchResult();
-            }
+                if (result) {
+                    dispatch.search.setSearchResult(result);
+                } else {
+                    dispatch.search.setSearchResult();
+                }
+            } catch (e) {}
         },
     }),
 });
