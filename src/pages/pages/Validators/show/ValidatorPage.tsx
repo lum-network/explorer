@@ -62,7 +62,7 @@ class BlockPage extends PureComponent<Props, IState> {
 
         if (!validator || loading) {
             return (
-                <Card>
+                <Card className="mb-5">
                     <Loading />
                 </Card>
             );

@@ -192,7 +192,7 @@ class TransactionPage extends PureComponent<Props, IState> {
 
         if (!transaction || loading) {
             return (
-                <Card>
+                <Card className="mb-5">
                     <Loading />
                 </Card>
             );
@@ -205,7 +205,7 @@ class TransactionPage extends PureComponent<Props, IState> {
         }
 
         return (
-            <Card>
+            <Card className="mb-5">
                 <h3 className="mb-4">{i18n.t('messages')}</h3>
                 {messages.map((message, index) => {
                     return (
@@ -227,7 +227,7 @@ class TransactionPage extends PureComponent<Props, IState> {
 
         if (!transaction || loading) {
             return (
-                <Card>
+                <Card className="mb-5">
                     <Loading />
                 </Card>
             );
