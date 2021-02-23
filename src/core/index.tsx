@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import RootNavigator from 'navigation';
 import { connect } from 'react-redux';
-import { Dispatch, RootState } from 'redux/store';
-import { TimesUtils } from 'utils';
+import { Dispatch } from 'redux/store';
 import { BlocksModel, TransactionsModel } from 'models';
 import { ApiConstants, SocketConstants } from 'constant';
 import { plainToClass } from 'class-transformer';
@@ -10,7 +9,7 @@ import io, { Socket } from 'socket.io-client';
 
 interface IProps {}
 
-const mapState = (state: RootState) => ({});
+const mapState = () => ({});
 
 const mapDispatch = (dispatch: Dispatch) => ({
     fetchBlocks: () => dispatch.blocks.fetchBlocks(),
@@ -24,7 +23,6 @@ type DispatchProps = ReturnType<typeof mapDispatch>;
 type Props = IProps & StateProps & DispatchProps;
 
 class Core extends PureComponent<Props> {
-    interval: NodeJS.Timeout | null = null;
     socket: typeof Socket | null = null;
 
     componentDidMount(): void {
@@ -33,10 +31,6 @@ class Core extends PureComponent<Props> {
     }
 
     componentWillUnmount(): void {
-        if (this.interval) {
-            clearInterval(this.interval);
-        }
-
         if (this.socket) {
             this.socket.close();
         }
@@ -58,12 +52,14 @@ class Core extends PureComponent<Props> {
                 console.warn('cannot listen channel, null socket pointer');
                 return;
             }
+
             this.socket.emit(
                 SocketConstants.LISTEN_CHANNEL,
                 JSON.stringify({
                     name: SocketConstants.BLOCKS,
                 }),
             );
+
             this.socket.io.emit(
                 SocketConstants.LISTEN_CHANNEL,
                 JSON.stringify({
@@ -71,11 +67,13 @@ class Core extends PureComponent<Props> {
                 }),
             );
         });
-        this.socket.on(SocketConstants.NEW_BLOCK_EVENT, (data: Record<string, unknown>) => {
+
+        this.socket.on(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
             const transaction = plainToClass(TransactionsModel, data);
             addTransaction(transaction);
         });
-        this.socket.on(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
+
+        this.socket.on(SocketConstants.NEW_BLOCK_EVENT, (data: Record<string, unknown>) => {
             const block = plainToClass(BlocksModel, data);
             addBlock(block);
         });
