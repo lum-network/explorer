@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
 import { TimesUtils } from 'utils';
 import { BlocksModel, TransactionsModel } from 'models';
-import Pusher from 'pusher-js';
-import { SocketConstants } from 'constant';
+import { ApiConstants, SocketConstants } from 'constant';
 import { plainToClass } from 'class-transformer';
 import { Loading } from 'components';
+import io, { Socket } from 'socket.io-client';
 
 interface IProps {}
 
@@ -30,7 +30,7 @@ type Props = IProps & StateProps & DispatchProps;
 
 class Core extends PureComponent<Props> {
     interval: NodeJS.Timeout | null = null;
-    pusher: Pusher | null = null;
+    socket: typeof Socket | null = null;
 
     componentDidMount(): void {
         this.fetch();
@@ -46,9 +46,8 @@ class Core extends PureComponent<Props> {
             clearInterval(this.interval);
         }
 
-        if (this.pusher) {
-            this.pusher.unsubscribe(SocketConstants.TRANSACTIONS);
-            this.pusher.unsubscribe(SocketConstants.BLOCKS);
+        if (this.socket) {
+            this.socket.close();
         }
     }
 
@@ -62,23 +61,33 @@ class Core extends PureComponent<Props> {
     sockets = () => {
         const { addTransaction, addBlock } = this.props;
 
-        this.pusher = new Pusher(process.env.REACT_APP_PUSHER_APP_KEY || '', {
-            cluster: process.env.REACT_APP_PUSHER_APP_CLUSTER,
+        this.socket = io(ApiConstants.BASE_URL);
+
+        // const transactionsChannel = this.socket.io.emit(SocketConstants.LISTEN_CHANNEL, {
+        //     name: SocketConstants.TRANSACTIONS,
+        // });
+        // const blocksChannel = this.socket.io.emit(SocketConstants.LISTEN_CHANNEL, {
+        //     name: SocketConstants.BLOCKS,
+        // });
+        this.socket.emit(SocketConstants.LISTEN_CHANNEL, { name: SocketConstants.BLOCKS }, (socket: any) => {
+            console.log('test');
         });
 
-        const transactionsChannel = this.pusher.subscribe(SocketConstants.TRANSACTIONS);
-        const blocksChannel = this.pusher.subscribe(SocketConstants.BLOCKS);
+        console.log(this.socket);
 
-        transactionsChannel.bind(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
-            const transaction = plainToClass(TransactionsModel, data);
+        // transactionsChannel.on(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
+        //     const transaction = plainToClass(TransactionsModel, data);
+        //
+        //     addTransaction(transaction);
+        // });
 
-            addTransaction(transaction);
-        });
+        this.socket.on(SocketConstants.NEW_BLOCK_EVENT, (data: Record<string, unknown>) => {
+            //const block = plainToClass(BlocksModel, data);
 
-        blocksChannel.bind(SocketConstants.NEW_BLOCK_EVENT, (data: Record<string, unknown>) => {
-            const block = plainToClass(BlocksModel, data);
+            console.log('tatoune');
+            //console.log(block.height);
 
-            addBlock(block);
+            //addBlock(block);
         });
     };
 
