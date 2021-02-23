@@ -29,10 +29,6 @@ class Core extends PureComponent<Props> {
 
     componentDidMount(): void {
         this.fetch();
-        this.interval = setInterval(() => {
-            this.fetch();
-        }, TimesUtils.INTERVAL_IN_MS);
-
         this.sockets();
     }
 
@@ -57,32 +53,31 @@ class Core extends PureComponent<Props> {
         const { addTransaction, addBlock } = this.props;
 
         this.socket = io(ApiConstants.BASE_URL);
-
-        // const transactionsChannel = this.socket.io.emit(SocketConstants.LISTEN_CHANNEL, {
-        //     name: SocketConstants.TRANSACTIONS,
-        // });
-        // const blocksChannel = this.socket.io.emit(SocketConstants.LISTEN_CHANNEL, {
-        //     name: SocketConstants.BLOCKS,
-        // });
-        this.socket.emit(SocketConstants.LISTEN_CHANNEL, { name: SocketConstants.BLOCKS }, (socket: any) => {
-            console.log('test');
+        this.socket.on('connect', () => {
+            if (!this.socket) {
+                console.warn('cannot listen channel, null socket pointer');
+                return;
+            }
+            this.socket.emit(
+                SocketConstants.LISTEN_CHANNEL,
+                JSON.stringify({
+                    name: SocketConstants.BLOCKS,
+                }),
+            );
+            this.socket.io.emit(
+                SocketConstants.LISTEN_CHANNEL,
+                JSON.stringify({
+                    name: SocketConstants.TRANSACTIONS,
+                }),
+            );
         });
-
-        console.log(this.socket);
-
-        // transactionsChannel.on(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
-        //     const transaction = plainToClass(TransactionsModel, data);
-        //
-        //     addTransaction(transaction);
-        // });
-
         this.socket.on(SocketConstants.NEW_BLOCK_EVENT, (data: Record<string, unknown>) => {
-            //const block = plainToClass(BlocksModel, data);
-
-            console.log('tatoune');
-            //console.log(block.height);
-
-            //addBlock(block);
+            const transaction = plainToClass(TransactionsModel, data);
+            addTransaction(transaction);
+        });
+        this.socket.on(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
+            const block = plainToClass(BlocksModel, data);
+            addBlock(block);
         });
     };
 
