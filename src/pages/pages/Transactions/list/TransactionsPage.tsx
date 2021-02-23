@@ -26,8 +26,12 @@ class TransactionsPage extends PureComponent<Props> {
         fetchTransactions().finally(() => null);
     }
 
-    render(): JSX.Element {
+    render(): JSX.Element | null {
         const { transactions } = this.props;
+
+        if (!transactions) {
+            return null;
+        }
 
         return (
             <>

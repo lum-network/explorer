@@ -51,9 +51,11 @@ const transactions = createModel<RootModel>()({
     },
     effects: (dispatch) => ({
         async fetchTransactions() {
-            const transactions = await ApiTransactions.fetchTransactions();
+            try {
+                const transactions = await ApiTransactions.fetchTransactions();
 
-            dispatch.transactions.setTransactions(transactions);
+                dispatch.transactions.setTransactions(transactions);
+            } catch (e) {}
         },
 
         async getTransaction(id: string, state) {
@@ -62,9 +64,11 @@ const transactions = createModel<RootModel>()({
                 dispatch.transactions.resetTransaction();
             }
 
-            const transaction = await ApiTransactions.getTransaction(id);
+            try {
+                const transaction = await ApiTransactions.getTransaction(id);
 
-            dispatch.transactions.setTransaction(transaction);
+                dispatch.transactions.setTransaction(transaction);
+            } catch (e) {}
         },
 
         addTransaction(transaction: TransactionsModel) {

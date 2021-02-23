@@ -82,7 +82,7 @@ class SearchPage extends PureComponent<Props> {
 
         if (!data || !type) {
             return (
-                <Card className="d-flex justify-content-center align-items-center flex-column">
+                <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
                     <img className="mb-2 placeholder-image" alt="placeholder" src={placeholderTx} />
                     {i18n.t('noResultFound')}
                 </Card>

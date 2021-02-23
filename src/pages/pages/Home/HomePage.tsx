@@ -15,8 +15,12 @@ type StateProps = ReturnType<typeof mapState>;
 type Props = IProps & StateProps;
 
 class HomePage extends PureComponent<Props> {
-    render(): JSX.Element {
+    render(): JSX.Element | null {
         const { blocks, transactions } = this.props;
+
+        if (!blocks || !transactions) {
+            return null;
+        }
 
         return (
             <>

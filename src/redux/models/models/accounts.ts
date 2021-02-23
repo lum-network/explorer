@@ -34,9 +34,11 @@ const accounts = createModel<RootModel>()({
                 dispatch.accounts.resetAccount();
             }
 
-            const account = await ApiAccounts.getAccount(id);
+            try {
+                const account = await ApiAccounts.getAccount(id);
 
-            dispatch.accounts.setAccount(account);
+                dispatch.accounts.setAccount(account);
+            } catch (e) {}
         },
     }),
 });

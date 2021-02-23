@@ -64,7 +64,7 @@ class AccountPage extends PureComponent<Props, IState> {
 
         if (!account || loading) {
             return (
-                <Card>
+                <Card className="mb-5">
                     <Loading />
                 </Card>
             );
@@ -74,7 +74,7 @@ class AccountPage extends PureComponent<Props, IState> {
 
         if (!transactions || !transactions.length) {
             return (
-                <Card className="d-flex justify-content-center align-items-center flex-column">
+                <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
                     <img className="mb-2" alt="placeholder" src={placeholderTx} />
                     {i18n.t('noTransaction')}
                 </Card>

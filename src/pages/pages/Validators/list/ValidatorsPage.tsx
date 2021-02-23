@@ -105,7 +105,7 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                 <h2 className="mt-3 mb-4">
                     <img alt="validator" src={validatorLogo} /> {i18n.t('validators')}
                 </h2>
-                <Card>
+                <Card className="mb-5">
                     {!validators || !validators.length || loading ? (
                         <Loading />
                     ) : (

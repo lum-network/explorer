@@ -1,21 +1,15 @@
 import React, { PureComponent } from 'react';
 import RootNavigator from 'navigation';
 import { connect } from 'react-redux';
-import { Dispatch, RootState } from 'redux/store';
-import { TimesUtils } from 'utils';
+import { Dispatch } from 'redux/store';
 import { BlocksModel, TransactionsModel } from 'models';
-import Pusher from 'pusher-js';
-import { SocketConstants } from 'constant';
+import { ApiConstants, SocketConstants } from 'constant';
 import { plainToClass } from 'class-transformer';
-import { Loading } from 'components';
+import io, { Socket } from 'socket.io-client';
 
 interface IProps {}
 
-const mapState = (state: RootState) => ({
-    loading: state.loading.global,
-    blocks: state.blocks.blocks,
-    transactions: state.transactions.transactions,
-});
+const mapState = () => ({});
 
 const mapDispatch = (dispatch: Dispatch) => ({
     fetchBlocks: () => dispatch.blocks.fetchBlocks(),
@@ -29,26 +23,16 @@ type DispatchProps = ReturnType<typeof mapDispatch>;
 type Props = IProps & StateProps & DispatchProps;
 
 class Core extends PureComponent<Props> {
-    interval: NodeJS.Timeout | null = null;
-    pusher: Pusher | null = null;
+    socket: typeof Socket | null = null;
 
     componentDidMount(): void {
         this.fetch();
-        this.interval = setInterval(() => {
-            this.fetch();
-        }, TimesUtils.INTERVAL_IN_MS);
-
         this.sockets();
     }
 
     componentWillUnmount(): void {
-        if (this.interval) {
-            clearInterval(this.interval);
-        }
-
-        if (this.pusher) {
-            this.pusher.unsubscribe(SocketConstants.TRANSACTIONS);
-            this.pusher.unsubscribe(SocketConstants.BLOCKS);
+        if (this.socket) {
+            this.socket.close();
         }
     }
 
@@ -62,38 +46,41 @@ class Core extends PureComponent<Props> {
     sockets = () => {
         const { addTransaction, addBlock } = this.props;
 
-        this.pusher = new Pusher(process.env.REACT_APP_PUSHER_APP_KEY || '', {
-            cluster: process.env.REACT_APP_PUSHER_APP_CLUSTER,
+        this.socket = io(ApiConstants.BASE_URL);
+        this.socket.on('connect', () => {
+            if (!this.socket) {
+                console.warn('cannot listen channel, null socket pointer');
+                return;
+            }
+
+            this.socket.emit(
+                SocketConstants.LISTEN_CHANNEL,
+                JSON.stringify({
+                    name: SocketConstants.BLOCKS,
+                }),
+            );
+
+            this.socket.io.emit(
+                SocketConstants.LISTEN_CHANNEL,
+                JSON.stringify({
+                    name: SocketConstants.TRANSACTIONS,
+                }),
+            );
         });
 
-        const transactionsChannel = this.pusher.subscribe(SocketConstants.TRANSACTIONS);
-        const blocksChannel = this.pusher.subscribe(SocketConstants.BLOCKS);
-
-        transactionsChannel.bind(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
+        this.socket.on(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
             const transaction = plainToClass(TransactionsModel, data);
-
             addTransaction(transaction);
         });
 
-        blocksChannel.bind(SocketConstants.NEW_BLOCK_EVENT, (data: Record<string, unknown>) => {
+        this.socket.on(SocketConstants.NEW_BLOCK_EVENT, (data: Record<string, unknown>) => {
             const block = plainToClass(BlocksModel, data);
-
             addBlock(block);
         });
     };
 
-    renderContent(): JSX.Element {
-        return <RootNavigator />;
-    }
-
     render(): JSX.Element {
-        const { loading, blocks, transactions } = this.props;
-
-        return (!blocks || !blocks.length || !transactions || !transactions.length) && loading ? (
-            <Loading />
-        ) : (
-            this.renderContent()
-        );
+        return <RootNavigator />;
     }
 }
 
