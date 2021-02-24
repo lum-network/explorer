@@ -78,8 +78,8 @@ class BlockPage extends PureComponent<Props, IState> {
 
         return (
             <Card badge={<Badge jailed={validator.jailed} validatorsType={validator.status} />} className="mb-5">
-                <div className="d-flex align-items-center flex-wrap">
-                    <div className="position-relative validator-logo me-3 me-sm-5">
+                <div className="d-flex align-items-center flex-wrap flex-sm-nowrap">
+                    <div className="position-relative validator-logo me-3 me-xxl-5 me-sm-4">
                         <div className="rank-dot-container">
                             <p className="rank-dot-text">{rank}</p>
                         </div>
@@ -87,7 +87,7 @@ class BlockPage extends PureComponent<Props, IState> {
                         <img className="validator-logo" alt="validators logo" src={placeholderValidator} />
                     </div>
                     <div className="d-flex flex-column flex-grow-1">
-                        <div className="row mb-4 mt-3 mt-md-0">
+                        <div className="row mb-3 mb-xl-4 mt-3 mt-md-0">
                             <div className="col-12">
                                 <h1>
                                     {validator.description.identity ||
