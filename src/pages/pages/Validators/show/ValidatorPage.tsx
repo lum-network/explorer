@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import { Badge, Card, Loading } from 'components';
@@ -8,12 +8,14 @@ import placeholderValidator from 'assets/images/placeholderValidator.svg';
 import { i18n, StringsUtils, ValidatorsUtils } from 'utils';
 import tickerLogo from 'assets/images/ticker.svg';
 import numeral from 'numeral';
+import { NavigationConstants } from '../../../../constant';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
 interface IState {
     rank: number | null;
     totalVotingPower: number | null;
+    address: string;
 }
 
 const mapState = (state: RootState) => ({
@@ -38,6 +40,7 @@ class BlockPage extends PureComponent<Props, IState> {
         this.state = {
             rank: null,
             totalVotingPower: null,
+            address: '',
         };
     }
 
@@ -49,16 +52,21 @@ class BlockPage extends PureComponent<Props, IState> {
         getValidator(id).then(() => {
             const { validators, validator } = this.props;
 
+            if (!validators || !validator) {
+                return;
+            }
+
             const rank = ValidatorsUtils.findRank(validators, validator);
             const totalVotingPower = ValidatorsUtils.calculateTotalVotingPower(validators);
+            const address = ValidatorsUtils.convertValAddressToAccAddress(validator.operatorAddress || '');
 
-            this.setState({ rank, totalVotingPower });
+            this.setState({ rank, totalVotingPower, address });
         });
     }
 
     renderInformation(): JSX.Element {
         const { validator, loading } = this.props;
-        const { rank, totalVotingPower } = this.state;
+        const { rank, totalVotingPower, address } = this.state;
 
         if (!validator || loading) {
             return (
@@ -81,7 +89,6 @@ class BlockPage extends PureComponent<Props, IState> {
                     <div className="d-flex flex-column flex-grow-1">
                         <div className="row mb-4 mt-3 mt-md-0">
                             <div className="col-12">
-                                {/*TODO: Add title */}
                                 <h1>
                                     {validator.description.identity ||
                                         validator.description.moniker ||
@@ -95,9 +102,10 @@ class BlockPage extends PureComponent<Props, IState> {
                                 <p className="text-break">{validator.operatorAddress}</p>
                             </div>
                             <div className="mt-3 mt-xl-0 col-xl-6 offset-xxl-1 col-xxl-5">
-                                {/*TODO: Add address */}
                                 <h4 className="mb-1">{i18n.t('address')}</h4>
-                                <p className="text-break">Soon</p>
+                                <p className="text-break">
+                                    <Link to={`${NavigationConstants.ACCOUNT}/${address}`}>{address}</Link>
+                                </p>
                             </div>
                         </div>
                     </div>
