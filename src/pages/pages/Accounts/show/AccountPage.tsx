@@ -58,8 +58,6 @@ class AccountPage extends PureComponent<Props, IState> {
         getAccount(id).then(() => {
             const { coins, allRewards, delegations } = this.props.account;
 
-            console.log(this.props.account);
-
             const available = parseFloat(coins.length ? coins[0].amount : '0');
             const reward = parseFloat(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0');
             const delegated = AccountUtils.sumOfDelegations(delegations);
