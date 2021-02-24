@@ -1,6 +1,6 @@
 import { ValidatorsModel } from 'models';
 import { LumUtils } from '@lum-network/sdk-javascript';
-import { AddressConstants } from '../../constant';
+import { AddressConstants } from 'constant';
 
 export const calculateTotalVotingPower = (validators: ValidatorsModel[]): number => {
     let total = 0;

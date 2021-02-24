@@ -1,14 +1,10 @@
 import { MessagesType } from 'constant';
 import { Expose, Type } from 'class-transformer';
+import AmountModel from './amount';
 
 abstract class Base {
     type?: MessagesType;
 }
-
-type amount = {
-    denom: string;
-    amount: string;
-};
 
 export class Commission {
     @Expose({ name: 'max_change_rate' })
@@ -40,7 +36,7 @@ export class Send extends Base {
     @Expose({ name: 'to_address' })
     toAddress?: string;
 
-    amount: amount[] = [];
+    amount: AmountModel[] = [];
 }
 
 export class CreateValidator extends Base {
@@ -55,7 +51,7 @@ export class CreateValidator extends Base {
     @Expose({ name: 'min_self_delegation' })
     minSelfDelegation?: string;
 
-    value?: amount;
+    value?: AmountModel;
 
     @Type(() => Commission)
     commission: Commission = new Commission();
