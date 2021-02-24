@@ -62,7 +62,7 @@ class AccountPage extends PureComponent<Props, IState> {
 
             const available = parseFloat(coins.length ? coins[0].amount : '0');
             const reward = parseFloat(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0');
-            const delegated = AccountUtils.sumOfDelegations(delegations) / 1000000;
+            const delegated = AccountUtils.sumOfDelegations(delegations);
 
             const total = available + reward + delegated;
 
