@@ -63,10 +63,11 @@ class AccountPage extends PureComponent<Props, IState> {
             const available = parseFloat(coins.length ? coins[0].amount : '0');
             const reward = parseFloat(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0');
             const delegated = AccountUtils.sumOfDelegations(delegations);
+            const unbonding = 0;
 
-            const total = available + reward + delegated;
+            const total = available + reward + delegated + unbonding;
 
-            this.setState({ available, total, reward, delegated });
+            this.setState({ available, total, reward, delegated, unbonding });
         });
     }
 
