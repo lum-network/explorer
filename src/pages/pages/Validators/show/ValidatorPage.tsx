@@ -160,13 +160,13 @@ class BlockPage extends PureComponent<Props, IState> {
                             <h4>{i18n.t('votingPower')}</h4>
                         </div>
                         <div className="col-lg-4 col-md-9 col-sm-8">
-                            <p>
+                            <p className="d-flex align-items-center">
                                 {totalVotingPower &&
                                     numeral(parseFloat(validator.delegatorShares || '0') / totalVotingPower).format(
                                         '0.00%',
                                     )}{' '}
                                 ({numeral(validator.delegatorShares).format('0,0.000000')}{' '}
-                                <img alt="ticker" src={tickerLogo} />)
+                                <img className="ms-1" alt="ticker" src={tickerLogo} />)
                             </p>
                         </div>
                     </div>

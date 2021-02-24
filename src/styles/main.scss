@@ -51,6 +51,10 @@ $color-dot-orange: #FD9033;
 $color-dot-blue: #5F99DC;
 $color-dot-cyan: #5FD2DC;
 
+.color-type {
+    color: $color-type;
+}
+
 @mixin no-margin {
     margin-bottom: 0 !important;
 }
