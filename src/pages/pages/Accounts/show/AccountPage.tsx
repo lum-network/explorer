@@ -11,12 +11,17 @@ import { PieChart } from 'react-minimal-pie-chart';
 import numeral from 'numeral';
 import ticker from 'assets/images/ticker.svg';
 import placeholderTx from 'assets/images/placeholderTx.svg';
-import { i18n } from 'utils';
+import { AccountUtils, i18n, NumbersUtils } from 'utils';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
 interface IState {
     copied: boolean;
+    available: number;
+    delegated: number;
+    unbonding: number;
+    reward: number;
+    total: number;
 }
 
 const mapState = (state: RootState) => ({
@@ -38,6 +43,11 @@ class AccountPage extends PureComponent<Props, IState> {
 
         this.state = {
             copied: false,
+            available: 0,
+            delegated: 0,
+            reward: 0,
+            unbonding: 0,
+            total: 0,
         };
     }
 
@@ -45,7 +55,19 @@ class AccountPage extends PureComponent<Props, IState> {
         const { getAccount } = this.props;
         const { id } = this.props.match.params;
 
-        getAccount(id).finally(() => null);
+        getAccount(id).then(() => {
+            const { coins, allRewards, delegations } = this.props.account;
+
+            console.log(this.props.account);
+
+            const available = parseFloat(coins.length ? coins[0].amount : '0');
+            const reward = parseFloat(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0');
+            const delegated = AccountUtils.sumOfDelegations(delegations) / 1000000;
+
+            const total = available + reward + delegated;
+
+            this.setState({ available, total, reward, delegated });
+        });
     }
 
     copyAddress = (): void => {
@@ -84,9 +106,50 @@ class AccountPage extends PureComponent<Props, IState> {
         return <TransactionsList title transactions={transactions} />;
     }
 
+    renderPie(): JSX.Element | null {
+        const { available, delegated, unbonding, reward, total } = this.state;
+
+        if (!available && !delegated && !unbonding && !reward) {
+            return null;
+        }
+
+        return (
+            <div className="col-12 col-lg-3 col-xxl-2 d-flex justify-content-center mb-4 mb-lg-0">
+                <PieChart
+                    data={[
+                        {
+                            title: 'Available',
+                            value: NumbersUtils.getPercentage(available, total),
+                            color: '#5FD68B',
+                        },
+                        {
+                            title: 'Delegated',
+                            value: NumbersUtils.getPercentage(delegated, total),
+                            color: '#FD9033',
+                        },
+                        {
+                            title: 'Unbonding',
+                            value: NumbersUtils.getPercentage(unbonding, total),
+                            color: '#5F99DC',
+                        },
+                        {
+                            title: 'Reward',
+                            value: NumbersUtils.getPercentage(reward, total),
+                            color: '#5FD2DC',
+                        },
+                    ]}
+                    animate
+                    rounded
+                    lineWidth={25}
+                    className="d-flex app-pie-container"
+                />
+            </div>
+        );
+    }
+
     renderInformation(): JSX.Element {
         const { account, loading } = this.props;
-        const { copied } = this.state;
+        const { copied, available, delegated, unbonding, reward, total } = this.state;
 
         return (
             <>
@@ -126,22 +189,7 @@ class AccountPage extends PureComponent<Props, IState> {
                         <Loading />
                     ) : (
                         <div className="row align-items-center">
-                            <div className="col-12 col-lg-3 col-xxl-2 d-flex justify-content-center mb-4 mb-lg-0">
-                                {/*TODO Get real data */}
-                                <PieChart
-                                    data={[
-                                        { title: 'Available', value: 10, color: '#5FD68B' },
-                                        { title: 'Delegated', value: 15, color: '#FD9033' },
-                                        { title: 'Unbonding', value: 20, color: '#5F99DC' },
-                                        { title: 'Reward', value: 34, color: '#5FD2DC' },
-                                    ]}
-                                    animate
-                                    rounded
-                                    lineWidth={20}
-                                    paddingAngle={18}
-                                    className="d-flex app-pie-container"
-                                />
-                            </div>
+                            {this.renderPie()}
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2">
                                 <div className="d-flex align-items-center mb-2">
                                     <div className="app-dot green me-2" />
@@ -161,25 +209,23 @@ class AccountPage extends PureComponent<Props, IState> {
                                 </div>
                             </div>
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2">
-                                {/*TODO: get value */}
-                                <div className="mb-2">{numeral(1234.34).format('0,0.000000')}</div>
-                                <div className="mb-2">{numeral(34.34546).format('0,0.000000')}</div>
-                                <div className="mb-2">{numeral(0).format('0,0.000000')}</div>
-                                <div>{numeral(9834.34454).format('0,0.000000')}</div>
+                                <div className="mb-2">{numeral(available).format('0,0.000000')}</div>
+                                <div className="mb-2">{numeral(delegated).format('0,0.000000')}</div>
+                                <div className="mb-2">{numeral(unbonding).format('0,0.000000')}</div>
+                                <div>{numeral(reward).format('0,0.000000')}</div>
                             </div>
                             <div className="col-2 col-md-4 col-lg-3 col-xxl-2">
-                                {/*TODO: get percentage */}
                                 <div className="mb-2">
-                                    <p>{numeral(10 / 100).format('0.00%')}</p>
+                                    <p>{numeral(available / total).format('0.00%')}</p>
                                 </div>
                                 <div className="mb-2">
-                                    <p>{numeral(15 / 100).format('0.00%')}</p>
+                                    <p>{numeral(delegated / total).format('0.00%')}</p>
                                 </div>
                                 <div className="mb-2">
-                                    <p>{numeral(20 / 100).format('0.00%')}</p>
+                                    <p>{numeral(unbonding / total).format('0.00%')}</p>
                                 </div>
                                 <div>
-                                    <p>{numeral(34 / 100).format('0.00%')}</p>
+                                    <p>{numeral(reward / total).format('0.00%')}</p>
                                 </div>
                             </div>
                             <div className="col-12 col-xxl-4 mt-4 mt-xxl-0">
@@ -190,17 +236,16 @@ class AccountPage extends PureComponent<Props, IState> {
                                                 <p className="text-muted">{i18n.t('total')}</p>&nbsp;
                                                 <img alt="ticker" src={ticker} />
                                             </div>
-                                            {/*TODO: get value */}
-                                            <div>{numeral(27.3456).format('0,0.000000')}</div>
+                                            <div>{numeral(total).format('0,0.000000')}</div>
                                         </div>
                                         <div className="d-flex flex-column align-items-xxl-end mt-xxl-4">
                                             <div className="d-flex align-items-center">
-                                                <p className="text-muted">{numeral(28.5).format('$0,0.00')}</p>
+                                                <p className="text-muted">{numeral(0.1).format('$0,0.00')}</p>
                                                 &nbsp;/&nbsp;
                                                 <img alt="ticker" src={ticker} />
                                             </div>
                                             {/*TODO: get value */}
-                                            <div>{numeral(576.57).format('$0,0.00')}</div>
+                                            <div>{numeral(total * 0.1).format('$0,0.00')}</div>
                                         </div>
                                     </div>
                                 </Card>

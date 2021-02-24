@@ -85,7 +85,8 @@ class TransactionPage extends PureComponent<Props, IState> {
                         <h5>{i18n.t('amount')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        {value.amount[0].amount} {value.amount[0].denom.toUpperCase()}
+                        {value.amount[0].amount}
+                        <span className="ms-1 color-type">{value.amount[0].denom.toUpperCase()}</span>
                     </div>
                 </div>
             );
@@ -124,7 +125,8 @@ class TransactionPage extends PureComponent<Props, IState> {
                         <h5>{i18n.t('value')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {value.value?.amount} {value.value?.denom.toLocaleUpperCase()}
+                        {value.value?.amount}
+                        <span className="ms-1 color-type">{value.value?.denom.toLocaleUpperCase()}</span>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('details')}</h5>
