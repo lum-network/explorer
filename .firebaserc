@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "lum-network"
+  },
+  "targets": {
+    "lum-network": {
+      "hosting": {
+        "chain-explorer": [
+          "lum-network-chain-explorer"
+        ]
+      }
+    }
   }
 }

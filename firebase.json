@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target":"chain-explorer",
     "public": "build",
     "ignore": [
       "firebase.json",
