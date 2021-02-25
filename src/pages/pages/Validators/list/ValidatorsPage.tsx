@@ -3,13 +3,13 @@ import { Dispatch, RootState } from 'redux/store';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import placeholderValidator from 'assets/images/placeholderValidator.svg';
 import { i18n, StringsUtils, ValidatorsUtils } from 'utils';
-import { Badge, Card, Loading, Table } from 'components';
-import { connect } from 'react-redux';
+import { Badge, Card, Kpi, Loading, Table } from 'components';
 import { ValidatorsModel } from 'models';
 import numeral from 'numeral';
-import { NavigationConstants } from 'constant';
+import { KpiType, NavigationConstants } from 'constant';
 import { Link } from 'react-router-dom';
 import '../Validators.scss';
+import { connect } from 'react-redux';
 
 interface IProps {}
 
@@ -90,6 +90,10 @@ class ValidatorsPage extends PureComponent<Props, IState> {
         );
     }
 
+    renderKpi(): JSX.Element {
+        return <Kpi types={[KpiType.BLOCK_HEIGHT, KpiType.VALIDATORS, KpiType.BONDED_TOKEN, KpiType.BLOCK_TIME]} />;
+    }
+
     render(): JSX.Element {
         const { validators, loading } = this.props;
         const head = [
@@ -105,6 +109,7 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                 <h2 className="mt-3 mb-4">
                     <img alt="validator" src={validatorLogo} /> {i18n.t('validators')}
                 </h2>
+                {this.renderKpi()}
                 <Card className="mb-5">
                     {!validators || !validators.length || loading ? (
                         <Loading />

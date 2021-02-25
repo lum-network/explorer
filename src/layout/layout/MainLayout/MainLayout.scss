@@ -194,6 +194,11 @@ footer {
         height: 60px;
     }
 
+    .main-layout .active-link .bar-2,
+    .main-layout .active-link .bar-3 {
+        display: none;
+    }
+
     .main-layout ul li .nav-title{
         display: none;
     }

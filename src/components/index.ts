@@ -9,3 +9,5 @@ export { default as MessageType } from './components/MessageType/MessageType';
 export { default as Loading } from './components/Loading/Loading';
 export { default as Button } from './components/Button/Button';
 export { default as CodeQr } from './components/CodeQr/CodeQr';
+export { default as KpiCard } from './components/kpi/KpiCard/KpiCard';
+export { default as Kpi } from './components/kpi/Kpi/Kpi';

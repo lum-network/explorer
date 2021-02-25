@@ -32,6 +32,7 @@ export default {
     comRate: 'Com rate',
     comMaxRate: 'Com max rate',
     comMaxChangeRate: 'Com max change rate',
+    sec: 's',
 
     // Layout
     dashboard: 'Board',
@@ -86,6 +87,7 @@ export default {
     selfBonded: 'Self bonded',
     uptime: 'Uptime',
     validatorDetails: 'Validator details',
+    bondedTokens: 'Bonded tokens',
 
     // Search
     searchPlaceholder: 'Search by address / height / tx hash / etc',

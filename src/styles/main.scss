@@ -113,8 +113,8 @@ h5 {
 }
 
 h6 {
-    font-weight: $regular;
-    color: $color-grey;
+    font-weight: $medium;
+    font-size: $font-md;
     @include no-margin()
 }
 

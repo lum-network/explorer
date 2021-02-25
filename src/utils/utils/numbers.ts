@@ -5,3 +5,7 @@ export const getPercentage = (nb: number, total: number): number => {
 
     return (nb / total) * 100;
 };
+
+export const getRandomInt = (max: number): number => {
+    return Math.floor(Math.random() * Math.floor(max));
+};
