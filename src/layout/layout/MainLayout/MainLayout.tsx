@@ -29,22 +29,51 @@ class MainLayout extends PureComponent {
                 )}
                 <li>
                     <NavLink to={NavigationConstants.HOME} className="link" activeClassName="active-link">
-                        <img className="icon-nav" alt="dashboard" src={dashboardLogo} /> {i18n.t('dashboard')}
+                        <div className="nav-title">
+                            <img className="icon-nav" alt="dashboard" src={dashboardLogo} /> {i18n.t('dashboard')}
+                        </div>
+                        <div className="bar">
+                            <div className="bar-2">
+                                <div className="bar-3" />
+                            </div>
+                        </div>
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to={NavigationConstants.BLOCKS} className="link" activeClassName="active-link">
-                        <img className="icon-nav" alt="block" src={blockLogo} /> {i18n.t('blocks')}
+                        <div className="nav-title">
+                            <img className="icon-nav" alt="block" src={blockLogo} /> {i18n.t('blocks')}
+                        </div>
+                        <div className="bar">
+                            <div className="bar-2">
+                                <div className="bar-3" />
+                            </div>
+                        </div>
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to={NavigationConstants.TRANSACTIONS} className="link" activeClassName="active-link">
-                        <img className="icon-nav" alt="transaction" src={transactionLogo} /> {i18n.t('transactions')}
+                        <div className="nav-title">
+                            <img className="icon-nav" alt="transaction" src={transactionLogo} />{' '}
+                            {i18n.t('transactions')}
+                        </div>
+                        <div className="bar">
+                            <div className="bar-2">
+                                <div className="bar-3" />
+                            </div>
+                        </div>
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to={NavigationConstants.VALIDATORS} className="link" activeClassName="active-link">
-                        <img className="icon-nav" alt="validator" src={validatorLogo} /> {i18n.t('validators')}
+                        <div className="nav-title">
+                            <img className="icon-nav" alt="validator" src={validatorLogo} /> {i18n.t('validators')}
+                        </div>
+                        <div className="bar">
+                            <div className="bar-2">
+                                <div className="bar-3" />
+                            </div>
+                        </div>
                     </NavLink>
                 </li>
                 {!footer && (
@@ -53,7 +82,7 @@ class MainLayout extends PureComponent {
                             href={NavigationConstants.WALLET}
                             rel="noreferrer"
                             target="_blank"
-                            className="link link-icon"
+                            className="nav-title link-icon"
                         >
                             <img className="icon-nav" alt="validator" src={walletLogo} /> {i18n.t('wallet')}
                         </a>
