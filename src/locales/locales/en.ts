@@ -33,6 +33,9 @@ export default {
     comMaxRate: 'Com max rate',
     comMaxChangeRate: 'Com max change rate',
     sec: 's',
+    marketCap: 'Market cap',
+    dayVolume: '24h vol',
+    day: '24h',
 
     // Layout
     dashboard: 'Board',

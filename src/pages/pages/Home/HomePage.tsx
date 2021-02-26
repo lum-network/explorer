@@ -3,6 +3,7 @@ import { BlocksList, TransactionsList } from 'components';
 import { RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import Lum from './components/Lum/Lum';
+import Wallet from './components/Wallet/Wallet';
 
 interface IProps {}
 
@@ -25,11 +26,13 @@ class HomePage extends PureComponent<Props> {
 
         return (
             <div className="row mt-5">
-                <div className="col-12 col-xxl-6">
+                <div className="col-12 col-xxl-6 mb-5">
                     <Lum />
                 </div>
-                <div className="col-12 col-xxl-6"></div>
-                <div className="col-12 col-xxl-6">
+                <div className="col-12 col-xxl-6 mb-5">
+                    <Wallet />
+                </div>
+                <div className="col-12 col-xxl-6 mb-5">
                     <BlocksList more title blocks={blocks.slice(0, 5)} />
                 </div>
                 <div className="col-12 col-xxl-6">
