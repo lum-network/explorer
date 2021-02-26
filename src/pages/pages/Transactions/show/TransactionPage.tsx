@@ -206,6 +206,8 @@ class TransactionPage extends PureComponent<Props, IState> {
             return null;
         }
 
+        const length = messages.length;
+
         return (
             <Card className="mb-5">
                 <h3 className="mb-4">{i18n.t('messages')}</h3>
@@ -213,7 +215,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                     return (
                         <div key={index}>
                             <MessageType type={message.type} />
-                            <Card flat className="mt-2 mb-5">
+                            <Card flat className={`mt-3 ${length !== index + 1 ? 'mb-5' : ''}`}>
                                 {this.renderMessage(message.value)}
                             </Card>
                         </div>

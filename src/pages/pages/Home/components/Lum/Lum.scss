@@ -1,0 +1,25 @@
+@import "src/styles/main";
+
+.big-text {
+    font-size: 36px;
+    //font-weight: $medium;
+    line-height: 32px;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+
+  border-bottom: 6px solid $color-green;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+
+  border-top: 6px solid $color-red;
+}
