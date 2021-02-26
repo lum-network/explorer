@@ -21,7 +21,7 @@ class TransactionsList extends PureComponent<IProps> {
             <tr key={index}>
                 <td data-label={head[0]} title={transaction.hash}>
                     <Link to={`${NavigationConstants.TRANSACTIONS}/${transaction.hash}`}>
-                        {StringsUtils.trunc(transaction.hash || '')}
+                        {StringsUtils.trunc(transaction.hash || '', rej ? 4 : 6)}
                     </Link>
                 </td>
                 <td data-label={head[1]}>
@@ -41,7 +41,7 @@ class TransactionsList extends PureComponent<IProps> {
                     <Link to={`${NavigationConstants.BLOCKS}/${transaction.height}`}>{transaction.height}</Link>
                 </td>
                 <td data-label={head[5]} className="text-end">
-                    {moment.utc(transaction.dispatchedAt).fromNow()}
+                    <small>{moment.utc(transaction.dispatchedAt).fromNow()}</small>
                 </td>
             </tr>
         );
@@ -60,10 +60,17 @@ class TransactionsList extends PureComponent<IProps> {
         const simplified = [i18n.t('hash'), i18n.t('type'), i18n.t('block'), i18n.t('time')];
 
         return (
-            <Card className="mb-5">
+            <Card withoutPadding className="mb-5">
                 <div className="d-flex justify-content-between">
-                    {title && <h3 className="mb-4">{i18n.t('transactions')}</h3>}
-                    {more && <Button onPress={() => history.push(NavigationConstants.TRANSACTIONS)}>View all</Button>}
+                    {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('transactions')}</h3>}
+                    {more && (
+                        <Button
+                            className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3"
+                            onPress={() => history.push(NavigationConstants.TRANSACTIONS)}
+                        >
+                            View all
+                        </Button>
+                    )}
                 </div>
                 <Table head={rej ? simplified : full}>
                     {transactions.map((transaction, index) => this.renderRow(transaction, index, full))}

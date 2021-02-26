@@ -250,3 +250,9 @@ footer {
         font-size: $font-xs;
     }
 }
+
+@include media-breakpoint-up(xxl) {
+    .container {
+        max-width: 90% !important;
+    }
+}

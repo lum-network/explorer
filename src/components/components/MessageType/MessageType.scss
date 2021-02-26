@@ -4,12 +4,13 @@
     display: inline-block;
     border: solid 2px $color-type;
     border-radius: 20px;
-    padding: 1px 18px;
+    padding: 1px 14px;
     white-space: nowrap;
 }
 
 .app-message-type-badge > p.text-badge {
     color: $color-type;
+    font-size: $font-sm;
 }
 
 .app-message-type-badge > p > img {

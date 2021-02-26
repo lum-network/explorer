@@ -110,7 +110,7 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                     <img alt="validator" src={validatorLogo} /> {i18n.t('validators')}
                 </h2>
                 {this.renderKpi()}
-                <Card className="mb-5">
+                <Card withoutPadding className="mb-5">
                     {!validators || !validators.length || loading ? (
                         <Loading />
                     ) : (
