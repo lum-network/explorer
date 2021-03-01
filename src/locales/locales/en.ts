@@ -97,6 +97,11 @@ export default {
     noResultFound: 'No result found',
     search: 'Search',
 
+    // Wallet
+    lumWallet: 'Lum Wallet',
+    walletDescription: 'Access Lum with web wallet<br />or Lumki application',
+    accessLumWallet: 'Access Lum wallet',
+
     // Errors
     errorOccurred: 'An error occurred',
 };
