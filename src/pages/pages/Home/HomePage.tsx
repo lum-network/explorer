@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
-import { BlocksList, TransactionsList } from 'components';
+import { BlocksList, Kpi, TransactionsList } from 'components';
 import { RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import Lum from './components/Lum/Lum';
 import Wallet from './components/Wallet/Wallet';
+import { KpiType } from '../../../constant';
 
 interface IProps {}
 
@@ -26,16 +27,17 @@ class HomePage extends PureComponent<Props> {
 
         return (
             <div className="row mt-5">
-                <div className="col-12 col-xxl-6 mb-5">
+                <div className="col-12 col-xxl-6 mb-4">
                     <Lum />
                 </div>
-                <div className="col-12 col-xxl-6 mb-5">
+                <div className="col-12 col-xxl-6 mb-4">
                     <Wallet />
                 </div>
-                <div className="col-12 col-xxl-6 mb-5">
+                <Kpi className="mb-5" types={[KpiType.BLOCK_HEIGHT]} />
+                <div className="col-12 col-xxl-6 mb-4">
                     <BlocksList more title blocks={blocks.slice(0, 5)} />
                 </div>
-                <div className="col-12 col-xxl-6">
+                <div className="col-12 col-xxl-6 mb-5">
                     <TransactionsList more title rej transactions={transactions.slice(0, 5)} />
                 </div>
             </div>

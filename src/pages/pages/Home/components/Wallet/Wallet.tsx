@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { Button, Card } from 'components';
+import { Card } from 'components';
 import './Wallet.scss';
 import { i18n } from 'utils';
+import { NavigationConstants } from 'constant';
 
 class Wallet extends PureComponent {
     render(): JSX.Element {
@@ -10,9 +11,14 @@ class Wallet extends PureComponent {
                 <div className="p-3 py-4 p-sm-4 p-xl-5 wallet-background h-100">
                     <h3 className="wallet-title mb-2">{i18n.t('lumWallet')}</h3>
                     <p className="mb-3" dangerouslySetInnerHTML={{ __html: i18n.t('walletDescription') }} />
-                    <Button className="wallet-button" onPress={() => null}>
+                    <a
+                        className="wallet-button app-btn app-btn-plain"
+                        href={NavigationConstants.WALLET}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         {i18n.t('accessLumWallet')}
-                    </Button>
+                    </a>
                 </div>
             </Card>
         );
