@@ -9,7 +9,6 @@ import checkLogo from 'assets/images/check.svg';
 import copyLogo from 'assets/images/copy.svg';
 import { PieChart } from 'react-minimal-pie-chart';
 import numeral from 'numeral';
-import ticker from 'assets/images/ticker.svg';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { AccountUtils, i18n, NumbersUtils } from 'utils';
 
@@ -232,8 +231,8 @@ class AccountPage extends PureComponent<Props, IState> {
                                     <div className="d-flex flex-xxl-column justify-content-around">
                                         <div className="d-flex flex-column align-items-xxl-end">
                                             <div className="d-flex align-items-center">
-                                                <p className="text-muted">{i18n.t('total')}</p>&nbsp;
-                                                <img alt="ticker" src={ticker} />
+                                                <p className="text-muted">{i18n.t('total')}</p>
+                                                <span className="ms-1 color-type">LUM</span>
                                             </div>
                                             <div>{numeral(total).format('0,0.000000')}</div>
                                         </div>
@@ -241,7 +240,7 @@ class AccountPage extends PureComponent<Props, IState> {
                                             <div className="d-flex align-items-center">
                                                 <p className="text-muted">{numeral(0.1).format('$0,0.00')}</p>
                                                 &nbsp;/&nbsp;
-                                                <img alt="ticker" src={ticker} />
+                                                <span className="color-type">LUM</span>
                                             </div>
                                             {/*TODO: get value */}
                                             <div>{numeral(total * 0.1).format('$0,0.00')}</div>

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import logoWithText from 'assets/images/logoWithText.svg';
+import lumLogo from 'assets/images/lum.svg';
 import { Card } from 'components';
 import numeral from 'numeral';
 import './Lum.scss';
@@ -9,7 +9,7 @@ class Lum extends PureComponent {
     render(): JSX.Element {
         return (
             <Card className="h-100">
-                <img alt="Lum" className="placeholder-image mb-4" src={logoWithText} />
+                <img alt="Lum" className="placeholder-image mb-4" src={lumLogo} />
                 <div className="row">
                     <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
                         <h4 className="mb-3">{i18n.t('marketCap')}</h4>

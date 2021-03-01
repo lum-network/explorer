@@ -6,9 +6,8 @@ import { Badge, Card, Loading } from 'components';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import placeholderValidator from 'assets/images/placeholderValidator.svg';
 import { i18n, StringsUtils, ValidatorsUtils } from 'utils';
-import tickerLogo from 'assets/images/ticker.svg';
 import numeral from 'numeral';
-import { NavigationConstants } from '../../../../constant';
+import { NavigationConstants } from 'constant';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -165,8 +164,8 @@ class BlockPage extends PureComponent<Props, IState> {
                                     numeral(parseFloat(validator.delegatorShares || '0') / totalVotingPower).format(
                                         '0.00%',
                                     )}{' '}
-                                ({numeral(validator.delegatorShares).format('0,0.000000')}{' '}
-                                <img className="ms-1" alt="ticker" src={tickerLogo} />)
+                                ({numeral(validator.delegatorShares).format('0,0.000000')}
+                                <span className="ms-1 color-type">LUM</span>)
                             </p>
                         </div>
                     </div>
