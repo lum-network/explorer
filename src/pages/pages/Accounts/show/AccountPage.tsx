@@ -168,7 +168,7 @@ class AccountPage extends PureComponent<Props, IState> {
                                                 alt="copy"
                                                 src={copied ? checkLogo : copyLogo}
                                                 onClick={this.copyAddress}
-                                                className="pointer img-cpy"
+                                                className="pointer img-cpy placeholder-image"
                                             />
                                         </div>
                                         <p className="text-break">{account.address}</p>

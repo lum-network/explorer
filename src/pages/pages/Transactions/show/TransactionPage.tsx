@@ -252,7 +252,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                                 alt="copy"
                                 src={copied ? checkLogo : copyLogo}
                                 onClick={this.copyHash}
-                                className="pointer img-cpy"
+                                className="pointer img-cpy placeholder-image"
                             />
                         </div>
                     </div>
