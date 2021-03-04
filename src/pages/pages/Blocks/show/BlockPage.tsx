@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
-import { Card, Loading, TransactionsList } from 'components';
+import { TransactionsList } from 'components';
+import { Card, Loading } from 'design-components';
 
 import moment from 'moment-timezone';
 import { SystemConstants, NavigationConstants } from 'constant';

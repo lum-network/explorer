@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Card, Loading } from 'components';
+import { Loading, Card } from 'design-components';
 import searchLogo from 'assets/images/searchDark.svg';
 import { Dispatch, RootState } from 'redux/store';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { connect } from 'react-redux';
 import { NavigationConstants } from 'constant';
-import { i18n } from '../../../utils';
+import { i18n } from 'utils';
 
 interface IProps extends RouteComponentProps<{ text: string }> {}
 

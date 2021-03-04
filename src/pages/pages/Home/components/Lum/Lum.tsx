@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import lumLogo from 'assets/images/lum.svg';
-import { Card } from 'components';
+import { Card } from 'design-components';
 import numeral from 'numeral';
 import './Lum.scss';
 import { i18n } from 'utils';
