@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Card } from 'design-components';
+import { Card } from 'frontend-elements';
 import './Wallet.scss';
 import { i18n } from 'utils';
 import { NavigationConstants } from 'constant';

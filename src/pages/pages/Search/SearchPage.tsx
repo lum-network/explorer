@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Loading, Card } from 'design-components';
+import { Loading, Card } from 'frontend-elements';
 import searchLogo from 'assets/images/searchDark.svg';
 import { Dispatch, RootState } from 'redux/store';
 import placeholderTx from 'assets/images/placeholderTx.svg';

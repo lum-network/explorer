@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TextInput } from 'design-components';
+import { TextInput } from 'frontend-elements';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import searchLogo from 'assets/images/searchDark.svg';
 import './Search.scss';

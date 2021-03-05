@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import './KpiCard.scss';
-import { Card } from 'design-components';
+import { Card } from 'frontend-elements';
 
 interface IProps {
     className?: string;

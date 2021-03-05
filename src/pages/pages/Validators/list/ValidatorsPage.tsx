@@ -3,7 +3,7 @@ import { Dispatch, RootState } from 'redux/store';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import placeholderValidator from 'assets/images/placeholderValidator.svg';
 import { i18n, StringsUtils, ValidatorsUtils } from 'utils';
-import { Badge, Card, Loading, Table } from 'design-components';
+import { Badge, Card, Loading, Table } from 'frontend-elements';
 import { Kpi } from 'components';
 import { ValidatorsModel } from 'models';
 import numeral from 'numeral';

@@ -4,7 +4,7 @@ import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
 import { TransactionsList } from 'components';
-import { Card, CodeQr, Loading } from 'design-components';
+import { Card, CodeQr, Loading } from 'frontend-elements';
 import '../Accounts.scss';
 import checkLogo from 'assets/images/check.svg';
 import copyLogo from 'assets/images/copy.svg';

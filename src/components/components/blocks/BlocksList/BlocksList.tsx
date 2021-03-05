@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Button, Card, Table } from 'design-components';
+import { Button, Card, Table } from 'frontend-elements';
 import { BlocksModel } from 'models';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { NavigationConstants } from 'constant';

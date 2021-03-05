@@ -3,7 +3,7 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import { TransactionsList } from 'components';
-import { Card, Loading } from 'design-components';
+import { Card, Loading } from 'frontend-elements';
 
 import moment from 'moment-timezone';
 import { SystemConstants, NavigationConstants } from 'constant';
