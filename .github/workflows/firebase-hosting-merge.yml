@@ -10,12 +10,10 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repository and submodules
         uses: actions/checkout@v2
-#      - name: Checkout submodules
-#        uses: srt32/git-actions@v0.0.3
-#        with:
-#          args: git submodule update --init --recursive
+        with:
+          submodules: recursive
       - name: Install packages
         run: yarn && cd src/frontend-elements && yarn
       - name: Build
