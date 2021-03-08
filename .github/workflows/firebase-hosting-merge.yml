@@ -17,11 +17,11 @@ jobs:
         with:
           args: git submodule update --init --recursive
       - name: Install packages
-      - run: yarn && cd src/frontend-elements && yarn
+        run: yarn && cd src/frontend-elements && yarn
       - name: Build
-      - run: yarn build
+        run: yarn build
       - name: Deploy
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LUM_NETWORK }}'
