@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { TransactionsModel } from 'models';
 import { MessageType } from 'components';
-import { Table, Button, Badge, Card } from 'frontend-elements';
+import { Table, Button, Card } from 'frontend-elements';
+import { Badge } from 'components';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import { i18n, StringsUtils } from 'utils';
