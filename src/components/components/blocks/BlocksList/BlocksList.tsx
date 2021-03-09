@@ -21,16 +21,16 @@ class BlocksList extends PureComponent<IProps> {
                 <td data-label={head[0]}>
                     <Link to={`${NavigationConstants.BLOCKS}/${block.height}`}>{block.height}</Link>
                 </td>
-                <td data-label={head[1]} title={block.proposerAddress}>
-                    <Link to={`${NavigationConstants.VALIDATORS}/${block.proposerAddress}`}>
-                        {StringsUtils.trunc(block.proposerAddress || '', more ? 4 : 8)}
+                <td data-label={head[1]} title={block.operatorAddress}>
+                    <Link to={`${NavigationConstants.VALIDATORS}/${block.operatorAddress}`}>
+                        {StringsUtils.trunc(block.operatorAddress || '', more ? 4 : 8)}
                     </Link>
                 </td>
                 <td data-label={head[2]} className="text-end">
-                    {block.numTxs}
+                    {block.txCount}
                 </td>
                 <td data-label={head[3]} className="text-end">
-                    <small>{moment.utc(block.dispatchedAt).fromNow()}</small>
+                    <small>{moment.utc(block.time).fromNow()}</small>
                 </td>
             </tr>
         );

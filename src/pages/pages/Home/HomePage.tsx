@@ -4,7 +4,7 @@ import { RootState } from 'redux/store';
 import { connect } from 'react-redux';
 import Lum from './components/Lum/Lum';
 import Wallet from './components/Wallet/Wallet';
-import { KpiType } from '../../../constant';
+import { KpiType } from 'constant';
 
 interface IProps {}
 
@@ -33,7 +33,7 @@ class HomePage extends PureComponent<Props> {
                 <div className="col-12 col-xxl-6 mb-4">
                     <Wallet />
                 </div>
-                <Kpi className="mb-5" types={[KpiType.BLOCK_HEIGHT]} />
+                <Kpi className="mb-5" types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME]} />
                 <div className="col-12 col-xxl-6 mb-4">
                     <BlocksList more title blocks={blocks.slice(0, 5)} />
                 </div>

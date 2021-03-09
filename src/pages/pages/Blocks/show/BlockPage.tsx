@@ -117,7 +117,7 @@ class BlockPage extends PureComponent<Props, IState> {
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
-                        <p>{block.numTxs}</p>
+                        <p>{block.txCount}</p>
                     </div>
                     <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
@@ -125,8 +125,8 @@ class BlockPage extends PureComponent<Props, IState> {
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                        <p>{`${moment.utc(block.dispatchedAt).fromNow()} (${moment
-                            .utc(block.dispatchedAt)
+                        <p>{`${moment.utc(block.time).fromNow()} (${moment
+                            .utc(block.time)
                             .tz(SystemConstants.TIMEZONE)
                             .format('lll')})`}</p>
                     </div>
@@ -136,9 +136,9 @@ class BlockPage extends PureComponent<Props, IState> {
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
-                        <p title={block.proposerAddress}>
-                            <Link to={`${NavigationConstants.VALIDATORS}/${block.proposerAddress}`}>
-                                {StringsUtils.trunc(block.proposerAddress || '', 5)}
+                        <p title={block.operatorAddress}>
+                            <Link to={`${NavigationConstants.VALIDATORS}/${block.operatorAddress}`}>
+                                {StringsUtils.trunc(block.operatorAddress || '', 5)}
                             </Link>
                         </p>
                     </div>

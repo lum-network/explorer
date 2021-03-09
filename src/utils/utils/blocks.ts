@@ -9,7 +9,7 @@ export const processBlockTime = (blocks: BlocksModel[]): number => {
     let x = 0;
 
     for (let i = 1; i <= 30; i++) {
-        x += TimesUtils.differenceBetweenDates(blocks[i - 1].dispatchedAt || '', blocks[i].dispatchedAt || '');
+        x += TimesUtils.differenceBetweenDates((blocks[i - 1] && blocks[i - 1].time) || '', blocks[i].time || '');
     }
 
     return x / 30;

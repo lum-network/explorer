@@ -56,6 +56,10 @@ class AccountPage extends PureComponent<Props, IState> {
         const { id } = this.props.match.params;
 
         getAccount(id).then(() => {
+            if (!this.props.account) {
+                return;
+            }
+
             const { coins, allRewards, delegations } = this.props.account;
 
             const available = parseFloat(coins.length ? coins[0].amount : '0');
