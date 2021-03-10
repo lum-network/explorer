@@ -1,7 +1,7 @@
 enum ValidatorsType {
-    UNBOUNDED = 0,
-    UNBOUNDING = 1,
-    ACTIVE = 2,
+    UNBONDED = 1,
+    UNBONDING = 2,
+    ACTIVE = 3,
 }
 
 export default ValidatorsType;

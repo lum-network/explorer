@@ -10,7 +10,7 @@ export const calculateTotalVotingPower = (validators: ValidatorsModel[]): number
     }
 
     validators.forEach((value) => {
-        total += parseFloat(value.delegatorShares || '0');
+        total += parseFloat(value.tokens || '0');
     });
 
     return total;

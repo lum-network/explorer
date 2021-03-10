@@ -8,7 +8,7 @@ import validatorLogo from 'assets/images/validatorDark.svg';
 import placeholderValidator from 'assets/images/placeholderValidator.svg';
 import { i18n, StringsUtils, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
-import { NavigationConstants } from 'constant';
+import { NavigationConstants, NumberConstants } from 'constant';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -136,7 +136,11 @@ class BlockPage extends PureComponent<Props, IState> {
                             <h4>{i18n.t('commission')}</h4>
                         </div>
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                            <p>{numeral(validator.commission.rate).format('0.00%')}</p>
+                            <p>
+                                {numeral(
+                                    parseFloat(validator.commission.rate || '0') / NumberConstants.CLIENT_PRECISION,
+                                ).format('0.00%')}
+                            </p>
                         </div>
                         <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                             <h4>{i18n.t('selfBonded')}</h4>
@@ -162,10 +166,10 @@ class BlockPage extends PureComponent<Props, IState> {
                         <div className="col-lg-4 col-md-9 col-sm-8">
                             <p className="d-flex align-items-center">
                                 {totalVotingPower &&
-                                    numeral(parseFloat(validator.delegatorShares || '0') / totalVotingPower).format(
+                                    numeral(parseFloat(validator.tokens || '0') / totalVotingPower).format(
                                         '0.00%',
                                     )}{' '}
-                                ({numeral(validator.delegatorShares).format('0,0.000000')}
+                                ({numeral(validator.tokens).format('0,0.000000')}
                                 <span className="ms-1 color-type">LUM</span>)
                             </p>
                         </div>

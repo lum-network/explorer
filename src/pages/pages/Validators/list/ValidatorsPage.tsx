@@ -7,7 +7,7 @@ import { Card, Loading, Table } from 'frontend-elements';
 import { Kpi, Badge } from 'components';
 import { ValidatorsModel } from 'models';
 import numeral from 'numeral';
-import { KpiType, NavigationConstants } from 'constant';
+import { KpiType, NavigationConstants, NumberConstants } from 'constant';
 import { Link } from 'react-router-dom';
 import '../Validators.scss';
 import { connect } from 'react-redux';
@@ -75,17 +75,19 @@ class ValidatorsPage extends PureComponent<Props, IState> {
                 </td>
                 <td data-label={head[3]}>
                     <div className="d-flex flex-column align-items-end">
-                        <p>{numeral(validator.delegatorShares).format('0,0')}</p>
+                        <p>{numeral(validator.tokens).format('0,0')}</p>
                         <p className="text-muted">
                             {totalVotingPower &&
-                                numeral(parseFloat(validator.delegatorShares || '0') / totalVotingPower).format(
-                                    '0.00%',
-                                )}
+                                numeral(parseFloat(validator.tokens || '0') / totalVotingPower).format('0.00%')}
                         </p>
                     </div>
                 </td>
                 <td data-label={head[4]} className="text-end">
-                    <p>{numeral(parseFloat(validator.commission.rate || '')).format('0.00%')}</p>
+                    <p>
+                        {numeral(parseFloat(validator.commission.rate || '') / NumberConstants.CLIENT_PRECISION).format(
+                            '0.00%',
+                        )}
+                    </p>
                 </td>
             </tr>
         );

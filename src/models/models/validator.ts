@@ -10,8 +10,8 @@ class ValidatorModel {
 
     tokens?: string;
 
-    @Expose({ name: 'delegator_shares' })
-    delegatorShares?: string;
+    //@Expose({ name: 'delegator_shares' })
+    //delegatorShares?: string;
 
     @Type(() => Description)
     description: Description = new Description();

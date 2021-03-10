@@ -56,8 +56,8 @@ export default {
     // Badge status
     badgeJailed: 'Jailed',
     badgeActive: 'Active',
-    badgeUnbounding: 'Unbounding',
-    badgeUnbounded: 'Unbounded',
+    badgeUnbonding: 'Unbonding',
+    badgeUnbonded: 'Unbonded',
     badgeSuccess: 'Success',
     badgeFail: 'Fail',
 

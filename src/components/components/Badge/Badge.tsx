@@ -42,12 +42,12 @@ class Badge extends PureComponent<IProps> {
                             </div>
                         );
 
-                    case ValidatorsType.UNBOUNDING:
+                    case ValidatorsType.UNBONDING:
                         return (
                             <div>
                                 <div className="app-badge warning">
                                     <p className="text warning">
-                                        <img alt="checkmark" src={warning} /> {i18n.t('badgeUnbounding')}
+                                        <img alt="checkmark" src={warning} /> {i18n.t('badgeUnbonding')}
                                     </p>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@ class Badge extends PureComponent<IProps> {
                             <div>
                                 <div className="app-badge failure">
                                     <p className="text failure">
-                                        <img alt="checkmark" src={cross} /> {i18n.t('badgeUnbounded')}
+                                        <img alt="checkmark" src={cross} /> {i18n.t('badgeUnbonded')}
                                     </p>
                                 </div>
                             </div>
