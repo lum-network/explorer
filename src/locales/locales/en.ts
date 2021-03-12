@@ -36,6 +36,7 @@ export default {
     marketCap: 'Market cap',
     dayVolume: '24h vol',
     day: '24h',
+    more: 'More',
 
     // Layout
     dashboard: 'Board',
@@ -52,6 +53,7 @@ export default {
     delegateMessage: 'Delegate',
     undelegateMessage: 'Undelegate',
     editValidatorMessage: 'Edit validator',
+    multiSendMessage: 'Multi send',
 
     // Badge status
     badgeJailed: 'Jailed',

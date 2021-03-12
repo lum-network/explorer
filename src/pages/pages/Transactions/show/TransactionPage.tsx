@@ -273,8 +273,8 @@ class TransactionPage extends PureComponent<Props, IState> {
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                        <p>{`${moment.utc(transaction.dispatchedAt).fromNow()} (${moment
-                            .utc(transaction.dispatchedAt)
+                        <p>{`${moment.utc(transaction.time).fromNow()} (${moment
+                            .utc(transaction.time)
                             .tz(SystemConstants.TIMEZONE)
                             .format('lll')})`}</p>
                     </div>

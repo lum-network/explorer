@@ -66,7 +66,9 @@ export class Undelegate extends Base {}
 
 export class EditValidator extends Base {}
 
-export type Value = Send | CreateValidator | Delegate | Undelegate | EditValidator;
+export class MultiSend extends Base {}
+
+export type Value = Send | CreateValidator | Delegate | Undelegate | EditValidator | MultiSend;
 
 export class MessageModel {
     type?: MessagesType;
@@ -80,6 +82,7 @@ export class MessageModel {
                 { value: Delegate, name: MessagesType.DELEGATE },
                 { value: Undelegate, name: MessagesType.UNDELEGATE },
                 { value: EditValidator, name: MessagesType.EDIT_VALIDATOR },
+                { value: MultiSend, name: MessagesType.MULTI_SEND },
             ],
         },
         keepDiscriminatorProperty: true,

@@ -7,6 +7,7 @@ import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import { i18n, StringsUtils } from 'utils';
 import moment from 'moment-timezone';
+import moreLogo from 'assets/images/more.svg';
 
 interface IProps extends RouteComponentProps {
     transactions: TransactionsModel[];
@@ -16,6 +17,24 @@ interface IProps extends RouteComponentProps {
 }
 
 class TransactionsList extends PureComponent<IProps> {
+    renderAmount(transaction: TransactionsModel) {
+        if (transaction.messagesCount > 1) {
+            return (
+                <Link to={`${NavigationConstants.TRANSACTIONS}/${transaction.hash}`}>
+                    <span className="color-type me-1">{i18n.t('more')}</span>
+                    <img src={moreLogo} alt="more" />
+                </Link>
+            );
+        }
+
+        return (
+            <>
+                {transaction.amount && transaction.amount.amount}
+                <span className="ms-1 color-type">{transaction.amount && transaction.amount.denom.toUpperCase()}</span>
+            </>
+        );
+    }
+
     renderRow(transaction: TransactionsModel, index: number, head: string[]): JSX.Element {
         const { rej } = this.props;
 
@@ -27,7 +46,10 @@ class TransactionsList extends PureComponent<IProps> {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <MessageType badge type={transaction.action} />
+                    <MessageType badge type={transaction.messageType} />
+                    {transaction.messagesCount > 1 && (
+                        <span className="ms-1 color-type">+{transaction.messagesCount - 1}</span>
+                    )}
                 </td>
                 {!rej && (
                     <>
@@ -35,7 +57,7 @@ class TransactionsList extends PureComponent<IProps> {
                             <Badge success={transaction.success} />
                         </td>
                         <td data-label={head[3]} className="text-end">
-                            {transaction.amount}
+                            {this.renderAmount(transaction)}
                         </td>
                     </>
                 )}
@@ -43,7 +65,7 @@ class TransactionsList extends PureComponent<IProps> {
                     <Link to={`${NavigationConstants.BLOCKS}/${transaction.height}`}>{transaction.height}</Link>
                 </td>
                 <td data-label={head[5]} className="text-end">
-                    <small>{moment.utc(transaction.dispatchedAt).fromNow()}</small>
+                    <small>{moment.utc(transaction.time).fromNow()}</small>
                 </td>
             </tr>
         );

@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import { MessagesType, TransactionsAction } from 'constant';
+import { MessagesType } from 'constant';
 import './MessageType.scss';
 import { MessagesUtils } from 'utils';
 
 interface IProps {
-    type?: MessagesType | TransactionsAction;
+    type?: MessagesType | null;
     badge?: boolean;
 }
 

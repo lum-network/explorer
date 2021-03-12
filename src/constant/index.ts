@@ -1,4 +1,3 @@
-export { default as TransactionsAction } from './enums/TransactionsAction';
 export { default as MessagesType } from './enums/MessagesType';
 export { default as ValidatorsType } from './enums/ValidatorsType';
 export { default as KpiType } from './enums/KpiType';
