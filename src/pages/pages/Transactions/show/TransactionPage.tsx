@@ -66,8 +66,10 @@ class TransactionPage extends PureComponent<Props, IState> {
         this.setState({ copied: true });
     };
 
-    renderMessage(value: MessageModel.Value): JSX.Element {
-        if (value instanceof MessageModel.Send) {
+    renderMessage(message: MessageModel.Value): JSX.Element {
+        if (message instanceof MessageModel.Send) {
+            const { value } = message;
+
             return (
                 <div className="row align-items-center">
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
@@ -93,7 +95,9 @@ class TransactionPage extends PureComponent<Props, IState> {
             );
         }
 
-        if (value instanceof MessageModel.CreateValidator) {
+        if (message instanceof MessageModel.CreateValidator) {
+            const { value } = message;
+
             return (
                 <div className="row align-items-center">
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
@@ -175,16 +179,20 @@ class TransactionPage extends PureComponent<Props, IState> {
             );
         }
 
-        if (value instanceof MessageModel.Delegate) {
+        if (message instanceof MessageModel.Delegate) {
             return <div>Delegate</div>;
         }
 
-        if (value instanceof MessageModel.Undelegate) {
+        if (message instanceof MessageModel.Undelegate) {
             return <div>Undelegate</div>;
         }
 
-        if (value instanceof MessageModel.EditValidator) {
+        if (message instanceof MessageModel.EditValidator) {
             return <div>EditValidator</div>;
+        }
+
+        if (message instanceof MessageModel.MultiSend) {
+            return <div>MultiSend</div>;
         }
 
         return <div>{i18n.t('errorOccurred')}</div>;
@@ -215,9 +223,9 @@ class TransactionPage extends PureComponent<Props, IState> {
                 {messages.map((message, index) => {
                     return (
                         <div key={index}>
-                            <MessageType type={message.type} />
+                            <MessageType type={message.typeUrl} />
                             <Card flat className={`mt-3 ${length !== index + 1 ? 'mb-5' : ''}`}>
-                                {this.renderMessage(message.value)}
+                                {this.renderMessage(message)}
                             </Card>
                         </div>
                     );

@@ -2,8 +2,9 @@ import { MessagesType } from 'constant';
 import { Expose, Type } from 'class-transformer';
 import AmountModel from './amount';
 
-abstract class Base {
-    type?: MessagesType;
+export default abstract class MessageModel {
+    @Expose({ name: 'type_url' })
+    typeUrl?: MessagesType;
 }
 
 export class Commission {
@@ -29,7 +30,7 @@ export class Description {
     website = '-';
 }
 
-export class Send extends Base {
+class SendValue {
     @Expose({ name: 'from_address' })
     fromAddress?: string;
 
@@ -39,7 +40,12 @@ export class Send extends Base {
     amount: AmountModel[] = [];
 }
 
-export class CreateValidator extends Base {
+export class Send extends MessageModel {
+    @Type(() => SendValue)
+    value: SendValue = new SendValue();
+}
+
+class CreateValidatorValue {
     @Expose({ name: 'delegator_address' })
     delegatorAddress?: string;
 
@@ -60,32 +66,37 @@ export class CreateValidator extends Base {
     description: Description = new Description();
 }
 
-export class Delegate extends Base {}
+export class CreateValidator extends MessageModel {
+    @Type(() => CreateValidatorValue)
+    value: CreateValidatorValue = new CreateValidatorValue();
+}
 
-export class Undelegate extends Base {}
+class DelegateValue {}
 
-export class EditValidator extends Base {}
+export class Delegate extends MessageModel {
+    @Type(() => DelegateValue)
+    value: DelegateValue = new DelegateValue();
+}
 
-export class MultiSend extends Base {}
+class UndelegateValue {}
+
+export class Undelegate extends MessageModel {
+    @Type(() => UndelegateValue)
+    value: UndelegateValue = new UndelegateValue();
+}
+
+class EditValidatorValue {}
+
+export class EditValidator extends MessageModel {
+    @Type(() => EditValidatorValue)
+    value: EditValidatorValue = new EditValidatorValue();
+}
+
+class MultiSendValue {}
+
+export class MultiSend extends MessageModel {
+    @Type(() => MultiSendValue)
+    value: MultiSendValue = new MultiSendValue();
+}
 
 export type Value = Send | CreateValidator | Delegate | Undelegate | EditValidator | MultiSend;
-
-export class MessageModel {
-    type?: MessagesType;
-
-    @Type(() => Base, {
-        discriminator: {
-            property: 'type',
-            subTypes: [
-                { value: Send, name: MessagesType.SEND },
-                { value: CreateValidator, name: MessagesType.CREATE_VALIDATOR },
-                { value: Delegate, name: MessagesType.DELEGATE },
-                { value: Undelegate, name: MessagesType.UNDELEGATE },
-                { value: EditValidator, name: MessagesType.EDIT_VALIDATOR },
-                { value: MultiSend, name: MessagesType.MULTI_SEND },
-            ],
-        },
-        keepDiscriminatorProperty: true,
-    })
-    value: Value = {};
-}

@@ -21,8 +21,6 @@ export const getBlock = (id: string): Promise<BlocksModel> => {
     return new Promise((resolve, reject) => {
         axios(`${ApiConstants.BLOCKS_URL}/${id}`, { baseURL: ApiConstants.BASE_URL, method: 'GET' })
             .then((result) => {
-                console.log(result.data.result);
-
                 const block = plainToClass(BlocksModel, result.data.result);
 
                 resolve(block);
