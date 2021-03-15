@@ -12,6 +12,7 @@ import { PieChart } from 'react-minimal-pie-chart';
 import numeral from 'numeral';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { AccountUtils, i18n, NumbersUtils } from 'utils';
+import { NumberConstants } from 'constant';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -60,10 +61,12 @@ class AccountPage extends PureComponent<Props, IState> {
                 return;
             }
 
-            const { coins, allRewards, delegations } = this.props.account;
+            const { balance, allRewards, delegations } = this.props.account;
 
-            const available = parseFloat(coins.length ? coins[0].amount : '0');
-            const reward = parseFloat(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0');
+            const available = parseFloat(balance ? balance.amount : '0');
+            const reward =
+                parseFloat(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0') /
+                NumberConstants.CLIENT_PRECISION;
             const delegated = AccountUtils.sumOfDelegations(delegations);
             const unbonding = 0;
 

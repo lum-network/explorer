@@ -24,7 +24,7 @@ class AccountModel {
     @Type(() => TransactionsModel)
     transactions: TransactionsModel[] = [];
 
-    coins: AmountModel[] = [];
+    balance?: AmountModel;
 
     @Type(() => AllRewards)
     @Expose({ name: 'all_rewards' })
