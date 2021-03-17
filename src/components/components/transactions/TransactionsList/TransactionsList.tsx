@@ -41,7 +41,7 @@ class TransactionsList extends PureComponent<IProps> {
         return (
             <tr key={index}>
                 <td data-label={head[0]} title={transaction.hash}>
-                    <Link to={`${NavigationConstants.TRANSACTIONS}/${transaction.hash}`}>
+                    <Link title={transaction.hash} to={`${NavigationConstants.TRANSACTIONS}/${transaction.hash}`}>
                         {StringsUtils.trunc(transaction.hash || '', rej ? 4 : 6)}
                     </Link>
                 </td>
@@ -84,7 +84,7 @@ class TransactionsList extends PureComponent<IProps> {
         const simplified = [i18n.t('hash'), i18n.t('type'), i18n.t('block'), i18n.t('time')];
 
         return (
-            <Card withoutPadding className="mb-5">
+            <Card withoutPadding className="mb-5 h-100">
                 <div className="d-flex justify-content-between">
                     {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('transactions')}</h3>}
                     {more && (

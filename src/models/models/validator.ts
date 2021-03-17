@@ -1,6 +1,8 @@
 import { Expose, plainToClass, Transform, Type } from 'class-transformer';
 import { Commission, Description } from './message';
 import { ValidatorsType } from 'constant';
+import BlocksModel from './blocks';
+import DelegationsModel from './delegations';
 
 class ValidatorModel {
     @Expose({ name: 'operator_address' })
@@ -10,8 +12,8 @@ class ValidatorModel {
 
     tokens?: string;
 
-    //@Expose({ name: 'delegator_shares' })
-    //delegatorShares?: string;
+    @Expose({ name: 'delegator_shares' })
+    delegatorShares?: string;
 
     @Type(() => Description)
     description: Description = new Description();
@@ -27,6 +29,12 @@ class ValidatorModel {
     commission: Commission = new Commission();
 
     status?: ValidatorsType;
+
+    @Type(() => BlocksModel)
+    blocks: BlocksModel[] = [];
+
+    @Type(() => DelegationsModel)
+    delegations: DelegationsModel[] = [];
 }
 
 export default ValidatorModel;

@@ -34,7 +34,7 @@ class HomePage extends PureComponent<Props> {
                     <Wallet />
                 </div>
                 <Kpi className="mb-5" types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME]} />
-                <div className="col-12 col-xxl-6 mb-4">
+                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                     <BlocksList more title blocks={blocks.slice(0, 5)} />
                 </div>
                 <div className="col-12 col-xxl-6 mb-5">

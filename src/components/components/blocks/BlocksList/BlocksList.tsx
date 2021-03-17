@@ -10,23 +10,26 @@ interface IProps extends RouteComponentProps {
     blocks: BlocksModel[];
     title?: boolean;
     more?: boolean;
+    rej?: boolean;
 }
 
 class BlocksList extends PureComponent<IProps> {
     renderRow(block: BlocksModel, index: number, head: string[]): JSX.Element {
-        const { more } = this.props;
+        const { more, rej } = this.props;
 
         return (
             <tr key={index}>
                 <td data-label={head[0]}>
                     <Link to={`${NavigationConstants.BLOCKS}/${block.height}`}>{block.height}</Link>
                 </td>
-                <td data-label={head[1]} title={block.operatorAddress}>
-                    <Link to={`${NavigationConstants.VALIDATORS}/${block.operatorAddress}`}>
-                        {StringsUtils.trunc(block.operatorAddress || '', more ? 4 : 8)}
-                    </Link>
-                </td>
-                <td data-label={head[2]} className="text-end">
+                {!rej && (
+                    <td data-label={head[1]} title={block.operatorAddress}>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${block.operatorAddress}`}>
+                            {StringsUtils.trunc(block.operatorAddress || '', more ? 4 : 8)}
+                        </Link>
+                    </td>
+                )}
+                <td data-label={head[2]} className={!rej ? 'text-end' : 'text-start'}>
                     {block.txCount}
                 </td>
                 <td data-label={head[3]} className="text-end">
@@ -37,11 +40,12 @@ class BlocksList extends PureComponent<IProps> {
     }
 
     render(): JSX.Element {
-        const { blocks, title, more, history } = this.props;
-        const head = [i18n.t('height'), i18n.t('proposer'), i18n.t('transactions'), i18n.t('time')];
+        const { blocks, title, more, history, rej } = this.props;
+        const full = [i18n.t('height'), i18n.t('proposer'), i18n.t('transactions'), i18n.t('time')];
+        const simplified = [i18n.t('height'), i18n.t('transactions'), i18n.t('time')];
 
         return (
-            <Card withoutPadding className="mb-5">
+            <Card withoutPadding className="mb-5 h-100">
                 <div className="d-flex justify-content-between">
                     {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('blocks')}</h3>}
                     {more && (
@@ -53,7 +57,9 @@ class BlocksList extends PureComponent<IProps> {
                         </Button>
                     )}
                 </div>
-                <Table head={head}>{blocks.map((block, index) => this.renderRow(block, index, head))}</Table>
+                <Table head={rej ? simplified : full}>
+                    {blocks.map((block, index) => this.renderRow(block, index, full))}
+                </Table>
             </Card>
         );
     }

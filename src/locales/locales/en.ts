@@ -37,6 +37,8 @@ export default {
     dayVolume: '24h vol',
     day: '24h',
     more: 'More',
+    delegators: 'Delegators',
+    shares: 'Shares',
 
     // Layout
     dashboard: 'Board',

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { connect } from 'react-redux';
-import { Badge } from 'components';
+import { Badge, BlocksList, DelegationsList } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import placeholderValidator from 'assets/images/placeholderValidator.svg';
@@ -179,6 +179,31 @@ class BlockPage extends PureComponent<Props, IState> {
         );
     }
 
+    renderBlocksAndDelegations(): JSX.Element {
+        const { loading, validator } = this.props;
+
+        if (!validator || loading) {
+            return (
+                <Card className="mb-5">
+                    <Loading />
+                </Card>
+            );
+        }
+
+        const { blocks, delegations } = this.props.validator;
+
+        return (
+            <div className="row">
+                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                    <BlocksList rej title blocks={blocks} />
+                </div>
+                <div className="col-12 col-xxl-6 mb-5">
+                    <DelegationsList title delegations={delegations} />
+                </div>
+            </div>
+        );
+    }
+
     render(): JSX.Element {
         return (
             <>
@@ -186,6 +211,7 @@ class BlockPage extends PureComponent<Props, IState> {
                     <img alt="block" src={validatorLogo} /> {i18n.t('validatorDetails')}
                 </h2>
                 {this.renderInformation()}
+                {this.renderBlocksAndDelegations()}
             </>
         );
     }
