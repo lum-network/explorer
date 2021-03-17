@@ -184,9 +184,18 @@ class BlockPage extends PureComponent<Props, IState> {
 
         if (!validator || loading) {
             return (
-                <Card className="mb-5">
-                    <Loading />
-                </Card>
+                <div className="row">
+                    <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                        <Card>
+                            <Loading />
+                        </Card>
+                    </div>
+                    <div className="col-12 col-xxl-6 mb-5">
+                        <Card>
+                            <Loading />
+                        </Card>
+                    </div>
+                </div>
             );
         }
 
