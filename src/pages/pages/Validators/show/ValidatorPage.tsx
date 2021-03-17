@@ -199,7 +199,7 @@ class BlockPage extends PureComponent<Props, IState> {
             );
         }
 
-        const { blocks, delegations } = this.props.validator;
+        const { blocks, delegations, tokens } = this.props.validator;
 
         return (
             <div className="row">
@@ -207,7 +207,7 @@ class BlockPage extends PureComponent<Props, IState> {
                     <BlocksList rej title blocks={blocks} />
                 </div>
                 <div className="col-12 col-xxl-6 mb-5">
-                    <DelegationsList title delegations={delegations} />
+                    <DelegationsList title delegations={delegations} validatorTokens={parseFloat(tokens || '0')} />
                 </div>
             </div>
         );
