@@ -15,7 +15,6 @@ interface IProps extends RouteComponentProps<{ id: string }> {}
 interface IState {
     rank: number | null;
     totalVotingPower: number | null;
-    address: string;
 }
 
 const mapState = (state: RootState) => ({
@@ -40,7 +39,6 @@ class BlockPage extends PureComponent<Props, IState> {
         this.state = {
             rank: null,
             totalVotingPower: null,
-            address: '',
         };
     }
 
@@ -58,15 +56,14 @@ class BlockPage extends PureComponent<Props, IState> {
 
             const rank = ValidatorsUtils.findRank(validators, validator);
             const totalVotingPower = ValidatorsUtils.calculateTotalVotingPower(validators);
-            const address = ValidatorsUtils.convertValAddressToAccAddress(validator.operatorAddress || '');
 
-            this.setState({ rank, totalVotingPower, address });
+            this.setState({ rank, totalVotingPower });
         });
     }
 
     renderInformation(): JSX.Element {
         const { validator, loading } = this.props;
-        const { rank, totalVotingPower, address } = this.state;
+        const { rank, totalVotingPower } = this.state;
 
         if (!validator || loading) {
             return (
@@ -104,7 +101,9 @@ class BlockPage extends PureComponent<Props, IState> {
                             <div className="mt-3 mt-xl-0 col-xl-6 offset-xxl-1 col-xxl-5">
                                 <h4 className="mb-1">{i18n.t('address')}</h4>
                                 <p className="text-break">
-                                    <Link to={`${NavigationConstants.ACCOUNT}/${address}`}>{address}</Link>
+                                    <Link to={`${NavigationConstants.ACCOUNT}/${validator.address}`}>
+                                        {validator.address}
+                                    </Link>
                                 </p>
                             </div>
                         </div>
@@ -146,7 +145,11 @@ class BlockPage extends PureComponent<Props, IState> {
                             <h4>{i18n.t('selfBonded')}</h4>
                         </div>
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
-                            <p>Soon</p>
+                            <p>
+                                {numeral(parseFloat(validator.tokens || '0') / validator.selfBonded).format('0.00%')} (
+                                {numeral(validator.selfBonded).format('0,0.000000')}
+                                <span className="ms-1 color-type">LUM</span>)
+                            </p>
                         </div>
                         <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                             <h4>{i18n.t('uptime')}</h4>

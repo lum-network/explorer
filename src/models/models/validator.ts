@@ -8,6 +8,11 @@ class ValidatorModel {
     @Expose({ name: 'operator_address' })
     operatorAddress?: string;
 
+    address?: string;
+
+    @Expose({ name: 'self_bonded' })
+    selfBonded = 0.0;
+
     jailed = false;
 
     tokens?: string;

@@ -1,6 +1,4 @@
 import { ValidatorsModel } from 'models';
-import { LumUtils } from '@lum-network/sdk-javascript';
-import { AddressConstants } from 'constant';
 
 export const calculateTotalVotingPower = (validators: ValidatorsModel[]): number => {
     let total = 0;
@@ -28,10 +26,4 @@ export const findRank = (validators: ValidatorsModel[], validator: ValidatorsMod
     }
 
     return index + 1;
-};
-
-export const convertValAddressToAccAddress = (address: string, prefix = AddressConstants.ACC_PREFIX): string => {
-    const words = LumUtils.Bech32.decode(address).data;
-
-    return LumUtils.Bech32.encode(prefix, words);
 };
