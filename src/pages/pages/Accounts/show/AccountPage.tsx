@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
 import { TransactionsList } from 'components';
 import { Card, CodeQr, Loading } from 'frontend-elements';
@@ -16,80 +16,60 @@ import { NumberConstants } from 'constant';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
-interface IState {
-    copied: boolean;
-    available: number;
-    delegated: number;
-    unbonding: number;
-    reward: number;
-    total: number;
-}
+const AccountPage = (props: IProps): JSX.Element => {
+    const dispatch = useDispatch<Dispatch>();
+    const account = useSelector((state: RootState) => state.accounts.account);
+    const loading = useSelector((state: RootState) => state.loading.models.accounts);
 
-const mapState = (state: RootState) => ({
-    account: state.accounts.account,
-    loading: state.loading.models.accounts,
-});
+    const { id } = props.match.params;
 
-const mapDispatch = (dispatch: Dispatch) => ({
-    getAccount: (id: string) => dispatch.accounts.getAccount(id),
-});
+    const [copied, setCopied] = useState(false);
+    const [available, setAvailable] = useState(0.0);
+    const [delegated, setDelegated] = useState(0.0);
+    const [reward, setReward] = useState(0.0);
+    const [unbonding, setUnbonding] = useState(0.0);
+    const [total, setTotal] = useState(0.0);
 
-type StateProps = ReturnType<typeof mapState>;
-type DispatchProps = ReturnType<typeof mapDispatch>;
-type Props = IProps & StateProps & DispatchProps;
+    useEffect(() => {
+        dispatch.accounts.getAccount(id);
+    }, []);
 
-class AccountPage extends PureComponent<Props, IState> {
-    constructor(props: Props) {
-        super(props);
+    useEffect(() => {
+        if (!account) {
+            return;
+        }
 
-        this.state = {
-            copied: false,
-            available: 0,
-            delegated: 0,
-            reward: 0,
-            unbonding: 0,
-            total: 0,
-        };
-    }
+        const { balance, allRewards, delegations } = account;
 
-    componentDidMount(): void {
-        const { getAccount } = this.props;
-        const { id } = this.props.match.params;
+        const available = parseFloat(balance ? balance.amount : '0');
+        const reward =
+            parseFloat(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0') /
+            NumberConstants.CLIENT_PRECISION;
+        const delegated = AccountUtils.sumOfDelegations(delegations);
+        const unbonding = 0;
 
-        getAccount(id).then(() => {
-            if (!this.props.account) {
-                return;
-            }
+        const total = available + reward + delegated + unbonding;
 
-            const { balance, allRewards, delegations } = this.props.account;
+        setAvailable(available);
+        setReward(reward);
+        setDelegated(delegated);
+        setUnbonding(unbonding);
+        setTotal(total);
+    }, [account]);
 
-            const available = parseFloat(balance ? balance.amount : '0');
-            const reward =
-                parseFloat(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0') /
-                NumberConstants.CLIENT_PRECISION;
-            const delegated = AccountUtils.sumOfDelegations(delegations);
-            const unbonding = 0;
-
-            const total = available + reward + delegated + unbonding;
-
-            this.setState({ available, total, reward, delegated, unbonding });
-        });
-    }
-
-    copyAddress = (): void => {
-        const { address } = this.props.account;
+    const copyAddress = (): void => {
+        const { address } = account;
 
         if (!address) {
             return;
         }
 
         navigator.clipboard.writeText(address).finally(() => null);
-        this.setState({ copied: true });
+
+        setCopied(true);
     };
 
-    renderTransactions(): JSX.Element | null {
-        const { account, loading } = this.props;
-
+    const renderTransactions = (): JSX.Element | null => {
         if (!account || loading) {
             return (
                 <Card className="mb-5">
@@ -98,7 +78,7 @@ class AccountPage extends PureComponent<Props, IState> {
             );
         }
 
-        const { transactions } = this.props.account;
+        const { transactions } = account;
 
         if (!transactions || !transactions.length) {
             return (
@@ -110,11 +90,9 @@ class AccountPage extends PureComponent<Props, IState> {
         }
 
         return <TransactionsList title transactions={transactions} />;
-    }
+    };
 
-    renderPie(): JSX.Element | null {
-        const { available, delegated, unbonding, reward, total } = this.state;
-
+    const renderPie = (): JSX.Element | null => {
         if (!available && !delegated && !unbonding && !reward) {
             return null;
         }
@@ -151,12 +129,9 @@ class AccountPage extends PureComponent<Props, IState> {
                 />
             </div>
         );
-    }
+    };
 
-    renderInformation(): JSX.Element {
-        const { account, loading } = this.props;
-        const { copied, available, delegated, unbonding, reward, total } = this.state;
-
+    const renderInformation = (): JSX.Element => {
         return (
             <>
                 <Card dark withoutPadding={!loading} className="p-3 p-xl-3 mb-5">
@@ -175,7 +150,7 @@ class AccountPage extends PureComponent<Props, IState> {
                                             <img
                                                 alt="copy"
                                                 src={copied ? checkLogo : copyLogo}
-                                                onClick={this.copyAddress}
+                                                onClick={copyAddress}
                                                 className="pointer img-cpy placeholder-image"
                                             />
                                         </div>
@@ -195,7 +170,7 @@ class AccountPage extends PureComponent<Props, IState> {
                         <Loading />
                     ) : (
                         <div className="row align-items-center">
-                            {this.renderPie()}
+                            {renderPie()}
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2">
                                 <div className="d-flex align-items-center mb-2">
                                     <div className="app-dot green me-2" />
@@ -261,19 +236,17 @@ class AccountPage extends PureComponent<Props, IState> {
                 </Card>
             </>
         );
-    }
+    };
 
-    render(): JSX.Element {
-        return (
-            <>
-                <h2 className="mt-3 mb-4">
-                    <img alt="block" src={accountLogo} /> {i18n.t('accountDetails')}
-                </h2>
-                {this.renderInformation()}
-                {this.renderTransactions()}
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <h2 className="mt-3 mb-4">
+                <img alt="block" src={accountLogo} /> {i18n.t('accountDetails')}
+            </h2>
+            {renderInformation()}
+            {renderTransactions()}
+        </>
+    );
+};
 
-export default connect(mapState, mapDispatch)(AccountPage);
+export default AccountPage;
