@@ -22,11 +22,14 @@ const ValidatorsPage = (): JSX.Element => {
     const [totalVotingPower, setTotalVotingPower] = useState<number | null>(null);
 
     useEffect(() => {
-        dispatch.validators.fetchValidators();
+        dispatch.validators.fetchValidators().finally(() => null);
     }, []);
 
     useEffect(() => {
-        console.log('TATOUNE');
+        if (!validators) {
+            return;
+        }
+
         setTotalVotingPower(ValidatorsUtils.calculateTotalVotingPower(validators));
     }, [validators]);
 
