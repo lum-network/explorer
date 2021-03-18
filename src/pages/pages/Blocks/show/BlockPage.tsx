@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TransactionsList } from 'components';
 import { Card, Loading } from 'frontend-elements';
 
@@ -19,53 +19,30 @@ import placeholderTx from 'assets/images/placeholderTx.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
-interface IState {
-    copied: boolean;
-}
+const BlockPage = (props: IProps): JSX.Element => {
+    const dispatch = useDispatch<Dispatch>();
+    const block = useSelector((state: RootState) => state.blocks.block);
+    const loading = useSelector((state: RootState) => state.loading.effects.blocks.getBlock);
 
-const mapState = (state: RootState) => ({
-    block: state.blocks.block,
-    loading: state.loading.effects.blocks.getBlock,
-});
+    const { id } = props.match.params;
 
-const mapDispatch = (dispatch: Dispatch) => ({
-    getBlock: (id: string) => dispatch.blocks.getBlock(id),
-});
+    const [copied, setCopied] = useState(false);
 
-type StateProps = ReturnType<typeof mapState>;
-type DispatchProps = ReturnType<typeof mapDispatch>;
-type Props = IProps & StateProps & DispatchProps;
+    useEffect(() => {
+        dispatch.blocks.getBlock(id).finally(() => null);
+    }, []);
 
-class BlockPage extends PureComponent<Props, IState> {
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            copied: false,
-        };
-    }
-
-    componentDidMount(): void {
-        const { getBlock } = this.props;
-        const { id } = this.props.match.params;
-
-        getBlock(id).finally(() => null);
-    }
-
-    copyHash = (): void => {
-        const { hash } = this.props.block;
-
-        if (!hash) {
+    const copyHash = (): void => {
+        if (!block.hash) {
             return;
         }
 
-        navigator.clipboard.writeText(hash).finally(() => null);
-        this.setState({ copied: true });
+        navigator.clipboard.writeText(block.hash).finally(() => null);
+
+        setCopied(true);
     };
 
-    renderTransactions(): JSX.Element | null {
-        const { block, loading } = this.props;
-
+    const renderTransactions = (): JSX.Element | null => {
         if (!block || loading) {
             return (
                 <Card className="mb-5">
@@ -74,7 +51,7 @@ class BlockPage extends PureComponent<Props, IState> {
             );
         }
 
-        const { transactions } = this.props.block;
+        const { transactions } = block;
 
         if (!transactions || !transactions.length) {
             return (
@@ -86,12 +63,9 @@ class BlockPage extends PureComponent<Props, IState> {
         }
 
         return <TransactionsList title transactions={transactions} />;
-    }
+    };
 
-    renderInformation(): JSX.Element {
-        const { block, loading } = this.props;
-        const { copied } = this.state;
-
+    const renderInformation = (): JSX.Element => {
         if (!block || loading) {
             return (
                 <Card className="mb-5">
@@ -153,7 +127,7 @@ class BlockPage extends PureComponent<Props, IState> {
                             <img
                                 alt="copy"
                                 src={copied ? checkLogo : copyLogo}
-                                onClick={this.copyHash}
+                                onClick={copyHash}
                                 className="pointer img-cpy placeholder-image"
                             />
                         </div>
@@ -161,22 +135,17 @@ class BlockPage extends PureComponent<Props, IState> {
                 </div>
             </Card>
         );
-    }
+    };
 
-    render(): JSX.Element {
-        const { block } = this.props;
-        const { id } = this.props.match.params;
+    return (
+        <>
+            <h2 className="mt-3 mb-4">
+                <img alt="block" src={blockLogo} /> {i18n.t('detailsForBlock')} #{(block && block.height) || id}
+            </h2>
+            {renderInformation()}
+            {renderTransactions()}
+        </>
+    );
+};
 
-        return (
-            <>
-                <h2 className="mt-3 mb-4">
-                    <img alt="block" src={blockLogo} /> {i18n.t('detailsForBlock')} #{(block && block.height) || id}
-                </h2>
-                {this.renderInformation()}
-                {this.renderTransactions()}
-            </>
-        );
-    }
-}
-
-export default connect(mapState, mapDispatch)(BlockPage);
+export default BlockPage;
