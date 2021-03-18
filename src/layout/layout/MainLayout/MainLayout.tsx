@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import './MainLayout.scss';
@@ -13,8 +13,12 @@ import walletBis from 'assets/images/walletBis.svg';
 import github from 'assets/images/github.svg';
 import { Search } from 'components';
 
-class MainLayout extends PureComponent {
-    renderNav(footer?: boolean): JSX.Element {
+interface IProps {
+    children?: React.ReactNode;
+}
+
+const MainLayout = (props: IProps): JSX.Element => {
+    const renderNav = (footer?: boolean): JSX.Element => {
         return (
             <ul className={footer ? 'footer' : ''}>
                 {!footer && (
@@ -90,41 +94,39 @@ class MainLayout extends PureComponent {
                 )}
             </ul>
         );
-    }
+    };
 
-    render(): JSX.Element {
-        const { children } = this.props;
+    const { children } = props;
 
-        return (
-            <div className="main-layout dark-mode">
-                <div className="content">
-                    {this.renderNav()}
-                    <div className="container">{children}</div>
-                </div>
-                <footer>
-                    <div className="container-fluid d-flex align-items-center justify-content-between">
-                        <div className="d-flex align-items-center">
-                            <div className="logo">
-                                <img alt="logo" src={logo} /> <h1>Explorer</h1>
-                            </div>
-                            <div className="ms-sm-5 ms-3 button-wallet">
-                                <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank">
-                                    <img alt="wallet" src={walletBis} />
-                                    {i18n.t('webWallet')}
-                                </a>
-                            </div>
+    return (
+        <div className="main-layout dark-mode">
+            <div className="content">
+                {renderNav()}
+                <div className="container">{children}</div>
+            </div>
+            <footer>
+                <div className="container-fluid d-flex align-items-center justify-content-between">
+                    <div className="d-flex align-items-center">
+                        <div className="logo">
+                            <img alt="logo" src={logo} /> <h1>Explorer</h1>
                         </div>
-                        <div>
-                            <a href={NavigationConstants.GITHUB} rel="noreferrer" target="_blank">
-                                <img alt="github" src={github} className="link-icon" />
+                        <div className="ms-sm-5 ms-3 button-wallet">
+                            <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank">
+                                <img alt="wallet" src={walletBis} />
+                                {i18n.t('webWallet')}
                             </a>
                         </div>
                     </div>
-                </footer>
-                {this.renderNav(true)}
-            </div>
-        );
-    }
-}
+                    <div>
+                        <a href={NavigationConstants.GITHUB} rel="noreferrer" target="_blank">
+                            <img alt="github" src={github} className="link-icon" />
+                        </a>
+                    </div>
+                </div>
+            </footer>
+            {renderNav(true)}
+        </div>
+    );
+};
 
 export default MainLayout;

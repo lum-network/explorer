@@ -1,17 +1,11 @@
 import { ValidatorsModel } from 'models';
 
 export const calculateTotalVotingPower = (validators: ValidatorsModel[]): number => {
-    let total = 0;
-
-    if (!validators) {
+    if (!validators || !validators.length) {
         return 0;
     }
 
-    validators.forEach((value) => {
-        total += parseFloat(value.tokens || '0');
-    });
-
-    return total;
+    return validators.reduce((acc, validator) => acc + parseFloat(validator.tokens || '0'), 0);
 };
 
 export const findRank = (validators: ValidatorsModel[], validator: ValidatorsModel): number | null => {
