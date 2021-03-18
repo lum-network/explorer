@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Badge, BlocksList, DelegationsList } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import validatorLogo from 'assets/images/validatorDark.svg';
@@ -12,59 +12,32 @@ import { NavigationConstants, NumberConstants } from 'constant';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
-interface IState {
-    rank: number | null;
-    totalVotingPower: number | null;
-}
+const ValidatorPage = (props: IProps): JSX.Element => {
+    const dispatch = useDispatch<Dispatch>();
+    const validator = useSelector((state: RootState) => state.validators.validator);
+    const validators = useSelector((state: RootState) => state.validators.validators);
+    const loading = useSelector((state: RootState) => state.loading.models.validators);
 
-const mapState = (state: RootState) => ({
-    validator: state.validators.validator,
-    validators: state.validators.validators,
-    loading: state.loading.models.validators,
-});
+    const { id } = props.match.params;
 
-const mapDispatch = (dispatch: Dispatch) => ({
-    getValidator: (id: string) => dispatch.validators.getValidator(id),
-    fetchValidators: () => dispatch.validators.fetchValidators(),
-});
+    const [rank, setRank] = useState<number | null>(null);
+    const [totalVotingPower, setTotalVotingPower] = useState<number | null>(null);
 
-type StateProps = ReturnType<typeof mapState>;
-type DispatchProps = ReturnType<typeof mapDispatch>;
-type Props = IProps & StateProps & DispatchProps;
+    useEffect(() => {
+        dispatch.validators.fetchValidators().finally(() => null);
+        dispatch.validators.getValidator(id).finally(() => null);
+    }, []);
 
-class BlockPage extends PureComponent<Props, IState> {
-    constructor(props: Props) {
-        super(props);
+    useEffect(() => {
+        if (!validators || !validators.length || !validator) {
+            return;
+        }
 
-        this.state = {
-            rank: null,
-            totalVotingPower: null,
-        };
-    }
+        setRank(ValidatorsUtils.findRank(validators, validator));
+        setTotalVotingPower(ValidatorsUtils.calculateTotalVotingPower(validators));
+    }, [validators, validator]);
 
-    async componentDidMount(): Promise<void> {
-        const { getValidator, fetchValidators } = this.props;
-        const { id } = this.props.match.params;
-
-        await fetchValidators();
-        getValidator(id).then(() => {
-            const { validators, validator } = this.props;
-
-            if (!validators || !validator) {
-                return;
-            }
-
-            const rank = ValidatorsUtils.findRank(validators, validator);
-            const totalVotingPower = ValidatorsUtils.calculateTotalVotingPower(validators);
-
-            this.setState({ rank, totalVotingPower });
-        });
-    }
-
-    renderInformation(): JSX.Element {
-        const { validator, loading } = this.props;
-        const { rank, totalVotingPower } = this.state;
-
+    const renderInformation = (): JSX.Element => {
         if (!validator || loading) {
             return (
                 <Card className="mb-5">
@@ -180,11 +153,9 @@ class BlockPage extends PureComponent<Props, IState> {
                 </Card>
             </Card>
         );
-    }
+    };
 
-    renderBlocksAndDelegations(): JSX.Element {
-        const { loading, validator } = this.props;
-
+    const renderBlocksAndDelegations = (): JSX.Element => {
         if (!validator || loading) {
             return (
                 <div className="row">
@@ -202,7 +173,7 @@ class BlockPage extends PureComponent<Props, IState> {
             );
         }
 
-        const { blocks, delegations, tokens } = this.props.validator;
+        const { blocks, delegations, tokens } = validator;
 
         return (
             <div className="row">
@@ -214,19 +185,17 @@ class BlockPage extends PureComponent<Props, IState> {
                 </div>
             </div>
         );
-    }
+    };
 
-    render(): JSX.Element {
-        return (
-            <>
-                <h2 className="mt-3 mb-4">
-                    <img alt="block" src={validatorLogo} /> {i18n.t('validatorDetails')}
-                </h2>
-                {this.renderInformation()}
-                {this.renderBlocksAndDelegations()}
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <h2 className="mt-3 mb-4">
+                <img alt="block" src={validatorLogo} /> {i18n.t('validatorDetails')}
+            </h2>
+            {renderInformation()}
+            {renderBlocksAndDelegations()}
+        </>
+    );
+};
 
-export default connect(mapState, mapDispatch)(BlockPage);
+export default ValidatorPage;
