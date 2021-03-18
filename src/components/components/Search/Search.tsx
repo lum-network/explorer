@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
 import { TextInput } from 'frontend-elements';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import searchLogo from 'assets/images/searchDark.svg';
@@ -8,26 +8,15 @@ import { i18n } from 'utils';
 
 interface IProps extends RouteComponentProps {}
 
-interface IState {
-    text: string;
-}
+const Search = (props: IProps): JSX.Element => {
+    const [text, setText] = useState('');
 
-class Search extends PureComponent<IProps, IState> {
-    constructor(props: IProps) {
-        super(props);
-
-        this.state = {
-            text: '',
-        };
-    }
-
-    onChangeText = (text: string): void => {
-        this.setState({ text });
+    const onChangeText = (text: string): void => {
+        setText(text);
     };
 
-    onSubmit = (): void => {
-        const { push } = this.props.history;
-        const { text } = this.state;
+    const onSubmit = (): void => {
+        const { push } = props.history;
 
         if (!text) {
             return;
@@ -36,21 +25,17 @@ class Search extends PureComponent<IProps, IState> {
         push(`${NavigationConstants.SEARCH}/${text}`);
     };
 
-    render(): JSX.Element {
-        const { text } = this.state;
-
-        return (
-            <div className="search-container">
-                <TextInput
-                    placeholder={i18n.t('searchPlaceholder')}
-                    icon={searchLogo}
-                    value={text}
-                    onSubmit={this.onSubmit}
-                    onChangeText={this.onChangeText}
-                />
-            </div>
-        );
-    }
-}
+    return (
+        <div className="search-container">
+            <TextInput
+                placeholder={i18n.t('searchPlaceholder')}
+                icon={searchLogo}
+                value={text}
+                onSubmit={onSubmit}
+                onChangeText={onChangeText}
+            />
+        </div>
+    );
+};
 
 export default withRouter(Search);

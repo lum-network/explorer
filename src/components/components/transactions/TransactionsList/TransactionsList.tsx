@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { TransactionsModel } from 'models';
 import { MessageType } from 'components';
 import { Table, Button, Card } from 'frontend-elements';
@@ -16,8 +16,8 @@ interface IProps extends RouteComponentProps {
     more?: boolean;
 }
 
-class TransactionsList extends PureComponent<IProps> {
-    renderAmount(transaction: TransactionsModel) {
+const TransactionsList = (props: IProps): JSX.Element => {
+    const renderAmount = (transaction: TransactionsModel): JSX.Element => {
         if (transaction.messagesCount > 1) {
             return (
                 <Link to={`${NavigationConstants.TRANSACTIONS}/${transaction.hash}`}>
@@ -33,10 +33,10 @@ class TransactionsList extends PureComponent<IProps> {
                 <span className="ms-1 color-type">{transaction.amount && transaction.amount.denom.toUpperCase()}</span>
             </>
         );
-    }
+    };
 
-    renderRow(transaction: TransactionsModel, index: number, head: string[]): JSX.Element {
-        const { rej } = this.props;
+    const renderRow = (transaction: TransactionsModel, index: number, head: string[]): JSX.Element => {
+        const { rej } = props;
 
         return (
             <tr key={index}>
@@ -57,7 +57,7 @@ class TransactionsList extends PureComponent<IProps> {
                             <Badge success={transaction.success} />
                         </td>
                         <td data-label={head[3]} className="text-end">
-                            {this.renderAmount(transaction)}
+                            {renderAmount(transaction)}
                         </td>
                     </>
                 )}
@@ -69,39 +69,30 @@ class TransactionsList extends PureComponent<IProps> {
                 </td>
             </tr>
         );
-    }
+    };
 
-    render(): JSX.Element {
-        const { transactions, rej, title, more, history } = this.props;
-        const full = [
-            i18n.t('hash'),
-            i18n.t('type'),
-            i18n.t('status'),
-            i18n.t('amount'),
-            i18n.t('block'),
-            i18n.t('time'),
-        ];
-        const simplified = [i18n.t('hash'), i18n.t('type'), i18n.t('block'), i18n.t('time')];
+    const { transactions, rej, title, more, history } = props;
+    const full = [i18n.t('hash'), i18n.t('type'), i18n.t('status'), i18n.t('amount'), i18n.t('block'), i18n.t('time')];
+    const simplified = [i18n.t('hash'), i18n.t('type'), i18n.t('block'), i18n.t('time')];
 
-        return (
-            <Card withoutPadding className="mb-5 h-100">
-                <div className="d-flex justify-content-between">
-                    {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('transactions')}</h3>}
-                    {more && (
-                        <Button
-                            className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3"
-                            onPress={() => history.push(NavigationConstants.TRANSACTIONS)}
-                        >
-                            View all
-                        </Button>
-                    )}
-                </div>
-                <Table head={rej ? simplified : full}>
-                    {transactions.map((transaction, index) => this.renderRow(transaction, index, full))}
-                </Table>
-            </Card>
-        );
-    }
-}
+    return (
+        <Card withoutPadding className="mb-5 h-100">
+            <div className="d-flex justify-content-between">
+                {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('transactions')}</h3>}
+                {more && (
+                    <Button
+                        className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3"
+                        onPress={() => history.push(NavigationConstants.TRANSACTIONS)}
+                    >
+                        View all
+                    </Button>
+                )}
+            </div>
+            <Table head={rej ? simplified : full}>
+                {transactions.map((transaction, index) => renderRow(transaction, index, full))}
+            </Table>
+        </Card>
+    );
+};
 
 export default withRouter(TransactionsList);
