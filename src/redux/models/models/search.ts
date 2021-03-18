@@ -1,6 +1,6 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
-import { ApiSearch } from '../../../api';
+import { ApiSearch } from 'api';
 
 interface SearchState {
     data: string | null;
@@ -58,6 +58,8 @@ const search = createModel<RootModel>()({
 
                 if (result) {
                     dispatch.search.setSearchResult(result);
+
+                    return result;
                 } else {
                     dispatch.search.setSearchResult();
                 }

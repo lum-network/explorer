@@ -15,6 +15,12 @@ const Core = (): JSX.Element => {
     useEffect(() => {
         fetch();
         sockets();
+
+        return () => {
+            if (socket) {
+                socket.close();
+            }
+        };
     });
 
     const fetch = () => {
@@ -43,6 +49,7 @@ const Core = (): JSX.Element => {
                     name: SocketConstants.TRANSACTIONS,
                 }),
             );
+
             socket.on(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
                 const transaction = plainToClass(TransactionsModel, data);
 
