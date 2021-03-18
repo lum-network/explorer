@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { MessagesType } from 'constant';
 import './MessageType.scss';
 import { MessagesUtils } from 'utils';
@@ -8,34 +8,32 @@ interface IProps {
     badge?: boolean;
 }
 
-class MessageType extends PureComponent<IProps> {
-    render(): JSX.Element {
-        const { type, badge } = this.props;
+const MessageType = (props: IProps): JSX.Element => {
+    const { type, badge } = props;
 
-        const textIcon = MessagesUtils.name(type);
-        const text = textIcon.text;
-        const icon = textIcon.icon;
+    const textIcon = MessagesUtils.name(type);
+    const text = textIcon.text;
+    const icon = textIcon.icon;
 
-        if (badge) {
-            return (
-                <div className="app-message-type-badge">
-                    <p className="text-badge d-flex align-items-center">
-                        <img alt="logo" src={icon} />
-                        {text}
-                    </p>
-                </div>
-            );
-        }
-
+    if (badge) {
         return (
-            <div className="app-message-type">
-                <p className="text d-flex align-items-center">
+            <div className="app-message-type-badge">
+                <p className="text-badge d-flex align-items-center">
                     <img alt="logo" src={icon} />
                     {text}
                 </p>
             </div>
         );
     }
-}
+
+    return (
+        <div className="app-message-type">
+            <p className="text d-flex align-items-center">
+                <img alt="logo" src={icon} />
+                {text}
+            </p>
+        </div>
+    );
+};
 
 export default MessageType;

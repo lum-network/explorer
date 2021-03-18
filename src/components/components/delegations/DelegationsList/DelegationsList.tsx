@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { DelegationsModel } from 'models';
 import { Card, Table } from 'frontend-elements';
@@ -12,9 +12,9 @@ interface IProps extends RouteComponentProps {
     validatorTokens: number;
 }
 
-class DelegationsList extends PureComponent<IProps> {
-    renderRow(delegation: DelegationsModel, index: number, head: string[]): JSX.Element {
-        const { validatorTokens } = this.props;
+const DelegationsList = (props: IProps) => {
+    const renderRow = (delegation: DelegationsModel, index: number, head: string[]): JSX.Element => {
+        const { validatorTokens } = props;
 
         return (
             <tr key={index}>
@@ -35,23 +35,19 @@ class DelegationsList extends PureComponent<IProps> {
                 </td>
             </tr>
         );
-    }
+    };
 
-    render(): JSX.Element {
-        const { delegations, title } = this.props;
-        const head = [i18n.t('delegatorAddress'), i18n.t('amount'), i18n.t('shares')];
+    const { delegations, title } = props;
+    const head = [i18n.t('delegatorAddress'), i18n.t('amount'), i18n.t('shares')];
 
-        return (
-            <Card withoutPadding className="mb-5 h-100">
-                <div className="d-flex justify-content-between">
-                    {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('delegators')}</h3>}
-                </div>
-                <Table head={head}>
-                    {delegations.map((delegation, index) => this.renderRow(delegation, index, head))}
-                </Table>
-            </Card>
-        );
-    }
-}
+    return (
+        <Card withoutPadding className="mb-5 h-100">
+            <div className="d-flex justify-content-between">
+                {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('delegators')}</h3>}
+            </div>
+            <Table head={head}>{delegations.map((delegation, index) => renderRow(delegation, index, head))}</Table>
+        </Card>
+    );
+};
 
 export default withRouter(DelegationsList);
