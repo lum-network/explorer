@@ -21,7 +21,7 @@ const Core = (): JSX.Element => {
                 socket.close();
             }
         };
-    });
+    }, []);
 
     const fetch = () => {
         dispatch.blocks.fetchBlocks().finally(() => null);

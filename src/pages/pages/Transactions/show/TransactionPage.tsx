@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MessageType, Badge } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import moment from 'moment-timezone';
@@ -22,51 +22,32 @@ import numeral from 'numeral';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
-interface IState {
-    copied: boolean;
-}
+const TransactionPage = (props: IProps): JSX.Element => {
+    const dispatch = useDispatch<Dispatch>();
+    const transaction = useSelector((state: RootState) => state.transactions.transaction);
+    const loading = useSelector((state: RootState) => state.loading.effects.transactions.getTransaction);
 
-const mapState = (state: RootState) => ({
-    transaction: state.transactions.transaction,
-    loading: state.loading.effects.transactions.getTransaction,
-});
+    const { id } = props.match.params;
 
-const mapDispatch = (dispatch: Dispatch) => ({
-    getTransaction: (id: string) => dispatch.transactions.getTransaction(id),
-});
+    const [copied, setCopied] = useState(false);
 
-type StateProps = ReturnType<typeof mapState>;
-type DispatchProps = ReturnType<typeof mapDispatch>;
-type Props = IProps & StateProps & DispatchProps;
+    useEffect(() => {
+        dispatch.transactions.getTransaction(id).finally(() => null);
+    }, []);
 
-class TransactionPage extends PureComponent<Props, IState> {
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            copied: false,
-        };
-    }
-
-    componentDidMount(): void {
-        const { getTransaction } = this.props;
-        const { id } = this.props.match.params;
-
-        getTransaction(id).finally(() => null);
-    }
-
-    copyHash = (): void => {
-        const { hash } = this.props.transaction;
+    const copyHash = (): void => {
+        const { hash } = transaction;
 
         if (!hash) {
             return;
         }
 
         navigator.clipboard.writeText(hash).finally(() => null);
-        this.setState({ copied: true });
+
+        setCopied(true);
     };
 
-    renderMessage(message: MessageModel.Value): JSX.Element {
+    const renderMessage = (message: MessageModel.Value): JSX.Element => {
         if (message instanceof MessageModel.Send) {
             const { value } = message;
 
@@ -196,11 +177,9 @@ class TransactionPage extends PureComponent<Props, IState> {
         }
 
         return <div>{i18n.t('errorOccurred')}</div>;
-    }
+    };
 
-    renderMessages(): JSX.Element | null {
-        const { transaction, loading } = this.props;
-
+    const renderMessages = (): JSX.Element | null => {
         if (!transaction || loading) {
             return (
                 <Card className="mb-5">
@@ -209,7 +188,7 @@ class TransactionPage extends PureComponent<Props, IState> {
             );
         }
 
-        const { messages } = this.props.transaction;
+        const { messages } = transaction;
 
         if (!messages || !messages.length) {
             return null;
@@ -225,19 +204,16 @@ class TransactionPage extends PureComponent<Props, IState> {
                         <div key={index}>
                             <MessageType type={message.typeUrl} />
                             <Card flat className={`mt-3 ${length !== index + 1 ? 'mb-5' : ''}`}>
-                                {this.renderMessage(message)}
+                                {renderMessage(message)}
                             </Card>
                         </div>
                     );
                 })}
             </Card>
         );
-    }
+    };
 
-    renderInformation(): JSX.Element {
-        const { transaction, loading } = this.props;
-        const { copied } = this.state;
-
+    const renderInformation = (): JSX.Element => {
         if (!transaction || loading) {
             return (
                 <Card className="mb-5">
@@ -260,7 +236,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                             <img
                                 alt="copy"
                                 src={copied ? checkLogo : copyLogo}
-                                onClick={this.copyHash}
+                                onClick={copyHash}
                                 className="pointer img-cpy placeholder-image"
                             />
                         </div>
@@ -327,19 +303,17 @@ class TransactionPage extends PureComponent<Props, IState> {
                 </div>
             </Card>
         );
-    }
+    };
 
-    render(): JSX.Element {
-        return (
-            <>
-                <h2 className="mt-3 mb-4">
-                    <img alt="block" src={transactionLogo} /> {i18n.t('transactionDetails')}
-                </h2>
-                {this.renderInformation()}
-                {this.renderMessages()}
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <h2 className="mt-3 mb-4">
+                <img alt="block" src={transactionLogo} /> {i18n.t('transactionDetails')}
+            </h2>
+            {renderInformation()}
+            {renderMessages()}
+        </>
+    );
+};
 
-export default connect(mapState, mapDispatch)(TransactionPage);
+export default TransactionPage;

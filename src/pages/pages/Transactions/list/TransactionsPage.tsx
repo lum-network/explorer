@@ -11,7 +11,7 @@ const TransactionsPage = (): JSX.Element | null => {
 
     useEffect(() => {
         dispatch.transactions.fetchTransactions().finally(() => null);
-    });
+    }, []);
 
     if (!transactions) {
         return null;
