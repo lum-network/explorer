@@ -161,7 +161,35 @@ const TransactionPage = (props: IProps): JSX.Element => {
         }
 
         if (message instanceof MessageModel.Delegate) {
-            return <div>Delegate</div>;
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('delegatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
+                            {value.delegatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2  mb-md-3">
+                        <h5>{i18n.t('validatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        {value.amount && value.amount.amount}
+                        <span className="ms-1 color-type">{value.amount && value.amount.denom.toUpperCase()}</span>
+                    </div>
+                </div>
+            );
         }
 
         if (message instanceof MessageModel.Undelegate) {

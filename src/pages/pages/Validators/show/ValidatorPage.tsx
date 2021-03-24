@@ -68,7 +68,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         </div>
                         <div className="row">
                             <div className="col-xl-6">
-                                <h4 className="mb-1">{i18n.t('operatorAddress')}</h4>
+                                <h4 className="mb-1">{i18n.t('validatorAddress')}</h4>
                                 <p className="text-break">{validator.operatorAddress}</p>
                             </div>
                             <div className="mt-3 mt-xl-0 col-xl-6 offset-xxl-1 col-xxl-5">
@@ -119,7 +119,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         </div>
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                             <p>
-                                {numeral(parseFloat(validator.tokens || '0') / validator.selfBonded).format('0.00%')} (
+                                {numeral(validator.selfBonded / parseFloat(validator.tokens || '0')).format('0.00%')} (
                                 {numeral(validator.selfBonded).format('0,0.000000')}
                                 <span className="ms-1 color-type">LUM</span>)
                             </p>

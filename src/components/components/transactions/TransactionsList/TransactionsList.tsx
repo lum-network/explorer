@@ -8,6 +8,7 @@ import { NavigationConstants } from 'constant';
 import { i18n, StringsUtils } from 'utils';
 import moment from 'moment-timezone';
 import moreLogo from 'assets/images/more.svg';
+import numeral from 'numeral';
 
 interface IProps extends RouteComponentProps {
     transactions: TransactionsModel[];
@@ -29,8 +30,10 @@ const TransactionsList = (props: IProps): JSX.Element => {
 
         return (
             <>
-                {transaction.amount && transaction.amount.amount}
-                <span className="ms-1 color-type">{transaction.amount && transaction.amount.denom.toUpperCase()}</span>
+                {transaction.amount && numeral(transaction.amount.amount).format('0,0')}
+                <span className="ms-1 color-type">
+                    {transaction.amount && transaction.amount.denom ? transaction.amount.denom.toUpperCase() : 'LUM'}
+                </span>
             </>
         );
     };

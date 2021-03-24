@@ -71,7 +71,15 @@ export class CreateValidator extends MessageModel {
     value: CreateValidatorValue = new CreateValidatorValue();
 }
 
-class DelegateValue {}
+class DelegateValue {
+    @Expose({ name: 'delegator_address' })
+    delegatorAddress?: string;
+
+    @Expose({ name: 'validator_address' })
+    validatorAddress?: string;
+
+    amount?: AmountModel;
+}
 
 export class Delegate extends MessageModel {
     @Type(() => DelegateValue)
