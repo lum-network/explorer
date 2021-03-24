@@ -20,7 +20,7 @@ class TransactionsModel {
 
     addresses: string[] = [];
 
-    name?: string;
+    memo?: string;
 
     time?: string;
 

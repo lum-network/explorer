@@ -298,7 +298,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         </h4>
                     </div>
                     <div className="col-lg-4 col-md-9 col-sm-8">
-                        <p>{transaction.name || '-'}</p>
+                        <p>{transaction.memo || '-'}</p>
                     </div>
                 </div>
             </Card>
