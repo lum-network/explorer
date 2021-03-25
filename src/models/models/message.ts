@@ -115,4 +115,19 @@ export class MultiSend extends MessageModel {
     value: MultiSendValue = new MultiSendValue();
 }
 
-export type Value = Send | CreateValidator | Delegate | Undelegate | EditValidator | MultiSend;
+class GetRewardValue {
+    @Expose({ name: 'delegator_address' })
+    delegatorAddress?: string;
+
+    @Expose({ name: 'validator_address' })
+    validatorAddress?: string;
+
+    amount?: AmountModel;
+}
+
+export class GetReward extends MessageModel {
+    @Type(() => GetRewardValue)
+    value: GetRewardValue = new GetRewardValue();
+}
+
+export type Value = Send | CreateValidator | Delegate | Undelegate | EditValidator | MultiSend | GetReward;

@@ -56,6 +56,7 @@ export default {
     undelegateMessage: 'Undelegate',
     editValidatorMessage: 'Edit validator',
     multiSendMessage: 'Multi send',
+    getReward: 'Get reward',
 
     // Badge status
     badgeJailed: 'Jailed',

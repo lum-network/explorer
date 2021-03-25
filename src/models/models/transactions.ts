@@ -1,6 +1,15 @@
 import { MessagesType } from 'constant';
 import { Expose, Type } from 'class-transformer';
-import MessageModel, { CreateValidator, Delegate, EditValidator, MultiSend, Send, Undelegate, Value } from './message';
+import MessageModel, {
+    CreateValidator,
+    Delegate,
+    EditValidator,
+    GetReward,
+    MultiSend,
+    Send,
+    Undelegate,
+    Value,
+} from './message';
 import AmountModel from './amount';
 
 class TransactionsModel {
@@ -36,6 +45,7 @@ class TransactionsModel {
                 { value: Undelegate, name: MessagesType.UNDELEGATE },
                 { value: EditValidator, name: MessagesType.EDIT_VALIDATOR },
                 { value: MultiSend, name: MessagesType.MULTI_SEND },
+                { value: GetReward, name: MessagesType.GET_REWARD },
             ],
         },
         keepDiscriminatorProperty: true,
