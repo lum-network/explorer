@@ -86,7 +86,15 @@ export class Delegate extends MessageModel {
     value: DelegateValue = new DelegateValue();
 }
 
-class UndelegateValue {}
+class UndelegateValue {
+    @Expose({ name: 'delegator_address' })
+    delegatorAddress?: string;
+
+    @Expose({ name: 'validator_address' })
+    validatorAddress?: string;
+
+    amount?: AmountModel;
+}
 
 export class Undelegate extends MessageModel {
     @Type(() => UndelegateValue)

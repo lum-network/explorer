@@ -193,7 +193,35 @@ const TransactionPage = (props: IProps): JSX.Element => {
         }
 
         if (message instanceof MessageModel.Undelegate) {
-            return <div>Undelegate</div>;
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('delegatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
+                            {value.delegatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2  mb-md-3">
+                        <h5>{i18n.t('validatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        {value.amount && value.amount.amount}
+                        <span className="ms-1 color-type">{value.amount && value.amount.denom.toUpperCase()}</span>
+                    </div>
+                </div>
+            );
         }
 
         if (message instanceof MessageModel.EditValidator) {
@@ -313,12 +341,24 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
-                            {/*TODO: Add fee */}
                             <img alt="transaction" src={feeLogo} /> {i18n.t('fee')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
-                        <p>Soon</p>
+                        <p>
+                            {transaction.fees && transaction.fees.length ? (
+                                <>
+                                    {numeral(transaction.fees[0].amount).format('0,0.000000')}
+                                    <span className="ms-1 color-type">
+                                        {transaction.amount && transaction.amount.denom
+                                            ? transaction.amount.denom.toUpperCase()
+                                            : 'LUM'}
+                                    </span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
+                        </p>
                     </div>
                     <div className="col-lg-2 col-md-3 col-sm-4">
                         <h4>

@@ -24,6 +24,8 @@ class TransactionsModel {
 
     time?: string;
 
+    fees: AmountModel[] = [];
+
     @Type(() => MessageModel, {
         discriminator: {
             property: 'type_url',
