@@ -7,6 +7,15 @@ class AllRewards {
     total: AmountModel[] = [];
 }
 
+class UnbondingEntriesModel {
+    balance = '0';
+}
+
+export class UnbondingModel {
+    @Type(() => UnbondingEntriesModel)
+    entries: UnbondingEntriesModel[] = [];
+}
+
 class AccountModel {
     address?: string;
 
@@ -32,6 +41,9 @@ class AccountModel {
 
     @Type(() => DelegationsModel)
     delegations: DelegationsModel[] = [];
+
+    @Type(() => UnbondingModel)
+    unbondings: UnbondingModel[] = [];
 }
 
 export default AccountModel;

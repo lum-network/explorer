@@ -39,14 +39,14 @@ const AccountPage = (props: IProps): JSX.Element => {
             return;
         }
 
-        const { balance, allRewards, delegations } = account;
+        const { balance, allRewards, delegations, unbondings } = account;
 
         const available = parseFloat(balance ? balance.amount : '0');
         const reward =
             parseFloat(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0') /
             NumberConstants.CLIENT_PRECISION;
         const delegated = AccountUtils.sumOfDelegations(delegations);
-        const unbonding = 0;
+        const unbonding = AccountUtils.sumOfUnbonding(unbondings);
 
         const total = available + reward + delegated + unbonding;
 

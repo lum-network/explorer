@@ -177,7 +177,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('validatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.validatorAddress}`}>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
                             {value.validatorAddress}
                         </Link>
                     </div>
@@ -209,7 +209,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('validatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.validatorAddress}`}>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
                             {value.validatorAddress}
                         </Link>
                     </div>
