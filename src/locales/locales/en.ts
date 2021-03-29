@@ -38,6 +38,7 @@ export default {
     day: '24h',
     more: 'More',
     delegators: 'Delegators',
+    delegations: 'Delegations',
     shares: 'Shares',
 
     // Layout

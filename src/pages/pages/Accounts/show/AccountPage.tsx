@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
-import { TransactionsList } from 'components';
+import { DelegationsList, TransactionsList } from 'components';
 import { Card, CodeQr, Loading } from 'frontend-elements';
 import '../Accounts.scss';
 import checkLogo from 'assets/images/check.svg';
@@ -90,6 +90,36 @@ const AccountPage = (props: IProps): JSX.Element => {
         }
 
         return <TransactionsList title transactions={transactions} />;
+    };
+
+    const renderDelegationsAndUnbondings = (): JSX.Element => {
+        if (!account || loading) {
+            return (
+                <div className="row">
+                    <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                        <Card>
+                            <Loading />
+                        </Card>
+                    </div>
+                    <div className="col-12 col-xxl-6 mb-5">
+                        <Card>
+                            <Loading />
+                        </Card>
+                    </div>
+                </div>
+            );
+        }
+
+        const { delegations, allRewards } = account;
+
+        return (
+            <div className="row">
+                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                    <DelegationsList title delegations={delegations} rewards={allRewards.rewards} />
+                </div>
+                <div className="col-12 col-xxl-6 mb-5"></div>
+            </div>
+        );
     };
 
     const renderPie = (): JSX.Element | null => {
@@ -244,6 +274,7 @@ const AccountPage = (props: IProps): JSX.Element => {
                 <img alt="block" src={accountLogo} /> {i18n.t('accountDetails')}
             </h2>
             {renderInformation()}
+            {renderDelegationsAndUnbondings()}
             {renderTransactions()}
         </>
     );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { Badge, BlocksList, DelegationsList } from 'components';
+import { Badge, BlocksList, DelegatorsList } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import placeholderValidator from 'assets/images/placeholderValidator.svg';
@@ -181,7 +181,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                     <BlocksList rej title blocks={blocks} />
                 </div>
                 <div className="col-12 col-xxl-6 mb-5">
-                    <DelegationsList title delegations={delegations} validatorTokens={parseFloat(tokens || '0')} />
+                    <DelegatorsList title delegators={delegations} validatorTokens={parseFloat(tokens || '0')} />
                 </div>
             </div>
         );

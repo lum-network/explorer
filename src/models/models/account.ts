@@ -3,8 +3,18 @@ import TransactionsModel from './transactions';
 import AmountModel from './amount';
 import DelegationsModel from './delegations';
 
+export class RewardModel {
+    @Expose({ name: 'validator_address' })
+    validatorAddress?: string;
+
+    reward: AmountModel[] = [];
+}
+
 class AllRewards {
     total: AmountModel[] = [];
+
+    @Type(() => RewardModel)
+    rewards: RewardModel[] = [];
 }
 
 class UnbondingEntriesModel {
