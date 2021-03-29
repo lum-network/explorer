@@ -21,11 +21,7 @@ const DelegationsList = (props: IProps): JSX.Element => {
             return 0;
         }
 
-        console.log(rewards);
-
         const result = rewards.find((reward) => reward.validatorAddress === validatorAddress);
-
-        console.log(result);
 
         if (!result || !result.reward || !result.reward.length) {
             return 0;

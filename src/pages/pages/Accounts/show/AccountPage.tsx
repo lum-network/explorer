@@ -13,6 +13,7 @@ import numeral from 'numeral';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { AccountUtils, i18n, NumbersUtils } from 'utils';
 import { NumberConstants } from 'constant';
+import UnbondingsList from '../../../../components/components/delegations/UnbondingsList/UnbondingsList';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -110,14 +111,16 @@ const AccountPage = (props: IProps): JSX.Element => {
             );
         }
 
-        const { delegations, allRewards } = account;
+        const { delegations, allRewards, unbondings } = account;
 
         return (
             <div className="row">
                 <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                     <DelegationsList title delegations={delegations} rewards={allRewards.rewards} />
                 </div>
-                <div className="col-12 col-xxl-6 mb-5"></div>
+                <div className="col-12 col-xxl-6 mb-5">
+                    <UnbondingsList unbondings={unbondings} title />
+                </div>
             </div>
         );
     };

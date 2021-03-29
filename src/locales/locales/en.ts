@@ -40,6 +40,8 @@ export default {
     delegators: 'Delegators',
     delegations: 'Delegations',
     shares: 'Shares',
+    unbondings: 'Unbondings',
+    completion: 'Completion',
 
     // Layout
     dashboard: 'Board',
