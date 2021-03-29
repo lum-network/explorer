@@ -41,7 +41,7 @@ const DelegationsList = (props: IProps): JSX.Element => {
                         {StringsUtils.trunc(delegation.delegation.validatorAddress || '', 10)}
                     </Link>
                 </td>
-                <td data-lable={head[1]}>
+                <td data-label={head[1]}>
                     {numeral(parseFloat(delegation.delegation.shares || '0') / NumberConstants.CLIENT_PRECISION).format(
                         '0,0.00',
                     )}

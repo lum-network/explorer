@@ -31,7 +31,7 @@ const UnbondingsList = (props: IProps): JSX.Element => {
                     {numeral(value.balance).format('0,0.00')}
                     <span className="ms-1 color-type">LUM</span>
                 </td>
-                <td data-label={head[4]} className="text-end">
+                <td data-label={head[3]} className="text-end">
                     <small>
                         {moment.utc(value.completionTime).tz(SystemConstants.TIMEZONE).format('ll')}
                         <br />
