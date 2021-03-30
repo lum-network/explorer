@@ -1,4 +1,4 @@
-#Lum Network - Explorer
+# Lum Network - Explorer
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
@@ -7,7 +7,7 @@ This is a front-end repository for **Lum Network Explorer**.
 
 This service used **Lum Network - Chain Bridge** as an API (code hosted [here](https://github.com/lum-network/chain-bridge))
 
-##Description
+## Description
 
 This service is a React full typescript application with these libraries:
 
@@ -52,6 +52,6 @@ All React components are functional components with hooks.
 
 There is a Prettier and ES Lint configuration to follow.
 
-##Contributing
+## Contributing
 
 All contributions are more than welcome! Feel free to fork the repository and create a Pull Request!
