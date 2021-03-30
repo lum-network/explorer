@@ -5,7 +5,7 @@
 
 This is a front-end repository for **Lum Network Explorer**.
 
-This service used **Lum Network - Chain Bridge** as an API (code hosted [here](https://github.com/lum-network/chain-bridge))
+This service used **Lum Network - Chain Bridge** API (code hosted [here](https://github.com/lum-network/chain-bridge))
 
 ## Description
 
