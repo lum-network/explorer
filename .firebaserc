@@ -5,8 +5,11 @@
   "targets": {
     "lum-network": {
       "hosting": {
-        "chain-explorer": [
-          "lum-network-chain-explorer"
+        "lum-network-explorer": [
+          "lum-network-explorer"
+        ],
+        "lum-network-explorer-testnet": [
+          "lum-network-explorer-testnet"
         ]
       }
     }
