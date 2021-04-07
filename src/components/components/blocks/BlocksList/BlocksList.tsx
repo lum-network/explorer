@@ -29,7 +29,7 @@ const BlocksList = (props: IProps): JSX.Element => {
                         </Link>
                     </td>
                 )}
-                <td data-label={head[2]} className={!rej ? 'text-end' : 'text-start'}>
+                <td data-label={head[2]} className={!rej ? 'text-end' : ''}>
                     {block.txCount}
                 </td>
                 <td data-label={head[3]} className="text-end">
