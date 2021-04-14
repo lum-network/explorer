@@ -105,10 +105,10 @@ export default {
     noResultFound: 'No result found',
     search: 'Search',
 
-    // Wallet
-    lumWallet: 'Lum Wallet',
-    walletDescription: 'Access Lum with web wallet<br />or Lumki application',
-    accessLumWallet: 'Access Lum wallet',
+    // Lumki
+    lumWallet: 'Lumki',
+    walletDescription: 'Available on the App Store<br/>and on the Google Store',
+    accessLumWallet: 'Discover Lumki',
 
     // Errors
     errorOccurred: 'An error occurred',
