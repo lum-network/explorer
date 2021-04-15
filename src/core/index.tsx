@@ -29,7 +29,7 @@ const Core = (): JSX.Element => {
     };
 
     const sockets = () => {
-        socket = io(ApiConstants.BASE_URL);
+        socket = io(String(ApiConstants.BASE_URL));
         socket.on('connect', () => {
             if (!socket) {
                 console.warn('cannot listen channel, null socket pointer');
