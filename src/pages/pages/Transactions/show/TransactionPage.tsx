@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
-import { connect } from 'react-redux';
-import { MessageType } from 'components';
-import { Badge, Card, Loading } from 'frontend-elements';
+import { useDispatch, useSelector } from 'react-redux';
+import { MessageType, Badge } from 'components';
+import { Card, Loading } from 'frontend-elements';
 import moment from 'moment-timezone';
 import { NavigationConstants, SystemConstants } from 'constant';
 import { i18n, StringsUtils } from 'utils';
@@ -22,52 +22,35 @@ import numeral from 'numeral';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
-interface IState {
-    copied: boolean;
-}
+const TransactionPage = (props: IProps): JSX.Element => {
+    const dispatch = useDispatch<Dispatch>();
+    const transaction = useSelector((state: RootState) => state.transactions.transaction);
+    const loading = useSelector((state: RootState) => state.loading.effects.transactions.getTransaction);
 
-const mapState = (state: RootState) => ({
-    transaction: state.transactions.transaction,
-    loading: state.loading.effects.transactions.getTransaction,
-});
+    const { id } = props.match.params;
 
-const mapDispatch = (dispatch: Dispatch) => ({
-    getTransaction: (id: string) => dispatch.transactions.getTransaction(id),
-});
+    const [copied, setCopied] = useState(false);
 
-type StateProps = ReturnType<typeof mapState>;
-type DispatchProps = ReturnType<typeof mapDispatch>;
-type Props = IProps & StateProps & DispatchProps;
+    useEffect(() => {
+        dispatch.transactions.getTransaction(id).finally(() => null);
+    }, []);
 
-class TransactionPage extends PureComponent<Props, IState> {
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            copied: false,
-        };
-    }
-
-    componentDidMount(): void {
-        const { getTransaction } = this.props;
-        const { id } = this.props.match.params;
-
-        getTransaction(id).finally(() => null);
-    }
-
-    copyHash = (): void => {
-        const { hash } = this.props.transaction;
+    const copyHash = (): void => {
+        const { hash } = transaction;
 
         if (!hash) {
             return;
         }
 
         navigator.clipboard.writeText(hash).finally(() => null);
-        this.setState({ copied: true });
+
+        setCopied(true);
     };
 
-    renderMessage(value: MessageModel.Value): JSX.Element {
-        if (value instanceof MessageModel.Send) {
+    const renderMessage = (message: MessageModel.Value): JSX.Element => {
+        if (message instanceof MessageModel.Send) {
+            const { value } = message;
+
             return (
                 <div className="row align-items-center">
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
@@ -93,7 +76,9 @@ class TransactionPage extends PureComponent<Props, IState> {
             );
         }
 
-        if (value instanceof MessageModel.CreateValidator) {
+        if (message instanceof MessageModel.CreateValidator) {
+            const { value } = message;
+
             return (
                 <div className="row align-items-center">
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
@@ -175,24 +160,118 @@ class TransactionPage extends PureComponent<Props, IState> {
             );
         }
 
-        if (value instanceof MessageModel.Delegate) {
-            return <div>Delegate</div>;
+        if (message instanceof MessageModel.Delegate) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('delegatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
+                            {value.delegatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2  mb-md-3">
+                        <h5>{i18n.t('validatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        {value.amount && value.amount.amount}
+                        <span className="ms-1 color-type">{value.amount && value.amount.denom.toUpperCase()}</span>
+                    </div>
+                </div>
+            );
         }
 
-        if (value instanceof MessageModel.Undelegate) {
-            return <div>Undelegate</div>;
+        if (message instanceof MessageModel.Undelegate) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('delegatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
+                            {value.delegatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2  mb-md-3">
+                        <h5>{i18n.t('validatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        {value.amount && value.amount.amount}
+                        <span className="ms-1 color-type">{value.amount && value.amount.denom.toUpperCase()}</span>
+                    </div>
+                </div>
+            );
         }
 
-        if (value instanceof MessageModel.EditValidator) {
+        if (message instanceof MessageModel.EditValidator) {
             return <div>EditValidator</div>;
         }
 
+        if (message instanceof MessageModel.MultiSend) {
+            return <div>MultiSend</div>;
+        }
+
+        if (message instanceof MessageModel.GetReward) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('delegatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
+                            {value.delegatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2  mb-md-3">
+                        <h5>{i18n.t('validatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        {transaction.amount && numeral(transaction.amount.amount).format('0,0')}
+                        <span className="ms-1 color-type">
+                            {transaction.amount && transaction.amount.denom
+                                ? transaction.amount.denom.toUpperCase()
+                                : 'LUM'}
+                        </span>
+                    </div>
+                </div>
+            );
+        }
+
         return <div>{i18n.t('errorOccurred')}</div>;
-    }
+    };
 
-    renderMessages(): JSX.Element | null {
-        const { transaction, loading } = this.props;
-
+    const renderMessages = (): JSX.Element | null => {
         if (!transaction || loading) {
             return (
                 <Card className="mb-5">
@@ -201,7 +280,7 @@ class TransactionPage extends PureComponent<Props, IState> {
             );
         }
 
-        const { messages } = this.props.transaction;
+        const { messages } = transaction;
 
         if (!messages || !messages.length) {
             return null;
@@ -215,21 +294,18 @@ class TransactionPage extends PureComponent<Props, IState> {
                 {messages.map((message, index) => {
                     return (
                         <div key={index}>
-                            <MessageType type={message.type} />
+                            <MessageType type={message.typeUrl} />
                             <Card flat className={`mt-3 ${length !== index + 1 ? 'mb-5' : ''}`}>
-                                {this.renderMessage(message.value)}
+                                {renderMessage(message)}
                             </Card>
                         </div>
                     );
                 })}
             </Card>
         );
-    }
+    };
 
-    renderInformation(): JSX.Element {
-        const { transaction, loading } = this.props;
-        const { copied } = this.state;
-
+    const renderInformation = (): JSX.Element => {
         if (!transaction || loading) {
             return (
                 <Card className="mb-5">
@@ -252,7 +328,7 @@ class TransactionPage extends PureComponent<Props, IState> {
                             <img
                                 alt="copy"
                                 src={copied ? checkLogo : copyLogo}
-                                onClick={this.copyHash}
+                                onClick={copyHash}
                                 className="pointer img-cpy placeholder-image"
                             />
                         </div>
@@ -273,8 +349,8 @@ class TransactionPage extends PureComponent<Props, IState> {
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                        <p>{`${moment.utc(transaction.dispatchedAt).fromNow()} (${moment
-                            .utc(transaction.dispatchedAt)
+                        <p>{`${moment.utc(transaction.time).fromNow()} (${moment
+                            .utc(transaction.time)
                             .tz(SystemConstants.TIMEZONE)
                             .format('lll')})`}</p>
                     </div>
@@ -301,12 +377,24 @@ class TransactionPage extends PureComponent<Props, IState> {
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
-                            {/*TODO: Add fee */}
                             <img alt="transaction" src={feeLogo} /> {i18n.t('fee')}
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
-                        <p>Soon</p>
+                        <p>
+                            {transaction.fees && transaction.fees.length ? (
+                                <>
+                                    {numeral(transaction.fees[0].amount).format('0,0.000000')}
+                                    <span className="ms-1 color-type">
+                                        {transaction.amount && transaction.amount.denom
+                                            ? transaction.amount.denom.toUpperCase()
+                                            : 'LUM'}
+                                    </span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
+                        </p>
                     </div>
                     <div className="col-lg-2 col-md-3 col-sm-4">
                         <h4>
@@ -314,24 +402,22 @@ class TransactionPage extends PureComponent<Props, IState> {
                         </h4>
                     </div>
                     <div className="col-lg-4 col-md-9 col-sm-8">
-                        <p>{transaction.name || '-'}</p>
+                        <p>{transaction.memo || '-'}</p>
                     </div>
                 </div>
             </Card>
         );
-    }
+    };
 
-    render(): JSX.Element {
-        return (
-            <>
-                <h2 className="mt-3 mb-4">
-                    <img alt="block" src={transactionLogo} /> {i18n.t('transactionDetails')}
-                </h2>
-                {this.renderInformation()}
-                {this.renderMessages()}
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <h2 className="mt-3 mb-4">
+                <img alt="block" src={transactionLogo} /> {i18n.t('transactionDetails')}
+            </h2>
+            {renderInformation()}
+            {renderMessages()}
+        </>
+    );
+};
 
-export default connect(mapState, mapDispatch)(TransactionPage);
+export default TransactionPage;

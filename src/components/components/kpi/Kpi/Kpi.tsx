@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { KpiType } from 'constant';
 import { KpiCard } from 'components';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { BlockUtils, i18n, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
@@ -16,54 +16,24 @@ interface IProps {
     className?: string;
 }
 
-interface IState {
-    blockTime: number;
-}
+const Kpi = (props: IProps): JSX.Element => {
+    const [blockTime, setBlockTime] = useState(5000);
 
-const mapState = (state: RootState) => ({
-    blocks: state.blocks.blocks,
-    validators: state.validators.validators,
-});
+    const blocks = useSelector((state: RootState) => state.blocks.blocks);
+    const validators = useSelector((state: RootState) => state.validators.validators);
 
-type StateProps = ReturnType<typeof mapState>;
+    const processBlockTime = (blocks: BlocksModel[]): void => {
+        const time = BlockUtils.processBlockTime(blocks);
+        setBlockTime(time);
+    };
 
-type Props = IProps & StateProps;
-
-class Kpi extends PureComponent<Props, IState> {
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            blockTime: 5000,
-        };
-    }
-
-    componentDidMount() {
-        const { blocks } = this.props;
-
+    useEffect(() => {
         if (blocks && blocks.length) {
-            this.processBlockTime(blocks);
+            processBlockTime(blocks);
         }
-    }
+    }, [blocks]);
 
-    componentDidUpdate(prevProps: Readonly<Props>) {
-        const { blocks } = this.props;
-
-        if (blocks && blocks.length && prevProps.blocks && prevProps.blocks.length && blocks !== prevProps.blocks) {
-            this.processBlockTime(blocks);
-        }
-    }
-
-    processBlockTime(blocks: BlocksModel[]): void {
-        const blockTime = BlockUtils.processBlockTime(blocks);
-
-        this.setState({ blockTime });
-    }
-
-    renderCard(type: KpiType): JSX.Element | null {
-        const { blocks, validators } = this.props;
-        const { blockTime } = this.state;
-
+    const renderCard = (type: KpiType): JSX.Element | null => {
         switch (type) {
             case KpiType.BLOCK_HEIGHT:
                 if (!blocks || !blocks.length) {
@@ -113,21 +83,18 @@ class Kpi extends PureComponent<Props, IState> {
             default:
                 return null;
         }
-    }
+    };
 
-    render(): JSX.Element {
-        const { types, className } = this.props;
+    const { types, className } = props;
+    return (
+        <div className={`row mb-4 ${className}`}>
+            {types.map((value, index) => (
+                <div key={index} className="col-lg-3 col-sm-6">
+                    {renderCard(value)}
+                </div>
+            ))}
+        </div>
+    );
+};
 
-        return (
-            <div className={`row mb-4 ${className}`}>
-                {types.map((value, index) => (
-                    <div key={index} className="col-lg-3 col-sm-6">
-                        {this.renderCard(value)}
-                    </div>
-                ))}
-            </div>
-        );
-    }
-}
-
-export default connect(mapState)(Kpi);
+export default Kpi;

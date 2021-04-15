@@ -1,54 +1,40 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Loading, Card } from 'frontend-elements';
 import searchLogo from 'assets/images/searchDark.svg';
 import { Dispatch, RootState } from 'redux/store';
 import placeholderTx from 'assets/images/placeholderTx.svg';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavigationConstants } from 'constant';
 import { i18n } from 'utils';
 
 interface IProps extends RouteComponentProps<{ text: string }> {}
 
-const mapState = (state: RootState) => ({
-    loading: state.loading.models.search,
-    data: state.search.data,
-    type: state.search.type,
-    searchText: state.search.searchText,
-});
+const SearchPage = (props: IProps): JSX.Element => {
+    const dispatch = useDispatch<Dispatch>();
+    const loading = useSelector((state: RootState) => state.loading.models.search);
+    const data = useSelector((state: RootState) => state.search.data);
+    const type = useSelector((state: RootState) => state.search.type);
+    const searchText = useSelector((state: RootState) => state.search.searchText);
 
-const mapDispatch = (dispatch: Dispatch) => ({
-    getSearch: (text: string) => dispatch.search.getSearch(text),
-});
+    const { text } = props.match.params;
 
-type StateProps = ReturnType<typeof mapState>;
-type DispatchProps = ReturnType<typeof mapDispatch>;
-type Props = IProps & StateProps & DispatchProps;
+    useEffect(() => {
+        search();
+    }, [searchText, text]);
 
-class SearchPage extends PureComponent<Props> {
-    componentDidMount() {
-        this.search();
-    }
-
-    componentDidUpdate() {
-        const { searchText } = this.props;
-        const { text } = this.props.match.params;
-
-        if (searchText !== text) {
-            this.search();
-        }
-    }
-
-    search() {
-        const { text } = this.props.match.params;
-        const { getSearch } = this.props;
-
+    const search = () => {
         if (!text) {
             return;
         }
 
-        getSearch(text).then(() => {
-            const { type, data, history } = this.props;
+        dispatch.search.getSearch(text).then((res) => {
+            if (!res) {
+                return;
+            }
+
+            const { data, type } = res;
+            const { history } = props;
 
             switch (type) {
                 case 'block':
@@ -67,11 +53,9 @@ class SearchPage extends PureComponent<Props> {
                     history.replace(`${NavigationConstants.VALIDATORS}/${data}`);
             }
         });
-    }
+    };
 
-    renderContent(): JSX.Element | null {
-        const { loading, data, type } = this.props;
-
+    const renderContent = (): JSX.Element | null => {
         if (loading) {
             return (
                 <Card className="mb-5">
@@ -90,18 +74,16 @@ class SearchPage extends PureComponent<Props> {
         }
 
         return null;
-    }
+    };
 
-    render(): JSX.Element {
-        return (
-            <>
-                <h2 className="mt-3 mb-4">
-                    <img alt="block" src={searchLogo} /> {i18n.t('search')}
-                </h2>
-                {this.renderContent()}
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <h2 className="mt-3 mb-4">
+                <img alt="block" src={searchLogo} /> {i18n.t('search')}
+            </h2>
+            {renderContent()}
+        </>
+    );
+};
 
-export default connect(mapState, mapDispatch)(SearchPage);
+export default SearchPage;

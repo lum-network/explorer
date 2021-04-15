@@ -9,17 +9,13 @@ class BlocksModel {
 
     height?: string;
 
-    @Expose({ name: 'dispatched_at' })
-    dispatchedAt?: string;
+    time?: string;
 
-    @Expose({ name: 'num_txs' })
-    numTxs?: string;
+    @Expose({ name: 'tx_count' })
+    txCount?: string;
 
-    @Expose({ name: 'total_txs' })
-    totalTxs?: number;
-
-    @Expose({ name: 'proposer_address' })
-    proposerAddress?: string;
+    @Expose({ name: 'operator_address' })
+    operatorAddress?: string;
 
     @Type(() => TransactionsModel)
     transactions: TransactionsModel[] = [];

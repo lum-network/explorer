@@ -1,87 +1,70 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect } from 'react';
 import RootNavigator from 'navigation';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux/store';
 import { BlocksModel, TransactionsModel } from 'models';
 import { ApiConstants, SocketConstants } from 'constant';
 import { plainToClass } from 'class-transformer';
 import io, { Socket } from 'socket.io-client';
 
-interface IProps {}
+const Core = (): JSX.Element => {
+    const dispatch = useDispatch<Dispatch>();
 
-const mapState = () => ({});
+    let socket: typeof Socket | null = null;
 
-const mapDispatch = (dispatch: Dispatch) => ({
-    fetchBlocks: () => dispatch.blocks.fetchBlocks(),
-    fetchTransactions: () => dispatch.transactions.fetchTransactions(),
-    addBlock: (block: BlocksModel) => dispatch.blocks.addBlock(block),
-    addTransaction: (transaction: TransactionsModel) => dispatch.transactions.addTransaction(transaction),
-});
+    useEffect(() => {
+        fetch();
+        sockets();
 
-type StateProps = ReturnType<typeof mapState>;
-type DispatchProps = ReturnType<typeof mapDispatch>;
-type Props = IProps & StateProps & DispatchProps;
+        return () => {
+            if (socket) {
+                socket.close();
+            }
+        };
+    }, []);
 
-class Core extends PureComponent<Props> {
-    socket: typeof Socket | null = null;
-
-    componentDidMount(): void {
-        this.fetch();
-        this.sockets();
-    }
-
-    componentWillUnmount(): void {
-        if (this.socket) {
-            this.socket.close();
-        }
-    }
-
-    fetch = () => {
-        const { fetchBlocks, fetchTransactions } = this.props;
-
-        fetchBlocks().finally(() => null);
-        fetchTransactions().finally(() => null);
+    const fetch = () => {
+        dispatch.blocks.fetchBlocks().finally(() => null);
+        dispatch.transactions.fetchTransactions().finally(() => null);
     };
 
-    sockets = () => {
-        const { addTransaction, addBlock } = this.props;
-
-        this.socket = io(ApiConstants.BASE_URL);
-        this.socket.on('connect', () => {
-            if (!this.socket) {
+    const sockets = () => {
+        socket = io(String(ApiConstants.BASE_URL));
+        socket.on('connect', () => {
+            if (!socket) {
                 console.warn('cannot listen channel, null socket pointer');
                 return;
             }
 
-            this.socket.emit(
+            socket.emit(
                 SocketConstants.LISTEN_CHANNEL,
                 JSON.stringify({
                     name: SocketConstants.BLOCKS,
                 }),
             );
 
-            this.socket.io.emit(
+            socket.io.emit(
                 SocketConstants.LISTEN_CHANNEL,
                 JSON.stringify({
                     name: SocketConstants.TRANSACTIONS,
                 }),
             );
-        });
 
-        this.socket.on(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
-            const transaction = plainToClass(TransactionsModel, data);
-            addTransaction(transaction);
-        });
+            socket.on(SocketConstants.NEW_TRANSACTION_EVENT, (data: Record<string, unknown>) => {
+                const transaction = plainToClass(TransactionsModel, data);
 
-        this.socket.on(SocketConstants.NEW_BLOCK_EVENT, (data: Record<string, unknown>) => {
-            const block = plainToClass(BlocksModel, data);
-            addBlock(block);
+                dispatch.transactions.addTransaction(transaction);
+            });
+
+            socket.on(SocketConstants.NEW_BLOCK_EVENT, (data: Record<string, unknown>) => {
+                const block = plainToClass(BlocksModel, data);
+
+                dispatch.blocks.addBlock(block);
+            });
         });
     };
 
-    render(): JSX.Element {
-        return <RootNavigator />;
-    }
-}
+    return <RootNavigator />;
+};
 
-export default connect(mapState, mapDispatch)(Core);
+export default Core;

@@ -36,6 +36,12 @@ export default {
     marketCap: 'Market cap',
     dayVolume: '24h vol',
     day: '24h',
+    more: 'More',
+    delegators: 'Delegators',
+    delegations: 'Delegations',
+    shares: 'Shares',
+    unbondings: 'Unbondings',
+    completion: 'Completion',
 
     // Layout
     dashboard: 'Board',
@@ -52,12 +58,14 @@ export default {
     delegateMessage: 'Delegate',
     undelegateMessage: 'Undelegate',
     editValidatorMessage: 'Edit validator',
+    multiSendMessage: 'Multi send',
+    getReward: 'Get reward',
 
     // Badge status
     badgeJailed: 'Jailed',
     badgeActive: 'Active',
-    badgeUnbounding: 'Unbounding',
-    badgeUnbounded: 'Unbounded',
+    badgeUnbonding: 'Unbonding',
+    badgeUnbonded: 'Unbonded',
     badgeSuccess: 'Success',
     badgeFail: 'Fail',
 

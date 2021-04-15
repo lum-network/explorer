@@ -1,15 +1,23 @@
-import { TransactionsAction } from 'constant';
-import { deserializeArray, Expose, Transform, Type } from 'class-transformer';
-import { MessageModel } from './message';
+import { MessagesType } from 'constant';
+import { Expose, Type } from 'class-transformer';
+import MessageModel, {
+    CreateValidator,
+    Delegate,
+    EditValidator,
+    GetReward,
+    MultiSend,
+    Send,
+    Undelegate,
+    Value,
+} from './message';
+import AmountModel from './amount';
 
 class TransactionsModel {
     height?: string;
 
     hash?: string;
 
-    action?: TransactionsAction;
-
-    amount?: string;
+    amount?: AmountModel;
 
     success = false;
 
@@ -19,27 +27,36 @@ class TransactionsModel {
     @Expose({ name: 'gas_used' })
     gasUsed?: number;
 
-    @Expose({ name: 'from_address' })
-    fromAddress?: string;
+    addresses: string[] = [];
 
-    @Expose({ name: 'to_address' })
-    toAddress?: string;
+    memo?: string;
 
-    name?: string;
+    time?: string;
 
-    @Expose({ name: 'dispatched_at' })
-    dispatchedAt?: string;
+    fees: AmountModel[] = [];
 
-    @Expose({ name: 'msgs' })
-    @Type(() => MessageModel)
-    @Transform(({ value }) => {
-        if (!value) {
-            return [];
-        }
-
-        return deserializeArray(MessageModel, value);
+    @Type(() => MessageModel, {
+        discriminator: {
+            property: 'type_url',
+            subTypes: [
+                { value: Send, name: MessagesType.SEND },
+                { value: CreateValidator, name: MessagesType.CREATE_VALIDATOR },
+                { value: Delegate, name: MessagesType.DELEGATE },
+                { value: Undelegate, name: MessagesType.UNDELEGATE },
+                { value: EditValidator, name: MessagesType.EDIT_VALIDATOR },
+                { value: MultiSend, name: MessagesType.MULTI_SEND },
+                { value: GetReward, name: MessagesType.GET_REWARD },
+            ],
+        },
+        keepDiscriminatorProperty: true,
     })
-    messages: MessageModel[] = [];
+    messages: Value[] = [];
+
+    @Expose({ name: 'message_type' })
+    messageType: MessagesType | null = null;
+
+    @Expose({ name: 'messages_count' })
+    messagesCount = 0;
 }
 
 export default TransactionsModel;

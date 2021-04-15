@@ -1,9 +1,7 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 
-class NotFoundPage extends PureComponent {
-    render(): JSX.Element {
-        return <div>Oupss!!! 404 O_o</div>;
-    }
-}
+const NotFoundPage = (): JSX.Element => {
+    return <div>Oupss!!! 404 O_o</div>;
+};
 
 export default NotFoundPage;

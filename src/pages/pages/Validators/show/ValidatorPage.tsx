@@ -1,72 +1,43 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
-import { connect } from 'react-redux';
-import { Badge, Card, Loading } from 'frontend-elements';
+import { useDispatch, useSelector } from 'react-redux';
+import { Badge, BlocksList, DelegatorsList } from 'components';
+import { Card, Loading } from 'frontend-elements';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import placeholderValidator from 'assets/images/placeholderValidator.svg';
 import { i18n, StringsUtils, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
-import { NavigationConstants } from 'constant';
+import { NavigationConstants, NumberConstants } from 'constant';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
-interface IState {
-    rank: number | null;
-    totalVotingPower: number | null;
-    address: string;
-}
+const ValidatorPage = (props: IProps): JSX.Element => {
+    const dispatch = useDispatch<Dispatch>();
+    const validator = useSelector((state: RootState) => state.validators.validator);
+    const validators = useSelector((state: RootState) => state.validators.validators);
+    const loading = useSelector((state: RootState) => state.loading.models.validators);
 
-const mapState = (state: RootState) => ({
-    validator: state.validators.validator,
-    validators: state.validators.validators,
-    loading: state.loading.models.validators,
-});
+    const { id } = props.match.params;
 
-const mapDispatch = (dispatch: Dispatch) => ({
-    getValidator: (id: string) => dispatch.validators.getValidator(id),
-    fetchValidators: () => dispatch.validators.fetchValidators(),
-});
+    const [rank, setRank] = useState<number | null>(null);
+    const [totalVotingPower, setTotalVotingPower] = useState<number | null>(null);
 
-type StateProps = ReturnType<typeof mapState>;
-type DispatchProps = ReturnType<typeof mapDispatch>;
-type Props = IProps & StateProps & DispatchProps;
+    useEffect(() => {
+        dispatch.validators.fetchValidators().finally(() => null);
+        dispatch.validators.getValidator(id).finally(() => null);
+    }, []);
 
-class BlockPage extends PureComponent<Props, IState> {
-    constructor(props: Props) {
-        super(props);
+    useEffect(() => {
+        if (!validators || !validators.length || !validator) {
+            return;
+        }
 
-        this.state = {
-            rank: null,
-            totalVotingPower: null,
-            address: '',
-        };
-    }
+        setRank(ValidatorsUtils.findRank(validators, validator));
+        setTotalVotingPower(ValidatorsUtils.calculateTotalVotingPower(validators));
+    }, [validators, validator]);
 
-    async componentDidMount(): Promise<void> {
-        const { getValidator, fetchValidators } = this.props;
-        const { id } = this.props.match.params;
-
-        await fetchValidators();
-        getValidator(id).then(() => {
-            const { validators, validator } = this.props;
-
-            if (!validators || !validator) {
-                return;
-            }
-
-            const rank = ValidatorsUtils.findRank(validators, validator);
-            const totalVotingPower = ValidatorsUtils.calculateTotalVotingPower(validators);
-            const address = ValidatorsUtils.convertValAddressToAccAddress(validator.operatorAddress || '');
-
-            this.setState({ rank, totalVotingPower, address });
-        });
-    }
-
-    renderInformation(): JSX.Element {
-        const { validator, loading } = this.props;
-        const { rank, totalVotingPower, address } = this.state;
-
+    const renderInformation = (): JSX.Element => {
         if (!validator || loading) {
             return (
                 <Card className="mb-5">
@@ -97,13 +68,15 @@ class BlockPage extends PureComponent<Props, IState> {
                         </div>
                         <div className="row">
                             <div className="col-xl-6">
-                                <h4 className="mb-1">{i18n.t('operatorAddress')}</h4>
+                                <h4 className="mb-1">{i18n.t('validatorAddress')}</h4>
                                 <p className="text-break">{validator.operatorAddress}</p>
                             </div>
                             <div className="mt-3 mt-xl-0 col-xl-6 offset-xxl-1 col-xxl-5">
                                 <h4 className="mb-1">{i18n.t('address')}</h4>
                                 <p className="text-break">
-                                    <Link to={`${NavigationConstants.ACCOUNT}/${address}`}>{address}</Link>
+                                    <Link to={`${NavigationConstants.ACCOUNT}/${validator.address}`}>
+                                        {validator.address}
+                                    </Link>
                                 </p>
                             </div>
                         </div>
@@ -135,13 +108,21 @@ class BlockPage extends PureComponent<Props, IState> {
                             <h4>{i18n.t('commission')}</h4>
                         </div>
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                            <p>{numeral(validator.commission.rate).format('0.00%')}</p>
+                            <p>
+                                {numeral(
+                                    parseFloat(validator.commission.rate || '0') / NumberConstants.CLIENT_PRECISION,
+                                ).format('0.00%')}
+                            </p>
                         </div>
                         <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                             <h4>{i18n.t('selfBonded')}</h4>
                         </div>
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
-                            <p>Soon</p>
+                            <p>
+                                {numeral(validator.selfBonded / parseFloat(validator.tokens || '0')).format('0.00%')} (
+                                {numeral(validator.selfBonded).format('0,0.000000')}
+                                <span className="ms-1 color-type">LUM</span>)
+                            </p>
                         </div>
                         <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                             <h4>{i18n.t('uptime')}</h4>
@@ -161,10 +142,10 @@ class BlockPage extends PureComponent<Props, IState> {
                         <div className="col-lg-4 col-md-9 col-sm-8">
                             <p className="d-flex align-items-center">
                                 {totalVotingPower &&
-                                    numeral(parseFloat(validator.delegatorShares || '0') / totalVotingPower).format(
+                                    numeral(parseFloat(validator.tokens || '0') / totalVotingPower).format(
                                         '0.00%',
                                     )}{' '}
-                                ({numeral(validator.delegatorShares).format('0,0.000000')}
+                                ({numeral(validator.tokens).format('0,0.000000')}
                                 <span className="ms-1 color-type">LUM</span>)
                             </p>
                         </div>
@@ -172,18 +153,49 @@ class BlockPage extends PureComponent<Props, IState> {
                 </Card>
             </Card>
         );
-    }
+    };
 
-    render(): JSX.Element {
+    const renderBlocksAndDelegations = (): JSX.Element => {
+        if (!validator || loading) {
+            return (
+                <div className="row">
+                    <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                        <Card>
+                            <Loading />
+                        </Card>
+                    </div>
+                    <div className="col-12 col-xxl-6 mb-5">
+                        <Card>
+                            <Loading />
+                        </Card>
+                    </div>
+                </div>
+            );
+        }
+
+        const { blocks, delegations, tokens } = validator;
+
         return (
-            <>
-                <h2 className="mt-3 mb-4">
-                    <img alt="block" src={validatorLogo} /> {i18n.t('validatorDetails')}
-                </h2>
-                {this.renderInformation()}
-            </>
+            <div className="row">
+                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                    <BlocksList rej title blocks={blocks} />
+                </div>
+                <div className="col-12 col-xxl-6 mb-5">
+                    <DelegatorsList title delegators={delegations} validatorTokens={parseFloat(tokens || '0')} />
+                </div>
+            </div>
         );
-    }
-}
+    };
 
-export default connect(mapState, mapDispatch)(BlockPage);
+    return (
+        <>
+            <h2 className="mt-3 mb-4">
+                <img alt="block" src={validatorLogo} /> {i18n.t('validatorDetails')}
+            </h2>
+            {renderInformation()}
+            {renderBlocksAndDelegations()}
+        </>
+    );
+};
+
+export default ValidatorPage;
