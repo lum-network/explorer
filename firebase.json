@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target":"lum-network-explorer",
+      "target":"lum-network-explorer-mainnet",
       "public": "build",
       "ignore": [
         "firebase.json",

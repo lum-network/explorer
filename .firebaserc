@@ -5,8 +5,8 @@
   "targets": {
     "lum-network": {
       "hosting": {
-        "lum-network-explorer": [
-          "lum-network-explorer"
+        "lum-network-explorer-mainnet": [
+          "lum-network-explorer-mainnet"
         ],
         "lum-network-explorer-testnet": [
           "lum-network-explorer-testnet"
