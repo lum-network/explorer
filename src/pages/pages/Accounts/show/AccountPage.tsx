@@ -3,17 +3,15 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
-import { DelegationsList, TransactionsList } from 'components';
+import { DelegationsList, TransactionsList, Tooltip, UnbondingsList } from 'components';
 import { Card, CodeQr, Loading } from 'frontend-elements';
 import '../Accounts.scss';
-import checkLogo from 'assets/images/check.svg';
 import copyLogo from 'assets/images/copy.svg';
 import { PieChart } from 'react-minimal-pie-chart';
 import numeral from 'numeral';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { AccountUtils, i18n, NumbersUtils } from 'utils';
 import { NumberConstants } from 'constant';
-import UnbondingsList from '../../../../components/components/delegations/UnbondingsList/UnbondingsList';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -68,6 +66,7 @@ const AccountPage = (props: IProps): JSX.Element => {
         navigator.clipboard.writeText(address).finally(() => null);
 
         setCopied(true);
+        setTimeout(() => setCopied(false), 1000);
     };
 
     const renderTransactions = (): JSX.Element | null => {
@@ -178,15 +177,17 @@ const AccountPage = (props: IProps): JSX.Element => {
                             <div className="d-flex flex-column flex-grow-1">
                                 <div className="row mt-3 mt-sm-0">
                                     <div className="col-xl-6">
-                                        <div className="d-flex flex-row align-items-center">
-                                            <h4 className="mb-1 text-white">{i18n.t('address')}&nbsp;</h4>
-                                            <img
-                                                alt="copy"
-                                                src={copied ? checkLogo : copyLogo}
-                                                onClick={copyAddress}
-                                                className="pointer img-cpy placeholder-image"
-                                            />
-                                        </div>
+                                        <Tooltip show={copied} content="Copied!" className="me-2" direction="right">
+                                            <div className="d-flex flex-row align-items-center">
+                                                <h4 className="mb-1 text-white">{i18n.t('address')}&nbsp;</h4>
+                                                <img
+                                                    alt="copy"
+                                                    src={copyLogo}
+                                                    onClick={copyAddress}
+                                                    className="pointer img-cpy placeholder-image"
+                                                />
+                                            </div>
+                                        </Tooltip>
                                         <p className="text-break">{account.address}</p>
                                     </div>
                                     <div className="mt-3 mt-xl-0 col-xl-6 offset-xxl-1 col-xxl-5">

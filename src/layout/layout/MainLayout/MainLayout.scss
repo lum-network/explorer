@@ -1,4 +1,4 @@
-@import "src/frontend-elements/styles/main";
+@import 'src/frontend-elements/styles/main';
 
 .main-layout {
     display: flex;
@@ -118,12 +118,11 @@ footer {
 }
 
 .button-wallet:hover {
-    transform: scale(1.050);
+    transform: scale(1.05);
 }
 
 .button-wallet > a,
-.button-wallet > a:hover
-{
+.button-wallet > a:hover {
     color: $color-primary;
 }
 
@@ -199,7 +198,7 @@ footer {
         display: none;
     }
 
-    .main-layout ul li .nav-title{
+    .main-layout ul li .nav-title {
         display: none;
     }
 

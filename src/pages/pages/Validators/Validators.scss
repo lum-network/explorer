@@ -1,4 +1,4 @@
-@import "src/frontend-elements/styles/main";
+@import 'src/frontend-elements/styles/main';
 
 p.rank {
     font-size: $font-xxl;
@@ -36,7 +36,8 @@ p.top-rank {
 }
 
 @include media-breakpoint-down(md) {
-    p.rank, p.top-rank {
+    p.rank,
+    p.top-rank {
         font-size: $font-lg;
     }
 }

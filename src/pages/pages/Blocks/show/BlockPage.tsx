@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { TransactionsList } from 'components';
+import { Tooltip, TransactionsList } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import '../Blocks.scss';
 
@@ -14,7 +14,6 @@ import clockLogo from 'assets/images/clockDark.svg';
 import hashLogo from 'assets/images/hashDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import { i18n, StringsUtils } from 'utils';
-import checkLogo from 'assets/images/check.svg';
 import copyLogo from 'assets/images/copyDark.svg';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import arrowLeft from 'assets/images/arrowLeft.svg';
@@ -48,6 +47,7 @@ const BlockPage = (props: IProps): JSX.Element => {
         navigator.clipboard.writeText(block.hash).finally(() => null);
 
         setCopied(true);
+        setTimeout(() => setCopied(false), 1000);
     };
 
     const nextBlock = () => {
@@ -138,15 +138,17 @@ const BlockPage = (props: IProps): JSX.Element => {
                         </h4>
                     </div>
                     <div className="col-lg-4 col-md-9 col-sm-8">
-                        <div className="d-flex align-items-center">
-                            <p title={block.hash}>{StringsUtils.trunc(block.hash || '', 10)}&nbsp;</p>
-                            <img
-                                alt="copy"
-                                src={copied ? checkLogo : copyLogo}
-                                onClick={copyHash}
-                                className="pointer img-cpy placeholder-image"
-                            />
-                        </div>
+                        <Tooltip show={copied} content="Copied!" className="me-2" direction="right">
+                            <div className="d-flex align-items-center">
+                                <p title={block.hash}>{StringsUtils.trunc(block.hash || '', 10)}&nbsp;</p>
+                                <img
+                                    alt="copy"
+                                    src={copyLogo}
+                                    onClick={copyHash}
+                                    className="pointer img-cpy placeholder-image"
+                                />
+                            </div>
+                        </Tooltip>
                     </div>
                 </div>
             </Card>
