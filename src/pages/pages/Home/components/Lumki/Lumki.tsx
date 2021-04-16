@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card } from 'frontend-elements';
-import './Wallet.scss';
+import './Lumki.scss';
 import { i18n } from 'utils';
 import { NavigationConstants } from 'constant';
 
-const Wallet = (): JSX.Element => {
+const Lumki = (): JSX.Element => {
     return (
         <Card withoutPadding className="h-100">
             <div className="p-3 py-4 p-sm-4 p-xl-5 wallet-background h-100">
@@ -23,4 +23,4 @@ const Wallet = (): JSX.Element => {
     );
 };
 
-export default Wallet;
+export default Lumki;

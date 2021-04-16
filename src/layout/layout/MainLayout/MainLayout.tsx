@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import './MainLayout.scss';
 import { i18n } from 'utils';
@@ -24,7 +24,9 @@ const MainLayout = (props: IProps): JSX.Element => {
                 {!footer && (
                     <>
                         <li className="logo">
-                            <img alt="logo" src={logo} /> <h1>Explorer</h1>
+                            <Link to={NavigationConstants.HOME} className="d-flex flex-row">
+                                <img alt="logo" src={logo} /> <h1>Explorer</h1>
+                            </Link>
                         </li>
                         <li>
                             <Search />
@@ -108,7 +110,9 @@ const MainLayout = (props: IProps): JSX.Element => {
                 <div className="container-fluid d-flex align-items-center justify-content-between">
                     <div className="d-flex align-items-center">
                         <div className="logo">
-                            <img alt="logo" src={logo} /> <h1>Explorer</h1>
+                            <Link to={NavigationConstants.HOME} className="d-flex flex-row">
+                                <img alt="logo" src={logo} /> <h1>Explorer</h1>
+                            </Link>
                         </div>
                         <div className="ms-sm-5 ms-3 button-wallet">
                             <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank">

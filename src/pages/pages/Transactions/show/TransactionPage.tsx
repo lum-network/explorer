@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { MessageType, Badge } from 'components';
+import { MessageType, Badge, Tooltip } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import moment from 'moment-timezone';
 import { NavigationConstants, SystemConstants } from 'constant';
@@ -17,7 +17,6 @@ import searchLogo from 'assets/images/searchDark.svg';
 import feeLogo from 'assets/images/feeDark.svg';
 import memoLogo from 'assets/images/memoDark.svg';
 import copyLogo from 'assets/images/copyDark.svg';
-import checkLogo from 'assets/images/check.svg';
 import numeral from 'numeral';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
@@ -45,6 +44,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
         navigator.clipboard.writeText(hash).finally(() => null);
 
         setCopied(true);
+        setTimeout(() => setCopied(false), 1000);
     };
 
     const renderMessage = (message: MessageModel.Value): JSX.Element => {
@@ -323,15 +323,17 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                        <div className="d-flex align-items-center">
-                            <p title={transaction.hash}>{StringsUtils.trunc(transaction.hash || '', 10)}&nbsp;</p>
-                            <img
-                                alt="copy"
-                                src={copied ? checkLogo : copyLogo}
-                                onClick={copyHash}
-                                className="pointer img-cpy placeholder-image"
-                            />
-                        </div>
+                        <Tooltip show={copied} content="Copied!" className="me-2" direction="right">
+                            <div className="d-flex align-items-center">
+                                <p title={transaction.hash}>{StringsUtils.trunc(transaction.hash || '', 10)}&nbsp;</p>
+                                <img
+                                    alt="copy"
+                                    src={copyLogo}
+                                    onClick={copyHash}
+                                    className="pointer img-cpy placeholder-image"
+                                />
+                            </div>
+                        </Tooltip>
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
