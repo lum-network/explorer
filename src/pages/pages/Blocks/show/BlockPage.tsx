@@ -4,6 +4,7 @@ import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { TransactionsList } from 'components';
 import { Card, Loading } from 'frontend-elements';
+import '../Blocks.scss';
 
 import moment from 'moment-timezone';
 import { SystemConstants, NavigationConstants } from 'constant';
@@ -16,6 +17,8 @@ import { i18n, StringsUtils } from 'utils';
 import checkLogo from 'assets/images/check.svg';
 import copyLogo from 'assets/images/copyDark.svg';
 import placeholderTx from 'assets/images/placeholderTx.svg';
+import arrowLeft from 'assets/images/arrowLeft.svg';
+import arrowRight from 'assets/images/arrowRight.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -25,12 +28,17 @@ const BlockPage = (props: IProps): JSX.Element => {
     const loading = useSelector((state: RootState) => state.loading.effects.blocks.getBlock);
 
     const { id } = props.match.params;
+    const { push } = props.history;
 
     const [copied, setCopied] = useState(false);
 
     useEffect(() => {
         dispatch.blocks.getBlock(id).finally(() => null);
     }, []);
+
+    useEffect(() => {
+        dispatch.blocks.getBlock(id).finally(() => null);
+    }, [id]);
 
     const copyHash = (): void => {
         if (!block.hash) {
@@ -40,6 +48,14 @@ const BlockPage = (props: IProps): JSX.Element => {
         navigator.clipboard.writeText(block.hash).finally(() => null);
 
         setCopied(true);
+    };
+
+    const nextBlock = () => {
+        push(`${NavigationConstants.BLOCKS}/${parseInt(id, 10) + 1}`);
+    };
+
+    const previousBlock = () => {
+        push(`${NavigationConstants.BLOCKS}/${parseInt(id, 10) - 1}`);
     };
 
     const renderTransactions = (): JSX.Element | null => {
@@ -139,9 +155,19 @@ const BlockPage = (props: IProps): JSX.Element => {
 
     return (
         <>
-            <h2 className="mt-3 mb-4">
-                <img alt="block" src={blockLogo} /> {i18n.t('detailsForBlock')} #{(block && block.height) || id}
-            </h2>
+            <div className="d-flex justify-content-between align-items-center">
+                <h2 className="mt-3 mb-4">
+                    <img alt="block" src={blockLogo} /> {i18n.t('detailsForBlock')} #{(block && block.height) || id}
+                </h2>
+                <div className="d-flex">
+                    <div className="arrow-container me-3 pointer" onClick={previousBlock}>
+                        <img src={arrowLeft} alt="arrow left" />
+                    </div>
+                    <div className="arrow-container pointer" onClick={nextBlock}>
+                        <img src={arrowRight} alt="arrow right" />
+                    </div>
+                </div>
+            </div>
             {renderInformation()}
             {renderTransactions()}
         </>

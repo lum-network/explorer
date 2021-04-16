@@ -71,6 +71,8 @@ export default {
 
     // Account
     accountDetails: 'Account details',
+    noUnbondedToken: 'No unbonded token',
+    noDelegatedToken: 'No delegated token',
 
     // Block
     blockTime: 'Block time',

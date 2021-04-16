@@ -6,6 +6,7 @@ import { i18n, StringsUtils } from 'utils';
 import { NavigationConstants, NumberConstants } from 'constant';
 import numeral from 'numeral';
 import { RewardModel } from 'models/models/account';
+import placeholderTx from '../../../../assets/images/placeholderTx.svg';
 
 interface IProps {
     delegations: DelegationsModel[];
@@ -57,6 +58,15 @@ const DelegationsList = (props: IProps): JSX.Element => {
 
     const { delegations, title } = props;
     const head = [i18n.t('validatorAddress'), i18n.t('amount'), i18n.t('reward')];
+
+    if (!delegations || !delegations.length) {
+        return (
+            <Card className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
+                <img className="mb-2" alt="placeholder" src={placeholderTx} />
+                {i18n.t('noDelegatedToken')}
+            </Card>
+        );
+    }
 
     return (
         <Card withoutPadding className="mb-5 h-100">
