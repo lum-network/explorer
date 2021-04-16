@@ -49,7 +49,7 @@ const UnbondingsList = (props: IProps): JSX.Element => {
     if (!unbondings || !unbondings.length) {
         return (
             <Card className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
-                <img className="mb-2" alt="placeholder" src={placeholderTx} />
+                <img className="mb-2 placeholder-image" alt="placeholder" src={placeholderTx} />
                 {i18n.t('noUnbondedToken')}
             </Card>
         );
