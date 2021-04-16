@@ -3,7 +3,7 @@ import { BlocksList, Kpi, TransactionsList } from 'components';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
 import Lum from './components/Lum/Lum';
-import Wallet from './components/Wallet/Wallet';
+import Lumki from './components/Lumki/Lumki';
 import { KpiType } from 'constant';
 
 const HomePage = (): JSX.Element | null => {
@@ -20,7 +20,7 @@ const HomePage = (): JSX.Element | null => {
                 <Lum />
             </div>
             <div className="col-12 col-xxl-6 mb-4">
-                <Wallet />
+                <Lumki />
             </div>
             <Kpi className="mb-5" types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME]} />
             <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">

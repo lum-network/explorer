@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { NavigationConstants, SystemConstants } from 'constant';
 import numeral from 'numeral';
 import moment from 'moment';
+import placeholderTx from '../../../../assets/images/placeholderTx.svg';
 
 interface IProps {
     unbondings: UnbondingModel[];
@@ -44,6 +45,15 @@ const UnbondingsList = (props: IProps): JSX.Element => {
 
     const { unbondings, title } = props;
     const head = [i18n.t('validator'), i18n.t('height'), i18n.t('amount'), i18n.t('completion')];
+
+    if (!unbondings || !unbondings.length) {
+        return (
+            <Card className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
+                <img className="mb-2 placeholder-image" alt="placeholder" src={placeholderTx} />
+                {i18n.t('noUnbondedToken')}
+            </Card>
+        );
+    }
 
     return (
         <Card withoutPadding className="mb-5 h-100">

@@ -7,3 +7,5 @@ export { default as Kpi } from './components/kpi/Kpi/Kpi';
 export { default as Badge } from './components/Badge/Badge';
 export { default as DelegatorsList } from './components/delegations/DelegatorsList/DelegatorsList';
 export { default as DelegationsList } from './components/delegations/DelegationsList/DelegationsList';
+export { default as UnbondingsList } from './components/delegations/UnbondingsList/UnbondingsList';
+export { default as Tooltip } from './components/Tooltip/Tooltip';

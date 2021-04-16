@@ -1,0 +1,17 @@
+@import 'src/frontend-elements/styles/main';
+
+div.wallet-background {
+    background-image: url('../../../../../assets/images/lumkiBackground.png');
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 15px;
+}
+
+.wallet-title {
+    font-weight: $semibold;
+}
+
+.wallet-button {
+    width: 200px;
+}
