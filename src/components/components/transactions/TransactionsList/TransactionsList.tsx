@@ -5,10 +5,10 @@ import { Table, Button, Card } from 'frontend-elements';
 import { Badge } from 'components';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
-import { i18n, StringsUtils } from 'utils';
+import { i18n, StringsUtils, NumbersUtils } from 'utils';
 import moment from 'moment-timezone';
 import moreLogo from 'assets/images/more.svg';
-import numeral from 'numeral';
+import { LumConstants } from '@lum-network/sdk-javascript';
 
 interface IProps extends RouteComponentProps {
     transactions: TransactionsModel[];
@@ -29,12 +29,10 @@ const TransactionsList = (props: IProps): JSX.Element => {
         }
 
         return (
-            <>
-                {transaction.amount && numeral(transaction.amount.amount).format('0,0')}
-                <span className="ms-1 color-type">
-                    {transaction.amount && transaction.amount.denom ? transaction.amount.denom.toUpperCase() : 'LUM'}
-                </span>
-            </>
+            <div className="d-flex justify-content-end">
+                <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(transaction.amount) }} />
+                <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+            </div>
         );
     };
 

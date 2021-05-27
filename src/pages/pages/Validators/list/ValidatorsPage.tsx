@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Dispatch, RootState } from 'redux/store';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import placeholderValidator from 'assets/images/placeholderValidator.svg';
-import { i18n, StringsUtils, ValidatorsUtils } from 'utils';
+import { i18n, NumbersUtils, StringsUtils, ValidatorsUtils } from 'utils';
 import { Card, Loading, Table } from 'frontend-elements';
 import { Kpi, Badge } from 'components';
 import { ValidatorsModel } from 'models';
@@ -30,7 +30,7 @@ const ValidatorsPage = (): JSX.Element => {
             return;
         }
 
-        setTotalVotingPower(ValidatorsUtils.calculateTotalVotingPower(validators));
+        setTotalVotingPower(NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)));
     }, [validators]);
 
     const renderRow = (validator: ValidatorsModel, index: number): JSX.Element => {
@@ -55,10 +55,12 @@ const ValidatorsPage = (): JSX.Element => {
                 </td>
                 <td data-label={head[3]}>
                     <div className="d-flex flex-column align-items-end">
-                        <p>{numeral(validator.tokens).format('0,0')}</p>
+                        <p>{numeral(NumbersUtils.convertUnitNumber(validator.tokens || 0)).format('0,0')}</p>
                         <p className="text-muted">
                             {totalVotingPower &&
-                                numeral(parseFloat(validator.tokens || '0') / totalVotingPower).format('0.00%')}
+                                numeral(
+                                    NumbersUtils.convertUnitNumber(validator.tokens || 0) / totalVotingPower,
+                                ).format('0.00%')}
                         </p>
                     </div>
                 </td>

@@ -3,7 +3,7 @@ import { KpiType } from 'constant';
 import { KpiCard } from 'components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
-import { BlockUtils, i18n, ValidatorsUtils } from 'utils';
+import { BlockUtils, i18n, NumbersUtils, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
 import blockLogo from 'assets/images/blockDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
@@ -76,7 +76,9 @@ const Kpi = (props: IProps): JSX.Element => {
 
                 return (
                     <KpiCard title={i18n.t('bondedTokens')} logo={bondedTokensLogo}>
-                        {numeral(ValidatorsUtils.calculateTotalVotingPower(validators)).format('0,0')}
+                        {numeral(
+                            NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)),
+                        ).format('0,0')}
                     </KpiCard>
                 );
 

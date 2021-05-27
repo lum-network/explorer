@@ -7,7 +7,7 @@ export const fetchValidators = (): Promise<ValidatorsModel[]> => {
     return new Promise((resolve, reject) => {
         axios(ApiConstants.VALIDATORS_URL, { baseURL: ApiConstants.BASE_URL, method: 'GET' })
             .then((result) => {
-                const validators = (plainToClass(ValidatorsModel, result.data.result) as unknown) as ValidatorsModel[];
+                const validators = plainToClass(ValidatorsModel, result.data.result) as unknown as ValidatorsModel[];
 
                 resolve(validators);
             })

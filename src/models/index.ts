@@ -4,7 +4,7 @@ export { default as AccountModel } from './models/account';
 export { default as ValidatorsModel } from './models/validator';
 export { default as DelegationsModel } from './models/delegations';
 
-export type { default as AmountModel } from './models/amount';
+export type { default as CoinModel } from './models/coin';
 
 import * as MessageModel from './models/message';
 export { MessageModel };

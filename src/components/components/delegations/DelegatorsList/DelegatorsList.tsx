@@ -2,9 +2,10 @@ import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { DelegationsModel } from 'models';
 import { Card, Table } from 'frontend-elements';
-import { i18n, StringsUtils } from 'utils';
+import { i18n, NumbersUtils, StringsUtils } from 'utils';
 import { NavigationConstants } from 'constant';
 import numeral from 'numeral';
+import { LumConstants } from '@lum-network/sdk-javascript';
 
 interface IProps extends RouteComponentProps {
     delegators: DelegationsModel[];
@@ -27,8 +28,8 @@ const DelegatorsList = (props: IProps): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    {numeral(delegator.balance?.amount).format('0,0')}
-                    <span className="ms-1 color-type">{delegator.balance?.denom.toUpperCase()}</span>
+                    <span dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(delegator.balance) }} />
+                    <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td className="text-end" data-label={head[2]}>
                     {numeral(parseFloat(delegator.balance?.amount || '0') / validatorTokens).format('0.00%')}
