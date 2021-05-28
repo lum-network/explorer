@@ -15,8 +15,17 @@ export const getRandomInt = (max: number): number => {
 };
 
 export const convertUnitNumber = (nb: number | string): number => {
+    let amount = '';
+
+    if (typeof nb === 'string') {
+        const split = nb.split('.');
+        amount = split[0];
+    } else {
+        amount = nb.toFixed();
+    }
+
     const coin = {
-        amount: nb.toString(),
+        amount,
         denom: LumConstants.MicroLumDenom,
     };
 

@@ -2,11 +2,12 @@ import React from 'react';
 import { Card, Table } from 'frontend-elements';
 import { Link } from 'react-router-dom';
 import { DelegationsModel } from 'models';
-import { i18n, StringsUtils } from 'utils';
+import { i18n, NumbersUtils, StringsUtils } from 'utils';
 import { NavigationConstants, NumberConstants } from 'constant';
 import numeral from 'numeral';
 import { RewardModel } from 'models/models/account';
-import placeholderTx from '../../../../assets/images/placeholderTx.svg';
+import placeholderTx from 'assets/images/placeholderTx.svg';
+import { LumConstants } from '@lum-network/sdk-javascript';
 
 interface IProps {
     delegations: DelegationsModel[];
@@ -43,14 +44,29 @@ const DelegationsList = (props: IProps): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    {numeral(parseFloat(delegation.delegation.shares || '0') / NumberConstants.CLIENT_PRECISION).format(
-                        '0,0.00',
-                    )}
-                    <span className="ms-1 color-type">LUM</span>
+                    <span
+                        dangerouslySetInnerHTML={{
+                            __html: NumbersUtils.smallerDecimal(
+                                numeral(
+                                    NumbersUtils.convertUnitNumber(delegation.delegation.shares || 0) /
+                                        NumberConstants.CLIENT_PRECISION,
+                                ).format('0,0.000'),
+                            ),
+                        }}
+                    />
+                    <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td data-label={head[2]} className="text-end">
-                    {numeral(getReward(delegation.delegation.validatorAddress)).format('0,0.000000')}
-                    <span className="ms-1 color-type">LUM</span>
+                    <span
+                        dangerouslySetInnerHTML={{
+                            __html: NumbersUtils.smallerDecimal(
+                                numeral(
+                                    NumbersUtils.convertUnitNumber(getReward(delegation.delegation.validatorAddress)),
+                                ).format('0,0.000000'),
+                            ),
+                        }}
+                    />
+                    <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                 </td>
             </tr>
         );
