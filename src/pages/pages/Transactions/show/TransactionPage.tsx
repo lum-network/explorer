@@ -71,7 +71,9 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
-                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.amount[0]) }} />
+                            <div
+                                dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.amount[0], true) }}
+                            />
                             <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
@@ -115,7 +117,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <div className="d-flex">
-                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.value) }} />
+                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.value, true) }} />
                             <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
@@ -191,7 +193,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
-                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.amount) }} />
+                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.amount, true) }} />
                             <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
@@ -225,7 +227,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
-                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.amount) }} />
+                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.amount, true) }} />
                             <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
@@ -267,7 +269,11 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
-                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(transaction.amount) }} />
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: NumbersUtils.formatNumber(transaction.amount, true),
+                                }}
+                            />
                             <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
@@ -393,14 +399,14 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <p>
                             {transaction.fees && transaction.fees.length ? (
                                 <>
-                                    <div className="d-flex">
-                                        <div
+                                    <span>
+                                        <span
                                             dangerouslySetInnerHTML={{
                                                 __html: NumbersUtils.formatNumber(transaction.fees[0], true),
                                             }}
                                         />
                                         <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
-                                    </div>
+                                    </span>
                                 </>
                             ) : (
                                 '-'

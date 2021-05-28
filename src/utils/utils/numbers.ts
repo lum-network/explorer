@@ -15,7 +15,7 @@ export const getRandomInt = (max: number): number => {
 };
 
 export const convertUnitNumber = (nb: number | string): number => {
-    let amount = '';
+    let amount: string;
 
     if (typeof nb === 'string') {
         const split = nb.split('.');
@@ -33,6 +33,10 @@ export const convertUnitNumber = (nb: number | string): number => {
 };
 
 export const formatNumber = (coin: CoinModel, moreDecimal?: boolean): string => {
+    if (!coin.denom) {
+        coin.denom = LumConstants.MicroLumDenom;
+    }
+
     return smallerDecimal(
         numeral(LumUtils.convertUnit(coin, LumConstants.LumDenom)).format(moreDecimal ? '0,0.000000' : '0,0.000'),
     );
