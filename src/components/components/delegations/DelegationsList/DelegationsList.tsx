@@ -8,6 +8,7 @@ import numeral from 'numeral';
 import { RewardModel } from 'models/models/account';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import SmallerDecimal from '../../SmallerDecimal/SmallerDecimal';
 
 interface IProps {
     delegations: DelegationsModel[];
@@ -44,27 +45,19 @@ const DelegationsList = (props: IProps): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: NumbersUtils.smallerDecimal(
-                                numeral(
-                                    NumbersUtils.convertUnitNumber(delegation.delegation.shares || 0) /
-                                        NumberConstants.CLIENT_PRECISION,
-                                ).format('0,0.000'),
-                            ),
-                        }}
+                    <SmallerDecimal
+                        nb={numeral(
+                            NumbersUtils.convertUnitNumber(delegation.delegation.shares || 0) /
+                                NumberConstants.CLIENT_PRECISION,
+                        ).format('0,0.000')}
                     />
                     <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td data-label={head[2]} className="text-end">
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: NumbersUtils.smallerDecimal(
-                                numeral(
-                                    NumbersUtils.convertUnitNumber(getReward(delegation.delegation.validatorAddress)),
-                                ).format('0,0.000000'),
-                            ),
-                        }}
+                    <SmallerDecimal
+                        nb={numeral(
+                            NumbersUtils.convertUnitNumber(getReward(delegation.delegation.validatorAddress)),
+                        ).format('0,0.000000')}
                     />
                     <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                 </td>

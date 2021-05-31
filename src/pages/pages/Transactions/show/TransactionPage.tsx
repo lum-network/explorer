@@ -71,9 +71,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
-                            <div
-                                dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.amount[0], true) }}
-                            />
+                            {NumbersUtils.formatNumber(value.amount[0], true)}
                             <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
@@ -117,7 +115,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <div className="d-flex">
-                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.value, true) }} />
+                            {NumbersUtils.formatNumber(value.value, true)}
                             <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
@@ -193,7 +191,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
-                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.amount, true) }} />
+                            {NumbersUtils.formatNumber(value.amount, true)}
                             <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
@@ -227,7 +225,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
-                            <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(value.amount, true) }} />
+                            {NumbersUtils.formatNumber(value.amount, true)}
                             <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
@@ -269,11 +267,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: NumbersUtils.formatNumber(transaction.amount, true),
-                                }}
-                            />
+                            {NumbersUtils.formatNumber(transaction.amount, true)}
                             <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
@@ -400,11 +394,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                             {transaction.fees && transaction.fees.length ? (
                                 <>
                                     <span>
-                                        <span
-                                            dangerouslySetInnerHTML={{
-                                                __html: NumbersUtils.formatNumber(transaction.fees[0], true),
-                                            }}
-                                        />
+                                        {NumbersUtils.formatNumber(transaction.fees[0], true)}
                                         <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                                     </span>
                                 </>

@@ -8,6 +8,7 @@ import numeral from 'numeral';
 import moment from 'moment';
 import placeholderTx from '../../../../assets/images/placeholderTx.svg';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import SmallerDecimal from '../../SmallerDecimal/SmallerDecimal';
 
 interface IProps {
     unbondings: UnbondingModel[];
@@ -30,14 +31,7 @@ const UnbondingsList = (props: IProps): JSX.Element => {
                     <Link to={`${NavigationConstants.BLOCKS}/${value.height}`}>{value.height}</Link>
                 </td>
                 <td data-label={head[2]} className="text-end">
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: NumbersUtils.smallerDecimal(
-                                numeral(NumbersUtils.convertUnitNumber(value.balance)).format('0,0.000'),
-                            ),
-                        }}
-                    />
-                    {}
+                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(value.balance)).format('0,0.000')} />
                     <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td data-label={head[3]} className="text-end">

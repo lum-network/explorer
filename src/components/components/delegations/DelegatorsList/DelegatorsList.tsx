@@ -28,7 +28,7 @@ const DelegatorsList = (props: IProps): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <span dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(delegator.balance) }} />
+                    {NumbersUtils.formatNumber(delegator.balance)}
                     <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td className="text-end" data-label={head[2]}>

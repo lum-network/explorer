@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
-import { DelegationsList, TransactionsList, Tooltip, UnbondingsList } from 'components';
+import { DelegationsList, TransactionsList, Tooltip, UnbondingsList, SmallerDecimal } from 'components';
 import { Card, CodeQr, Loading } from 'frontend-elements';
 import '../Accounts.scss';
 import copyLogo from 'assets/images/copy.svg';
@@ -226,29 +226,18 @@ const AccountPage = (props: IProps): JSX.Element => {
                                 </div>
                             </div>
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2 text-end">
-                                <div
-                                    className="mb-2"
-                                    dangerouslySetInnerHTML={{
-                                        __html: NumbersUtils.smallerDecimal(numeral(available).format('0,0.000000')),
-                                    }}
-                                />
-                                <div
-                                    className="mb-2"
-                                    dangerouslySetInnerHTML={{
-                                        __html: NumbersUtils.smallerDecimal(numeral(delegated).format('0,0.000000')),
-                                    }}
-                                />
-                                <div
-                                    className="mb-2"
-                                    dangerouslySetInnerHTML={{
-                                        __html: NumbersUtils.smallerDecimal(numeral(unbonding).format('0,0.000000')),
-                                    }}
-                                />
-                                <div
-                                    dangerouslySetInnerHTML={{
-                                        __html: NumbersUtils.smallerDecimal(numeral(reward).format('0,0.000000')),
-                                    }}
-                                />
+                                <div className="mb-2">
+                                    <SmallerDecimal nb={numeral(available).format('0,0.000000')} />
+                                </div>
+                                <div className="mb-2">
+                                    <SmallerDecimal nb={numeral(delegated).format('0,0.000000')} />
+                                </div>
+                                <div className="mb-2">
+                                    <SmallerDecimal nb={numeral(unbonding).format('0,0.000000')} />
+                                </div>
+                                <div>
+                                    <SmallerDecimal nb={numeral(reward).format('0,0.000000')} />
+                                </div>
                             </div>
                             <div className="col-2 col-md-4 col-lg-3 col-xxl-2 text-end">
                                 <div className="mb-2">
@@ -272,13 +261,9 @@ const AccountPage = (props: IProps): JSX.Element => {
                                                 <p className="text-muted">{i18n.t('total')}</p>
                                                 <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                                             </div>
-                                            <div
-                                                dangerouslySetInnerHTML={{
-                                                    __html: NumbersUtils.smallerDecimal(
-                                                        numeral(total).format('0,0.000000'),
-                                                    ),
-                                                }}
-                                            />
+                                            <div>
+                                                <SmallerDecimal nb={numeral(total).format('0,0.000000')} />
+                                            </div>
                                         </div>
                                         <div className="d-flex flex-column align-items-xxl-end mt-xxl-4">
                                             <div className="d-flex align-items-center">
@@ -287,13 +272,9 @@ const AccountPage = (props: IProps): JSX.Element => {
                                                 <span className="color-type">{LumConstants.LumDenom}</span>
                                             </div>
                                             {/*TODO: get value */}
-                                            <div
-                                                dangerouslySetInnerHTML={{
-                                                    __html: NumbersUtils.smallerDecimal(
-                                                        numeral(total * 0.1).format('$0,0.00'),
-                                                    ),
-                                                }}
-                                            />
+                                            <div>
+                                                <SmallerDecimal nb={numeral(total * 0.1).format('$0,0.00')} />
+                                            </div>
                                         </div>
                                     </div>
                                 </Card>

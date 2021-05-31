@@ -30,7 +30,7 @@ const TransactionsList = (props: IProps): JSX.Element => {
 
         return (
             <div className="d-flex justify-content-end">
-                <div dangerouslySetInnerHTML={{ __html: NumbersUtils.formatNumber(transaction.amount) }} />
+                {NumbersUtils.formatNumber(transaction.amount)}
                 <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
             </div>
         );
