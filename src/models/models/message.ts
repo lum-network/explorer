@@ -112,7 +112,20 @@ export class EditValidator extends MessageModel {
     value: EditValidatorValue = new EditValidatorValue();
 }
 
-class MultiSendValue {}
+class MultiSendSingleValue {
+    address?: string;
+
+    @Type(() => CoinModel)
+    coins: CoinModel[] = [];
+}
+
+class MultiSendValue {
+    @Type(() => MultiSendSingleValue)
+    inputs: MultiSendSingleValue[] = [];
+
+    @Type(() => MultiSendSingleValue)
+    outputs: MultiSendSingleValue[] = [];
+}
 
 export class MultiSend extends MessageModel {
     @Type(() => MultiSendValue)
