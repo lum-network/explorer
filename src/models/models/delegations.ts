@@ -1,8 +1,9 @@
-import AmountModel from './amount';
+import CoinModel from './coin';
 import { Expose, Type } from 'class-transformer';
 
 class DelegationsModel {
-    balance?: AmountModel;
+    @Type(() => CoinModel)
+    balance: CoinModel = new CoinModel();
 
     @Type(() => SubDelegationModel)
     delegation: SubDelegationModel = new SubDelegationModel();

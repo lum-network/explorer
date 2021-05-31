@@ -1,6 +1,6 @@
 import { MessagesType } from 'constant';
 import { Expose, Type } from 'class-transformer';
-import AmountModel from './amount';
+import CoinModel from './coin';
 
 export default abstract class MessageModel {
     @Expose({ name: 'type_url' })
@@ -37,7 +37,8 @@ class SendValue {
     @Expose({ name: 'to_address' })
     toAddress?: string;
 
-    amount: AmountModel[] = [];
+    @Type(() => CoinModel)
+    amount: CoinModel[] = [];
 }
 
 export class Send extends MessageModel {
@@ -57,7 +58,8 @@ class CreateValidatorValue {
     @Expose({ name: 'min_self_delegation' })
     minSelfDelegation?: string;
 
-    value?: AmountModel;
+    @Type(() => CoinModel)
+    value: CoinModel = new CoinModel();
 
     @Type(() => Commission)
     commission: Commission = new Commission();
@@ -78,7 +80,8 @@ class DelegateValue {
     @Expose({ name: 'validator_address' })
     validatorAddress?: string;
 
-    amount?: AmountModel;
+    @Type(() => CoinModel)
+    amount: CoinModel = new CoinModel();
 }
 
 export class Delegate extends MessageModel {
@@ -93,7 +96,8 @@ class UndelegateValue {
     @Expose({ name: 'validator_address' })
     validatorAddress?: string;
 
-    amount?: AmountModel;
+    @Type(() => CoinModel)
+    amount: CoinModel = new CoinModel();
 }
 
 export class Undelegate extends MessageModel {
@@ -122,7 +126,8 @@ class GetRewardValue {
     @Expose({ name: 'validator_address' })
     validatorAddress?: string;
 
-    amount?: AmountModel;
+    @Type(() => CoinModel)
+    amount: CoinModel = new CoinModel();
 }
 
 export class GetReward extends MessageModel {

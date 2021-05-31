@@ -1,17 +1,19 @@
 import { Expose, Transform, Type } from 'class-transformer';
 import TransactionsModel from './transactions';
-import AmountModel from './amount';
+import CoinModel from './coin';
 import DelegationsModel from './delegations';
 
 export class RewardModel {
     @Expose({ name: 'validator_address' })
     validatorAddress?: string;
 
-    reward: AmountModel[] = [];
+    @Type(() => CoinModel)
+    reward: CoinModel[] = [];
 }
 
 class AllRewards {
-    total: AmountModel[] = [];
+    @Type(() => CoinModel)
+    total: CoinModel[] = [];
 
     @Type(() => RewardModel)
     rewards: RewardModel[] = [];
@@ -58,7 +60,8 @@ class AccountModel {
     @Type(() => TransactionsModel)
     transactions: TransactionsModel[] = [];
 
-    balance?: AmountModel;
+    @Type(() => CoinModel)
+    balance: CoinModel = new CoinModel();
 
     @Type(() => AllRewards)
     @Expose({ name: 'all_rewards' })

@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
-import { DelegationsList, TransactionsList, Tooltip, UnbondingsList } from 'components';
+import { DelegationsList, TransactionsList, Tooltip, UnbondingsList, SmallerDecimal } from 'components';
 import { Card, CodeQr, Loading } from 'frontend-elements';
 import '../Accounts.scss';
 import copyLogo from 'assets/images/copy.svg';
@@ -12,6 +12,7 @@ import numeral from 'numeral';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { AccountUtils, i18n, NumbersUtils } from 'utils';
 import { NumberConstants } from 'constant';
+import { LumConstants } from '@lum-network/sdk-javascript';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -40,12 +41,13 @@ const AccountPage = (props: IProps): JSX.Element => {
 
         const { balance, allRewards, delegations, unbondings } = account;
 
-        const available = parseFloat(balance ? balance.amount : '0');
+        const available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
         const reward =
-            parseFloat(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0') /
-            NumberConstants.CLIENT_PRECISION;
-        const delegated = AccountUtils.sumOfDelegations(delegations);
-        const unbonding = AccountUtils.sumOfUnbonding(unbondings);
+            NumbersUtils.convertUnitNumber(
+                allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0',
+            ) / NumberConstants.CLIENT_PRECISION;
+        const delegated = NumbersUtils.convertUnitNumber(AccountUtils.sumOfDelegations(delegations));
+        const unbonding = NumbersUtils.convertUnitNumber(AccountUtils.sumOfUnbonding(unbondings));
 
         const total = available + reward + delegated + unbonding;
 
@@ -223,13 +225,21 @@ const AccountPage = (props: IProps): JSX.Element => {
                                     {i18n.t('reward')}
                                 </div>
                             </div>
-                            <div className="col-5 col-md-4 col-lg-3 col-xxl-2">
-                                <div className="mb-2">{numeral(available).format('0,0.000000')}</div>
-                                <div className="mb-2">{numeral(delegated).format('0,0.000000')}</div>
-                                <div className="mb-2">{numeral(unbonding).format('0,0.000000')}</div>
-                                <div>{numeral(reward).format('0,0.000000')}</div>
+                            <div className="col-5 col-md-4 col-lg-3 col-xxl-2 text-end">
+                                <div className="mb-2">
+                                    <SmallerDecimal nb={numeral(available).format('0,0.000000')} />
+                                </div>
+                                <div className="mb-2">
+                                    <SmallerDecimal nb={numeral(delegated).format('0,0.000000')} />
+                                </div>
+                                <div className="mb-2">
+                                    <SmallerDecimal nb={numeral(unbonding).format('0,0.000000')} />
+                                </div>
+                                <div>
+                                    <SmallerDecimal nb={numeral(reward).format('0,0.000000')} />
+                                </div>
                             </div>
-                            <div className="col-2 col-md-4 col-lg-3 col-xxl-2">
+                            <div className="col-2 col-md-4 col-lg-3 col-xxl-2 text-end">
                                 <div className="mb-2">
                                     <p>{numeral(available / total).format('0.00%')}</p>
                                 </div>
@@ -249,18 +259,22 @@ const AccountPage = (props: IProps): JSX.Element => {
                                         <div className="d-flex flex-column align-items-xxl-end">
                                             <div className="d-flex align-items-center">
                                                 <p className="text-muted">{i18n.t('total')}</p>
-                                                <span className="ms-1 color-type">LUM</span>
+                                                <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                                             </div>
-                                            <div>{numeral(total).format('0,0.000000')}</div>
+                                            <div>
+                                                <SmallerDecimal nb={numeral(total).format('0,0.000000')} />
+                                            </div>
                                         </div>
                                         <div className="d-flex flex-column align-items-xxl-end mt-xxl-4">
                                             <div className="d-flex align-items-center">
                                                 <p className="text-muted">{numeral(0.1).format('$0,0.00')}</p>
                                                 &nbsp;/&nbsp;
-                                                <span className="color-type">LUM</span>
+                                                <span className="color-type">{LumConstants.LumDenom}</span>
                                             </div>
                                             {/*TODO: get value */}
-                                            <div>{numeral(total * 0.1).format('$0,0.00')}</div>
+                                            <div>
+                                                <SmallerDecimal nb={numeral(total * 0.1).format('$0,0.00')} />
+                                            </div>
                                         </div>
                                     </div>
                                 </Card>

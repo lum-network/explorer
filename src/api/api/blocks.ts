@@ -7,7 +7,7 @@ export const fetchBlocks = (): Promise<BlocksModel[]> => {
     return new Promise((resolve, reject) => {
         axios(ApiConstants.BLOCKS_URL, { baseURL: ApiConstants.BASE_URL, method: 'GET' })
             .then((result) => {
-                const blocks = (plainToClass(BlocksModel, result.data.result) as unknown) as BlocksModel[];
+                const blocks = plainToClass(BlocksModel, result.data.result) as unknown as BlocksModel[];
 
                 resolve(blocks);
             })
