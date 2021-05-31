@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { NavigationConstants } from 'constant';
+import { ApiConstants, NavigationConstants } from 'constant';
 import './MainLayout.scss';
 import { i18n } from 'utils';
 import logo from 'assets/images/logo.svg';
@@ -12,12 +12,25 @@ import walletLogo from 'assets/images/wallet.svg';
 import walletBis from 'assets/images/walletBis.svg';
 import github from 'assets/images/github.svg';
 import { Search } from 'components';
+import I18n from 'i18n-js';
 
 interface IProps {
     children?: React.ReactNode;
 }
 
 const MainLayout = (props: IProps): JSX.Element => {
+    const renderTestnetHeader = () => {
+        if (!ApiConstants.BASE_URL.includes('testnet')) {
+            return null;
+        }
+
+        return (
+            <div className="testnet-header">
+                <span>{I18n.t('testnet')}</span>
+            </div>
+        );
+    };
+
     const renderNav = (footer?: boolean): JSX.Element => {
         return (
             <ul className={footer ? 'footer' : ''}>
@@ -104,6 +117,7 @@ const MainLayout = (props: IProps): JSX.Element => {
         <div className="main-layout dark-mode">
             <div className="content">
                 {renderNav()}
+                {renderTestnetHeader()}
                 <div className="container">{children}</div>
             </div>
             <footer>
