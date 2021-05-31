@@ -2,7 +2,7 @@ import React from 'react';
 import { CoinModel } from 'models';
 import numeral from 'numeral';
 import { LumConstants, LumUtils } from '@lum-network/sdk-javascript';
-import { SmallerDecimal } from '../../components';
+import { SmallerDecimal } from 'components';
 
 export const getPercentage = (nb: number, total: number): number => {
     if (!total) {
