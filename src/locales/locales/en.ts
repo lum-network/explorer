@@ -42,6 +42,8 @@ export default {
     shares: 'Shares',
     unbondings: 'Unbondings',
     completion: 'Completion',
+    senders: 'Senders',
+    receivers: 'Receivers',
 
     // Layout
     dashboard: 'Board',
