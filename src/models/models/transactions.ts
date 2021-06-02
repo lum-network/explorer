@@ -10,14 +10,15 @@ import MessageModel, {
     Undelegate,
     Value,
 } from './message';
-import AmountModel from './amount';
+import CoinModel from './coin';
 
 class TransactionsModel {
     height?: string;
 
     hash?: string;
 
-    amount?: AmountModel;
+    @Type(() => CoinModel)
+    amount: CoinModel = new CoinModel();
 
     success = false;
 
@@ -33,7 +34,8 @@ class TransactionsModel {
 
     time?: string;
 
-    fees: AmountModel[] = [];
+    @Type(() => CoinModel)
+    fees: CoinModel[] = [];
 
     @Type(() => MessageModel, {
         discriminator: {

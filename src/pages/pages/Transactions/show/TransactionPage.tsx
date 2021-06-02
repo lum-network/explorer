@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { MessageType, Badge, Tooltip } from 'components';
+import { MessageType, Badge, Tooltip, SmallerDecimal } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import moment from 'moment-timezone';
 import { NavigationConstants, SystemConstants } from 'constant';
-import { i18n, StringsUtils } from 'utils';
+import { i18n, StringsUtils, NumbersUtils } from 'utils';
 import { MessageModel } from 'models';
 import blockLogo from 'assets/images/blockDark.svg';
 import transactionLogo from 'assets/images/transactionDark.svg';
@@ -18,6 +18,7 @@ import feeLogo from 'assets/images/feeDark.svg';
 import memoLogo from 'assets/images/memoDark.svg';
 import copyLogo from 'assets/images/copyDark.svg';
 import numeral from 'numeral';
+import { LumConstants } from '@lum-network/sdk-javascript';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -69,8 +70,10 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('amount')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        {value.amount[0].amount}
-                        <span className="ms-1 color-type">{value.amount[0].denom.toUpperCase()}</span>
+                        <div className="d-flex">
+                            {NumbersUtils.formatNumber(value.amount[0], true)}
+                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                        </div>
                     </div>
                 </div>
             );
@@ -111,8 +114,10 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('value')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {value.value?.amount}
-                        <span className="ms-1 color-type">{value.value?.denom.toLocaleUpperCase()}</span>
+                        <div className="d-flex">
+                            {NumbersUtils.formatNumber(value.value, true)}
+                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                        </div>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('details')}</h5>
@@ -185,8 +190,10 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('amount')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        {value.amount && value.amount.amount}
-                        <span className="ms-1 color-type">{value.amount && value.amount.denom.toUpperCase()}</span>
+                        <div className="d-flex">
+                            {NumbersUtils.formatNumber(value.amount, true)}
+                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                        </div>
                     </div>
                 </div>
             );
@@ -217,8 +224,10 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('amount')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        {value.amount && value.amount.amount}
-                        <span className="ms-1 color-type">{value.amount && value.amount.denom.toUpperCase()}</span>
+                        <div className="d-flex">
+                            {NumbersUtils.formatNumber(value.amount, true)}
+                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                        </div>
                     </div>
                 </div>
             );
@@ -229,7 +238,60 @@ const TransactionPage = (props: IProps): JSX.Element => {
         }
 
         if (message instanceof MessageModel.MultiSend) {
-            return <div>MultiSend</div>;
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-2">
+                        <h5>{i18n.t('senders')}</h5>
+                    </div>
+                    {value.inputs.map((input, index) => (
+                        <div
+                            key={index}
+                            className={`${
+                                index !== 0 && 'offset-md-3 offset-xl-2'
+                            } col-12 col-md-9 col-xl-10 mb-2 text-break`}
+                        >
+                            <Link to={`${NavigationConstants.ACCOUNT}/${input.address}`}>{input.address}</Link>
+                            {input.coins.length && (
+                                <>
+                                    &nbsp;&nbsp; (
+                                    <SmallerDecimal
+                                        nb={numeral(NumbersUtils.convertUnitNumber(input.coins[0].amount)).format(
+                                            '0,0.000000',
+                                        )}
+                                    />
+                                    <span className="color-type ms-1">{LumConstants.LumDenom}</span>)
+                                </>
+                            )}
+                        </div>
+                    ))}
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-2 mt-3">
+                        <h5>{i18n.t('receivers')}</h5>
+                    </div>
+                    {value.outputs.map((output, index) => (
+                        <div
+                            key={index}
+                            className={`${
+                                index !== 0 ? 'offset-md-3 offset-xl-2' : 'mt-md-3'
+                            } col-12 col-md-9 col-xl-10 mb-2 text-break`}
+                        >
+                            <Link to={`${NavigationConstants.ACCOUNT}/${output.address}`}>{output.address}</Link>
+                            {output.coins.length && (
+                                <>
+                                    &nbsp;&nbsp; (
+                                    <SmallerDecimal
+                                        nb={numeral(NumbersUtils.convertUnitNumber(output.coins[0].amount)).format(
+                                            '0,0.000000',
+                                        )}
+                                    />
+                                    <span className="color-type ms-1">{LumConstants.LumDenom}</span>)
+                                </>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            );
         }
 
         if (message instanceof MessageModel.GetReward) {
@@ -257,12 +319,10 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('amount')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        {transaction.amount && numeral(transaction.amount.amount).format('0,0')}
-                        <span className="ms-1 color-type">
-                            {transaction.amount && transaction.amount.denom
-                                ? transaction.amount.denom.toUpperCase()
-                                : 'LUM'}
-                        </span>
+                        <div className="d-flex">
+                            {NumbersUtils.formatNumber(transaction.amount, true)}
+                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                        </div>
                     </div>
                 </div>
             );
@@ -386,11 +446,9 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <p>
                             {transaction.fees && transaction.fees.length ? (
                                 <>
-                                    {numeral(transaction.fees[0].amount).format('0,0.000000')}
-                                    <span className="ms-1 color-type">
-                                        {transaction.amount && transaction.amount.denom
-                                            ? transaction.amount.denom.toUpperCase()
-                                            : 'LUM'}
+                                    <span>
+                                        {NumbersUtils.formatNumber(transaction.fees[0], true)}
+                                        <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
                                     </span>
                                 </>
                             ) : (

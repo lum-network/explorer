@@ -42,6 +42,9 @@ export default {
     shares: 'Shares',
     unbondings: 'Unbondings',
     completion: 'Completion',
+    senders: 'Senders',
+    receivers: 'Receivers',
+    testnet: 'Warning, you are on the Testnet version',
 
     // Layout
     dashboard: 'Board',

@@ -9,6 +9,23 @@
     padding-top: 112px;
 }
 
+.main-layout .testnet-header {
+    background-color: #FFDDD3;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -12px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+.main-layout .testnet-header > span {
+    color: #FF7245;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 @media (prefers-color-scheme: dark) {
     .main-layout {
         background-color: $color-dark-background;

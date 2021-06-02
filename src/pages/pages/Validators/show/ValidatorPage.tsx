@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { Badge, BlocksList, DelegatorsList } from 'components';
+import { Badge, BlocksList, DelegatorsList, SmallerDecimal } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import placeholderValidator from 'assets/images/placeholderValidator.svg';
-import { i18n, StringsUtils, ValidatorsUtils } from 'utils';
+import { i18n, NumbersUtils, StringsUtils, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
 import { NavigationConstants, NumberConstants } from 'constant';
+import { LumConstants } from '@lum-network/sdk-javascript';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -34,7 +35,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
         }
 
         setRank(ValidatorsUtils.findRank(validators, validator));
-        setTotalVotingPower(ValidatorsUtils.calculateTotalVotingPower(validators));
+        setTotalVotingPower(NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)));
     }, [validators, validator]);
 
     const renderInformation = (): JSX.Element => {
@@ -120,8 +121,10 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                             <p>
                                 {numeral(validator.selfBonded / parseFloat(validator.tokens || '0')).format('0.00%')} (
-                                {numeral(validator.selfBonded).format('0,0.000000')}
-                                <span className="ms-1 color-type">LUM</span>)
+                                <SmallerDecimal
+                                    nb={numeral(NumbersUtils.convertUnitNumber(validator.selfBonded)).format('0,0.000')}
+                                />
+                                <span className="ms-1 color-type">{LumConstants.LumDenom}</span>)
                             </p>
                         </div>
                         <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
@@ -142,11 +145,14 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         <div className="col-lg-4 col-md-9 col-sm-8">
                             <p className="d-flex align-items-center">
                                 {totalVotingPower &&
-                                    numeral(parseFloat(validator.tokens || '0') / totalVotingPower).format(
-                                        '0.00%',
-                                    )}{' '}
-                                ({numeral(validator.tokens).format('0,0.000000')}
-                                <span className="ms-1 color-type">LUM</span>)
+                                    numeral(
+                                        NumbersUtils.convertUnitNumber(validator.tokens || 0) / totalVotingPower,
+                                    ).format('0.00%')}{' '}
+                                (
+                                <SmallerDecimal
+                                    nb={numeral(NumbersUtils.convertUnitNumber(validator.selfBonded)).format('0,0.000')}
+                                />
+                                <span className="ms-1 color-type">{LumConstants.LumDenom}</span>)
                             </p>
                         </div>
                     </div>
