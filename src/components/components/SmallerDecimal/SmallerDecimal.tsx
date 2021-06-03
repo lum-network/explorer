@@ -1,4 +1,5 @@
 import React from 'react';
+import './SmallerDecimal.scss';
 
 interface IProps {
     nb: string;
@@ -9,7 +10,7 @@ const SmallerDecimal = ({ nb }: IProps): JSX.Element => {
 
     if (split.length > 1) {
         return (
-            <span>
+            <span className="smaller-decimal">
                 {split[0]}
                 <small>.{split[1]}</small>
             </span>
