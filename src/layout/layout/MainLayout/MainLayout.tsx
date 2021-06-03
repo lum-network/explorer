@@ -20,7 +20,6 @@ interface IProps {
 
 const MainLayout = (props: IProps): JSX.Element => {
     const renderTestnetHeader = () => {
-        console.log(ApiConstants.BASE_URL);
         if (
             ApiConstants.BASE_URL.includes('testnet') ||
             ApiConstants.BASE_URL.includes('localhost') ||
