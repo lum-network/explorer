@@ -51,7 +51,7 @@ const DelegationsList = (props: IProps): JSX.Element => {
                                 NumberConstants.CLIENT_PRECISION,
                         ).format('0,0.000')}
                     />
-                    <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td data-label={head[2]} className="text-end">
                     <SmallerDecimal
@@ -59,7 +59,7 @@ const DelegationsList = (props: IProps): JSX.Element => {
                             NumbersUtils.convertUnitNumber(getReward(delegation.delegation.validatorAddress)),
                         ).format('0,0.000000')}
                     />
-                    <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>
             </tr>
         );

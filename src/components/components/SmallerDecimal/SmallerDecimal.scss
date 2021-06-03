@@ -1,3 +1,9 @@
+span.smaller-decimal {
+    //font-size: 1.1em;
+    font-weight: 500;
+}
+
 span.smaller-decimal > small {
     font-size: 0.7em;
+    font-weight: normal;
 }

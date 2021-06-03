@@ -31,7 +31,7 @@ const TransactionsList = (props: IProps): JSX.Element => {
         return (
             <div className="d-flex justify-content-end">
                 {NumbersUtils.formatNumber(transaction.amount)}
-                <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
             </div>
         );
     };
@@ -46,10 +46,10 @@ const TransactionsList = (props: IProps): JSX.Element => {
                         {StringsUtils.trunc(transaction.hash || '', rej ? 4 : 6)}
                     </Link>
                 </td>
-                <td data-label={head[1]}>
+                <td className="d-flex justify-content-start align-items-center" data-label={head[1]}>
                     <MessageType badge type={transaction.messageType} />
                     {transaction.messagesCount > 1 && (
-                        <span className="ms-1 color-type">+{transaction.messagesCount - 1}</span>
+                        <span className="ms-2 color-type round-tags">+{transaction.messagesCount - 1}</span>
                     )}
                 </td>
                 {!rej && (

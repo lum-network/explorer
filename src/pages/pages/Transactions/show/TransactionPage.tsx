@@ -72,7 +72,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(value.amount[0], true)}
-                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                            <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(value.value, true)}
-                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                            <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
@@ -192,7 +192,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(value.amount, true)}
-                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                            <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(value.amount, true)}
-                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                            <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
                 </div>
@@ -261,7 +261,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                                             '0,0.000000',
                                         )}
                                     />
-                                    <span className="color-type ms-1">{LumConstants.LumDenom}</span>)
+                                    <span className="color-type ms-2">{LumConstants.LumDenom}</span>)
                                 </>
                             )}
                         </div>
@@ -285,7 +285,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                                             '0,0.000000',
                                         )}
                                     />
-                                    <span className="color-type ms-1">{LumConstants.LumDenom}</span>)
+                                    <span className="color-type ms-2">{LumConstants.LumDenom}</span>)
                                 </>
                             )}
                         </div>
@@ -321,7 +321,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(transaction.amount, true)}
-                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                            <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
                 </div>
@@ -448,7 +448,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                                 <>
                                     <span>
                                         {NumbersUtils.formatNumber(transaction.fees[0], true)}
-                                        <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                                        <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                                     </span>
                                 </>
                             ) : (
