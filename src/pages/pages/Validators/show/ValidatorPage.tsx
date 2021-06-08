@@ -124,7 +124,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                                 <SmallerDecimal
                                     nb={numeral(NumbersUtils.convertUnitNumber(validator.selfBonded)).format('0,0.000')}
                                 />
-                                <span className="ms-1 color-type">{LumConstants.LumDenom}</span>)
+                                <span className="ms-2 color-type">{LumConstants.LumDenom}</span>)
                             </p>
                         </div>
                         <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
@@ -152,7 +152,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                                 <SmallerDecimal
                                     nb={numeral(NumbersUtils.convertUnitNumber(validator.selfBonded)).format('0,0.000')}
                                 />
-                                <span className="ms-1 color-type">{LumConstants.LumDenom}</span>)
+                                <span className="ms-2 color-type">{LumConstants.LumDenom}</span>)
                             </p>
                         </div>
                     </div>

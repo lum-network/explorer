@@ -32,7 +32,7 @@ const UnbondingsList = (props: IProps): JSX.Element => {
                 </td>
                 <td data-label={head[2]} className="text-end">
                     <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(value.balance)).format('0,0.000')} />
-                    <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td data-label={head[3]} className="text-end">
                     <small>

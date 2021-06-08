@@ -29,7 +29,7 @@ const DelegatorsList = (props: IProps): JSX.Element => {
                 </td>
                 <td data-label={head[1]}>
                     {NumbersUtils.formatNumber(delegator.balance)}
-                    <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td className="text-end" data-label={head[2]}>
                     {numeral(parseFloat(delegator.balance?.amount || '0') / validatorTokens).format('0.00%')}

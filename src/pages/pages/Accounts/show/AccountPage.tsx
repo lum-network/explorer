@@ -259,7 +259,7 @@ const AccountPage = (props: IProps): JSX.Element => {
                                         <div className="d-flex flex-column align-items-xxl-end">
                                             <div className="d-flex align-items-center">
                                                 <p className="text-muted">{i18n.t('total')}</p>
-                                                <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                                                <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                                             </div>
                                             <div>
                                                 <SmallerDecimal nb={numeral(total).format('0,0.000000')} />

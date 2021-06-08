@@ -19,6 +19,8 @@ import memoLogo from 'assets/images/memoDark.svg';
 import copyLogo from 'assets/images/copyDark.svg';
 import numeral from 'numeral';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import '../Transactions.scss';
+import I18n from 'i18n-js';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -71,8 +73,14 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
-                            {NumbersUtils.formatNumber(value.amount[0], true)}
-                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                            {value.amount && value.amount[0] ? (
+                                <>
+                                    {NumbersUtils.formatNumber(value.amount[0], true)}
+                                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
                         </div>
                     </div>
                 </div>
@@ -116,7 +124,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(value.value, true)}
-                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                            <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
@@ -192,7 +200,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(value.amount, true)}
-                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                            <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
                 </div>
@@ -226,7 +234,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(value.amount, true)}
-                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                            <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
                 </div>
@@ -261,7 +269,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                                             '0,0.000000',
                                         )}
                                     />
-                                    <span className="color-type ms-1">{LumConstants.LumDenom}</span>)
+                                    <span className="color-type ms-2">{LumConstants.LumDenom}</span>)
                                 </>
                             )}
                         </div>
@@ -285,7 +293,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                                             '0,0.000000',
                                         )}
                                     />
-                                    <span className="color-type ms-1">{LumConstants.LumDenom}</span>)
+                                    <span className="color-type ms-2">{LumConstants.LumDenom}</span>)
                                 </>
                             )}
                         </div>
@@ -321,7 +329,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(transaction.amount, true)}
-                            <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                            <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
                 </div>
@@ -365,6 +373,22 @@ const TransactionPage = (props: IProps): JSX.Element => {
         );
     };
 
+    const renderErrorLogs = () => {
+        if (transaction.success) {
+            return null;
+        }
+
+        return (
+            <div className="col-12 mb-4">
+                <div className="error-container">
+                    {transaction.rawLogs && transaction.rawLogs[0] && transaction.rawLogs[0].log
+                        ? transaction.rawLogs[0].log
+                        : I18n.t('errorOccurred')}
+                </div>
+            </div>
+        );
+    };
+
     const renderInformation = (): JSX.Element => {
         if (!transaction || loading) {
             return (
@@ -377,6 +401,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
         return (
             <Card className="mb-5">
                 <div className="row align-items-center">
+                    {renderErrorLogs()}
                     <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                         <h4>
                             <img alt="block" src={hashLogo} /> {i18n.t('txHash')}
@@ -448,7 +473,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                                 <>
                                     <span>
                                         {NumbersUtils.formatNumber(transaction.fees[0], true)}
-                                        <span className="ms-1 color-type">{LumConstants.LumDenom}</span>
+                                        <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                                     </span>
                                 </>
                             ) : (

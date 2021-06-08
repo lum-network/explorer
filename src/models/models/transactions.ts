@@ -11,6 +11,7 @@ import MessageModel, {
     Value,
 } from './message';
 import CoinModel from './coin';
+import LogModel from './log';
 
 class TransactionsModel {
     height?: string;
@@ -59,6 +60,10 @@ class TransactionsModel {
 
     @Expose({ name: 'messages_count' })
     messagesCount = 0;
+
+    @Expose({ name: 'raw_logs' })
+    @Type(() => LogModel)
+    rawLogs: LogModel[] = [];
 }
 
 export default TransactionsModel;
