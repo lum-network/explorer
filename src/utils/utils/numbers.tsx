@@ -35,7 +35,11 @@ export const convertUnitNumber = (nb: number | string): number => {
     return parseFloat(LumUtils.convertUnit(coin, LumConstants.LumDenom));
 };
 
-export const formatNumber = (coin: CoinModel, moreDecimal?: boolean): JSX.Element => {
+export const formatNumber = (coin: CoinModel, moreDecimal?: boolean): JSX.Element | null => {
+    if (!coin) {
+        return <SmallerDecimal nb={'0'} />;
+    }
+
     if (!coin.denom) {
         coin.denom = LumConstants.MicroLumDenom;
     }
