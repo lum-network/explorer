@@ -37,7 +37,7 @@ export const convertUnitNumber = (nb: number | string): number => {
 
 export const formatNumber = (coin: CoinModel, moreDecimal?: boolean): JSX.Element | null => {
     if (!coin) {
-        return null;
+        return <SmallerDecimal nb={'0'} />;
     }
 
     if (!coin.denom) {
