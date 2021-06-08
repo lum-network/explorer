@@ -1,0 +1,10 @@
+@import 'src/frontend-elements/styles/main';
+
+.error-container {
+    background-color: $color-light-red;
+    color: $color-red;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 8px 18px;
+}
