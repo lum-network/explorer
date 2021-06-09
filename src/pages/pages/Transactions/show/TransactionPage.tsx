@@ -336,7 +336,53 @@ const TransactionPage = (props: IProps): JSX.Element => {
             );
         }
 
+        if (message instanceof MessageModel.OpenBeam) {
+            const { value } = message;
+
+            if (value) {
+                return <div className="row align-items-center">{listItem(value)}</div>;
+            }
+        }
+
+        if (message instanceof MessageModel.UpdateBeam) {
+            const { value } = message;
+
+            if (value) {
+                return <div className="row align-items-center">{listItem(value)}</div>;
+            }
+        }
+
+        if (message instanceof MessageModel.ClaimBeam) {
+            const { value } = message;
+
+            if (value) {
+                return <div className="row align-items-center">{listItem(value)}</div>;
+            }
+        }
+
         return <div>{i18n.t('errorOccurred')}</div>;
+    };
+
+    const listItem = (value: any) => {
+        let list: JSX.Element | null = null;
+
+        for (const property in value) {
+            if (value.hasOwnProperty(property)) {
+                list = (
+                    <>
+                        {list}
+                        <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                            <h5>{property}</h5>
+                        </div>
+                        <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                            {JSON.stringify(value[property])}
+                        </div>
+                    </>
+                );
+            }
+        }
+
+        return list;
     };
 
     const renderMessages = (): JSX.Element | null => {
