@@ -340,7 +340,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
             const { value } = message;
 
             if (value) {
-                return <div className="row align-items-center">{listItem(value)}</div>;
+                return <div className="row align-items-center">{listItem(value as Record<string, unknown>)}</div>;
             }
         }
 
@@ -348,7 +348,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
             const { value } = message;
 
             if (value) {
-                return <div className="row align-items-center">{listItem(value)}</div>;
+                return <div className="row align-items-center">{listItem(value as Record<string, unknown>)}</div>;
             }
         }
 
@@ -356,14 +356,14 @@ const TransactionPage = (props: IProps): JSX.Element => {
             const { value } = message;
 
             if (value) {
-                return <div className="row align-items-center">{listItem(value)}</div>;
+                return <div className="row align-items-center">{listItem(value as Record<string, unknown>)}</div>;
             }
         }
 
         return <div>{i18n.t('errorOccurred')}</div>;
     };
 
-    const listItem = (value: any) => {
+    const listItem = (value: Record<string, unknown>) => {
         let list: JSX.Element | null = null;
 
         for (const property in value) {
