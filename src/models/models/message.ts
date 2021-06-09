@@ -177,6 +177,6 @@ export type Value =
     | EditValidator
     | MultiSend
     | GetReward
-    | OpenBeamValue
-    | UpdateBeamValue
-    | ClaimBeamValue;
+    | OpenBeam
+    | UpdateBeam
+    | ClaimBeam;
