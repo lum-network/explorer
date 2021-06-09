@@ -8,6 +8,9 @@ import sendLogo from 'assets/images/messageTypes/send.svg';
 import multiSendLogo from 'assets/images/messageTypes/multiSend.svg';
 import getRewardLogo from 'assets/images/messageTypes/reward.svg';
 import beamLogo from 'assets/images/messageTypes/beam.svg';
+import beamOpenLogo from 'assets/images/messageTypes/openBeam.svg';
+import beamUpdateLogo from 'assets/images/messageTypes/updateBeam.svg';
+import beamClaimLogo from 'assets/images/messageTypes/updateBeam.svg';
 
 export const name = (type?: MessagesType | null): { text: string; icon: string } => {
     switch (type) {
@@ -33,13 +36,13 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
             return { text: i18n.t('getReward'), icon: getRewardLogo };
 
         case MessagesType.OPEN_BEAM:
-            return { text: i18n.t('openBeam'), icon: beamLogo };
+            return { text: i18n.t('openBeam'), icon: beamOpenLogo };
 
         case MessagesType.UPDATE_BEAM:
-            return { text: i18n.t('updateBeam'), icon: beamLogo };
+            return { text: i18n.t('updateBeam'), icon: beamUpdateLogo };
 
         case MessagesType.CLAIM_BEAM:
-            return { text: i18n.t('claimBeam'), icon: beamLogo };
+            return { text: i18n.t('claimBeam'), icon: beamClaimLogo };
 
         default:
             return { text: type || '', icon: beamLogo };
