@@ -7,6 +7,7 @@ import undelegateLogo from 'assets/images/messageTypes/undelegate.svg';
 import sendLogo from 'assets/images/messageTypes/send.svg';
 import multiSendLogo from 'assets/images/messageTypes/multiSend.svg';
 import getRewardLogo from 'assets/images/messageTypes/reward.svg';
+import beamLogo from 'assets/images/messageTypes/beam.svg';
 
 export const name = (type?: MessagesType | null): { text: string; icon: string } => {
     switch (type) {
@@ -31,7 +32,16 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
         case MessagesType.GET_REWARD:
             return { text: i18n.t('getReward'), icon: getRewardLogo };
 
+        case MessagesType.OPEN_BEAM:
+            return { text: i18n.t('openBeam'), icon: beamLogo };
+
+        case MessagesType.UPDATE_BEAM:
+            return { text: i18n.t('updateBeam'), icon: beamLogo };
+
+        case MessagesType.CLAIM_BEAM:
+            return { text: i18n.t('claimBeam'), icon: beamLogo };
+
         default:
-            return { text: type || '', icon: '' };
+            return { text: type || '', icon: beamLogo };
     }
 };
