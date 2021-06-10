@@ -1,13 +1,16 @@
 import { MessagesType } from 'constant';
 import { Expose, Type } from 'class-transformer';
 import MessageModel, {
+    ClaimBeam,
     CreateValidator,
     Delegate,
     EditValidator,
     GetReward,
     MultiSend,
+    OpenBeam,
     Send,
     Undelegate,
+    UpdateBeam,
     Value,
 } from './message';
 import CoinModel from './coin';
@@ -49,6 +52,9 @@ class TransactionsModel {
                 { value: EditValidator, name: MessagesType.EDIT_VALIDATOR },
                 { value: MultiSend, name: MessagesType.MULTI_SEND },
                 { value: GetReward, name: MessagesType.GET_REWARD },
+                { value: OpenBeam, name: MessagesType.OPEN_BEAM },
+                { value: UpdateBeam, name: MessagesType.UPDATE_BEAM },
+                { value: ClaimBeam, name: MessagesType.CLAIM_BEAM },
             ],
         },
         keepDiscriminatorProperty: true,

@@ -63,6 +63,9 @@ export default {
     editValidatorMessage: 'Edit validator',
     multiSendMessage: 'Multi send',
     getReward: 'Get reward',
+    openBeam: 'Open beam',
+    updateBeam: 'Update beam',
+    claimBeam: 'Claim beam',
 
     // Badge status
     badgeJailed: 'Jailed',

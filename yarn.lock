@@ -1580,10 +1580,10 @@
   resolved "https://registry.yarnpkg.com/@ledgerhq/logs/-/logs-5.50.0.tgz#29c6419e8379d496ab6d0426eadf3c4d100cd186"
   integrity sha512-swKHYCOZUGyVt4ge0u8a7AwNcA//h4nx5wIi0sruGye1IJ5Cva0GyK9L2/WdX+kWVTKp92ZiEo1df31lrWGPgA==
 
-"@lum-network/sdk-javascript@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@lum-network/sdk-javascript/-/sdk-javascript-0.4.1.tgz#d808b67b37d2f37c26600929d136647e18cefd64"
-  integrity sha512-pV4wWIEL/8CIRRjjsGUrBaJny8VuEgiBhQK2asLVbjCf/P9ymesv/fNbolzlqbqHVxhpFT+xXZMK8Q2373yUkw==
+"@lum-network/sdk-javascript@^0.4.4":
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/@lum-network/sdk-javascript/-/sdk-javascript-0.4.4.tgz#5203f3a1b6add00707116ddfd8417420e98efffc"
+  integrity sha512-P/vzO79tF5TD70CHk0FIYiWwVos13YgGsgoOEsrSYiJRyJjXi5lRQW0VlvYVgaE7wlHVWoqRWuFlFNJ0RGudPw==
   dependencies:
     "@cosmjs/crypto" "^v0.25.2"
     "@cosmjs/encoding" "^0.25.2"
@@ -12476,10 +12476,8 @@ watchpack@^1.7.4:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
-    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
-    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
