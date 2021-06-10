@@ -148,4 +148,35 @@ export class GetReward extends MessageModel {
     value: GetRewardValue = new GetRewardValue();
 }
 
-export type Value = Send | CreateValidator | Delegate | Undelegate | EditValidator | MultiSend | GetReward;
+class OpenBeamValue {}
+
+export class OpenBeam extends MessageModel {
+    @Type(() => OpenBeamValue)
+    value: OpenBeamValue = new OpenBeamValue();
+}
+
+class UpdateBeamValue {}
+
+export class UpdateBeam extends MessageModel {
+    @Type(() => UpdateBeamValue)
+    value: UpdateBeamValue = new UpdateBeamValue();
+}
+
+class ClaimBeamValue {}
+
+export class ClaimBeam extends MessageModel {
+    @Type(() => ClaimBeamValue)
+    value: ClaimBeamValue = new ClaimBeamValue();
+}
+
+export type Value =
+    | Send
+    | CreateValidator
+    | Delegate
+    | Undelegate
+    | EditValidator
+    | MultiSend
+    | GetReward
+    | OpenBeam
+    | UpdateBeam
+    | ClaimBeam;
