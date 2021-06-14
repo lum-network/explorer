@@ -10,7 +10,7 @@ import getRewardLogo from 'assets/images/messageTypes/reward.svg';
 import beamLogo from 'assets/images/messageTypes/beam.svg';
 import beamOpenLogo from 'assets/images/messageTypes/openBeam.svg';
 import beamUpdateLogo from 'assets/images/messageTypes/updateBeam.svg';
-import beamClaimLogo from 'assets/images/messageTypes/updateBeam.svg';
+import beamClaimLogo from 'assets/images/messageTypes/claimBeam.svg';
 
 export const name = (type?: MessagesType | null): { text: string; icon: string } => {
     switch (type) {
