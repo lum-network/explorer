@@ -58,6 +58,7 @@ export default {
     messages: 'Messages',
     createValidatorMessage: 'Create validator',
     sendMessage: 'Send',
+    receiveFakeMessage: 'Receive',
     delegateMessage: 'Delegate',
     undelegateMessage: 'Undelegate',
     editValidatorMessage: 'Edit validator',

@@ -91,7 +91,7 @@ const AccountPage = (props: IProps): JSX.Element => {
             );
         }
 
-        return <TransactionsList title transactions={transactions} />;
+        return <TransactionsList accountAddress={account.address} title transactions={transactions} />;
     };
 
     const renderDelegationsAndUnbondings = (): JSX.Element => {
