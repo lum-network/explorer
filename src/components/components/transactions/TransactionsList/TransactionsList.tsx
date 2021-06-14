@@ -1,11 +1,10 @@
 import React from 'react';
 import { TransactionsModel } from 'models';
-import { MessageType } from 'components';
-import { Table, Button, Card } from 'frontend-elements';
-import { Badge } from 'components';
+import { Badge, MessageType } from 'components';
+import { Button, Card, Table } from 'frontend-elements';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { NavigationConstants } from 'constant';
-import { i18n, StringsUtils, NumbersUtils } from 'utils';
+import { MessagesType, NavigationConstants } from 'constant';
+import { i18n, NumbersUtils, StringsUtils } from 'utils';
 import moment from 'moment-timezone';
 import moreLogo from 'assets/images/more.svg';
 import { LumConstants } from '@lum-network/sdk-javascript';
@@ -15,6 +14,7 @@ interface IProps extends RouteComponentProps {
     rej?: boolean;
     title?: boolean;
     more?: boolean;
+    accountAddress?: string;
 }
 
 const TransactionsList = (props: IProps): JSX.Element => {
@@ -53,7 +53,15 @@ const TransactionsList = (props: IProps): JSX.Element => {
                     </Link>
                 </td>
                 <td className="d-flex justify-content-start align-items-center" data-label={head[1]}>
-                    <MessageType badge type={transaction.messageType} />
+                    <MessageType
+                        receive={
+                            transaction.messageType === MessagesType.SEND &&
+                            props.accountAddress !== undefined &&
+                            props.accountAddress !== transaction.addresses[0]
+                        }
+                        badge
+                        type={transaction.messageType}
+                    />
                     {transaction.messagesCount > 1 && (
                         <span className="ms-2 color-type round-tags">+{transaction.messagesCount - 1}</span>
                     )}
