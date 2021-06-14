@@ -49,7 +49,7 @@ const DelegationsList = (props: IProps): JSX.Element => {
                         nb={numeral(
                             NumbersUtils.convertUnitNumber(delegation.delegation.shares || 0) /
                                 NumberConstants.CLIENT_PRECISION,
-                        ).format('0,0.000')}
+                        ).format('0,0.000000')}
                     />
                     <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>

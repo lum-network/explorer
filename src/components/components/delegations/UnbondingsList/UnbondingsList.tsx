@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { NavigationConstants, SystemConstants } from 'constant';
 import numeral from 'numeral';
 import moment from 'moment';
-import placeholderTx from '../../../../assets/images/placeholderTx.svg';
+import placeholderTx from 'assets/images/placeholderTx.svg';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import SmallerDecimal from '../../SmallerDecimal/SmallerDecimal';
 
@@ -31,7 +31,7 @@ const UnbondingsList = (props: IProps): JSX.Element => {
                     <Link to={`${NavigationConstants.BLOCKS}/${value.height}`}>{value.height}</Link>
                 </td>
                 <td data-label={head[2]} className="text-end">
-                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(value.balance)).format('0,0.000')} />
+                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(value.balance)).format('0,0.000000')} />
                     <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td data-label={head[3]} className="text-end">
