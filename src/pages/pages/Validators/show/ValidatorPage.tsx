@@ -35,7 +35,6 @@ const ValidatorPage = (props: IProps): JSX.Element => {
         }
 
         setRank(ValidatorsUtils.findRank(validators, validator));
-        console.log(validators);
         setTotalVotingPower(NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)));
     }, [validators, validator]);
 
