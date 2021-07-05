@@ -52,7 +52,7 @@ const TransactionsList = (props: IProps): JSX.Element => {
                         {StringsUtils.trunc(transaction.hash || '', rej ? 4 : 6)}
                     </Link>
                 </td>
-                <td className="d-flex justify-content-start align-items-center" data-label={head[1]}>
+                <td data-label={head[1]}>
                     <MessageType
                         receive={
                             transaction.messageType === MessagesType.SEND &&
