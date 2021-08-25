@@ -10,6 +10,7 @@
         "axios": "^0.21.1",
         "bootstrap": "^5.0.0-beta1",
         "class-transformer": "^0.3.2",
+        "firebase": "^8.10.0",
         "i18n-js": "^3.8.0",
         "moment": "^2.29.1",
         "moment-timezone": "^0.5.33",

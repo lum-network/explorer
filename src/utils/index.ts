@@ -5,7 +5,17 @@ import * as ValidatorsUtils from './utils/validators';
 import * as NumbersUtils from './utils/numbers';
 import * as AccountUtils from './utils/account';
 import * as BlockUtils from './utils/blocks';
+import * as AnalyticsUtils from './utils/analytics';
 
 export { default as i18n } from './utils/i18n';
 
-export { StringsUtils, TimesUtils, MessagesUtils, ValidatorsUtils, NumbersUtils, AccountUtils, BlockUtils };
+export {
+    StringsUtils,
+    TimesUtils,
+    MessagesUtils,
+    ValidatorsUtils,
+    NumbersUtils,
+    AccountUtils,
+    BlockUtils,
+    AnalyticsUtils,
+};

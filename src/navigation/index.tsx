@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MainLayout } from 'layout';
 import {
     BlockPage,
@@ -12,12 +12,24 @@ import {
     ValidatorPage,
     SearchPage,
 } from 'pages';
-import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch, Redirect, useLocation } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
+import { AnalyticsUtils } from 'utils';
+
+const RouteListener = (): JSX.Element => {
+    const location = useLocation();
+    useEffect(() => {
+        AnalyticsUtils.setCurrentScreen(location.pathname);
+        AnalyticsUtils.logEvent('screen_view', { screen_name: location.pathname });
+    }, [location]);
+
+    return <div></div>;
+};
 
 const RootNavigator = (): JSX.Element => {
     return (
         <Router>
+            <RouteListener />
             <MainLayout>
                 <Switch>
                     <Redirect path="/" exact to={NavigationConstants.HOME} />
