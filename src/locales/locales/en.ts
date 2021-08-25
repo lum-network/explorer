@@ -44,7 +44,7 @@ export default {
     completion: 'Completion',
     senders: 'Senders',
     receivers: 'Receivers',
-    testnet: 'Warning, you are on the Testnet version',
+    testnet: '⚠️ You are connected to the Testnet ⚠️',
 
     // Layout
     dashboard: 'Board',
