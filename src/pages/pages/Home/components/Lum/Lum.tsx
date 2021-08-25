@@ -16,7 +16,7 @@ const Lum = (): JSX.Element => {
                 </div>
                 <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
                     <h4 className="mb-3">{i18n.t('dayVolume')}</h4>
-                    <p>{numeral(0).format('$0,0')}</p>
+                    <p>coming soon</p>
                 </div>
                 <div className="col-12 offset-md-2 offset-xxl-0 col-md-4">
                     <p className="d-flex flex-row align-items-center">
