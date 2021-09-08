@@ -86,6 +86,7 @@ export default {
     blockHash: 'Block hash',
     blockHeight: 'Block height',
     detailsForBlock: 'Details for block',
+    noBlockFound: 'No block found',
 
     // Transaction
     txHash: 'Tx hash',
