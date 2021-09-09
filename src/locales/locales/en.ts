@@ -109,6 +109,7 @@ export default {
     uptime: 'Uptime',
     validatorDetails: 'Validator details',
     bondedTokens: 'Bonded tokens',
+    noValidatorFound: 'Validator not found',
 
     // Search
     searchPlaceholder: 'Search by address / height / tx hash / etc',
