@@ -23,7 +23,10 @@ const HomePage = (): JSX.Element | null => {
                 <Lumki />
             </div>
             <div className="col-12">
-                <Kpi className="mb-5" types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME, KpiType.BONDED_TOKEN]} />
+                <Kpi
+                    className="mb-5"
+                    types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME, KpiType.BONDED_TOKEN, KpiType.INFLATION]}
+                />
             </div>
             <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                 <BlocksList more title blocks={blocks.slice(0, 5)} />

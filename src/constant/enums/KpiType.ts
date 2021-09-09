@@ -3,6 +3,7 @@ enum KpiType {
     BONDED_TOKEN,
     VALIDATORS,
     BLOCK_TIME,
+    INFLATION,
 }
 
 export default KpiType;

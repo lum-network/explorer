@@ -82,6 +82,9 @@ const Kpi = (props: IProps): JSX.Element => {
                     </KpiCard>
                 );
 
+            case KpiType.INFLATION:
+                return null;
+
             default:
                 return null;
         }
