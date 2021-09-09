@@ -31,7 +31,7 @@ const AccountPage = (props: IProps): JSX.Element => {
     const [total, setTotal] = useState(0.0);
 
     useEffect(() => {
-        dispatch.accounts.getAccount(id);
+        dispatch.accounts.getAccount(id).finally(() => null);
     }, []);
 
     useEffect(() => {
