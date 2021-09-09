@@ -9,6 +9,7 @@ import blockLogo from 'assets/images/blockDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import clockLogo from 'assets/images/clockDark.svg';
 import bondedTokensLogo from 'assets/images/bondedTokensDark.svg';
+import inflationLogo from 'assets/images/inflationDark.svg';
 import { BlocksModel } from 'models';
 
 interface IProps {
@@ -83,7 +84,17 @@ const Kpi = (props: IProps): JSX.Element => {
                 );
 
             case KpiType.INFLATION:
-                return null;
+                //TODO: Get inflation from the chain
+
+                // if (!inflation) {
+                //     return null;
+                // }
+
+                return (
+                    <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
+                        7.00%
+                    </KpiCard>
+                );
 
             default:
                 return null;

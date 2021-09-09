@@ -45,6 +45,7 @@ export default {
     senders: 'Senders',
     receivers: 'Receivers',
     testnet: '⚠️ You are connected to the Testnet ⚠️',
+    inflation: 'Inflation',
 
     // Layout
     dashboard: 'Board',
