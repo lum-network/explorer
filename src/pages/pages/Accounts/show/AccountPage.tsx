@@ -72,12 +72,16 @@ const AccountPage = (props: IProps): JSX.Element => {
     };
 
     const renderTransactions = (): JSX.Element | null => {
-        if (!account || loading) {
+        if (loading) {
             return (
                 <Card className="mb-5">
                     <Loading />
                 </Card>
             );
+        }
+
+        if (!account) {
+            return null;
         }
 
         const { transactions } = account;
@@ -94,8 +98,8 @@ const AccountPage = (props: IProps): JSX.Element => {
         return <TransactionsList accountAddress={account.address} title transactions={transactions} />;
     };
 
-    const renderDelegationsAndUnbondings = (): JSX.Element => {
-        if (!account || loading) {
+    const renderDelegationsAndUnbondings = (): JSX.Element | null => {
+        if (loading) {
             return (
                 <div className="row">
                     <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
@@ -110,6 +114,10 @@ const AccountPage = (props: IProps): JSX.Element => {
                     </div>
                 </div>
             );
+        }
+
+        if (!account) {
+            return null;
         }
 
         const { delegations, allRewards, unbondings } = account;
@@ -166,10 +174,25 @@ const AccountPage = (props: IProps): JSX.Element => {
     };
 
     const renderInformation = (): JSX.Element => {
+        if (!account && !loading) {
+            return (
+                <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
+                    <img
+                        width={44}
+                        height={44}
+                        className="mb-2 placeholder-image"
+                        alt="placeholder"
+                        src={accountLogo}
+                    />
+                    {i18n.t('noAccountFound')}
+                </Card>
+            );
+        }
+
         return (
             <>
                 <Card dark withoutPadding={!loading} className="p-3 p-xl-3 mb-5">
-                    {!account || loading ? (
+                    {loading ? (
                         <Loading />
                     ) : (
                         <div className="d-flex align-items-center flex-sm-nowrap flex-wrap">

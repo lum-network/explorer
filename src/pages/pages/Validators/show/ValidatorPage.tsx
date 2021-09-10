@@ -39,10 +39,25 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     }, [validators, validator]);
 
     const renderInformation = (): JSX.Element => {
-        if (!validator || loading) {
+        if (loading) {
             return (
                 <Card className="mb-5">
                     <Loading />
+                </Card>
+            );
+        }
+
+        if (!validator) {
+            return (
+                <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
+                    <img
+                        width={44}
+                        height={44}
+                        className="mb-2 placeholder-image"
+                        alt="placeholder"
+                        src={validatorLogo}
+                    />
+                    {i18n.t('noValidatorFound')}
                 </Card>
             );
         }
@@ -165,8 +180,8 @@ const ValidatorPage = (props: IProps): JSX.Element => {
         );
     };
 
-    const renderBlocksAndDelegations = (): JSX.Element => {
-        if (!validator || loading) {
+    const renderBlocksAndDelegations = (): JSX.Element | null => {
+        if (loading) {
             return (
                 <div className="row">
                     <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
@@ -181,6 +196,10 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                     </div>
                 </div>
             );
+        }
+
+        if (!validator) {
+            return null;
         }
 
         const { blocks, delegations, tokens } = validator;
@@ -200,7 +219,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     return (
         <>
             <h2 className="mt-3 mb-4">
-                <img alt="block" src={validatorLogo} /> {i18n.t('validatorDetails')}
+                <img alt="Validator" src={validatorLogo} /> {i18n.t('validatorDetails')}
             </h2>
             {renderInformation()}
             {renderBlocksAndDelegations()}

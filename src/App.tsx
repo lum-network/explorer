@@ -10,7 +10,7 @@ import Core from 'core';
 
 const App = (): JSX.Element => {
     useEffect(() => {
-        AnalyticsUtils.initialize();
+        AnalyticsUtils.initialize().finally(() => null);
     }, []);
     return (
         <Provider store={store}>

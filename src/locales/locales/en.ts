@@ -81,12 +81,14 @@ export default {
     accountDetails: 'Account details',
     noUnbondedToken: 'No unbonded token',
     noDelegatedToken: 'No delegated token',
+    noAccountFound: 'Account not found',
 
     // Block
     blockTime: 'Block time',
     blockHash: 'Block hash',
     blockHeight: 'Block height',
     detailsForBlock: 'Details for block',
+    noBlockFound: 'Block not found',
 
     // Transaction
     txHash: 'Tx hash',
@@ -109,6 +111,7 @@ export default {
     uptime: 'Uptime',
     validatorDetails: 'Validator details',
     bondedTokens: 'Bonded tokens',
+    noValidatorFound: 'Validator not found',
 
     // Search
     searchPlaceholder: 'Search by address / height / tx hash / etc',

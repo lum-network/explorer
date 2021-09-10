@@ -35,10 +35,6 @@ const BlockPage = (props: IProps): JSX.Element => {
         dispatch.blocks.getBlock(id).finally(() => null);
     }, []);
 
-    useEffect(() => {
-        dispatch.blocks.getBlock(id).finally(() => null);
-    }, [id]);
-
     const copyHash = (): void => {
         if (!block.hash) {
             return;
@@ -59,12 +55,16 @@ const BlockPage = (props: IProps): JSX.Element => {
     };
 
     const renderTransactions = (): JSX.Element | null => {
-        if (!block || loading) {
+        if (loading) {
             return (
                 <Card className="mb-5">
                     <Loading />
                 </Card>
             );
+        }
+
+        if (!block) {
+            return null;
         }
 
         const { transactions } = block;
@@ -82,10 +82,19 @@ const BlockPage = (props: IProps): JSX.Element => {
     };
 
     const renderInformation = (): JSX.Element => {
-        if (!block || loading) {
+        if (loading) {
             return (
                 <Card className="mb-5">
                     <Loading />
+                </Card>
+            );
+        }
+
+        if (!block) {
+            return (
+                <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
+                    <img width={44} height={44} className="mb-2 placeholder-image" alt="placeholder" src={blockLogo} />
+                    {i18n.t('noBlockFound')}
                 </Card>
             );
         }

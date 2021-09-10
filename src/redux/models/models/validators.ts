@@ -32,7 +32,7 @@ const validators = createModel<RootModel>()({
         resetValidator(state) {
             return {
                 ...state,
-                validator: plainToClass(ValidatorsModel, {}),
+                validator: plainToClass(ValidatorsModel, null),
             };
         },
     },
@@ -45,11 +45,8 @@ const validators = createModel<RootModel>()({
             } catch (e) {}
         },
 
-        async getValidator(id: string, state) {
-            // We reset "validator" only when we request a different validator
-            if (state.validators.validator && state.validators.validator.operatorAddress !== id) {
-                dispatch.validators.resetValidator();
-            }
+        async getValidator(id: string) {
+            dispatch.validators.resetValidator();
 
             try {
                 const validator = await ApiValidators.getValidator(id);
