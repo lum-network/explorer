@@ -80,13 +80,14 @@ export default {
     accountDetails: 'Account details',
     noUnbondedToken: 'No unbonded token',
     noDelegatedToken: 'No delegated token',
+    noAccountFound: 'Account not found',
 
     // Block
     blockTime: 'Block time',
     blockHash: 'Block hash',
     blockHeight: 'Block height',
     detailsForBlock: 'Details for block',
-    noBlockFound: 'No block found',
+    noBlockFound: 'Block not found',
 
     // Transaction
     txHash: 'Tx hash',
