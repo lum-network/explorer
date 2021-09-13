@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { KpiType } from 'constant';
+import { KpiType, NumberConstants } from 'constant';
 import { KpiCard } from 'components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
@@ -22,6 +22,7 @@ const Kpi = (props: IProps): JSX.Element => {
 
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const validators = useSelector((state: RootState) => state.validators.validators);
+    const stats = useSelector((state: RootState) => state.core.stats);
 
     const processBlockTime = (blocks: BlocksModel[]): void => {
         const time = BlockUtils.processBlockTime(blocks);
@@ -84,15 +85,13 @@ const Kpi = (props: IProps): JSX.Element => {
                 );
 
             case KpiType.INFLATION:
-                //TODO: Get inflation from the chain
-
-                // if (!inflation) {
-                //     return null;
-                // }
+                if (!stats || !stats.inflation) {
+                    return null;
+                }
 
                 return (
                     <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
-                        7.00%
+                        {numeral(parseFloat(stats.inflation) / NumberConstants.CLIENT_PRECISION).format('0.00')}%
                     </KpiCard>
                 );
 
