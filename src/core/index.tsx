@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import RootNavigator from 'navigation';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux/store';
@@ -10,7 +10,7 @@ import io, { Socket } from 'socket.io-client';
 const Core = (): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
 
-    let socket: typeof Socket | null = null;
+    let [socket] = useState<typeof Socket | null>(null);
 
     useEffect(() => {
         fetch();
@@ -26,6 +26,8 @@ const Core = (): JSX.Element => {
     const fetch = () => {
         dispatch.blocks.fetchBlocks().finally(() => null);
         dispatch.transactions.fetchTransactions().finally(() => null);
+        dispatch.validators.fetchValidators().finally(() => null);
+        dispatch.core.getStats().finally(() => null);
     };
 
     const sockets = () => {

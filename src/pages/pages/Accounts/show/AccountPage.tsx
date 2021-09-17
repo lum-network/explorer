@@ -31,7 +31,7 @@ const AccountPage = (props: IProps): JSX.Element => {
     const [total, setTotal] = useState(0.0);
 
     useEffect(() => {
-        dispatch.accounts.getAccount(id);
+        dispatch.accounts.getAccount(id).finally(() => null);
     }, []);
 
     useEffect(() => {
@@ -125,7 +125,7 @@ const AccountPage = (props: IProps): JSX.Element => {
         return (
             <div className="row">
                 <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                    <DelegationsList title delegations={delegations} rewards={allRewards.rewards} />
+                    {allRewards && <DelegationsList title delegations={delegations} rewards={allRewards.rewards} />}
                 </div>
                 <div className="col-12 col-xxl-6 mb-5">
                     <UnbondingsList unbondings={unbondings} title />

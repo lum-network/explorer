@@ -44,7 +44,7 @@ export default {
     completion: 'Completion',
     senders: 'Senders',
     receivers: 'Receivers',
-    testnet: '⚠️ You are connected to the Testnet ⚠️',
+    inflation: 'Inflation',
 
     // Layout
     dashboard: 'Board',
@@ -53,6 +53,8 @@ export default {
     validators: 'Validators',
     wallet: 'Wallet',
     webWallet: 'Web Wallet',
+    testnet: '⚠️ You are connected to the Testnet ⚠️',
+    copyright: '© LUM Explorer 2021',
 
     // Transaction Messages
     messages: 'Messages',

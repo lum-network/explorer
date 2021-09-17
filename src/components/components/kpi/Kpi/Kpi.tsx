@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { KpiType } from 'constant';
+import { KpiType, NumberConstants } from 'constant';
 import { KpiCard } from 'components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
@@ -9,6 +9,7 @@ import blockLogo from 'assets/images/blockDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import clockLogo from 'assets/images/clockDark.svg';
 import bondedTokensLogo from 'assets/images/bondedTokensDark.svg';
+import inflationLogo from 'assets/images/inflationDark.svg';
 import { BlocksModel } from 'models';
 
 interface IProps {
@@ -21,6 +22,7 @@ const Kpi = (props: IProps): JSX.Element => {
 
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const validators = useSelector((state: RootState) => state.validators.validators);
+    const stats = useSelector((state: RootState) => state.core.stats);
 
     const processBlockTime = (blocks: BlocksModel[]): void => {
         const time = BlockUtils.processBlockTime(blocks);
@@ -79,6 +81,17 @@ const Kpi = (props: IProps): JSX.Element => {
                         {numeral(
                             NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)),
                         ).format('0,0')}
+                    </KpiCard>
+                );
+
+            case KpiType.INFLATION:
+                if (!stats || !stats.inflation) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
+                        {numeral(parseFloat(stats.inflation) / NumberConstants.CLIENT_PRECISION).format('0.00')}%
                     </KpiCard>
                 );
 
