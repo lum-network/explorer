@@ -95,11 +95,7 @@ const ValidatorsPage = (): JSX.Element => {
                 {!validators || !validators.length || loading ? (
                     <Loading />
                 ) : (
-                    <Table head={head}>
-                        {validators
-                            .sort((a, b) => parseInt((b && b.tokens) || '0', 10) - parseInt((a && a.tokens) || '0', 10))
-                            .map((value, index) => renderRow(value, index))}
-                    </Table>
+                    <Table head={head}>{validators.map((value, index) => renderRow(value, index))}</Table>
                 )}
             </Card>
         </>

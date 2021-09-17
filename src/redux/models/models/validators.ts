@@ -18,7 +18,9 @@ const validators = createModel<RootModel>()({
         setValidators(state, validators: ValidatorsModel[]) {
             return {
                 ...state,
-                validators,
+                validators: validators.sort(
+                    (a, b) => parseInt((b && b.tokens) || '0', 10) - parseInt((a && a.tokens) || '0', 10),
+                ),
             };
         },
 
