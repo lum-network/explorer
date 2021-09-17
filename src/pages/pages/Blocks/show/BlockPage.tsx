@@ -33,7 +33,7 @@ const BlockPage = (props: IProps): JSX.Element => {
 
     useEffect(() => {
         dispatch.blocks.getBlock(id).finally(() => null);
-    }, []);
+    }, [id]);
 
     const copyHash = (): void => {
         if (!block.hash) {

@@ -70,7 +70,11 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                             <p className="rank-dot-text">{rank}</p>
                         </div>
                         {/*TODO: Add logo */}
-                        <img className="validator-logo" alt="validators logo" src={placeholderValidator} />
+                        <img
+                            className="validator-logo placeholder-image"
+                            alt="validators logo"
+                            src={placeholderValidator}
+                        />
                     </div>
                     <div className="d-flex flex-column flex-grow-1">
                         <div className="row mb-3 mb-xl-4 mt-3 mt-md-0">
