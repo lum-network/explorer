@@ -23,6 +23,7 @@ export default {
     minSelfDelegation: 'Min self delegation',
     delegatorAddress: 'Delegator address',
     validatorAddress: 'Validator address',
+    proposerAddress: 'Proposer address',
     pubkey: 'Pubkey',
     value: 'Value',
     details: 'Details',

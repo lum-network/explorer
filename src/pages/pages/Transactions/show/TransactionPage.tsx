@@ -336,6 +336,23 @@ const TransactionPage = (props: IProps): JSX.Element => {
             );
         }
 
+        if (message instanceof MessageModel.SubmitProposal) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('proposerAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.proposerAddress}`}>
+                            {value.proposerAddress}
+                        </Link>
+                    </div>
+                </div>
+            );
+        }
+
         if (message instanceof MessageModel.OpenBeam) {
             const { value } = message;
 
@@ -353,6 +370,14 @@ const TransactionPage = (props: IProps): JSX.Element => {
         }
 
         if (message instanceof MessageModel.ClaimBeam) {
+            const { value } = message;
+
+            if (value) {
+                return <div className="row align-items-center">{listItem(value as Record<string, unknown>)}</div>;
+            }
+        }
+
+        if (message) {
             const { value } = message;
 
             if (value) {

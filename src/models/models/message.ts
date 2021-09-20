@@ -148,6 +148,16 @@ export class GetReward extends MessageModel {
     value: GetRewardValue = new GetRewardValue();
 }
 
+class SubmitProposalValue {
+    @Expose({ name: 'proposer_address' })
+    proposerAddress?: string;
+}
+
+export class SubmitProposal extends MessageModel {
+    @Type(() => SubmitProposalValue)
+    value: SubmitProposalValue = new SubmitProposalValue();
+}
+
 class OpenBeamValue {}
 
 export class OpenBeam extends MessageModel {
@@ -179,4 +189,5 @@ export type Value =
     | GetReward
     | OpenBeam
     | UpdateBeam
-    | ClaimBeam;
+    | ClaimBeam
+    | SubmitProposal;
