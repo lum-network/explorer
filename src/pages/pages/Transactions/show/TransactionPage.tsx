@@ -349,6 +349,21 @@ const TransactionPage = (props: IProps): JSX.Element => {
                             {value.proposerAddress}
                         </Link>
                     </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('initialDeposit')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <div className="d-flex">
+                            {value.initialDeposit && value.initialDeposit[0] ? (
+                                <>
+                                    {NumbersUtils.formatNumber(value.initialDeposit[0], true)}
+                                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
+                        </div>
+                    </div>
                 </div>
             );
         }

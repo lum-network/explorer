@@ -33,6 +33,7 @@ export default {
     comRate: 'Com rate',
     comMaxRate: 'Com max rate',
     comMaxChangeRate: 'Com max change rate',
+    initialDeposit: 'Initial deposit',
     sec: 's',
     marketCap: 'Market cap',
     dayVolume: '24h vol',

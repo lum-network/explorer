@@ -151,6 +151,9 @@ export class GetReward extends MessageModel {
 class SubmitProposalValue {
     @Expose({ name: 'proposer_address' })
     proposerAddress?: string;
+
+    @Expose({ name: 'initial_deposit' })
+    initialDeposit?: CoinModel[] = [];
 }
 
 export class SubmitProposal extends MessageModel {
