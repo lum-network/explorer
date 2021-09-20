@@ -69,6 +69,7 @@ export default {
     openBeam: 'Open beam',
     updateBeam: 'Update beam',
     claimBeam: 'Claim beam',
+    submitProposal: 'Submit proposal',
 
     // Badge status
     badgeJailed: 'Jailed',

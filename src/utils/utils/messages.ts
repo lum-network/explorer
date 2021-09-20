@@ -44,6 +44,10 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
         case MessagesType.CLAIM_BEAM:
             return { text: i18n.t('claimBeam'), icon: beamClaimLogo };
 
+        case MessagesType.SUBMIT_PROPOSAL:
+            // TODO: Update logo
+            return { text: i18n.t('submitProposal'), icon: beamLogo };
+
         default:
             return { text: type || '', icon: beamLogo };
     }
