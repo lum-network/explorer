@@ -48,6 +48,10 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
             // TODO: Update logo
             return { text: i18n.t('submitProposal'), icon: beamLogo };
 
+        case MessagesType.DEPOSIT:
+            // TODO: Update logo
+            return { text: i18n.t('deposit'), icon: beamLogo };
+
         default:
             return { text: type || '', icon: beamLogo };
     }

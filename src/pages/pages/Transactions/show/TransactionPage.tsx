@@ -368,6 +368,44 @@ const TransactionPage = (props: IProps): JSX.Element => {
             );
         }
 
+        if (message instanceof MessageModel.Deposit) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('proposalId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId}`}>{value.proposalId}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('depositorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.depositorAddress}`}>
+                            {value.depositorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <div className="d-flex">
+                            {value.amount && value.amount[0] ? (
+                                <>
+                                    {NumbersUtils.formatNumber(value.amount[0], true)}
+                                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
         if (message instanceof MessageModel.OpenBeam) {
             const { value } = message;
 

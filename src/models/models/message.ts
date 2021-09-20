@@ -1,5 +1,5 @@
 import { MessagesType } from 'constant';
-import { Expose, Type } from 'class-transformer';
+import { Expose, Transform, Type } from 'class-transformer';
 import CoinModel from './coin';
 
 export default abstract class MessageModel {
@@ -161,6 +161,29 @@ export class SubmitProposal extends MessageModel {
     value: SubmitProposalValue = new SubmitProposalValue();
 }
 
+class DepositValue {
+    @Expose({ name: 'proposal_id' })
+    @Transform(({ value }) => {
+        if (!value) {
+            return undefined;
+        }
+
+        return value.low;
+    })
+    proposalId?: string;
+
+    @Expose({ name: 'depositor_address' })
+    depositorAddress = '';
+
+    @Expose({ name: 'amount' })
+    amount: CoinModel[] = [];
+}
+
+export class Deposit extends MessageModel {
+    @Type(() => DepositValue)
+    value: DepositValue = new DepositValue();
+}
+
 class OpenBeamValue {}
 
 export class OpenBeam extends MessageModel {
@@ -193,4 +216,5 @@ export type Value =
     | OpenBeam
     | UpdateBeam
     | ClaimBeam
-    | SubmitProposal;
+    | SubmitProposal
+    | Deposit;
