@@ -33,24 +33,28 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
             return { text: i18n.t('multiSendMessage'), icon: multiSendLogo };
 
         case MessagesType.GET_REWARD:
-            return { text: i18n.t('getReward'), icon: getRewardLogo };
+            return { text: i18n.t('getRewardMessage'), icon: getRewardLogo };
 
         case MessagesType.OPEN_BEAM:
-            return { text: i18n.t('openBeam'), icon: beamOpenLogo };
+            return { text: i18n.t('openBeamMessage'), icon: beamOpenLogo };
 
         case MessagesType.UPDATE_BEAM:
-            return { text: i18n.t('updateBeam'), icon: beamUpdateLogo };
+            return { text: i18n.t('updateBeamMessage'), icon: beamUpdateLogo };
 
         case MessagesType.CLAIM_BEAM:
-            return { text: i18n.t('claimBeam'), icon: beamClaimLogo };
+            return { text: i18n.t('claimBeamMessage'), icon: beamClaimLogo };
 
         case MessagesType.SUBMIT_PROPOSAL:
             // TODO: Update logo
-            return { text: i18n.t('submitProposal'), icon: beamLogo };
+            return { text: i18n.t('submitProposalMessage'), icon: beamLogo };
 
         case MessagesType.DEPOSIT:
             // TODO: Update logo
-            return { text: i18n.t('deposit'), icon: beamLogo };
+            return { text: i18n.t('depositMessage'), icon: beamLogo };
+
+        case MessagesType.VOTE:
+            // TODO: Update logo
+            return { text: i18n.t('voteMessage'), icon: beamLogo };
 
         default:
             return { text: type || '', icon: beamLogo };

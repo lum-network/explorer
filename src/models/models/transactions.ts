@@ -14,6 +14,7 @@ import MessageModel, {
     Undelegate,
     UpdateBeam,
     Value,
+    Vote,
 } from './message';
 import CoinModel from './coin';
 import LogModel from './log';
@@ -59,6 +60,7 @@ class TransactionsModel {
                 { value: ClaimBeam, name: MessagesType.CLAIM_BEAM },
                 { value: SubmitProposal, name: MessagesType.SUBMIT_PROPOSAL },
                 { value: Deposit, name: MessagesType.DEPOSIT },
+                { value: Vote, name: MessagesType.VOTE },
             ],
         },
         keepDiscriminatorProperty: true,

@@ -406,6 +406,31 @@ const TransactionPage = (props: IProps): JSX.Element => {
             );
         }
 
+        if (message instanceof MessageModel.Vote) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('proposalId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId}`}>{value.proposalId}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('voterAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.voterAddress}`}>{value.voterAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('option')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">{value.option}</div>
+                </div>
+            );
+        }
+
         if (message instanceof MessageModel.OpenBeam) {
             const { value } = message;
 

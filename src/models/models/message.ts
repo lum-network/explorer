@@ -1,4 +1,4 @@
-import { MessagesType } from 'constant';
+import { MessagesType, VotesOption } from 'constant';
 import { Expose, Transform, Type } from 'class-transformer';
 import CoinModel from './coin';
 
@@ -184,6 +184,29 @@ export class Deposit extends MessageModel {
     value: DepositValue = new DepositValue();
 }
 
+class VoteValue {
+    @Expose({ name: 'proposal_id' })
+    @Transform(({ value }) => {
+        if (!value) {
+            return undefined;
+        }
+
+        return value.low;
+    })
+    proposalId?: string;
+
+    @Expose({ name: 'voter_address' })
+    voterAddress = '';
+
+    @Expose({ name: 'option' })
+    option?: VotesOption;
+}
+
+export class Vote extends MessageModel {
+    @Type(() => VoteValue)
+    value: VoteValue = new VoteValue();
+}
+
 class OpenBeamValue {}
 
 export class OpenBeam extends MessageModel {
@@ -217,4 +240,5 @@ export type Value =
     | UpdateBeam
     | ClaimBeam
     | SubmitProposal
-    | Deposit;
+    | Deposit
+    | Vote;
