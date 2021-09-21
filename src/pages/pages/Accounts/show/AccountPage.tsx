@@ -149,22 +149,22 @@ const AccountPage = (props: IProps): JSX.Element => {
 
         let data = [
             {
-                title: 'Available',
+                title: i18n.t('available'),
                 value: NumbersUtils.getPercentage(available, total),
                 color: '#5FD68B',
             },
             {
-                title: 'Delegated',
+                title: i18n.t('delegated'),
                 value: NumbersUtils.getPercentage(delegated, total),
                 color: '#FD9033',
             },
             {
-                title: 'Unbonding',
+                title: i18n.t('unbonding'),
                 value: NumbersUtils.getPercentage(unbonding, total),
                 color: '#5F99DC',
             },
             {
-                title: 'Reward',
+                title: i18n.t('reward'),
                 value: NumbersUtils.getPercentage(reward, total),
                 color: '#5FD2DC',
             },
@@ -173,7 +173,7 @@ const AccountPage = (props: IProps): JSX.Element => {
         if (commission) {
             data = [
                 {
-                    title: 'Commission',
+                    title: i18n.t('commission'),
                     value: NumbersUtils.getPercentage(commission, total),
                     color: '#9FA4AD',
                 },
