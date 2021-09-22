@@ -44,7 +44,13 @@ const ValidatorsPage = (): JSX.Element => {
                         title={validator.operatorAddress}
                         to={`${NavigationConstants.VALIDATORS}/${validator.operatorAddress}`}
                     >
-                        <img alt="logo validator" src={placeholderValidator} className="me-3" />
+                        <img
+                            alt="logo validator"
+                            width={34}
+                            height={34}
+                            src={placeholderValidator}
+                            className="me-3 placeholder-image"
+                        />
                         {validator.description.identity ||
                             validator.description.moniker ||
                             StringsUtils.trunc(validator.operatorAddress || '')}

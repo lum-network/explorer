@@ -12,7 +12,6 @@ import walletLogo from 'assets/images/wallet.svg';
 import walletBis from 'assets/images/walletBis.svg';
 import github from 'assets/images/github.svg';
 import { Search } from 'components';
-import I18n from 'i18n-js';
 
 interface IProps {
     children?: React.ReactNode;
@@ -23,7 +22,7 @@ const MainLayout = (props: IProps): JSX.Element => {
         if (ApiConstants.IS_TESTNET) {
             return (
                 <div className="testnet-header">
-                    <span>{I18n.t('testnet')}</span>
+                    <span>{i18n.t('testnet')}</span>
                 </div>
             );
         }
@@ -136,6 +135,7 @@ const MainLayout = (props: IProps): JSX.Element => {
                         </div>
                     </div>
                     <div>
+                        <span className="copyright">{i18n.t('copyright')}</span>
                         <a href={NavigationConstants.GITHUB} rel="noreferrer" target="_blank">
                             <img alt="github" src={github} className="link-icon" />
                         </a>

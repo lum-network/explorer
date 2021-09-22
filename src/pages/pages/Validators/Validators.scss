@@ -33,6 +33,7 @@ p.top-rank {
     color: $color-type;
     font-weight: $bold;
     font-size: $font-md;
+    z-index: 2;
 }
 
 @include media-breakpoint-down(md) {

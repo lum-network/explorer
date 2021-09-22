@@ -42,6 +42,7 @@ const blocks = createModel<RootModel>()({
             newBlocks.unshift(block);
             newBlocks = [...new Set(newBlocks)];
             newBlocks.sort((a, b) => parseInt(b.height || '0', 10) - parseInt(a.height || '0', 10));
+            newBlocks.slice(0, 50);
 
             return {
                 ...state,

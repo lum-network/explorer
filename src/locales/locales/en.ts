@@ -44,7 +44,7 @@ export default {
     completion: 'Completion',
     senders: 'Senders',
     receivers: 'Receivers',
-    testnet: '⚠️ You are connected to the Testnet ⚠️',
+    inflation: 'Inflation',
 
     // Layout
     dashboard: 'Board',
@@ -53,6 +53,8 @@ export default {
     validators: 'Validators',
     wallet: 'Wallet',
     webWallet: 'Web Wallet',
+    testnet: '⚠️ You are connected to the Testnet ⚠️',
+    copyright: '© LUM Explorer 2021',
 
     // Transaction Messages
     messages: 'Messages',
@@ -80,12 +82,14 @@ export default {
     accountDetails: 'Account details',
     noUnbondedToken: 'No unbonded token',
     noDelegatedToken: 'No delegated token',
+    noAccountFound: 'Account not found',
 
     // Block
     blockTime: 'Block time',
     blockHash: 'Block hash',
     blockHeight: 'Block height',
     detailsForBlock: 'Details for block',
+    noBlockFound: 'Block not found',
 
     // Transaction
     txHash: 'Tx hash',
@@ -108,6 +112,7 @@ export default {
     uptime: 'Uptime',
     validatorDetails: 'Validator details',
     bondedTokens: 'Bonded tokens',
+    noValidatorFound: 'Validator not found',
 
     // Search
     searchPlaceholder: 'Search by address / height / tx hash / etc',
