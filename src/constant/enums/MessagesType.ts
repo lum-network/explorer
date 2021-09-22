@@ -9,6 +9,9 @@ enum MessagesType {
     OPEN_BEAM = '/lum.network.beam.MsgOpenBeam',
     UPDATE_BEAM = '/lum.network.beam.MsgUpdateBeam',
     CLAIM_BEAM = '/lum.network.beam.MsgClaimBeam',
+    SUBMIT_PROPOSAL = '/cosmos.gov.v1beta1.MsgSubmitProposal',
+    DEPOSIT = '/cosmos.gov.v1beta1.MsgDeposit',
+    VOTE = '/cosmos.gov.v1beta1.MsgVote',
 }
 
 export default MessagesType;

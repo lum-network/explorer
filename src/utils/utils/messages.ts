@@ -11,6 +11,9 @@ import beamLogo from 'assets/images/messageTypes/beam.svg';
 import beamOpenLogo from 'assets/images/messageTypes/openBeam.svg';
 import beamUpdateLogo from 'assets/images/messageTypes/updateBeam.svg';
 import beamClaimLogo from 'assets/images/messageTypes/claimBeam.svg';
+import submitProposalLogo from 'assets/images/messageTypes/submitProposal.svg';
+import depositLogo from 'assets/images/messageTypes/deposit.svg';
+import voteLogo from 'assets/images/messageTypes/vote.svg';
 
 export const name = (type?: MessagesType | null): { text: string; icon: string } => {
     switch (type) {
@@ -33,16 +36,25 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
             return { text: i18n.t('multiSendMessage'), icon: multiSendLogo };
 
         case MessagesType.GET_REWARD:
-            return { text: i18n.t('getReward'), icon: getRewardLogo };
+            return { text: i18n.t('getRewardMessage'), icon: getRewardLogo };
 
         case MessagesType.OPEN_BEAM:
-            return { text: i18n.t('openBeam'), icon: beamOpenLogo };
+            return { text: i18n.t('openBeamMessage'), icon: beamOpenLogo };
 
         case MessagesType.UPDATE_BEAM:
-            return { text: i18n.t('updateBeam'), icon: beamUpdateLogo };
+            return { text: i18n.t('updateBeamMessage'), icon: beamUpdateLogo };
 
         case MessagesType.CLAIM_BEAM:
-            return { text: i18n.t('claimBeam'), icon: beamClaimLogo };
+            return { text: i18n.t('claimBeamMessage'), icon: beamClaimLogo };
+
+        case MessagesType.SUBMIT_PROPOSAL:
+            return { text: i18n.t('submitProposalMessage'), icon: submitProposalLogo };
+
+        case MessagesType.DEPOSIT:
+            return { text: i18n.t('depositMessage'), icon: depositLogo };
+
+        case MessagesType.VOTE:
+            return { text: i18n.t('voteMessage'), icon: voteLogo };
 
         default:
             return { text: type || '', icon: beamLogo };

@@ -3,7 +3,12 @@ import { Transform } from 'class-transformer';
 class CoinModel {
     denom = '';
 
-    @Transform((param) => param.value.toString())
+    @Transform((param) => {
+        if (!param || !param.value) {
+            return '';
+        }
+        return param.value.toString();
+    })
     amount = '';
 }
 

@@ -23,6 +23,9 @@ export default {
     minSelfDelegation: 'Min self delegation',
     delegatorAddress: 'Delegator address',
     validatorAddress: 'Validator address',
+    proposerAddress: 'Proposer address',
+    voterAddress: 'Voter address',
+    option: 'Option',
     pubkey: 'Pubkey',
     value: 'Value',
     details: 'Details',
@@ -32,6 +35,9 @@ export default {
     comRate: 'Com rate',
     comMaxRate: 'Com max rate',
     comMaxChangeRate: 'Com max change rate',
+    initialDeposit: 'Initial deposit',
+    depositorAddress: 'Depositor address',
+    proposalId: 'Proposal id',
     sec: 's',
     marketCap: 'Market cap',
     dayVolume: '24h vol',
@@ -65,10 +71,13 @@ export default {
     undelegateMessage: 'Undelegate',
     editValidatorMessage: 'Edit validator',
     multiSendMessage: 'Multi send',
-    getReward: 'Get reward',
-    openBeam: 'Open beam',
-    updateBeam: 'Update beam',
-    claimBeam: 'Claim beam',
+    getRewardMessage: 'Get reward',
+    openBeamMessage: 'Open beam',
+    updateBeamMessage: 'Update beam',
+    claimBeamMessage: 'Claim beam',
+    submitProposalMessage: 'Submit proposal',
+    depositMessage: 'Deposit',
+    voteMessage: 'Vote',
 
     // Badge status
     badgeJailed: 'Jailed',
@@ -113,6 +122,13 @@ export default {
     validatorDetails: 'Validator details',
     bondedTokens: 'Bonded tokens',
     noValidatorFound: 'Validator not found',
+
+    // Gov
+    proposals: 'proposals',
+    yes: 'Yes',
+    no: 'No',
+    noWithVeto: 'No with veto',
+    abstain: 'Abstain',
 
     // Search
     searchPlaceholder: 'Search by address / height / tx hash / etc',

@@ -4,14 +4,17 @@ import MessageModel, {
     ClaimBeam,
     CreateValidator,
     Delegate,
+    Deposit,
     EditValidator,
     GetReward,
     MultiSend,
     OpenBeam,
     Send,
+    SubmitProposal,
     Undelegate,
     UpdateBeam,
     Value,
+    Vote,
 } from './message';
 import CoinModel from './coin';
 import LogModel from './log';
@@ -55,6 +58,9 @@ class TransactionsModel {
                 { value: OpenBeam, name: MessagesType.OPEN_BEAM },
                 { value: UpdateBeam, name: MessagesType.UPDATE_BEAM },
                 { value: ClaimBeam, name: MessagesType.CLAIM_BEAM },
+                { value: SubmitProposal, name: MessagesType.SUBMIT_PROPOSAL },
+                { value: Deposit, name: MessagesType.DEPOSIT },
+                { value: Vote, name: MessagesType.VOTE },
             ],
         },
         keepDiscriminatorProperty: true,

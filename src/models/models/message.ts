@@ -1,5 +1,5 @@
-import { MessagesType } from 'constant';
-import { Expose, Type } from 'class-transformer';
+import { MessagesType, VotesOption } from 'constant';
+import { Expose, Transform, Type } from 'class-transformer';
 import CoinModel from './coin';
 
 export default abstract class MessageModel {
@@ -148,6 +148,65 @@ export class GetReward extends MessageModel {
     value: GetRewardValue = new GetRewardValue();
 }
 
+class SubmitProposalValue {
+    @Expose({ name: 'proposer_address' })
+    proposerAddress?: string;
+
+    @Expose({ name: 'initial_deposit' })
+    initialDeposit?: CoinModel[] = [];
+}
+
+export class SubmitProposal extends MessageModel {
+    @Type(() => SubmitProposalValue)
+    value: SubmitProposalValue = new SubmitProposalValue();
+}
+
+class DepositValue {
+    @Expose({ name: 'proposal_id' })
+    @Transform(({ value }) => {
+        if (!value) {
+            return undefined;
+        }
+
+        return value.low;
+    })
+    proposalId?: string;
+
+    @Expose({ name: 'depositor_address' })
+    depositorAddress = '';
+
+    @Expose({ name: 'amount' })
+    amount: CoinModel[] = [];
+}
+
+export class Deposit extends MessageModel {
+    @Type(() => DepositValue)
+    value: DepositValue = new DepositValue();
+}
+
+class VoteValue {
+    @Expose({ name: 'proposal_id' })
+    @Transform(({ value }) => {
+        if (!value) {
+            return undefined;
+        }
+
+        return value.low;
+    })
+    proposalId?: string;
+
+    @Expose({ name: 'voter_address' })
+    voterAddress = '';
+
+    @Expose({ name: 'option' })
+    option?: VotesOption;
+}
+
+export class Vote extends MessageModel {
+    @Type(() => VoteValue)
+    value: VoteValue = new VoteValue();
+}
+
 class OpenBeamValue {}
 
 export class OpenBeam extends MessageModel {
@@ -179,4 +238,7 @@ export type Value =
     | GetReward
     | OpenBeam
     | UpdateBeam
-    | ClaimBeam;
+    | ClaimBeam
+    | SubmitProposal
+    | Deposit
+    | Vote;
