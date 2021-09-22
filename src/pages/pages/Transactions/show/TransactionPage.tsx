@@ -20,7 +20,6 @@ import copyLogo from 'assets/images/copyDark.svg';
 import numeral from 'numeral';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import '../Transactions.scss';
-import I18n from 'i18n-js';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -534,7 +533,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                 <div className="error-container">
                     {transaction.rawLogs && transaction.rawLogs[0] && transaction.rawLogs[0].log
                         ? transaction.rawLogs[0].log
-                        : I18n.t('errorOccurred')}
+                        : i18n.t('errorOccurred')}
                 </div>
             </div>
         );
