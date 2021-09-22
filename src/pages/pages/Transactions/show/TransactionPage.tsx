@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { MessageType, Badge, Tooltip, SmallerDecimal } from 'components';
+import { MessageType, Badge, Tooltip, SmallerDecimal, VoteOption } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import moment from 'moment-timezone';
 import { NavigationConstants, SystemConstants } from 'constant';
@@ -426,7 +426,9 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('option')}</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-xl-10 text-break">{value.option}</div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        {value.option && <VoteOption option={value.option} />}
+                    </div>
                 </div>
             );
         }

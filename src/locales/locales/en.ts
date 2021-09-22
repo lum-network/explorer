@@ -123,6 +123,13 @@ export default {
     bondedTokens: 'Bonded tokens',
     noValidatorFound: 'Validator not found',
 
+    // Gov
+    proposals: 'proposals',
+    yes: 'Yes',
+    no: 'No',
+    noWithVeto: 'No with veto',
+    abstain: 'Abstain',
+
     // Search
     searchPlaceholder: 'Search by address / height / tx hash / etc',
     noResultFound: 'No result found',

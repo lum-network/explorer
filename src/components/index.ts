@@ -10,3 +10,4 @@ export { default as DelegationsList } from './components/delegations/Delegations
 export { default as UnbondingsList } from './components/delegations/UnbondingsList/UnbondingsList';
 export { default as Tooltip } from './components/Tooltip/Tooltip';
 export { default as SmallerDecimal } from './components/SmallerDecimal/SmallerDecimal';
+export { default as VoteOption } from './components/VoteOption/VoteOption';
