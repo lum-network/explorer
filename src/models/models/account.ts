@@ -72,6 +72,9 @@ class AccountModel {
 
     @Type(() => UnbondingModel)
     unbondings: UnbondingModel[] = [];
+
+    @Type(() => CoinModel)
+    commissions: CoinModel[] = [];
 }
 
 export default AccountModel;

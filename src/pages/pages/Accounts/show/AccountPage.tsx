@@ -28,6 +28,7 @@ const AccountPage = (props: IProps): JSX.Element => {
     const [delegated, setDelegated] = useState(0.0);
     const [reward, setReward] = useState(0.0);
     const [unbonding, setUnbonding] = useState(0.0);
+    const [commission, setCommission] = useState(0.0);
     const [total, setTotal] = useState(0.0);
 
     useEffect(() => {
@@ -39,7 +40,7 @@ const AccountPage = (props: IProps): JSX.Element => {
             return;
         }
 
-        const { balance, allRewards, delegations, unbondings } = account;
+        const { balance, allRewards, delegations, unbondings, commissions } = account;
 
         const available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
         const reward =
@@ -49,12 +50,19 @@ const AccountPage = (props: IProps): JSX.Element => {
         const delegated = NumbersUtils.convertUnitNumber(AccountUtils.sumOfDelegations(delegations));
         const unbonding = NumbersUtils.convertUnitNumber(AccountUtils.sumOfUnbonding(unbondings));
 
-        const total = available + reward + delegated + unbonding;
+        let commission = 0;
+
+        if (commissions && commissions.length) {
+            commission = NumbersUtils.convertUnitNumber(commissions[0].amount) / NumberConstants.CLIENT_PRECISION;
+        }
+
+        const total = available + reward + delegated + unbonding + commission;
 
         setAvailable(available);
         setReward(reward);
         setDelegated(delegated);
         setUnbonding(unbonding);
+        setCommission(commission);
         setTotal(total);
     }, [account]);
 
@@ -135,40 +143,47 @@ const AccountPage = (props: IProps): JSX.Element => {
     };
 
     const renderPie = (): JSX.Element | null => {
-        if (!available && !delegated && !unbonding && !reward) {
+        if (!available && !delegated && !unbonding && !reward && !commission) {
             return null;
+        }
+
+        let data = [
+            {
+                title: i18n.t('available'),
+                value: NumbersUtils.getPercentage(available, total),
+                color: '#5FD68B',
+            },
+            {
+                title: i18n.t('delegated'),
+                value: NumbersUtils.getPercentage(delegated, total),
+                color: '#FD9033',
+            },
+            {
+                title: i18n.t('unbonding'),
+                value: NumbersUtils.getPercentage(unbonding, total),
+                color: '#5F99DC',
+            },
+            {
+                title: i18n.t('reward'),
+                value: NumbersUtils.getPercentage(reward, total),
+                color: '#5FD2DC',
+            },
+        ];
+
+        if (commission) {
+            data = [
+                {
+                    title: i18n.t('commission'),
+                    value: NumbersUtils.getPercentage(commission, total),
+                    color: '#9FA4AD',
+                },
+                ...data,
+            ];
         }
 
         return (
             <div className="col-12 col-lg-3 col-xxl-2 d-flex justify-content-center mb-4 mb-lg-0">
-                <PieChart
-                    data={[
-                        {
-                            title: 'Available',
-                            value: NumbersUtils.getPercentage(available, total),
-                            color: '#5FD68B',
-                        },
-                        {
-                            title: 'Delegated',
-                            value: NumbersUtils.getPercentage(delegated, total),
-                            color: '#FD9033',
-                        },
-                        {
-                            title: 'Unbonding',
-                            value: NumbersUtils.getPercentage(unbonding, total),
-                            color: '#5F99DC',
-                        },
-                        {
-                            title: 'Reward',
-                            value: NumbersUtils.getPercentage(reward, total),
-                            color: '#5FD2DC',
-                        },
-                    ]}
-                    animate
-                    rounded
-                    lineWidth={25}
-                    className="d-flex app-pie-container"
-                />
+                <PieChart data={data} animate rounded lineWidth={25} className="d-flex app-pie-container" />
             </div>
         );
     };
@@ -231,6 +246,12 @@ const AccountPage = (props: IProps): JSX.Element => {
                         <div className="row align-items-center">
                             {renderPie()}
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2">
+                                {commission ? (
+                                    <div className="d-flex align-items-center mb-2">
+                                        <div className="app-dot grey me-2" />
+                                        {i18n.t('commission')}
+                                    </div>
+                                ) : null}
                                 <div className="d-flex align-items-center mb-2">
                                     <div className="app-dot green me-2" />
                                     {i18n.t('available')}
@@ -249,6 +270,11 @@ const AccountPage = (props: IProps): JSX.Element => {
                                 </div>
                             </div>
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2 text-end">
+                                {commission ? (
+                                    <div className="mb-2">
+                                        <SmallerDecimal nb={numeral(commission).format('0,0.000000')} />
+                                    </div>
+                                ) : null}
                                 <div className="mb-2">
                                     <SmallerDecimal nb={numeral(available).format('0,0.000000')} />
                                 </div>
@@ -263,6 +289,11 @@ const AccountPage = (props: IProps): JSX.Element => {
                                 </div>
                             </div>
                             <div className="col-2 col-md-4 col-lg-3 col-xxl-2 text-end">
+                                {commission ? (
+                                    <div className="mb-2">
+                                        <p>{numeral(commission / total).format('0.00%')}</p>
+                                    </div>
+                                ) : null}
                                 <div className="mb-2">
                                     <p>{numeral(available / total).format('0.00%')}</p>
                                 </div>

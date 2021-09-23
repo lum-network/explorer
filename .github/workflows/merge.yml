@@ -9,7 +9,7 @@ on:
       - master
 jobs:
   build_deploy_testnet:
-    name: Deploy the the built content on testnet hosting
+    name: Deploy on testnet hosting
     runs-on: ubuntu-latest
     environment: testnet
     steps:
@@ -38,7 +38,7 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
   build_deploy_mainnet:
-    name: Deploy the the built content on main net hosting
+    name: Deploy on main net hosting
     runs-on: ubuntu-latest
     environment: mainnet
     steps:
@@ -53,7 +53,7 @@ jobs:
       - name: Build the main net bundle
         run: yarn build
         env:
-          REACT_APP_BASE_URL: "https://bridge.testnet.lum.network"
+          REACT_APP_BASE_URL: "https://bridge.lum.network"
 
       - name: Deploy on firebase main net project
         uses: FirebaseExtended/action-hosting-deploy@v0
