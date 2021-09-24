@@ -227,15 +227,28 @@ const TransactionPage = (props: IProps): JSX.Element => {
                             {value.validatorAddress}
                         </Link>
                     </div>
-                    <div className="col-12 col-md-3 col-xl-2">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('amount')}</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(value.amount, true)}
                             <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
+                    {transaction.autoClaimReward && (
+                        <>
+                            <div className="col-12 col-md-3 col-xl-2">
+                                <h5>{i18n.t('autoClaimReward')}</h5>
+                            </div>
+                            <div className="col-12 col-md-9 col-xl-10 text-break">
+                                <div className="d-flex">
+                                    {NumbersUtils.formatNumber(transaction.autoClaimReward, true)}
+                                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             );
         }

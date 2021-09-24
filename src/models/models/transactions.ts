@@ -27,6 +27,10 @@ class TransactionsModel {
     @Type(() => CoinModel)
     amount: CoinModel = new CoinModel();
 
+    @Expose({ name: 'auto_claim_reward' })
+    @Type(() => CoinModel)
+    autoClaimReward?: CoinModel;
+
     success = false;
 
     @Expose({ name: 'gas_wanted' })

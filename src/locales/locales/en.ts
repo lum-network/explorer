@@ -25,6 +25,7 @@ export default {
     validatorAddress: 'Validator address',
     proposerAddress: 'Proposer address',
     voterAddress: 'Voter address',
+    autoClaimReward: 'Auto claim reward',
     option: 'Option',
     pubkey: 'Pubkey',
     value: 'Value',
