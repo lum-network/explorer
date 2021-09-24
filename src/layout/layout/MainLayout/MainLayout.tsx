@@ -8,7 +8,7 @@ import dashboardLogo from 'assets/images/dashboard.svg';
 import blockLogo from 'assets/images/block.svg';
 import transactionLogo from 'assets/images/transaction.svg';
 import validatorLogo from 'assets/images/validator.svg';
-import walletLogo from 'assets/images/wallet.svg';
+import proposalLogo from 'assets/images/proposal.svg';
 import walletBis from 'assets/images/walletBis.svg';
 import github from 'assets/images/github.svg';
 import { Search } from 'components';
@@ -30,10 +30,10 @@ const MainLayout = (props: IProps): JSX.Element => {
         return null;
     };
 
-    const renderNav = (footer?: boolean): JSX.Element => {
+    const renderNav = (tab?: boolean): JSX.Element => {
         return (
-            <ul className={footer ? 'footer' : ''}>
-                {!footer && (
+            <ul className={tab ? 'tab' : ''}>
+                {!tab && (
                     <>
                         <li className="logo">
                             <Link to={NavigationConstants.HOME} className="d-flex flex-row">
@@ -94,18 +94,18 @@ const MainLayout = (props: IProps): JSX.Element => {
                         </div>
                     </NavLink>
                 </li>
-                {!footer && (
-                    <li>
-                        <a
-                            href={NavigationConstants.WALLET}
-                            rel="noreferrer"
-                            target="_blank"
-                            className="nav-title link-icon"
-                        >
-                            <img className="icon-nav" alt="validator" src={walletLogo} /> {i18n.t('wallet')}
-                        </a>
-                    </li>
-                )}
+                <li>
+                    <NavLink to={NavigationConstants.PROPOSALS} className="link" activeClassName="active-link">
+                        <div className="nav-title">
+                            <img className="icon-nav" alt="proposal" src={proposalLogo} /> {i18n.t('proposals')}
+                        </div>
+                        <div className="bar">
+                            <div className="bar-2">
+                                <div className="bar-3" />
+                            </div>
+                        </div>
+                    </NavLink>
+                </li>
             </ul>
         );
     };

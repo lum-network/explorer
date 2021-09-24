@@ -125,7 +125,7 @@ export default {
     noValidatorFound: 'Validator not found',
 
     // Gov
-    proposals: 'proposals',
+    proposals: 'Proposals',
     yes: 'Yes',
     no: 'No',
     noWithVeto: 'No with veto',
