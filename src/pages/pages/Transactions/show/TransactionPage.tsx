@@ -660,7 +660,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
     return (
         <>
             <h2 className="mt-3 mb-4">
-                <img alt="block" src={transactionLogo} /> {i18n.t('transactionDetails')}
+                <img alt="transaction" src={transactionLogo} /> {i18n.t('transactionDetails')}
             </h2>
             {renderInformation()}
             {renderMessages()}

@@ -11,6 +11,8 @@ import {
     AccountPage,
     ValidatorPage,
     SearchPage,
+    ProposalsPage,
+    ProposalPage,
 } from 'pages';
 import { Route, BrowserRouter as Router, Switch, Redirect, useLocation } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
@@ -23,7 +25,7 @@ const RouteListener = (): JSX.Element => {
         AnalyticsUtils.logEvent('screen_view', { screen_name: location.pathname });
     }, [location]);
 
-    return <div></div>;
+    return <div />;
 };
 
 const RootNavigator = (): JSX.Element => {
@@ -49,6 +51,10 @@ const RootNavigator = (): JSX.Element => {
                         <ValidatorsPage />
                     </Route>
                     <Route path={`${NavigationConstants.ACCOUNT}/:id`} component={AccountPage} />
+                    <Route path={`${NavigationConstants.PROPOSALS}/:id`} component={ProposalPage} />
+                    <Route path={NavigationConstants.PROPOSALS}>
+                        <ProposalsPage />
+                    </Route>
                     <Route path={`${NavigationConstants.SEARCH}/:text`} component={SearchPage} />
                     <Route path="/">
                         <NotFoundPage />
