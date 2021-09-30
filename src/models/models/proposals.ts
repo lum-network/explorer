@@ -1,4 +1,7 @@
-import { Expose, Transform } from 'class-transformer';
+import { Expose, Transform, Type } from 'class-transformer';
+import VotesResultModel from './votesResult';
+import CoinModel from './coin';
+import { ProposalStatus } from 'constant';
 
 class ProposalsModel {
     @Expose({ name: 'proposal_id' })
@@ -10,6 +13,29 @@ class ProposalsModel {
         return value.low;
     })
     proposalId?: string;
+
+    @Expose({ name: 'submit_time' })
+    submitTime?: string;
+
+    @Expose({ name: 'deposit_end_time' })
+    depositEndTime?: string;
+
+    @Expose({ name: 'voting_start_time' })
+    votingStartTime?: string;
+
+    @Expose({ name: 'voting_end_time' })
+    votingEndTime?: string;
+
+    @Expose()
+    status: ProposalStatus = ProposalStatus.UNRECOGNIZED;
+
+    @Expose({ name: 'totalDeposit' })
+    @Type(() => CoinModel)
+    total_deposit: CoinModel[] = [];
+
+    @Expose()
+    @Type(() => VotesResultModel)
+    result: VotesResultModel = new VotesResultModel();
 }
 
 export default ProposalsModel;
