@@ -19,3 +19,20 @@ export const fetchProposals = (): Promise<ProposalsModel[]> => {
             });
     });
 };
+
+export const getProposal = (id: string): Promise<ProposalsModel> => {
+    return new Promise((resolve, reject) => {
+        axios(`${ApiConstants.GOVERNANCE_URL}/${ApiConstants.PROPOSALS_URL}/${id}`, {
+            baseURL: ApiConstants.BASE_URL,
+            method: 'GET',
+        })
+            .then((result) => {
+                const proposal = plainToClass(ProposalsModel, result.data.result);
+
+                resolve(proposal);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};
