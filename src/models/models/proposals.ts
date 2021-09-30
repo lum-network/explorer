@@ -29,9 +29,9 @@ class ProposalsModel {
     @Expose()
     status: ProposalStatus = ProposalStatus.UNRECOGNIZED;
 
-    @Expose({ name: 'totalDeposit' })
+    @Expose({ name: 'total_deposit' })
     @Type(() => CoinModel)
-    total_deposit: CoinModel[] = [];
+    totalDeposit: CoinModel[] = [];
 
     @Expose()
     @Type(() => VotesResultModel)

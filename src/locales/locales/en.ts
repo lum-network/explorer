@@ -87,6 +87,10 @@ export default {
     badgeUnbonded: 'Unbonded',
     badgeSuccess: 'Success',
     badgeFail: 'Fail',
+    badgeDepositPeriod: 'Deposit period',
+    badgeVotingPeriod: 'Voting period',
+    badgePassed: 'Passed',
+    badgeRejected: 'Rejected',
 
     // Account
     accountDetails: 'Account details',
@@ -130,6 +134,14 @@ export default {
     no: 'No',
     noWithVeto: 'No with veto',
     abstain: 'Abstain',
+    noProposalsFound: 'No proposals yet',
+    noProposalFound: 'Proposal not found',
+    allProposals: 'All proposals',
+    id: 'Id',
+    title: 'Title',
+    submitTime: 'Submit time',
+    votingStart: 'Voting start',
+    totalDeposit: 'Total deposit',
 
     // Search
     searchPlaceholder: 'Search by address / height / tx hash / etc',
