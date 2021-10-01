@@ -1,6 +1,7 @@
 export default {
     // General
     viewAll: 'View all',
+    open: 'Open',
     height: 'Height',
     proposer: 'Proposer',
     time: 'Time',

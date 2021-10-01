@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { Badge } from 'components';
 import moment from 'moment';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import ProposalCard from '../components/ProposalCard/ProposalCard';
 
 const ProposalsPage = (): JSX.Element | null => {
     const dispatch = useDispatch<Dispatch>();
@@ -94,11 +95,29 @@ const ProposalsPage = (): JSX.Element | null => {
         );
     };
 
+    const renderProposalCards = () => {
+        return (
+            <div className="row">
+                {proposals[0] && (
+                    <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                        <ProposalCard proposal={proposals[0]} />
+                    </div>
+                )}
+                {proposals[1] && (
+                    <div className="col-12 col-xxl-6 mb-5">
+                        <ProposalCard proposal={proposals[1]} />
+                    </div>
+                )}
+            </div>
+        );
+    };
+
     return (
         <>
             <h2 className="mt-3 mb-4">
                 <img alt="proposal" src={proposalLogo} /> {i18n.t('proposals')}
             </h2>
+            {renderProposalCards()}
             {renderDetails()}
         </>
     );
