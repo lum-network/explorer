@@ -1,18 +1,18 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import { ProposalsModel } from 'models';
-import { ApiGovernance } from '../../../api';
+import { ApiGovernance } from 'api';
 
-interface ProposalsState {
+interface GovernanceState {
     proposals: ProposalsModel[];
     proposal: ProposalsModel | null;
 }
 
-const proposals = createModel<RootModel>()({
+const governance = createModel<RootModel>()({
     state: {
         proposals: [],
         proposal: null,
-    } as ProposalsState,
+    } as GovernanceState,
     reducers: {
         setProposals(state, proposals: ProposalsModel[]) {
             return {
@@ -37,15 +37,15 @@ const proposals = createModel<RootModel>()({
         async fetchProposals() {
             const proposals = await ApiGovernance.fetchProposals();
 
-            dispatch.proposals.setProposals(proposals);
+            dispatch.governance.setProposals(proposals);
         },
 
         async getProposal(id: string) {
             const proposal = await ApiGovernance.getProposal(id);
 
-            dispatch.proposals.setProposal(proposal);
+            dispatch.governance.setProposal(proposal);
         },
     }),
 });
 
-export default proposals;
+export default governance;

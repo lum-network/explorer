@@ -13,10 +13,10 @@ import { LumConstants } from '@lum-network/sdk-javascript';
 
 const ProposalsPage = (): JSX.Element | null => {
     const dispatch = useDispatch<Dispatch>();
-    const proposals = useSelector((state: RootState) => state.proposals.proposals);
+    const proposals = useSelector((state: RootState) => state.governance.proposals);
 
     useEffect(() => {
-        dispatch.proposals.fetchProposals().finally(() => null);
+        dispatch.governance.fetchProposals().finally(() => null);
     }, []);
 
     if (!proposals) {
