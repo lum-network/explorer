@@ -6,6 +6,7 @@ import { NavigationConstants } from 'constant';
 import { useHistory } from 'react-router-dom';
 import { i18n } from 'utils';
 import './ProposalCard.scss';
+import VoteBar from '../VoteBar/VoteBar';
 
 interface IProps {
     proposal: ProposalsModel;
@@ -41,6 +42,10 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
                 <div className="col-md-6">
                     <h4>Time</h4>
                     <p>proposer name</p>
+                </div>
+                <div className="col-12 mt-3">
+                    <h4>Results</h4>
+                    <VoteBar />
                 </div>
             </div>
         </Card>
