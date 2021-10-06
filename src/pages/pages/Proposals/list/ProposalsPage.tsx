@@ -11,6 +11,7 @@ import { Badge } from 'components';
 import moment from 'moment';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import ProposalCard from '../components/ProposalCard/ProposalCard';
+import '../Proposals.scss';
 
 const ProposalsPage = (): JSX.Element | null => {
     const dispatch = useDispatch<Dispatch>();
@@ -37,7 +38,7 @@ const ProposalsPage = (): JSX.Element | null => {
         return (
             <tr key={index}>
                 <td data-label={head[0]}>
-                    <p>#{proposal.proposalId}</p>
+                    <p className="list-id">#{proposal.proposalId}</p>
                 </td>
                 <td data-label={head[1]}>
                     <Link to={`${NavigationConstants.PROPOSALS}/${proposal.proposalId}`}>Proposal name</Link>
