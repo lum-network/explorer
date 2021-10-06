@@ -29,6 +29,20 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
             </div>
             <h6 className="mt-3">Proposal name</h6>
             <hr />
+            <div className="mt-5 row">
+                <div className="col-12">
+                    <h4>Proposer</h4>
+                    <p>proposer name</p>
+                </div>
+                <div className="col-md-6">
+                    <h4>Time</h4>
+                    <p>proposer name</p>
+                </div>
+                <div className="col-md-6">
+                    <h4>Time</h4>
+                    <p>proposer name</p>
+                </div>
+            </div>
         </Card>
     );
 };
