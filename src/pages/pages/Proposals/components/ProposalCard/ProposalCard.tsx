@@ -5,6 +5,7 @@ import { Badge } from 'components';
 import { NavigationConstants } from 'constant';
 import { useHistory } from 'react-router-dom';
 import { i18n } from 'utils';
+import './ProposalCard.scss';
 
 interface IProps {
     proposal: ProposalsModel;
@@ -17,7 +18,7 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
         <Card>
             <div className="d-flex align-items-center justify-content-between">
                 <div className="d-flex align-items-center">
-                    <span className="me-3">#{proposal.proposalId}</span>
+                    <span className="me-3 card-id">#{proposal.proposalId}</span>
                     <Badge proposalStatus={proposal.status} />
                 </div>
                 <div>
@@ -26,7 +27,7 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
                     </Button>
                 </div>
             </div>
-            <div>Proposal name</div>
+            <h6 className="mt-3">Proposal name</h6>
             <hr />
         </Card>
     );
