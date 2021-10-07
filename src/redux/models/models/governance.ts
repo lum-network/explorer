@@ -2,6 +2,7 @@ import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import { ProposalsModel } from 'models';
 import { ApiGovernance } from 'api';
+import { ProposalStatus } from 'constant';
 
 interface GovernanceState {
     proposals: ProposalsModel[];
@@ -35,7 +36,21 @@ const governance = createModel<RootModel>()({
     },
     effects: (dispatch) => ({
         async fetchProposals() {
-            const proposals = await ApiGovernance.fetchProposals();
+            // const proposals = await ApiGovernance.fetchProposals();
+
+            const proposals: ProposalsModel[] = [
+                {
+                    totalDeposit: [{ amount: '100000000', denom: 'ulum' }],
+                    status: ProposalStatus.DEPOSIT_PERIOD,
+                    proposalId: '1',
+                    result: {
+                        yes: 0,
+                        no: 0,
+                        noWithVeto: 0,
+                        abstain: 0,
+                    },
+                },
+            ];
 
             dispatch.governance.setProposals(proposals);
         },

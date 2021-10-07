@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProposalsModel } from 'models';
 import { Button, Card } from 'frontend-elements';
 import { Badge } from 'components';
 import { NavigationConstants } from 'constant';
 import { useHistory } from 'react-router-dom';
-import { i18n } from 'utils';
+import { GovernanceUtils, i18n, NumbersUtils } from 'utils';
 import './ProposalCard.scss';
 import VoteBar from '../VoteBar/VoteBar';
 
@@ -14,6 +14,26 @@ interface IProps {
 
 const ProposalCard = ({ proposal }: IProps): JSX.Element => {
     const history = useHistory();
+
+    const [voteYes, setVoteYes] = useState(0);
+    const [voteNo, setVoteNo] = useState(0);
+    const [voteNoWithVeto, setVoteNoWithVeto] = useState(0);
+    const [voteAbstain, setVoteAbstain] = useState(0);
+
+    useEffect(() => {
+        if (!proposal || !proposal.result) {
+            return;
+        }
+
+        const { result } = proposal;
+
+        const total = GovernanceUtils.sumOfVotes(result);
+
+        setVoteYes(NumbersUtils.getPercentage(result.yes, total));
+        setVoteNo(NumbersUtils.getPercentage(result.no, total));
+        setVoteNoWithVeto(NumbersUtils.getPercentage(result.noWithVeto, total));
+        setVoteAbstain(NumbersUtils.getPercentage(result.abstain, total));
+    }, [proposal]);
 
     return (
         <Card>
@@ -45,7 +65,14 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
                 </div>
                 <div className="col-12 mt-3">
                     <h4>Results</h4>
-                    <VoteBar />
+                    <VoteBar
+                        results={{
+                            yes: voteYes,
+                            no: voteNo,
+                            noWithVeto: voteNoWithVeto,
+                            abstain: voteAbstain,
+                        }}
+                    />
                 </div>
             </div>
         </Card>
