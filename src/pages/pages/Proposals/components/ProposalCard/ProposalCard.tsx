@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { GovernanceUtils, i18n, NumbersUtils } from 'utils';
 import './ProposalCard.scss';
 import VoteBar from '../VoteBar/VoteBar';
+import numeral from 'numeral';
 
 interface IProps {
     proposal: ProposalsModel;
@@ -35,6 +36,25 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
         setVoteAbstain(NumbersUtils.getPercentage(result.abstain, total));
     }, [proposal]);
 
+    const renderResult = () => {
+        if (GovernanceUtils.isNoVoteYet(proposal.result)) {
+            return <p className="mb-1">{i18n.t('noVoteYet')}</p>;
+        } else {
+            const [name, percent] = GovernanceUtils.maxVote({
+                yes: voteYes,
+                no: voteNo,
+                noWithVeto: voteNoWithVeto,
+                abstain: voteAbstain,
+            });
+
+            return (
+                <p>
+                    {i18n.t('mostVotedOn')} {name} {numeral(percent).format('0.00')}%
+                </p>
+            );
+        }
+    };
+
     return (
         <Card>
             <div className="d-flex align-items-center justify-content-between">
@@ -48,11 +68,11 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
                     </Button>
                 </div>
             </div>
-            <h6 className="mt-3">Proposal name</h6>
+            <h6 className="mt-3">{i18n.t('proposalName')}</h6>
             <hr />
             <div className="mt-5 row">
-                <div className="col-12">
-                    <h4>Proposer</h4>
+                <div className="col-12 mb-3">
+                    <h4>{i18n.t('proposer')}</h4>
                     <p>proposer name</p>
                 </div>
                 <div className="col-md-6">
@@ -64,7 +84,8 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
                     <p>proposer name</p>
                 </div>
                 <div className="col-12 mt-3">
-                    <h4>Results</h4>
+                    <h4 className="mb-2">{i18n.t('results')}</h4>
+                    {renderResult()}
                     <VoteBar
                         results={{
                             yes: voteYes,

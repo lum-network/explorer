@@ -143,6 +143,10 @@ export default {
     submitTime: 'Submit time',
     votingStart: 'Voting start',
     totalDeposit: 'Total deposit',
+    proposalName: 'Proposal name',
+    results: 'Results',
+    noVoteYet: 'No vote yet',
+    mostVotedOn: 'Most voted on',
 
     // Search
     searchPlaceholder: 'Search by address / height / tx hash / etc',
