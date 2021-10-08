@@ -48,8 +48,9 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
             });
 
             return (
-                <p>
-                    {i18n.t('mostVotedOn')} {name} {numeral(percent).format('0.00')}%
+                <p className="mb-1">
+                    {i18n.t('mostVotedOn')} <strong>{name}</strong>{' '}
+                    <small className="text-muted">{numeral(percent).format('0.00')}%</small>
                 </p>
             );
         }
