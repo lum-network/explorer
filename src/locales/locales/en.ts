@@ -131,6 +131,7 @@ export default {
 
     // Gov
     proposals: 'Proposals',
+    proposal: 'Proposal',
     yes: 'Yes',
     no: 'No',
     noWithVeto: 'No with veto',
