@@ -36,26 +36,14 @@ const governance = createModel<RootModel>()({
     },
     effects: (dispatch) => ({
         async fetchProposals() {
-            // const proposals = await ApiGovernance.fetchProposals();
-
-            const proposals: ProposalsModel[] = [
-                {
-                    totalDeposit: [{ amount: '100000000', denom: 'ulum' }],
-                    status: ProposalStatus.DEPOSIT_PERIOD,
-                    proposalId: '1',
-                    result: {
-                        yes: 0,
-                        no: 0,
-                        noWithVeto: 0,
-                        abstain: 0,
-                    },
-                },
-            ];
+            const proposals = await ApiGovernance.fetchProposals();
 
             dispatch.governance.setProposals(proposals);
         },
 
         async getProposal(id: string) {
+            dispatch.governance.resetProposal();
+
             const proposal = await ApiGovernance.getProposal(id);
 
             dispatch.governance.setProposal(proposal);
