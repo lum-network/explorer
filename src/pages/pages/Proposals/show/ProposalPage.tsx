@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
 import { RouteComponentProps } from 'react-router';
 import { Card, Loading } from 'frontend-elements';
+import { Badge } from 'components';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -42,13 +43,23 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                 </Card>
             );
         }
+
+        return (
+            <Card className="mb-5">
+                <p>Hello, World!</p>
+            </Card>
+        );
     };
 
     return (
         <>
-            <h2 className="mt-3 mb-4">
-                <img alt="proposal" src={proposalLogo} /> {i18n.t('proposal')} #{proposal?.proposalId || id}
-            </h2>
+            <div className="mt-3 mb-4 d-flex align-items-center">
+                <h2 className="me-3">
+                    <img alt="proposal" src={proposalLogo} /> {i18n.t('proposal')} #
+                    {(proposal && proposal.proposalId) || id}
+                </h2>
+                {proposal && <Badge proposalStatus={proposal.status} />}
+            </div>
             {renderInformation()}
         </>
     );
