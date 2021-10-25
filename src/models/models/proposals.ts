@@ -3,6 +3,12 @@ import VotesResultModel from './votesResult';
 import CoinModel from './coin';
 import { ProposalStatus } from 'constant';
 
+class ContentModel {
+    title?: string;
+
+    description?: string;
+}
+
 class ProposalsModel {
     @Expose({ name: 'proposal_id' })
     @Transform(({ value }) => {
@@ -13,6 +19,9 @@ class ProposalsModel {
         return value.low;
     })
     proposalId?: string;
+
+    @Type(() => ContentModel)
+    content: ContentModel = new ContentModel();
 
     @Expose({ name: 'submit_time' })
     submitTime?: string;

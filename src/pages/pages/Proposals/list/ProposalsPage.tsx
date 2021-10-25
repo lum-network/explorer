@@ -41,7 +41,7 @@ const ProposalsPage = (): JSX.Element | null => {
                     <p className="list-id">#{proposal.proposalId}</p>
                 </td>
                 <td data-label={head[1]}>
-                    <Link to={`${NavigationConstants.PROPOSALS}/${proposal.proposalId}`}>Proposal name</Link>
+                    <Link to={`${NavigationConstants.PROPOSALS}/${proposal.proposalId}`}>{proposal.content.title}</Link>
                 </td>
                 <td data-label={head[2]}>
                     <Badge text proposalStatus={proposal.status} />

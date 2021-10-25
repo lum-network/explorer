@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@lum-network/sdk-javascript": "^0.6.0",
+        "@lum-network/sdk-javascript": "^0.6.1",
         "@rematch/core": "^2.1.0",
         "@rematch/loading": "^2.1.0",
         "@rematch/persist": "^2.1.0",
