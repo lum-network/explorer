@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import proposalLogo from 'assets/images/proposalDark.svg';
-import { i18n } from 'utils';
+import { i18n, NumbersUtils } from 'utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
 import { RouteComponentProps } from 'react-router';
 import { Card, Loading } from 'frontend-elements';
 import { Badge } from 'components';
+import moment from 'moment';
+import { LumConstants } from '@lum-network/sdk-javascript';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -46,7 +48,64 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
 
         return (
             <Card className="mb-5">
-                <p>Hello, World!</p>
+                <div className="row gy-4">
+                    <div className="col-md-6">
+                        <h4 className="mb-2">{i18n.t('title')}</h4>
+                        {proposal.content.title}
+                    </div>
+                    <div className="col-md-6">
+                        <h4 className="mb-2">{i18n.t('id').toUpperCase()}</h4>
+                        {'#'}
+                        {proposal.proposalId}
+                    </div>
+                    <div className="col-md-6">
+                        <h4 className="mb-2">{i18n.t('status')}</h4>
+                        <Badge proposalStatus={proposal.status} />
+                    </div>
+                    <div className="col-md-6">
+                        <h4 className="mb-2">{i18n.t('proposer')}</h4>
+                        TODO: Proposer name
+                    </div>
+                    <div className="col-md-6">
+                        <h4 className="mb-2">{i18n.t('submitTime')}</h4>
+                        {proposal.submitTime && proposal.submitTime !== '0001-01-01T00:00:00.000Z'
+                            ? moment(proposal.submitTime).format('lll')
+                            : '-'}
+                    </div>
+                    <div className="col-md-6">
+                        <h4 className="mb-2">{i18n.t('depositEnd')}</h4>
+                        {proposal.depositEndTime && proposal.depositEndTime !== '0001-01-01T00:00:00.000Z'
+                            ? moment(proposal.depositEndTime).format('lll')
+                            : '-'}
+                    </div>
+                    <div className="col-md-6">
+                        <h4 className="mb-2">{i18n.t('votingStart')}</h4>
+                        {proposal.votingStartTime && proposal.votingStartTime !== '0001-01-01T00:00:00.000Z'
+                            ? moment(proposal.votingStartTime).format('lll')
+                            : '-'}
+                    </div>
+                    <div className="col-md-6">
+                        <h4 className="mb-2">{i18n.t('votingEnd')}</h4>
+                        {proposal.votingEndTime && proposal.votingEndTime !== '0001-01-01T00:00:00.000Z'
+                            ? moment(proposal.votingEndTime).format('lll')
+                            : '-'}
+                    </div>
+                    <div className="col-12">
+                        <h4 className="mb-2">{i18n.t('totalDeposit')}</h4>
+                        {proposal.totalDeposit && proposal.totalDeposit[0] ? (
+                            <>
+                                {NumbersUtils.formatNumber(proposal.totalDeposit[0], true)}
+                                <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                            </>
+                        ) : (
+                            '-'
+                        )}
+                    </div>
+                    <div className="col-12">
+                        <h4>{i18n.t('details')}</h4>
+                        {proposal.content.description}
+                    </div>
+                </div>
             </Card>
         );
     };
