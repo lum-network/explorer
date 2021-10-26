@@ -2,7 +2,6 @@ import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import { ProposalsModel } from 'models';
 import { ApiGovernance } from 'api';
-import { ProposalStatus } from 'constant';
 
 interface GovernanceState {
     proposals: ProposalsModel[];
@@ -45,8 +44,13 @@ const governance = createModel<RootModel>()({
             dispatch.governance.resetProposal();
 
             const proposal = await ApiGovernance.getProposal(id);
+            proposal.result = await ApiGovernance.getTally(id);
 
             dispatch.governance.setProposal(proposal);
+        },
+
+        async getTally(id: string) {
+            return await ApiGovernance.getTally(id);
         },
     }),
 });

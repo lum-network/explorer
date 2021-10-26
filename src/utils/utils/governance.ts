@@ -2,6 +2,10 @@ import { VotesResultModel } from 'models';
 import { i18n } from 'utils';
 
 export const sumOfVotes = (results: VotesResultModel): number => {
+    if (!results) {
+        return 0;
+    }
+
     return results.abstain + results.no + results.yes + results.noWithVeto;
 };
 

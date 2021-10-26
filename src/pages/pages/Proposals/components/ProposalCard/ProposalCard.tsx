@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ProposalsModel } from 'models';
+import { ProposalsModel, VotesResultModel } from 'models';
 import { Button, Card } from 'frontend-elements';
 import { Badge } from 'components';
 import { NavigationConstants, ProposalStatus, SystemConstants } from 'constant';
@@ -9,6 +9,8 @@ import './ProposalCard.scss';
 import VoteBar from '../VoteBar/VoteBar';
 import numeral from 'numeral';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux/store';
 
 interface IProps {
     proposal: ProposalsModel;
@@ -16,18 +18,30 @@ interface IProps {
 
 const ProposalCard = ({ proposal }: IProps): JSX.Element => {
     const history = useHistory();
+    const dispatch = useDispatch<Dispatch>();
 
     const [voteYes, setVoteYes] = useState(0);
     const [voteNo, setVoteNo] = useState(0);
     const [voteNoWithVeto, setVoteNoWithVeto] = useState(0);
     const [voteAbstain, setVoteAbstain] = useState(0);
+    const [result, setResult] = useState<VotesResultModel | null>(null);
 
     useEffect(() => {
-        if (!proposal || !proposal.result) {
+        if (!proposal) {
             return;
         }
 
-        const { result } = proposal;
+        setResult(proposal.finalResult);
+
+        if (proposal.status === ProposalStatus.VOTING_PERIOD) {
+            dispatch.governance.getTally(proposal.proposalId || '').then(setResult);
+        }
+    }, [proposal]);
+
+    useEffect(() => {
+        if (!result) {
+            return;
+        }
 
         const total = GovernanceUtils.sumOfVotes(result);
 
@@ -35,10 +49,10 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
         setVoteNo(NumbersUtils.getPercentage(result.no, total));
         setVoteNoWithVeto(NumbersUtils.getPercentage(result.noWithVeto, total));
         setVoteAbstain(NumbersUtils.getPercentage(result.abstain, total));
-    }, [proposal]);
+    }, [result]);
 
     const renderResult = () => {
-        if (GovernanceUtils.isNoVoteYet(proposal.result)) {
+        if (GovernanceUtils.isNoVoteYet(result || proposal.finalResult)) {
             return <p className="mb-1">{i18n.t('noVoteYet')}</p>;
         } else {
             const [name, percent] = GovernanceUtils.maxVote({
