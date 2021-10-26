@@ -51,11 +51,15 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
         setVoteAbstain(NumbersUtils.getPercentage(result.abstain, total));
     }, [result]);
 
+    const renderDot = (dotClass: string) => {
+        return <span className={`${dotClass} dot-size`}>⚫</span>;
+    };
+
     const renderResult = () => {
         if (GovernanceUtils.isNoVoteYet(result || proposal.finalResult)) {
-            return <p className="mb-1">{i18n.t('noVoteYet')}</p>;
+            return <p className="mb-1 mt-2">{i18n.t('noVoteYet')}</p>;
         } else {
-            const [name, percent] = GovernanceUtils.maxVote({
+            const [name, percent, dotClass] = GovernanceUtils.maxVote({
                 yes: voteYes,
                 no: voteNo,
                 noWithVeto: voteNoWithVeto,
@@ -64,7 +68,7 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
 
             return (
                 <p className="mb-1">
-                    {i18n.t('mostVotedOn')} <strong>{name}</strong>{' '}
+                    {i18n.t('mostVotedOn')} {renderDot(dotClass)} <strong>{name}</strong>{' '}
                     <small className="text-muted">{numeral(percent).format('0.00')}%</small>
                 </p>
             );
@@ -149,7 +153,7 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
                 </div>
                 {renderDates()}
                 <div className="col-12 mt-3">
-                    <h4 className="mb-2">{i18n.t('results')}</h4>
+                    <h4>{i18n.t('results')}</h4>
                     {renderResult()}
                     <VoteBar
                         results={{
