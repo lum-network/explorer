@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import proposalLogo from 'assets/images/proposalDark.svg';
-import { i18n, NumbersUtils } from 'utils';
+import { GovernanceUtils, i18n, NumbersUtils } from 'utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
 import { RouteComponentProps } from 'react-router';
@@ -8,6 +8,8 @@ import { Card, Loading } from 'frontend-elements';
 import { Badge } from 'components';
 import moment from 'moment';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import { ProposalStatus } from 'constant';
+import VoteBar from '../components/VoteBar/VoteBar';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -16,11 +18,49 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const loading = useSelector((state: RootState) => state.loading.effects.governance.getProposal);
 
+    const [voteYes, setVoteYes] = useState(0);
+    const [voteNo, setVoteNo] = useState(0);
+    const [voteNoWithVeto, setVoteNoWithVeto] = useState(0);
+    const [voteAbstain, setVoteAbstain] = useState(0);
+    const [total, setTotal] = useState(0);
+
     const { id } = match.params;
 
     useEffect(() => {
         dispatch.governance.getProposal(id).finally(() => null);
     }, []);
+
+    useEffect(() => {
+        if (!proposal || !proposal.result) {
+            return;
+        }
+
+        setTotal(GovernanceUtils.sumOfVotes(proposal.result));
+
+        setVoteYes(NumbersUtils.getPercentage(proposal.result.yes, total));
+        setVoteNo(NumbersUtils.getPercentage(proposal.result.no, total));
+        setVoteNoWithVeto(NumbersUtils.getPercentage(proposal.result.noWithVeto, total));
+        setVoteAbstain(NumbersUtils.getPercentage(proposal.result.abstain, total));
+    }, [proposal]);
+
+    const renderResult = (): JSX.Element | null => {
+        if (!proposal || proposal.status === ProposalStatus.DEPOSIT_PERIOD) {
+            return null;
+        }
+
+        return (
+            <Card className="mt-5" flat>
+                <VoteBar
+                    results={{
+                        yes: voteYes,
+                        no: voteNo,
+                        noWithVeto: voteNoWithVeto,
+                        abstain: voteAbstain,
+                    }}
+                />
+            </Card>
+        );
+    };
 
     const renderInformation = () => {
         if (loading) {
@@ -106,6 +146,7 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                         {proposal.content.description}
                     </div>
                 </div>
+                {renderResult()}
             </Card>
         );
     };
