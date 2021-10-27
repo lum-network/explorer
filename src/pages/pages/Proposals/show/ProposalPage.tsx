@@ -51,6 +51,11 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
 
         return (
             <Card className="mt-5" flat>
+                <div className="mb-4 d-flex">
+                    <h4 className="me-2">{i18n.t('total')}:</h4>
+                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(total)).format('0,0.000000')} />
+                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                </div>
                 <VoteBar
                     results={{
                         yes: voteYes,
@@ -60,32 +65,42 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                     }}
                 />
                 <div className="row mt-4 gy-3 ms-1">
-                    <div className="col-12 col-sm-6 col-lg-3 border-vote-green">
+                    <div className="col-12 col-md-6 col-xl-3 border-vote-green">
                         <h4>{i18n.t('yes')}</h4>
                         <small>{numeral(voteYes).format('0.00')}%</small>
                         <br />
-                        <SmallerDecimal nb={NumbersUtils.convertUnitNumber(proposal.result.yes).toString()} />
+                        <SmallerDecimal
+                            nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.yes)).format('0,0.000000')}
+                        />
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                     </div>
-                    <div className="col-12 col-sm-6 col-lg-3 border-vote-red">
+                    <div className="col-12 col-md-6 col-xl-3 border-vote-red">
                         <h4>{i18n.t('no')}</h4>
                         <small>{numeral(voteNo).format('0.00')}%</small>
                         <br />
-                        <SmallerDecimal nb={NumbersUtils.convertUnitNumber(proposal.result.no).toString()} />
+                        <SmallerDecimal
+                            nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.no)).format('0,0.000000')}
+                        />
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                     </div>
-                    <div className="col-12 col-sm-6 col-lg-3 border-vote-yellow">
+                    <div className="col-12 col-md-6 col-xl-3 border-vote-yellow">
                         <h4>{i18n.t('noWithVeto')}</h4>
                         <small>{numeral(voteNoWithVeto).format('0.00')}%</small>
                         <br />
-                        <SmallerDecimal nb={NumbersUtils.convertUnitNumber(proposal.result.noWithVeto).toString()} />
+                        <SmallerDecimal
+                            nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.noWithVeto)).format(
+                                '0,0.000000',
+                            )}
+                        />
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                     </div>
-                    <div className="col-12 col-sm-6 col-lg-3 border-vote-grey">
+                    <div className="col-12 col-md-6 col-xl-3 border-vote-grey">
                         <h4>{i18n.t('abstain')}</h4>
                         <small>{numeral(voteAbstain).format('0.00')}%</small>
                         <br />
-                        <SmallerDecimal nb={NumbersUtils.convertUnitNumber(proposal.result.abstain).toString()} />
+                        <SmallerDecimal
+                            nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.abstain)).format('0,0.000000')}
+                        />
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                     </div>
                 </div>
