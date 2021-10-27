@@ -1,8 +1,8 @@
 enum VotesOption {
     YES = 1,
-    NO = 2,
-    NO_WITH_VETO = 3,
-    ABSTAIN = 4,
+    ABSTAIN = 2,
+    NO = 3,
+    NO_WITH_VETO = 4,
 }
 
 export default VotesOption;
