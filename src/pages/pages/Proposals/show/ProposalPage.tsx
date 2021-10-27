@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
 import { RouteComponentProps } from 'react-router';
 import { Card, Loading } from 'frontend-elements';
-import { Badge } from 'components';
+import { Badge, SmallerDecimal } from 'components';
 import moment from 'moment';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import { ProposalStatus } from 'constant';
 import VoteBar from '../components/VoteBar/VoteBar';
+import numeral from 'numeral';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -58,6 +59,36 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                         abstain: voteAbstain,
                     }}
                 />
+                <div className="row mt-4 gy-3 ms-1">
+                    <div className="col-12 col-sm-6 col-lg-3 border-vote-green">
+                        <h4>{i18n.t('yes')}</h4>
+                        <small>{numeral(voteYes).format('0.00')}%</small>
+                        <br />
+                        <SmallerDecimal nb={NumbersUtils.convertUnitNumber(proposal.result.yes).toString()} />
+                        <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                    </div>
+                    <div className="col-12 col-sm-6 col-lg-3 border-vote-red">
+                        <h4>{i18n.t('no')}</h4>
+                        <small>{numeral(voteNo).format('0.00')}%</small>
+                        <br />
+                        <SmallerDecimal nb={NumbersUtils.convertUnitNumber(proposal.result.no).toString()} />
+                        <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                    </div>
+                    <div className="col-12 col-sm-6 col-lg-3 border-vote-yellow">
+                        <h4>{i18n.t('noWithVeto')}</h4>
+                        <small>{numeral(voteNoWithVeto).format('0.00')}%</small>
+                        <br />
+                        <SmallerDecimal nb={NumbersUtils.convertUnitNumber(proposal.result.noWithVeto).toString()} />
+                        <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                    </div>
+                    <div className="col-12 col-sm-6 col-lg-3 border-vote-grey">
+                        <h4>{i18n.t('abstain')}</h4>
+                        <small>{numeral(voteAbstain).format('0.00')}%</small>
+                        <br />
+                        <SmallerDecimal nb={NumbersUtils.convertUnitNumber(proposal.result.abstain).toString()} />
+                        <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                    </div>
+                </div>
             </Card>
         );
     };
