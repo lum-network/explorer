@@ -1,6 +1,7 @@
 export default {
     // General
     viewAll: 'View all',
+    open: 'Open',
     height: 'Height',
     proposer: 'Proposer',
     time: 'Time',
@@ -25,6 +26,7 @@ export default {
     validatorAddress: 'Validator address',
     proposerAddress: 'Proposer address',
     voterAddress: 'Voter address',
+    autoClaimReward: 'Auto claim reward',
     option: 'Option',
     pubkey: 'Pubkey',
     value: 'Value',
@@ -86,6 +88,10 @@ export default {
     badgeUnbonded: 'Unbonded',
     badgeSuccess: 'Success',
     badgeFail: 'Fail',
+    badgeDepositPeriod: 'Deposit period',
+    badgeVotingPeriod: 'Voting period',
+    badgePassed: 'Passed',
+    badgeRejected: 'Rejected',
 
     // Account
     accountDetails: 'Account details',
@@ -124,11 +130,26 @@ export default {
     noValidatorFound: 'Validator not found',
 
     // Gov
-    proposals: 'proposals',
+    proposals: 'Proposals',
+    proposal: 'Proposal',
     yes: 'Yes',
     no: 'No',
     noWithVeto: 'No with veto',
     abstain: 'Abstain',
+    noProposalsFound: 'No proposals yet',
+    noProposalFound: 'Proposal not found',
+    allProposals: 'All proposals',
+    id: 'Id',
+    title: 'Title',
+    submitTime: 'Submit time',
+    depositEnd: 'Deposit end',
+    votingStart: 'Voting start',
+    votingEnd: 'Voting end',
+    totalDeposit: 'Total deposit',
+    proposalName: 'Proposal name',
+    results: 'Results',
+    noVoteYet: 'No vote yet',
+    mostVotedOn: 'Most voted on',
 
     // Search
     searchPlaceholder: 'Search by address / height / tx hash / etc',

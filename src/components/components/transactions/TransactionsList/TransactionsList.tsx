@@ -99,7 +99,7 @@ const TransactionsList = (props: IProps): JSX.Element => {
                         className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3"
                         onPress={() => history.push(NavigationConstants.TRANSACTIONS)}
                     >
-                        View all
+                        {i18n.t('viewAll')}
                     </Button>
                 )}
             </div>

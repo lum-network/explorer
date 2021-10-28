@@ -6,6 +6,7 @@ import * as NumbersUtils from './utils/numbers';
 import * as AccountUtils from './utils/account';
 import * as BlockUtils from './utils/blocks';
 import * as AnalyticsUtils from './utils/analytics';
+import * as GovernanceUtils from './utils/governance';
 
 export { default as i18n } from './utils/i18n';
 
@@ -18,4 +19,5 @@ export {
     AccountUtils,
     BlockUtils,
     AnalyticsUtils,
+    GovernanceUtils,
 };

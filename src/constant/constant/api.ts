@@ -8,3 +8,5 @@ export const VALIDATORS_URL = 'validators';
 export const ACCOUNTS_URL = 'accounts';
 export const SEARCH_URL = 'search';
 export const STATS_URL = 'stats';
+export const GOVERNANCE_URL = 'governance';
+export const PROPOSALS_URL = 'proposals';

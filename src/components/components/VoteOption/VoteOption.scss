@@ -1,15 +1,17 @@
+@import 'src/frontend-elements/styles/main';
+
 .vote-option-green {
-    color: #5fd68b;
+    color: $color-vote-green;
 }
 
 .vote-option-red {
-    color: #ee6767;
+    color: $color-vote-red;
 }
 
-.vote-option-blue {
-    color: #6ea6e8;
+.vote-option-yellow {
+    color: $color-vote-yellow;
 }
 
 .vote-option-grey {
-    color: #9fa4ad;
+    color: $color-vote-grey;
 }

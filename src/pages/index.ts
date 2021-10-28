@@ -8,3 +8,5 @@ export { default as ValidatorsPage } from './pages/Validators/list/ValidatorsPag
 export { default as ValidatorPage } from './pages/Validators/show/ValidatorPage';
 export { default as AccountPage } from './pages/Accounts/show/AccountPage';
 export { default as SearchPage } from './pages/Search/SearchPage';
+export { default as ProposalsPage } from './pages/Proposals/list/ProposalsPage';
+export { default as ProposalPage } from './pages/Proposals/show/ProposalPage';
