@@ -5,6 +5,7 @@ export const BLOCKS = '/blocks';
 export const TRANSACTIONS = '/txs';
 export const VALIDATORS = '/validators';
 export const ACCOUNT = '/account';
+export const PROPOSALS = '/proposals';
 export const SEARCH = '/search';
 
 export const WALLET = `https://wallet.${IS_TESTNET ? 'testnet.' : ''}lum.network`;

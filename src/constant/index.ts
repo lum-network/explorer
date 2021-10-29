@@ -1,6 +1,8 @@
 export { default as MessagesType } from './enums/MessagesType';
 export { default as ValidatorsType } from './enums/ValidatorsType';
 export { default as KpiType } from './enums/KpiType';
+export { default as VotesOption } from './enums/VotesOption';
+export { default as ProposalStatus } from './enums/ProposalStatus';
 
 import * as NavigationConstants from './constant/navigation';
 import * as ApiConstants from './constant/api';

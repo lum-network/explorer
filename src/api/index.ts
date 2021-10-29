@@ -4,5 +4,6 @@ import * as ApiAccounts from './api/accounts';
 import * as ApiValidators from './api/validators';
 import * as ApiSearch from './api/search';
 import * as ApiStats from './api/stats';
+import * as ApiGovernance from './api/governance';
 
-export { ApiBlocks, ApiTransactions, ApiAccounts, ApiValidators, ApiSearch, ApiStats };
+export { ApiBlocks, ApiTransactions, ApiAccounts, ApiValidators, ApiSearch, ApiStats, ApiGovernance };

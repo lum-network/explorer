@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { MessageType, Badge, Tooltip, SmallerDecimal } from 'components';
+import { MessageType, Badge, Tooltip, SmallerDecimal, VoteOption } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import moment from 'moment-timezone';
 import { NavigationConstants, SystemConstants } from 'constant';
@@ -20,7 +20,6 @@ import copyLogo from 'assets/images/copyDark.svg';
 import numeral from 'numeral';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import '../Transactions.scss';
-import I18n from 'i18n-js';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -228,15 +227,28 @@ const TransactionPage = (props: IProps): JSX.Element => {
                             {value.validatorAddress}
                         </Link>
                     </div>
-                    <div className="col-12 col-md-3 col-xl-2">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('amount')}</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <div className="d-flex">
                             {NumbersUtils.formatNumber(value.amount, true)}
                             <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                         </div>
                     </div>
+                    {transaction.autoClaimReward && (
+                        <>
+                            <div className="col-12 col-md-3 col-xl-2">
+                                <h5>{i18n.t('autoClaimReward')}</h5>
+                            </div>
+                            <div className="col-12 col-md-9 col-xl-10 text-break">
+                                <div className="d-flex">
+                                    {NumbersUtils.formatNumber(transaction.autoClaimReward, true)}
+                                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             );
         }
@@ -336,6 +348,103 @@ const TransactionPage = (props: IProps): JSX.Element => {
             );
         }
 
+        if (message instanceof MessageModel.SubmitProposal) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('proposerAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.proposerAddress}`}>
+                            {value.proposerAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('initialDeposit')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <div className="d-flex">
+                            {value.initialDeposit && value.initialDeposit[0] ? (
+                                <>
+                                    {NumbersUtils.formatNumber(value.initialDeposit[0], true)}
+                                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        if (message instanceof MessageModel.Deposit) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('proposalId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId}`}>{value.proposalId}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('depositorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.depositorAddress}`}>
+                            {value.depositorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <div className="d-flex">
+                            {value.amount && value.amount[0] ? (
+                                <>
+                                    {NumbersUtils.formatNumber(value.amount[0], true)}
+                                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        if (message instanceof MessageModel.Vote) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('proposalId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId}`}>{value.proposalId}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('voterAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.voterAddress}`}>{value.voterAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('option')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        {value.option && <VoteOption option={value.option} />}
+                    </div>
+                </div>
+            );
+        }
+
         if (message instanceof MessageModel.OpenBeam) {
             const { value } = message;
 
@@ -353,6 +462,14 @@ const TransactionPage = (props: IProps): JSX.Element => {
         }
 
         if (message instanceof MessageModel.ClaimBeam) {
+            const { value } = message;
+
+            if (value) {
+                return <div className="row align-items-center">{listItem(value as Record<string, unknown>)}</div>;
+            }
+        }
+
+        if (message) {
             const { value } = message;
 
             if (value) {
@@ -429,7 +546,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                 <div className="error-container">
                     {transaction.rawLogs && transaction.rawLogs[0] && transaction.rawLogs[0].log
                         ? transaction.rawLogs[0].log
-                        : I18n.t('errorOccurred')}
+                        : i18n.t('errorOccurred')}
                 </div>
             </div>
         );
@@ -543,7 +660,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
     return (
         <>
             <h2 className="mt-3 mb-4">
-                <img alt="block" src={transactionLogo} /> {i18n.t('transactionDetails')}
+                <img alt="transaction" src={transactionLogo} /> {i18n.t('transactionDetails')}
             </h2>
             {renderInformation()}
             {renderMessages()}

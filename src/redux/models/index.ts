@@ -5,6 +5,7 @@ import validators from './models/validators';
 import accounts from './models/accounts';
 import search from './models/search';
 import core from './models/core';
+import governance from './models/governance';
 
 export interface RootModel extends Models<RootModel> {
     blocks: typeof blocks;
@@ -13,6 +14,7 @@ export interface RootModel extends Models<RootModel> {
     accounts: typeof accounts;
     search: typeof search;
     core: typeof core;
+    governance: typeof governance;
 }
 
 const models: RootModel = {
@@ -22,6 +24,7 @@ const models: RootModel = {
     accounts,
     search,
     core,
+    governance: governance,
 };
 
 export default models;

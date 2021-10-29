@@ -91,7 +91,7 @@ const Kpi = (props: IProps): JSX.Element => {
 
                 return (
                     <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
-                        {numeral(parseFloat(stats.inflation) / NumberConstants.CLIENT_PRECISION).format('0.00')}%
+                        {numeral(parseFloat(stats.inflation) / NumberConstants.CLIENT_PRECISION).format('0.00%')}
                     </KpiCard>
                 );
 
