@@ -11,6 +11,7 @@ import validatorLogo from 'assets/images/validator.svg';
 import proposalLogo from 'assets/images/proposal.svg';
 import walletBis from 'assets/images/walletBis.svg';
 import github from 'assets/images/github.svg';
+import discord from 'assets/images/discord.svg';
 import { Search } from 'components';
 
 interface IProps {
@@ -134,10 +135,13 @@ const MainLayout = (props: IProps): JSX.Element => {
                             </a>
                         </div>
                     </div>
-                    <div>
+                    <div className="d-flex align-items-center flex-wrap-reverse">
                         <span className="copyright">{i18n.t('copyright')}</span>
+                        <a href={NavigationConstants.DISCORD} rel="noreferrer" target="_blank">
+                            <img alt="discord" src={discord} className="link-icon" />
+                        </a>
                         <a href={NavigationConstants.GITHUB} rel="noreferrer" target="_blank">
-                            <img alt="github" src={github} className="link-icon" />
+                            <img alt="github" src={github} className="ms-2 link-icon" />
                         </a>
                     </div>
                 </div>
