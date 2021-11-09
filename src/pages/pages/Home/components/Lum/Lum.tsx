@@ -12,7 +12,7 @@ const Lum = (): JSX.Element => {
             <div className="row">
                 <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
                     <h4 className="mb-3">{i18n.t('marketCap')}</h4>
-                    <p>{numeral(51000000).format('$0,0')}</p>
+                    <p>{numeral(50_000_000).format('$0,0')}</p>
                 </div>
                 <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
                     <h4 className="mb-3">{i18n.t('dayVolume')}</h4>
@@ -23,7 +23,7 @@ const Lum = (): JSX.Element => {
                         <span className="arrow-up me-1" />
                         {numeral(0).format('+0.00%')} ({i18n.t('day')})
                     </p>
-                    <p className="big-text">{numeral(0.12).format('$0,0.00')}</p>
+                    <p className="big-text">{numeral(0.01).format('$0,0.00')}</p>
                 </div>
             </div>
         </Card>
