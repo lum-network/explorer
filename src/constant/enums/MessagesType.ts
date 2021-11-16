@@ -12,6 +12,7 @@ enum MessagesType {
     SUBMIT_PROPOSAL = '/cosmos.gov.v1beta1.MsgSubmitProposal',
     DEPOSIT = '/cosmos.gov.v1beta1.MsgDeposit',
     VOTE = '/cosmos.gov.v1beta1.MsgVote',
+    CREATE_VESTING_ACCOUNT = '/cosmos.vesting.v1beta1.MsgCreateVestingAccount',
 }
 
 export default MessagesType;

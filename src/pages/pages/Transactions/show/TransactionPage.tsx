@@ -389,7 +389,9 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('proposalId')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId}`}>{value.proposalId}</Link>
+                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId.toString()}`}>
+                            {value.proposalId.toString()}
+                        </Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('depositorAddress')}</h5>
@@ -427,7 +429,9 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('proposalId')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId}`}>{value.proposalId}</Link>
+                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId.toString()}`}>
+                            {value.proposalId.toString()}
+                        </Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('voterAddress')}</h5>
@@ -467,6 +471,55 @@ const TransactionPage = (props: IProps): JSX.Element => {
             if (value) {
                 return <div className="row align-items-center">{listItem(value as Record<string, unknown>)}</div>;
             }
+        }
+
+        if (message instanceof MessageModel.CreateVestingAccount) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('fromAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.fromAddress}`}>{value.fromAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2  mb-md-3">
+                        <h5>{i18n.t('toAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.toAddress}`}>{value.toAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <div className="d-flex">
+                            {value.amount && value.amount[0] ? (
+                                <>
+                                    {NumbersUtils.formatNumber(value.amount[0], true)}
+                                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('delayed')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.delayed}</div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('endTime')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <p>{`${moment.utc(value.endTime.toNumber()).fromNow()} (${moment
+                            .utc(value.endTime.toNumber())
+                            .tz(SystemConstants.TIMEZONE)
+                            .format('lll')})`}</p>
+                    </div>
+                </div>
+            );
         }
 
         if (message) {

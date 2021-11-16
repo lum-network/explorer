@@ -56,6 +56,10 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
         case MessagesType.VOTE:
             return { text: i18n.t('voteMessage'), icon: voteLogo };
 
+        case MessagesType.CREATE_VESTING_ACCOUNT:
+            // TODO: Update logo
+            return { text: i18n.t('createVestingAccount'), icon: beamLogo };
+
         default:
             return { text: type || '', icon: beamLogo };
     }

@@ -3,6 +3,7 @@ import { Expose, Type } from 'class-transformer';
 import MessageModel, {
     ClaimBeam,
     CreateValidator,
+    CreateVestingAccount,
     Delegate,
     Deposit,
     EditValidator,
@@ -65,6 +66,7 @@ class TransactionsModel {
                 { value: SubmitProposal, name: MessagesType.SUBMIT_PROPOSAL },
                 { value: Deposit, name: MessagesType.DEPOSIT },
                 { value: Vote, name: MessagesType.VOTE },
+                { value: CreateVestingAccount, name: MessagesType.CREATE_VESTING_ACCOUNT },
             ],
         },
         keepDiscriminatorProperty: true,

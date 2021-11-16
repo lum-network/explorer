@@ -2,6 +2,7 @@ import { Expose, Transform, Type } from 'class-transformer';
 import TransactionsModel from './transactions';
 import CoinModel from './coin';
 import DelegationsModel from './delegations';
+import Long from 'long';
 
 export class RewardModel {
     @Expose({ name: 'validator_address' })
@@ -26,13 +27,9 @@ class UnbondingEntriesModel {
     completionTime?: string;
 
     @Transform(({ value }) => {
-        if (!value) {
-            return undefined;
-        }
-
-        return value.low;
+        return new Long(value.low, value.high, value.unsigned);
     })
-    height?: string;
+    height = new Long(0);
 }
 
 export class UnbondingModel {

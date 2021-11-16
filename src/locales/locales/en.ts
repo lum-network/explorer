@@ -53,6 +53,8 @@ export default {
     senders: 'Senders',
     receivers: 'Receivers',
     inflation: 'Inflation',
+    delayed: 'Delayed',
+    endTime: 'End time',
 
     // Layout
     dashboard: 'Board',
@@ -80,6 +82,7 @@ export default {
     submitProposalMessage: 'Submit proposal',
     depositMessage: 'Deposit',
     voteMessage: 'Vote',
+    createVestingAccount: 'Create vesting account',
 
     // Badge status
     badgeJailed: 'Jailed',
