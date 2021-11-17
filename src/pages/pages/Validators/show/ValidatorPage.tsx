@@ -214,7 +214,12 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                     <BlocksList rej title blocks={blocks} />
                 </div>
                 <div className="col-12 col-xxl-6 mb-5">
-                    <DelegatorsList title delegators={delegations} validatorTokens={parseFloat(tokens || '0')} />
+                    <DelegatorsList
+                        more
+                        title
+                        delegators={delegations.slice(0, 5)}
+                        validatorTokens={parseFloat(tokens || '0')}
+                    />
                 </div>
             </div>
         );
