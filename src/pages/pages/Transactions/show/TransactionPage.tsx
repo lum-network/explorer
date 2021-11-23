@@ -279,7 +279,34 @@ const TransactionPage = (props: IProps): JSX.Element => {
         if (message instanceof MessageModel.EditValidator) {
             const { value } = message;
 
-            return <div className="row align-items-center">{listItem(value as Record<string, unknown>)}</div>;
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('validatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('details')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.details || '-'}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('moniker')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.moniker || '-'}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('website')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.website}</div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('identity')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">{value.description.identity || '-'}</div>
+                </div>
+            );
         }
 
         if (message instanceof MessageModel.MultiSend) {

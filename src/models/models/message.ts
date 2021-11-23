@@ -105,7 +105,13 @@ export class Undelegate extends MessageModel {
     value: UndelegateValue = new UndelegateValue();
 }
 
-class EditValidatorValue {}
+class EditValidatorValue {
+    @Expose({ name: 'validator_address' })
+    validatorAddress?: string;
+
+    @Type(() => Description)
+    description: Description = new Description();
+}
 
 export class EditValidator extends MessageModel {
     @Type(() => EditValidatorValue)
