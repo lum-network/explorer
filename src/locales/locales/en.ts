@@ -53,6 +53,8 @@ export default {
     senders: 'Senders',
     receivers: 'Receivers',
     inflation: 'Inflation',
+    srcValidator: 'Source validator',
+    dstValidator: 'Destination validator',
 
     // Layout
     dashboard: 'Board',
@@ -80,6 +82,7 @@ export default {
     submitProposalMessage: 'Submit proposal',
     depositMessage: 'Deposit',
     voteMessage: 'Vote',
+    redelegateMessage: 'Redelegate',
 
     // Badge status
     badgeJailed: 'Jailed',
