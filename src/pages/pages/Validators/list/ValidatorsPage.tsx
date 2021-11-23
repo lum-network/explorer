@@ -51,8 +51,8 @@ const ValidatorsPage = (): JSX.Element => {
                             src={placeholderValidator}
                             className="me-3 placeholder-image"
                         />
-                        {validator.description.identity ||
-                            validator.description.moniker ||
+                        {validator.description.moniker ||
+                            validator.description.identity ||
                             StringsUtils.trunc(validator.operatorAddress || '')}
                     </Link>
                 </td>
