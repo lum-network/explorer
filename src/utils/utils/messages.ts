@@ -14,6 +14,7 @@ import beamClaimLogo from 'assets/images/messageTypes/claimBeam.svg';
 import submitProposalLogo from 'assets/images/messageTypes/submitProposal.svg';
 import depositLogo from 'assets/images/messageTypes/deposit.svg';
 import voteLogo from 'assets/images/messageTypes/vote.svg';
+import redelegateLogo from 'assets/images/messageTypes/redelegate.svg';
 
 export const name = (type?: MessagesType | null): { text: string; icon: string } => {
     switch (type) {
@@ -55,6 +56,9 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
 
         case MessagesType.VOTE:
             return { text: i18n.t('voteMessage'), icon: voteLogo };
+
+        case MessagesType.BEGIN_REDELEGATE:
+            return { text: i18n.t('redelegateMessage'), icon: redelegateLogo };
 
         default:
             return { text: type || '', icon: beamLogo };
