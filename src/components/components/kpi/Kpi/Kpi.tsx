@@ -76,11 +76,16 @@ const Kpi = (props: IProps): JSX.Element => {
                     return null;
                 }
 
+                const nb = NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators));
+                const total = stats.totalSupply ? NumbersUtils.convertUnitNumber(stats.totalSupply[0].amount) : 0;
+
                 return (
-                    <KpiCard title={i18n.t('bondedTokens')} logo={bondedTokensLogo}>
-                        {numeral(
-                            NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)),
-                        ).format('0,0')}
+                    <KpiCard
+                        title={i18n.t('bondedTokens')}
+                        logo={bondedTokensLogo}
+                        additionalInfo={`${numeral(NumbersUtils.getPercentage(nb, total)).format('0.00')}%`}
+                    >
+                        {numeral(nb).format('0,0')}
                     </KpiCard>
                 );
 
