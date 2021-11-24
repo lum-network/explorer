@@ -2,7 +2,7 @@ import { BlocksModel } from 'models';
 import { TimesUtils } from 'utils';
 
 export const processBlockTime = (blocks: BlocksModel[]): number => {
-    if (blocks.length < 30) {
+    if (blocks.length <= 30) {
         return 0;
     }
 

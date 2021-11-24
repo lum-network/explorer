@@ -106,7 +106,13 @@ export class Undelegate extends MessageModel {
     value: UndelegateValue = new UndelegateValue();
 }
 
-class EditValidatorValue {}
+class EditValidatorValue {
+    @Expose({ name: 'validator_address' })
+    validatorAddress?: string;
+
+    @Type(() => Description)
+    description: Description = new Description();
+}
 
 export class EditValidator extends MessageModel {
     @Type(() => EditValidatorValue)
@@ -244,6 +250,25 @@ export class CreateVestingAccount extends MessageModel {
     value: CreateVestingAccountValue = new CreateVestingAccountValue();
 }
 
+class BeginRedelegateValue {
+    @Expose({ name: 'delegator_address' })
+    delegatorAddress?: string;
+
+    @Expose({ name: 'validator_src_address' })
+    validatorSrcAddress?: string;
+
+    @Expose({ name: 'validator_dst_address' })
+    validatorDstAddress?: string;
+
+    @Type(() => CoinModel)
+    amount: CoinModel = new CoinModel();
+}
+
+export class BeginRedelegate extends MessageModel {
+    @Type(() => BeginRedelegateValue)
+    value: BeginRedelegateValue = new BeginRedelegateValue();
+}
+
 export type Value =
     | Send
     | CreateValidator
@@ -258,4 +283,5 @@ export type Value =
     | SubmitProposal
     | Deposit
     | Vote
-    | CreateVestingAccount;
+    | CreateVestingAccount
+    | BeginRedelegate;

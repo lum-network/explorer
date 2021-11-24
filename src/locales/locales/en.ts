@@ -53,6 +53,8 @@ export default {
     senders: 'Senders',
     receivers: 'Receivers',
     inflation: 'Inflation',
+    srcValidator: 'Source validator',
+    dstValidator: 'Destination validator',
     delayed: 'Delayed',
     endTime: 'End time',
 
@@ -83,6 +85,7 @@ export default {
     depositMessage: 'Deposit',
     voteMessage: 'Vote',
     createVestingAccount: 'Create vesting account',
+    redelegateMessage: 'Redelegate',
 
     // Badge status
     badgeJailed: 'Jailed',
