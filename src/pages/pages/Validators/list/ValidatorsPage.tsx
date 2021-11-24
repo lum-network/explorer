@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Dispatch, RootState } from 'redux/store';
 import validatorLogo from 'assets/images/validatorDark.svg';
-import placeholderValidator from 'assets/images/placeholderValidator.svg';
 import { i18n, NumbersUtils, StringsUtils, ValidatorsUtils } from 'utils';
-import { Card, Loading, Table } from 'frontend-elements';
+import { Card, Loading, Table, ValidatorLogo } from 'frontend-elements';
 import { Kpi, Badge } from 'components';
 import { ValidatorsModel } from 'models';
 import numeral from 'numeral';
@@ -15,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const ValidatorsPage = (): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const validators = useSelector((state: RootState) => state.validators.validators);
+    const stats = useSelector((state: RootState) => state.core.stats);
     const loading = useSelector((state: RootState) => state.loading.effects.validators.fetchValidators);
 
     const head = [i18n.t('rank'), i18n.t('validator'), i18n.t('status'), i18n.t('votingPower'), i18n.t('commission')];
@@ -44,12 +44,13 @@ const ValidatorsPage = (): JSX.Element => {
                         title={validator.operatorAddress}
                         to={`${NavigationConstants.VALIDATORS}/${validator.operatorAddress}`}
                     >
-                        <img
-                            alt="logo validator"
+                        <ValidatorLogo
                             width={34}
                             height={34}
-                            src={placeholderValidator}
-                            className="me-3 placeholder-image"
+                            validatorAddress={validator.operatorAddress || ''}
+                            chainId={stats.chainId}
+                            githubUrl={NavigationConstants.GITHUB_ASSETS}
+                            className="me-3"
                         />
                         {validator.description.moniker ||
                             validator.description.identity ||
