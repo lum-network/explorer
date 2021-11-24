@@ -1,6 +1,7 @@
 import { MessagesType } from 'constant';
 import { Expose, Type } from 'class-transformer';
 import MessageModel, {
+    BeginRedelegate,
     ClaimBeam,
     CreateValidator,
     Delegate,
@@ -65,6 +66,7 @@ class TransactionsModel {
                 { value: SubmitProposal, name: MessagesType.SUBMIT_PROPOSAL },
                 { value: Deposit, name: MessagesType.DEPOSIT },
                 { value: Vote, name: MessagesType.VOTE },
+                { value: BeginRedelegate, name: MessagesType.BEGIN_REDELEGATE },
             ],
         },
         keepDiscriminatorProperty: true,

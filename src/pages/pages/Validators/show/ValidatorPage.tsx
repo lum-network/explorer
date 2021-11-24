@@ -80,8 +80,8 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         <div className="row mb-3 mb-xl-4 mt-3 mt-md-0">
                             <div className="col-12">
                                 <h1>
-                                    {validator.description.identity ||
-                                        validator.description.moniker ||
+                                    {validator.description.moniker ||
+                                        validator.description.identity ||
                                         StringsUtils.trunc(validator.operatorAddress || '')}
                                 </h1>
                             </div>

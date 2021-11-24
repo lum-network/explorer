@@ -321,13 +321,13 @@ const AccountPage = (props: IProps): JSX.Element => {
                                         </div>
                                         <div className="d-flex flex-column align-items-xxl-end mt-xxl-4">
                                             <div className="d-flex align-items-center">
-                                                <p className="text-muted">{numeral(0.12).format('$0,0.00')}</p>
+                                                <p className="text-muted">{numeral(0.01).format('$0,0.00')}</p>
                                                 &nbsp;/&nbsp;
                                                 <span className="color-type">{LumConstants.LumDenom}</span>
                                             </div>
                                             {/*TODO: get value */}
                                             <div>
-                                                <SmallerDecimal nb={numeral(total * 0.12).format('$0,0.00')} />
+                                                <SmallerDecimal nb={numeral(total * 0.01).format('$0,0.00')} />
                                             </div>
                                         </div>
                                     </div>
