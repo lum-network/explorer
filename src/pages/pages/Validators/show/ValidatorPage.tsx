@@ -3,9 +3,8 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Badge, BlocksList, DelegatorsList, SmallerDecimal } from 'components';
-import { Card, Loading } from 'frontend-elements';
+import { Card, Loading, ValidatorLogo } from 'frontend-elements';
 import validatorLogo from 'assets/images/validatorDark.svg';
-import placeholderValidator from 'assets/images/placeholderValidator.svg';
 import { i18n, NumbersUtils, StringsUtils, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
 import { NavigationConstants, NumberConstants } from 'constant';
@@ -17,6 +16,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const validator = useSelector((state: RootState) => state.validators.validator);
     const validators = useSelector((state: RootState) => state.validators.validators);
+    const stats = useSelector((state: RootState) => state.core.stats);
     const loading = useSelector((state: RootState) => state.loading.models.validators);
 
     const { id } = props.match.params;
@@ -69,11 +69,13 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         <div className="rank-dot-container">
                             <p className="rank-dot-text">{rank}</p>
                         </div>
-                        {/*TODO: Add logo */}
-                        <img
-                            className="validator-logo placeholder-image"
-                            alt="validators logo"
-                            src={placeholderValidator}
+                        <ValidatorLogo
+                            validatorAddress={validator.operatorAddress || ''}
+                            chainId={stats.chainId}
+                            githubUrl={NavigationConstants.GITHUB_ASSETS}
+                            className="validator-logo"
+                            width={72}
+                            height={72}
                         />
                     </div>
                     <div className="d-flex flex-column flex-grow-1">
