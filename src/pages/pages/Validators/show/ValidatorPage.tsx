@@ -112,7 +112,15 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
                             <p className="text-break">
                                 {validator.description.website ? (
-                                    <a rel="noreferrer" target="_blank" href={validator.description.website}>
+                                    <a
+                                        rel="noreferrer"
+                                        target="_blank"
+                                        href={
+                                            validator.description.website.startsWith('http')
+                                                ? validator.description.website
+                                                : `https://${validator.description.website}`
+                                        }
+                                    >
                                         {validator.description.website}
                                     </a>
                                 ) : (

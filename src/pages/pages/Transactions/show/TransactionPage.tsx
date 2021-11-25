@@ -150,7 +150,15 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {value.description.website ? (
-                            <a rel="noreferrer" target="_blank" href={value.description.website}>
+                            <a
+                                rel="noreferrer"
+                                target="_blank"
+                                href={
+                                    value.description.website.startsWith('http')
+                                        ? value.description.website
+                                        : `https://${value.description.website}`
+                                }
+                            >
                                 {value.description.website}
                             </a>
                         ) : (
