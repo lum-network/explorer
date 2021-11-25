@@ -112,7 +112,15 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
                             <p className="text-break">
                                 {validator.description.website ? (
-                                    <a rel="noreferrer" target="_blank" href={validator.description.website}>
+                                    <a
+                                        rel="noreferrer"
+                                        target="_blank"
+                                        href={
+                                            validator.description.website.startsWith('http')
+                                                ? validator.description.website
+                                                : `https://${validator.description.website}`
+                                        }
+                                    >
                                         {validator.description.website}
                                     </a>
                                 ) : (
@@ -157,15 +165,9 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                             <p>Soon</p>
                         </div>
                         <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
-                            <h4>{i18n.t('details')}</h4>
-                        </div>
-                        <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
-                            <p>{validator.description.details || '-'}</p>
-                        </div>
-                        <div className="col-lg-2 col-md-3 col-sm-4">
                             <h4>{i18n.t('votingPower')}</h4>
                         </div>
-                        <div className="col-lg-4 col-md-9 col-sm-8">
+                        <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                             <p className="d-flex align-items-center">
                                 {totalVotingPower &&
                                     numeral(
@@ -179,6 +181,12 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                                 />
                                 <span className="ms-2 color-type">{LumConstants.LumDenom}</span>)
                             </p>
+                        </div>
+                        <div className="col-lg-2 col-md-3 col-sm-4">
+                            <h4>{i18n.t('details')}</h4>
+                        </div>
+                        <div className="col-lg-4 col-md-9 col-sm-8">
+                            <p>{validator.description.details || '-'}</p>
                         </div>
                     </div>
                 </Card>
