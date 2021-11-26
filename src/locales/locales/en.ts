@@ -55,6 +55,7 @@ export default {
     inflation: 'Inflation',
     srcValidator: 'Source validator',
     dstValidator: 'Destination validator',
+    genesis: 'Genesis',
 
     // Layout
     dashboard: 'Board',
