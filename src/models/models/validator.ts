@@ -13,6 +13,8 @@ class ValidatorModel {
     @Expose({ name: 'self_bonded' })
     selfBonded = 0.0;
 
+    genesis = false;
+
     jailed = false;
 
     tokens?: string;
