@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dispatch, RootState } from 'redux/store';
 import validatorLogo from 'assets/images/validatorDark.svg';
+import genesisFlag from 'assets/images/genesisFlag.svg';
 import { i18n, NumbersUtils, StringsUtils, ValidatorsUtils } from 'utils';
 import { Card, Loading, Table, ValidatorLogo } from 'frontend-elements';
 import { Kpi, Badge } from 'components';
@@ -33,6 +34,18 @@ const ValidatorsPage = (): JSX.Element => {
         setTotalVotingPower(NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)));
     }, [validators]);
 
+    const renderGenesisBadge = (validator: ValidatorsModel) => {
+        if (!validator.genesis) {
+            return null;
+        }
+
+        return (
+            <div className="ms-3 genesis-flag-container">
+                <img src={genesisFlag} alt="genesis" />
+            </div>
+        );
+    };
+
     const renderRow = (validator: ValidatorsModel, index: number): JSX.Element => {
         return (
             <tr key={index}>
@@ -44,17 +57,20 @@ const ValidatorsPage = (): JSX.Element => {
                         title={validator.operatorAddress}
                         to={`${NavigationConstants.VALIDATORS}/${validator.operatorAddress}`}
                     >
-                        <ValidatorLogo
-                            width={34}
-                            height={34}
-                            validatorAddress={validator.operatorAddress || ''}
-                            chainId={stats.chainId}
-                            githubUrl={NavigationConstants.GITHUB_ASSETS}
-                            className="me-3"
-                        />
-                        {validator.description.moniker ||
-                            validator.description.identity ||
-                            StringsUtils.trunc(validator.operatorAddress || '')}
+                        <div className="d-flex flex-row align-items-center">
+                            <ValidatorLogo
+                                width={34}
+                                height={34}
+                                validatorAddress={validator.operatorAddress || ''}
+                                chainId={stats.chainId}
+                                githubUrl={NavigationConstants.GITHUB_ASSETS}
+                                className="me-3"
+                            />
+                            {validator.description.moniker ||
+                                validator.description.identity ||
+                                StringsUtils.trunc(validator.operatorAddress || '')}
+                            {renderGenesisBadge(validator)}
+                        </div>
                     </Link>
                 </td>
                 <td data-label={head[2]}>

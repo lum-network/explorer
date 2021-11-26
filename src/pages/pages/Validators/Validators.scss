@@ -36,6 +36,16 @@ p.top-rank {
     z-index: 2;
 }
 
+.genesis-flag-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 22px;
+    width: 22px;
+    border-radius: 11px;
+    background-color: $color-dark-background;
+}
+
 @include media-breakpoint-down(md) {
     p.rank,
     p.top-rank {
