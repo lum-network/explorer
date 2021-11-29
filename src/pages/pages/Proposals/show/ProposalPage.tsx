@@ -150,7 +150,7 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                     </div>
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('proposer')}</h4>
-                        TODO: Proposer name
+                        coming soon
                     </div>
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('submitTime')}</h4>

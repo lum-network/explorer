@@ -4,7 +4,7 @@ import CoinModel from './coin';
 import DelegationsModel from './delegations';
 import Long from 'long';
 
-class VestingModel {
+export class VestingModel {
     @Expose({ name: 'starts_at' })
     startsAt?: string;
 

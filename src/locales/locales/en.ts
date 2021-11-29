@@ -62,6 +62,10 @@ export default {
     to: 'To',
     redelegations: 'Redelegations',
     noRedelegation: 'No redelegation',
+    vesting: 'Vesting',
+    noVestingToken: 'No vesting token',
+    startsAt: 'Starts at',
+    vestingSchedule: 'Vesting schedule',
 
     // Layout
     dashboard: 'Board',
