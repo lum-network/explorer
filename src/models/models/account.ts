@@ -4,6 +4,38 @@ import CoinModel from './coin';
 import DelegationsModel from './delegations';
 import Long from 'long';
 
+class VestingModel {
+    @Expose({ name: 'starts_at' })
+    startsAt?: string;
+
+    @Expose({ name: 'ends_at' })
+    endsAt?: string;
+
+    @Expose()
+    time?: string;
+
+    @Expose({ name: 'unlocked_percentage' })
+    unlockedPercentage?: number;
+
+    @Expose({ name: 'locked_percentage' })
+    lockedPercentage?: number;
+
+    @Expose({ name: 'total_coins' })
+    totalCoins: CoinModel = new CoinModel();
+
+    @Expose({ name: 'unlocked_coins' })
+    unlockedCoins: CoinModel = new CoinModel();
+
+    @Expose({ name: 'locked_coins' })
+    lockedCoins: CoinModel = new CoinModel();
+
+    @Expose({ name: 'locked_delegated_coins' })
+    lockedDelegatedCoins: CoinModel = new CoinModel();
+
+    @Expose({ name: 'locked_bank_coins' })
+    lockedBankCoins: CoinModel = new CoinModel();
+}
+
 export class RewardModel {
     @Expose({ name: 'validator_address' })
     validatorAddress?: string;
@@ -110,6 +142,9 @@ class AccountModel {
 
     @Type(() => CoinModel)
     commissions: CoinModel[] = [];
+
+    @Type(() => VestingModel)
+    vesting: VestingModel | null = null;
 }
 
 export default AccountModel;
