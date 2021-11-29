@@ -408,6 +408,23 @@ const TransactionPage = (props: IProps): JSX.Element => {
             );
         }
 
+        if (message instanceof MessageModel.WithdrawValidatorCommisssion) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('validatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                </div>
+            );
+        }
+
         if (message instanceof MessageModel.SubmitProposal) {
             const { value } = message;
 

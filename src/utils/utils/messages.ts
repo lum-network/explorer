@@ -16,6 +16,7 @@ import depositLogo from 'assets/images/messageTypes/deposit.svg';
 import voteLogo from 'assets/images/messageTypes/vote.svg';
 import redelegateLogo from 'assets/images/messageTypes/redelegate.svg';
 import gearsLogo from 'assets/images/messageTypes/gears.svg';
+import commissionLogo from 'assets/images/messageTypes/commission.svg';
 
 export const name = (type?: MessagesType | null): { text: string; icon: string } => {
     switch (type) {
@@ -63,6 +64,9 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
 
         case MessagesType.CREATE_VESTING_ACCOUNT:
             return { text: i18n.t('createVestingAccount'), icon: gearsLogo };
+
+        case MessagesType.WITHDRAW_VALIDATOR_COMMISSION:
+            return { text: i18n.t('getCommission'), icon: commissionLogo };
 
         default:
             return { text: type || '', icon: placeholderLogo };

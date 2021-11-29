@@ -269,6 +269,16 @@ export class BeginRedelegate extends MessageModel {
     value: BeginRedelegateValue = new BeginRedelegateValue();
 }
 
+class WithdrawValidatorCommissionValue {
+    @Expose({ name: 'validator_address' })
+    validatorAddress?: string;
+}
+
+export class WithdrawValidatorCommisssion extends MessageModel {
+    @Type(() => WithdrawValidatorCommissionValue)
+    value: WithdrawValidatorCommissionValue = new WithdrawValidatorCommissionValue();
+}
+
 export type Value =
     | Send
     | CreateValidator
@@ -284,4 +294,5 @@ export type Value =
     | Deposit
     | Vote
     | CreateVestingAccount
-    | BeginRedelegate;
+    | BeginRedelegate
+    | WithdrawValidatorCommisssion;

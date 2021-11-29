@@ -17,6 +17,7 @@ import MessageModel, {
     UpdateBeam,
     Value,
     Vote,
+    WithdrawValidatorCommisssion,
 } from './message';
 import CoinModel from './coin';
 import LogModel from './log';
@@ -69,6 +70,7 @@ class TransactionsModel {
                 { value: Vote, name: MessagesType.VOTE },
                 { value: CreateVestingAccount, name: MessagesType.CREATE_VESTING_ACCOUNT },
                 { value: BeginRedelegate, name: MessagesType.BEGIN_REDELEGATE },
+                { value: WithdrawValidatorCommisssion, name: MessagesType.WITHDRAW_VALIDATOR_COMMISSION },
             ],
         },
         keepDiscriminatorProperty: true,

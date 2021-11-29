@@ -91,6 +91,7 @@ export default {
     voteMessage: 'Vote',
     createVestingAccount: 'Create vesting account',
     redelegateMessage: 'Redelegate',
+    getCommission: 'Get commission',
 
     // Badge status
     badgeJailed: 'Jailed',

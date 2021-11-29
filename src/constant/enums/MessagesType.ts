@@ -14,6 +14,7 @@ enum MessagesType {
     VOTE = '/cosmos.gov.v1beta1.MsgVote',
     CREATE_VESTING_ACCOUNT = '/cosmos.vesting.v1beta1.MsgCreateVestingAccount',
     BEGIN_REDELEGATE = '/cosmos.staking.v1beta1.MsgBeginRedelegate',
+    WITHDRAW_VALIDATOR_COMMISSION = '/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission',
 }
 
 export default MessagesType;
