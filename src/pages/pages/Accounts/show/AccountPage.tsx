@@ -3,7 +3,14 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
-import { DelegationsList, TransactionsList, Tooltip, UnbondingsList, SmallerDecimal } from 'components';
+import {
+    DelegationsList,
+    TransactionsList,
+    Tooltip,
+    UnbondingsList,
+    SmallerDecimal,
+    RedelegatesList,
+} from 'components';
 import { Card, CodeQr, Loading } from 'frontend-elements';
 import '../Accounts.scss';
 import copyLogo from 'assets/images/copy.svg';
@@ -106,7 +113,7 @@ const AccountPage = (props: IProps): JSX.Element => {
         return <TransactionsList accountAddress={account.address} title transactions={transactions} />;
     };
 
-    const renderDelegationsAndUnbondings = (): JSX.Element | null => {
+    const renderCards = (): JSX.Element | null => {
         if (loading) {
             return (
                 <div className="row">
@@ -128,15 +135,18 @@ const AccountPage = (props: IProps): JSX.Element => {
             return null;
         }
 
-        const { delegations, allRewards, unbondings } = account;
+        const { delegations, allRewards, unbondings, redelegations } = account;
 
         return (
-            <div className="row">
-                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+            <div className="row mb-5 g-4 g-xxl-5">
+                <div className="col-12 col-xxl-6">
                     {allRewards && <DelegationsList title delegations={delegations} rewards={allRewards.rewards} />}
                 </div>
-                <div className="col-12 col-xxl-6 mb-5">
+                <div className="col-12 col-xxl-6">
                     <UnbondingsList unbondings={unbondings} title />
+                </div>
+                <div className="col-12 col-xxl-6">
+                    <RedelegatesList redelegates={redelegations} title />
                 </div>
             </div>
         );
@@ -346,7 +356,7 @@ const AccountPage = (props: IProps): JSX.Element => {
                 <img alt="block" src={accountLogo} /> {i18n.t('accountDetails')}
             </h2>
             {renderInformation()}
-            {renderDelegationsAndUnbondings()}
+            {renderCards()}
             {renderTransactions()}
         </>
     );

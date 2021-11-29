@@ -57,6 +57,9 @@ export default {
     dstValidator: 'Destination validator',
     delayed: 'Delayed',
     endTime: 'End time',
+    from: 'From',
+    to: 'To',
+    redelegations: 'Redelegations',
 
     // Layout
     dashboard: 'Board',

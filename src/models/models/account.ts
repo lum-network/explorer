@@ -40,6 +40,41 @@ export class UnbondingModel {
     validatorAddress?: string;
 }
 
+class RedelegationEntryModel {
+    @Expose({ name: 'completion_time' })
+    completionTime?: string;
+}
+
+class RedelegationEntriesModel {
+    @Expose()
+    balance?: string;
+
+    @Expose({ name: 'redelegation_entry' })
+    @Type(() => RedelegationEntryModel)
+    redelegationEntry: RedelegationEntryModel = new RedelegationEntryModel();
+}
+
+class RedelegationDetailsModel {
+    @Expose({ name: 'delegator_address' })
+    delegatorAddress?: string;
+
+    @Expose({ name: 'validator_src_address' })
+    validatorSrcAddress?: string;
+
+    @Expose({ name: 'validator_dst_address' })
+    validatorDstAddress?: string;
+}
+
+export class RedelegationModel {
+    @Expose()
+    @Type(() => RedelegationDetailsModel)
+    redelegation: RedelegationDetailsModel = new RedelegationDetailsModel();
+
+    @Expose()
+    @Type(() => RedelegationEntriesModel)
+    entries: RedelegationEntriesModel[] = [];
+}
+
 class AccountModel {
     address?: string;
 
@@ -69,6 +104,9 @@ class AccountModel {
 
     @Type(() => UnbondingModel)
     unbondings: UnbondingModel[] = [];
+
+    @Type(() => RedelegationModel)
+    redelegations: RedelegationModel[] = [];
 
     @Type(() => CoinModel)
     commissions: CoinModel[] = [];
