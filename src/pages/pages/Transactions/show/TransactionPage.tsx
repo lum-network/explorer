@@ -573,8 +573,8 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('endTime')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        <p>{`${moment.utc(value.endTime.toNumber()).fromNow()} (${moment
-                            .utc(value.endTime.toNumber())
+                        <p>{`${moment.utc(value.endTime.toNumber() * 1000).fromNow()} (${moment
+                            .utc(value.endTime.toNumber() * 1000)
                             .tz(SystemConstants.TIMEZONE)
                             .format('lll')})`}</p>
                     </div>
