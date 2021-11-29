@@ -60,6 +60,7 @@ export default {
     from: 'From',
     to: 'To',
     redelegations: 'Redelegations',
+    noRedelegation: 'No redelegation',
 
     // Layout
     dashboard: 'Board',
