@@ -4,6 +4,7 @@ import MessageModel, {
     BeginRedelegate,
     ClaimBeam,
     CreateValidator,
+    CreateVestingAccount,
     Delegate,
     Deposit,
     EditValidator,
@@ -16,6 +17,7 @@ import MessageModel, {
     UpdateBeam,
     Value,
     Vote,
+    WithdrawValidatorCommisssion,
 } from './message';
 import CoinModel from './coin';
 import LogModel from './log';
@@ -66,7 +68,9 @@ class TransactionsModel {
                 { value: SubmitProposal, name: MessagesType.SUBMIT_PROPOSAL },
                 { value: Deposit, name: MessagesType.DEPOSIT },
                 { value: Vote, name: MessagesType.VOTE },
+                { value: CreateVestingAccount, name: MessagesType.CREATE_VESTING_ACCOUNT },
                 { value: BeginRedelegate, name: MessagesType.BEGIN_REDELEGATE },
+                { value: WithdrawValidatorCommisssion, name: MessagesType.WITHDRAW_VALIDATOR_COMMISSION },
             ],
         },
         keepDiscriminatorProperty: true,

@@ -38,10 +38,12 @@ const ProposalsPage = (): JSX.Element | null => {
         return (
             <tr key={index}>
                 <td data-label={head[0]}>
-                    <p className="list-id">#{proposal.proposalId}</p>
+                    <p className="list-id">#{proposal.proposalId.toString()}</p>
                 </td>
                 <td data-label={head[1]}>
-                    <Link to={`${NavigationConstants.PROPOSALS}/${proposal.proposalId}`}>{proposal.content.title}</Link>
+                    <Link to={`${NavigationConstants.PROPOSALS}/${proposal.proposalId.toString()}`}>
+                        {proposal.content.title}
+                    </Link>
                 </td>
                 <td data-label={head[2]}>
                     <Badge text proposalStatus={proposal.status} />
