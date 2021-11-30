@@ -9,6 +9,7 @@ import { i18n, NumbersUtils, StringsUtils, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
 import { NavigationConstants, NumberConstants } from 'constant';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import genesisFlag from 'assets/images/genesisFlag.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -23,6 +24,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
 
     const [rank, setRank] = useState<number | null>(null);
     const [totalVotingPower, setTotalVotingPower] = useState<number | null>(null);
+    const [isGenesis, setIsGenesis] = useState(false);
 
     useEffect(() => {
         dispatch.validators.fetchValidators().finally(() => null);
@@ -36,7 +38,21 @@ const ValidatorPage = (props: IProps): JSX.Element => {
 
         setRank(ValidatorsUtils.findRank(validators, validator));
         setTotalVotingPower(NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)));
+        setIsGenesis(ValidatorsUtils.isGenesis(validators, validator));
     }, [validators, validator]);
+
+    const renderGenesisBadge = () => {
+        if (!isGenesis) {
+            return null;
+        }
+
+        return (
+            <div className="ms-3 genesis-flag-container-big">
+                <img src={genesisFlag} alt="genesis" className="me-2" />
+                {i18n.t('genesis')}
+            </div>
+        );
+    };
 
     const renderInformation = (): JSX.Element => {
         if (loading) {
@@ -80,12 +96,13 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="d-flex flex-column flex-grow-1">
                         <div className="row mb-3 mb-xl-4 mt-3 mt-md-0">
-                            <div className="col-12">
+                            <div className="col-12 d-flex align-items-center flex-row flex-wrap-reverse">
                                 <h1>
                                     {validator.description.moniker ||
                                         validator.description.identity ||
                                         StringsUtils.trunc(validator.operatorAddress || '')}
                                 </h1>
+                                {renderGenesisBadge()}
                             </div>
                         </div>
                         <div className="row">
