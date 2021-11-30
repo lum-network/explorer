@@ -4,7 +4,7 @@ import { Card, Table } from 'frontend-elements';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { VestingModel } from 'models/models/account';
 import moment from 'moment';
-import { SystemConstants } from '../../../../constant';
+import { SystemConstants } from 'constant';
 import SmallerDecimal from '../../SmallerDecimal/SmallerDecimal';
 import numeral from 'numeral';
 import { LumConstants } from '@lum-network/sdk-javascript';
