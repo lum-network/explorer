@@ -1,6 +1,7 @@
 import { MessagesType, VotesOption } from 'constant';
 import { Expose, Transform, Type } from 'class-transformer';
 import CoinModel from './coin';
+import Long from 'long';
 
 export default abstract class MessageModel {
     @Expose({ name: 'type_url' })
@@ -170,13 +171,9 @@ export class SubmitProposal extends MessageModel {
 class DepositValue {
     @Expose({ name: 'proposal_id' })
     @Transform(({ value }) => {
-        if (!value) {
-            return undefined;
-        }
-
-        return value.low;
+        return new Long(value.low, value.high, value.unsigned);
     })
-    proposalId?: string;
+    proposalId = new Long(0);
 
     @Expose({ name: 'depositor_address' })
     depositorAddress = '';
@@ -193,13 +190,9 @@ export class Deposit extends MessageModel {
 class VoteValue {
     @Expose({ name: 'proposal_id' })
     @Transform(({ value }) => {
-        if (!value) {
-            return undefined;
-        }
-
-        return value.low;
+        return new Long(value.low, value.high, value.unsigned);
     })
-    proposalId?: string;
+    proposalId = new Long(0);
 
     @Expose({ name: 'voter_address' })
     voterAddress = '';
@@ -234,6 +227,29 @@ export class ClaimBeam extends MessageModel {
     value: ClaimBeamValue = new ClaimBeamValue();
 }
 
+class CreateVestingAccountValue {
+    @Expose({ name: 'from_address' })
+    fromAddress = '';
+
+    @Expose({ name: 'to_address' })
+    toAddress = '';
+
+    @Expose({ name: 'end_time' })
+    @Transform(({ value }) => {
+        return new Long(value.low, value.high, value.unsigned);
+    })
+    endTime: Long = new Long(0);
+
+    delayed?: boolean;
+
+    amount: CoinModel[] = [];
+}
+
+export class CreateVestingAccount extends MessageModel {
+    @Type(() => CreateVestingAccountValue)
+    value: CreateVestingAccountValue = new CreateVestingAccountValue();
+}
+
 class BeginRedelegateValue {
     @Expose({ name: 'delegator_address' })
     delegatorAddress?: string;
@@ -253,6 +269,16 @@ export class BeginRedelegate extends MessageModel {
     value: BeginRedelegateValue = new BeginRedelegateValue();
 }
 
+class WithdrawValidatorCommissionValue {
+    @Expose({ name: 'validator_address' })
+    validatorAddress?: string;
+}
+
+export class WithdrawValidatorCommisssion extends MessageModel {
+    @Type(() => WithdrawValidatorCommissionValue)
+    value: WithdrawValidatorCommissionValue = new WithdrawValidatorCommissionValue();
+}
+
 export type Value =
     | Send
     | CreateValidator
@@ -267,4 +293,6 @@ export type Value =
     | SubmitProposal
     | Deposit
     | Vote
-    | BeginRedelegate;
+    | CreateVestingAccount
+    | BeginRedelegate
+    | WithdrawValidatorCommisssion;

@@ -3,7 +3,15 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
-import { DelegationsList, TransactionsList, Tooltip, UnbondingsList, SmallerDecimal } from 'components';
+import {
+    DelegationsList,
+    TransactionsList,
+    Tooltip,
+    UnbondingsList,
+    SmallerDecimal,
+    RedelegatesList,
+    VestingList,
+} from 'components';
 import { Card, CodeQr, Loading } from 'frontend-elements';
 import '../Accounts.scss';
 import copyLogo from 'assets/images/copy.svg';
@@ -29,6 +37,7 @@ const AccountPage = (props: IProps): JSX.Element => {
     const [reward, setReward] = useState(0.0);
     const [unbonding, setUnbonding] = useState(0.0);
     const [commission, setCommission] = useState(0.0);
+    const [vesting, setVesting] = useState(0.0);
     const [total, setTotal] = useState(0.0);
 
     useEffect(() => {
@@ -40,9 +49,9 @@ const AccountPage = (props: IProps): JSX.Element => {
             return;
         }
 
-        const { balance, allRewards, delegations, unbondings, commissions } = account;
+        const { balance, allRewards, delegations, unbondings, commissions, vesting: vestingAccount } = account;
 
-        const available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
+        let available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
         const reward =
             NumbersUtils.convertUnitNumber(
                 allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0',
@@ -56,13 +65,23 @@ const AccountPage = (props: IProps): JSX.Element => {
             commission = NumbersUtils.convertUnitNumber(commissions[0].amount) / NumberConstants.CLIENT_PRECISION;
         }
 
-        const total = available + reward + delegated + unbonding + commission;
+        let vesting = 0;
+
+        if (vestingAccount) {
+            const convertVesting = NumbersUtils.convertUnitNumber(vestingAccount.lockedBankCoins.amount);
+
+            vesting = convertVesting;
+            available -= convertVesting;
+        }
+
+        const total = available + reward + delegated + unbonding + commission + vesting;
 
         setAvailable(available);
         setReward(reward);
         setDelegated(delegated);
         setUnbonding(unbonding);
         setCommission(commission);
+        setVesting(vesting);
         setTotal(total);
     }, [account]);
 
@@ -106,7 +125,7 @@ const AccountPage = (props: IProps): JSX.Element => {
         return <TransactionsList accountAddress={account.address} title transactions={transactions} />;
     };
 
-    const renderDelegationsAndUnbondings = (): JSX.Element | null => {
+    const renderCards = (): JSX.Element | null => {
         if (loading) {
             return (
                 <div className="row">
@@ -128,22 +147,28 @@ const AccountPage = (props: IProps): JSX.Element => {
             return null;
         }
 
-        const { delegations, allRewards, unbondings } = account;
+        const { delegations, allRewards, unbondings, redelegations, vesting } = account;
 
         return (
-            <div className="row">
-                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+            <div className="row mb-5 g-4 g-xxl-5">
+                <div className="col-12 col-xxl-6">
                     {allRewards && <DelegationsList title delegations={delegations} rewards={allRewards.rewards} />}
                 </div>
-                <div className="col-12 col-xxl-6 mb-5">
+                <div className="col-12 col-xxl-6">
                     <UnbondingsList unbondings={unbondings} title />
+                </div>
+                <div className="col-12 col-xxl-6">
+                    <RedelegatesList redelegates={redelegations} title />
+                </div>
+                <div className="col-12 col-xxl-6">
+                    <VestingList vesting={vesting} title />
                 </div>
             </div>
         );
     };
 
     const renderPie = (): JSX.Element | null => {
-        if (!available && !delegated && !unbonding && !reward && !commission) {
+        if (!available && !delegated && !unbonding && !reward && !commission && !vesting) {
             return null;
         }
 
@@ -172,12 +197,23 @@ const AccountPage = (props: IProps): JSX.Element => {
 
         if (commission) {
             data = [
+                ...data,
                 {
                     title: i18n.t('commission'),
                     value: NumbersUtils.getPercentage(commission, total),
                     color: '#9FA4AD',
                 },
+            ];
+        }
+
+        if (vesting) {
+            data = [
                 ...data,
+                {
+                    title: i18n.t('vesting'),
+                    value: NumbersUtils.getPercentage(vesting, total),
+                    color: '#ff6565',
+                },
             ];
         }
 
@@ -246,66 +282,82 @@ const AccountPage = (props: IProps): JSX.Element => {
                         <div className="row align-items-center">
                             {renderPie()}
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2">
+                                <div className="d-flex align-items-center mb-1">
+                                    <div className="app-dot green me-2" />
+                                    {i18n.t('available')}
+                                </div>
+                                <div className="d-flex align-items-center mb-1">
+                                    <div className="app-dot orange me-2" />
+                                    {i18n.t('delegated')}
+                                </div>
+                                <div className="d-flex align-items-center mb-1">
+                                    <div className="app-dot blue me-2" />
+                                    {i18n.t('unbonding')}
+                                </div>
+                                <div className="d-flex align-items-center mb-1">
+                                    <div className="app-dot cyan me-2" />
+                                    {i18n.t('reward')}
+                                </div>
                                 {commission ? (
-                                    <div className="d-flex align-items-center mb-2">
+                                    <div className="d-flex align-items-center mb-1">
                                         <div className="app-dot grey me-2" />
                                         {i18n.t('commission')}
                                     </div>
                                 ) : null}
-                                <div className="d-flex align-items-center mb-2">
-                                    <div className="app-dot green me-2" />
-                                    {i18n.t('available')}
-                                </div>
-                                <div className="d-flex align-items-center mb-2">
-                                    <div className="app-dot orange me-2" />
-                                    {i18n.t('delegated')}
-                                </div>
-                                <div className="d-flex align-items-center mb-2">
-                                    <div className="app-dot blue me-2" />
-                                    {i18n.t('unbonding')}
-                                </div>
-                                <div className="d-flex align-items-center">
-                                    <div className="app-dot cyan me-2" />
-                                    {i18n.t('reward')}
-                                </div>
+                                {vesting ? (
+                                    <div className="d-flex align-items-center mb-1">
+                                        <div className="app-dot red me-2" />
+                                        {i18n.t('vesting')}
+                                    </div>
+                                ) : null}
                             </div>
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2 text-end">
+                                <div className="mb-1">
+                                    <SmallerDecimal nb={numeral(available).format('0,0.000000')} />
+                                </div>
+                                <div className="mb-1">
+                                    <SmallerDecimal nb={numeral(delegated).format('0,0.000000')} />
+                                </div>
+                                <div className="mb-1">
+                                    <SmallerDecimal nb={numeral(unbonding).format('0,0.000000')} />
+                                </div>
+                                <div className="mb-1">
+                                    <SmallerDecimal nb={numeral(reward).format('0,0.000000')} />
+                                </div>
                                 {commission ? (
-                                    <div className="mb-2">
+                                    <div className="mb-1">
                                         <SmallerDecimal nb={numeral(commission).format('0,0.000000')} />
                                     </div>
                                 ) : null}
-                                <div className="mb-2">
-                                    <SmallerDecimal nb={numeral(available).format('0,0.000000')} />
-                                </div>
-                                <div className="mb-2">
-                                    <SmallerDecimal nb={numeral(delegated).format('0,0.000000')} />
-                                </div>
-                                <div className="mb-2">
-                                    <SmallerDecimal nb={numeral(unbonding).format('0,0.000000')} />
-                                </div>
-                                <div>
-                                    <SmallerDecimal nb={numeral(reward).format('0,0.000000')} />
-                                </div>
+                                {vesting ? (
+                                    <div className="mb-1">
+                                        <SmallerDecimal nb={numeral(vesting).format('0,0.000000')} />
+                                    </div>
+                                ) : null}
                             </div>
                             <div className="col-2 col-md-4 col-lg-3 col-xxl-2 text-end">
+                                <div className="mb-1">
+                                    <p>{numeral(available / total).format('0.00%')}</p>
+                                </div>
+                                <div className="mb-1">
+                                    <p>{numeral(delegated / total).format('0.00%')}</p>
+                                </div>
+                                <div className="mb-1">
+                                    <p>{numeral(unbonding / total).format('0.00%')}</p>
+                                </div>
+                                <div className="mb-1">
+                                    <p>{numeral(reward / total).format('0.00%')}</p>
+                                </div>
                                 {commission ? (
-                                    <div className="mb-2">
+                                    <div className="mb-1">
                                         <p>{numeral(commission / total).format('0.00%')}</p>
                                     </div>
                                 ) : null}
-                                <div className="mb-2">
-                                    <p>{numeral(available / total).format('0.00%')}</p>
-                                </div>
-                                <div className="mb-2">
-                                    <p>{numeral(delegated / total).format('0.00%')}</p>
-                                </div>
-                                <div className="mb-2">
-                                    <p>{numeral(unbonding / total).format('0.00%')}</p>
-                                </div>
-                                <div>
-                                    <p>{numeral(reward / total).format('0.00%')}</p>
-                                </div>
+                                {vesting ? (
+                                    <div className="mb-1">
+                                        <p>{numeral(vesting / total).format('0.00%')}</p>
+                                    </div>
+                                ) : null}
                             </div>
                             <div className="col-12 col-xxl-4 mt-4 mt-xxl-0">
                                 <Card flat>
@@ -346,7 +398,7 @@ const AccountPage = (props: IProps): JSX.Element => {
                 <img alt="block" src={accountLogo} /> {i18n.t('accountDetails')}
             </h2>
             {renderInformation()}
-            {renderDelegationsAndUnbondings()}
+            {renderCards()}
             {renderTransactions()}
         </>
     );

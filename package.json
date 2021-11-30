@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@lum-network/sdk-javascript": "^0.7.0",
+        "@lum-network/sdk-javascript": "^0.7.1",
         "@rematch/core": "^2.1.0",
         "@rematch/loading": "^2.1.0",
         "@rematch/persist": "^2.1.0",
@@ -12,6 +12,7 @@
         "class-transformer": "^0.4.0",
         "firebase": "^8.10.0",
         "i18n-js": "^3.8.0",
+        "long": "^5.1.0",
         "moment": "^2.29.1",
         "moment-timezone": "^0.5.33",
         "node-sass": "^5.0.0",

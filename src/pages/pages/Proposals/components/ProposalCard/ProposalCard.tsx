@@ -34,7 +34,7 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
         setResult(proposal.finalResult);
 
         if (proposal.status === ProposalStatus.VOTING_PERIOD) {
-            dispatch.governance.getTally(proposal.proposalId || '').then(setResult);
+            dispatch.governance.getTally(proposal.proposalId.toString()).then(setResult);
         }
     }, [proposal]);
 
@@ -135,11 +135,15 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
         <Card>
             <div className="d-flex align-items-center justify-content-between">
                 <div className="d-flex align-items-center">
-                    <span className="me-3 card-id">#{proposal.proposalId}</span>
+                    <span className="me-3 card-id">#{proposal.proposalId.toString()}</span>
                     <Badge proposalStatus={proposal.status} />
                 </div>
                 <div>
-                    <Button onPress={() => history.push(`${NavigationConstants.PROPOSALS}/${proposal.proposalId}`)}>
+                    <Button
+                        onPress={() =>
+                            history.push(`${NavigationConstants.PROPOSALS}/${proposal.proposalId.toString()}`)
+                        }
+                    >
                         {i18n.t('open')}
                     </Button>
                 </div>
