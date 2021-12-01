@@ -36,8 +36,9 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
             return;
         }
 
-        setTotal(GovernanceUtils.sumOfVotes(proposal.result));
+        const total = GovernanceUtils.sumOfVotes(proposal.result);
 
+        setTotal(total);
         setVoteYes(NumbersUtils.getPercentage(proposal.result.yes, total));
         setVoteNo(NumbersUtils.getPercentage(proposal.result.no, total));
         setVoteNoWithVeto(NumbersUtils.getPercentage(proposal.result.noWithVeto, total));

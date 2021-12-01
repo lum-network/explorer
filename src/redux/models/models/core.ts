@@ -10,7 +10,7 @@ interface CoreState {
 
 const core = createModel<RootModel>()({
     state: {
-        stats: plainToClass(StatsModel, null),
+        stats: plainToClass(StatsModel, {}),
     } as CoreState,
     reducers: {
         setStats(state, stats: StatsModel) {
