@@ -56,6 +56,16 @@ export default {
     srcValidator: 'Source validator',
     dstValidator: 'Destination validator',
     genesis: 'Genesis',
+    delayed: 'Delayed',
+    endTime: 'End time',
+    from: 'From',
+    to: 'To',
+    redelegations: 'Redelegations',
+    noRedelegation: 'No redelegation',
+    vesting: 'Vesting',
+    noVestingToken: 'No vesting token',
+    startsAt: 'Starts at',
+    vestingSchedule: 'Vesting schedule',
 
     // Layout
     dashboard: 'Board',
@@ -83,7 +93,9 @@ export default {
     submitProposalMessage: 'Submit proposal',
     depositMessage: 'Deposit',
     voteMessage: 'Vote',
+    createVestingAccount: 'Create vesting account',
     redelegateMessage: 'Redelegate',
+    getCommission: 'Get commission',
 
     // Badge status
     badgeJailed: 'Jailed',
