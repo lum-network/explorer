@@ -274,9 +274,19 @@ class WithdrawValidatorCommissionValue {
     validatorAddress?: string;
 }
 
-export class WithdrawValidatorCommisssion extends MessageModel {
+export class WithdrawValidatorCommission extends MessageModel {
     @Type(() => WithdrawValidatorCommissionValue)
     value: WithdrawValidatorCommissionValue = new WithdrawValidatorCommissionValue();
+}
+
+class UnjailValue {
+    @Expose({ name: 'validator_address' })
+    validatorAddress?: string;
+}
+
+export class Unjail extends MessageModel {
+    @Type(() => UnjailValue)
+    value: UnjailValue = new UnjailValue();
 }
 
 export type Value =
@@ -295,4 +305,5 @@ export type Value =
     | Vote
     | CreateVestingAccount
     | BeginRedelegate
-    | WithdrawValidatorCommisssion;
+    | WithdrawValidatorCommission
+    | Unjail;

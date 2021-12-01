@@ -14,10 +14,11 @@ import MessageModel, {
     Send,
     SubmitProposal,
     Undelegate,
+    Unjail,
     UpdateBeam,
     Value,
     Vote,
-    WithdrawValidatorCommisssion,
+    WithdrawValidatorCommission,
 } from './message';
 import CoinModel from './coin';
 import LogModel from './log';
@@ -70,7 +71,8 @@ class TransactionsModel {
                 { value: Vote, name: MessagesType.VOTE },
                 { value: CreateVestingAccount, name: MessagesType.CREATE_VESTING_ACCOUNT },
                 { value: BeginRedelegate, name: MessagesType.BEGIN_REDELEGATE },
-                { value: WithdrawValidatorCommisssion, name: MessagesType.WITHDRAW_VALIDATOR_COMMISSION },
+                { value: WithdrawValidatorCommission, name: MessagesType.WITHDRAW_VALIDATOR_COMMISSION },
+                { value: Unjail, name: MessagesType.UNJAIL },
             ],
         },
         keepDiscriminatorProperty: true,

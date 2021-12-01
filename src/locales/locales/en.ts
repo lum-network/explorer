@@ -97,6 +97,7 @@ export default {
     createVestingAccount: 'Create vesting account',
     redelegateMessage: 'Redelegate',
     getCommission: 'Get commission',
+    unjail: 'Unjail',
 
     // Badge status
     badgeJailed: 'Jailed',
