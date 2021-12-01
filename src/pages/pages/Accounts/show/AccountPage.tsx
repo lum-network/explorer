@@ -15,12 +15,15 @@ import {
 import { Card, CodeQr, Loading } from 'frontend-elements';
 import '../Accounts.scss';
 import copyLogo from 'assets/images/copy.svg';
+import checkLogo from 'assets/images/check.svg';
+import crossLogo from 'assets/images/cross.svg';
 import { PieChart } from 'react-minimal-pie-chart';
 import numeral from 'numeral';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { AccountUtils, i18n, NumbersUtils } from 'utils';
 import { NumberConstants } from 'constant';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import ReactTooltip from 'react-tooltip';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -271,6 +274,10 @@ const AccountPage = (props: IProps): JSX.Element => {
         );
     };
 
+    const renderCheckOrCross = (success: boolean) => {
+        return <img src={success ? checkLogo : crossLogo} alt={success ? 'check' : 'cross'} />;
+    };
+
     const renderInformation = (): JSX.Element => {
         if (!account && !loading) {
             return (
@@ -361,6 +368,16 @@ const AccountPage = (props: IProps): JSX.Element => {
                                     <div className="d-flex align-items-center mb-1">
                                         <div className="app-dot yellow me-2" />
                                         {i18n.t('airdrop')}
+                                        <div className="help ms-2" data-tip="React-tooltip">
+                                            <ReactTooltip className="tooltip-light" effect="solid" type="light">
+                                                {renderCheckOrCross(airdropActionVote || false)}&nbsp;&nbsp;
+                                                {i18n.t('voteClaimAction')}
+                                                <br />
+                                                {renderCheckOrCross(airdropActionDelegate || false)}&nbsp;&nbsp;
+                                                {i18n.t('delegateClaimAction')}
+                                            </ReactTooltip>
+                                            ?
+                                        </div>
                                     </div>
                                 ) : null}
                             </div>
