@@ -66,6 +66,7 @@ export default {
     noVestingToken: 'No vesting token',
     startsAt: 'Starts at',
     vestingSchedule: 'Vesting schedule',
+    airdrop: 'Airdrop',
 
     // Layout
     dashboard: 'Board',
@@ -96,6 +97,7 @@ export default {
     createVestingAccount: 'Create vesting account',
     redelegateMessage: 'Redelegate',
     getCommission: 'Get commission',
+    unjail: 'Unjail',
 
     // Badge status
     badgeJailed: 'Jailed',
@@ -114,6 +116,8 @@ export default {
     noUnbondedToken: 'No unbonded token',
     noDelegatedToken: 'No delegated token',
     noAccountFound: 'Account not found',
+    voteClaimAction: 'Vote action claimed',
+    delegateClaimAction: 'Delegate action claimed',
 
     // Block
     blockTime: 'Block time',
