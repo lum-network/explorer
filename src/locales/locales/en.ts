@@ -66,6 +66,7 @@ export default {
     noVestingToken: 'No vesting token',
     startsAt: 'Starts at',
     vestingSchedule: 'Vesting schedule',
+    airdrop: 'Airdrop',
 
     // Layout
     dashboard: 'Board',

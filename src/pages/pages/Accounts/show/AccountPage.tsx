@@ -38,6 +38,9 @@ const AccountPage = (props: IProps): JSX.Element => {
     const [unbonding, setUnbonding] = useState(0.0);
     const [commission, setCommission] = useState(0.0);
     const [vesting, setVesting] = useState(0.0);
+    const [airdrop, setAirdrop] = useState(0.0);
+    const [airdropActionVote, setAirdropActionVote] = useState<boolean | null>(null);
+    const [airdropActionDelegate, setAirdropActionDelegate] = useState<boolean | null>(null);
     const [total, setTotal] = useState(0.0);
 
     useEffect(() => {
@@ -49,7 +52,15 @@ const AccountPage = (props: IProps): JSX.Element => {
             return;
         }
 
-        const { balance, allRewards, delegations, unbondings, commissions, vesting: vestingAccount } = account;
+        const {
+            balance,
+            allRewards,
+            delegations,
+            unbondings,
+            commissions,
+            vesting: vestingAccount,
+            airdrop: airdropAccount,
+        } = account;
 
         let available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
         const reward =
@@ -74,7 +85,31 @@ const AccountPage = (props: IProps): JSX.Element => {
             available -= convertVesting;
         }
 
-        const total = available + reward + delegated + unbonding + commission + vesting;
+        let airdrop = 0;
+
+        if (
+            airdropAccount &&
+            airdropAccount.actionCompleted.length >= 2 &&
+            airdropAccount.initialClaimableAmount.length >= 2
+        ) {
+            const amount = AccountUtils.sumOfAirdrops(airdropAccount.initialClaimableAmount);
+
+            const [vote, delegate] = airdropAccount.actionCompleted;
+
+            if (vote && delegate) {
+                airdrop = 0;
+            } else if (vote || delegate) {
+                airdrop = amount / 2;
+            } else {
+                airdrop = amount;
+            }
+
+            airdrop = NumbersUtils.convertUnitNumber(airdrop);
+            setAirdropActionVote(vote);
+            setAirdropActionDelegate(delegate);
+        }
+
+        const total = available + reward + delegated + unbonding + commission + vesting + airdrop;
 
         setAvailable(available);
         setReward(reward);
@@ -82,6 +117,7 @@ const AccountPage = (props: IProps): JSX.Element => {
         setUnbonding(unbonding);
         setCommission(commission);
         setVesting(vesting);
+        setAirdrop(airdrop);
         setTotal(total);
     }, [account]);
 
@@ -168,7 +204,7 @@ const AccountPage = (props: IProps): JSX.Element => {
     };
 
     const renderPie = (): JSX.Element | null => {
-        if (!available && !delegated && !unbonding && !reward && !commission && !vesting) {
+        if (!available && !delegated && !unbonding && !reward && !commission && !vesting && !airdrop) {
             return null;
         }
 
@@ -213,6 +249,17 @@ const AccountPage = (props: IProps): JSX.Element => {
                     title: i18n.t('vesting'),
                     value: NumbersUtils.getPercentage(vesting, total),
                     color: '#ff6565',
+                },
+            ];
+        }
+
+        if (airdrop) {
+            data = [
+                ...data,
+                {
+                    title: i18n.t('airdrop'),
+                    value: NumbersUtils.getPercentage(airdrop, total),
+                    color: '#ffd029',
                 },
             ];
         }
@@ -310,6 +357,12 @@ const AccountPage = (props: IProps): JSX.Element => {
                                         {i18n.t('vesting')}
                                     </div>
                                 ) : null}
+                                {airdrop ? (
+                                    <div className="d-flex align-items-center mb-1">
+                                        <div className="app-dot yellow me-2" />
+                                        {i18n.t('airdrop')}
+                                    </div>
+                                ) : null}
                             </div>
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2 text-end">
                                 <div className="mb-1">
@@ -334,6 +387,11 @@ const AccountPage = (props: IProps): JSX.Element => {
                                         <SmallerDecimal nb={numeral(vesting).format('0,0.000000')} />
                                     </div>
                                 ) : null}
+                                {airdrop ? (
+                                    <div className="mb-1">
+                                        <SmallerDecimal nb={numeral(airdrop).format('0,0.000000')} />
+                                    </div>
+                                ) : null}
                             </div>
                             <div className="col-2 col-md-4 col-lg-3 col-xxl-2 text-end">
                                 <div className="mb-1">
@@ -356,6 +414,11 @@ const AccountPage = (props: IProps): JSX.Element => {
                                 {vesting ? (
                                     <div className="mb-1">
                                         <p>{numeral(vesting / total).format('0.00%')}</p>
+                                    </div>
+                                ) : null}
+                                {airdrop ? (
+                                    <div className="mb-1">
+                                        <p>{numeral(airdrop / total).format('0.00%')}</p>
                                     </div>
                                 ) : null}
                             </div>
