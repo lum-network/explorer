@@ -17,6 +17,7 @@ import voteLogo from 'assets/images/messageTypes/vote.svg';
 import redelegateLogo from 'assets/images/messageTypes/redelegate.svg';
 import gearsLogo from 'assets/images/messageTypes/gears.svg';
 import commissionLogo from 'assets/images/messageTypes/commission.svg';
+import unjailLogo from 'assets/images/messageTypes/unjail.svg';
 
 export const name = (type?: MessagesType | null): { text: string; icon: string } => {
     switch (type) {
@@ -67,6 +68,9 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
 
         case MessagesType.WITHDRAW_VALIDATOR_COMMISSION:
             return { text: i18n.t('getCommission'), icon: commissionLogo };
+
+        case MessagesType.UNJAIL:
+            return { text: i18n.t('unjail'), icon: unjailLogo };
 
         default:
             return { text: type || '', icon: placeholderLogo };
