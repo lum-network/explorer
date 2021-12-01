@@ -15,12 +15,15 @@ import {
 import { Card, CodeQr, Loading } from 'frontend-elements';
 import '../Accounts.scss';
 import copyLogo from 'assets/images/copy.svg';
+import checkLogo from 'assets/images/check.svg';
+import crossLogo from 'assets/images/cross.svg';
 import { PieChart } from 'react-minimal-pie-chart';
 import numeral from 'numeral';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { AccountUtils, i18n, NumbersUtils } from 'utils';
 import { NumberConstants } from 'constant';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import ReactTooltip from 'react-tooltip';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -38,6 +41,9 @@ const AccountPage = (props: IProps): JSX.Element => {
     const [unbonding, setUnbonding] = useState(0.0);
     const [commission, setCommission] = useState(0.0);
     const [vesting, setVesting] = useState(0.0);
+    const [airdrop, setAirdrop] = useState(0.0);
+    const [airdropActionVote, setAirdropActionVote] = useState<boolean | null>(null);
+    const [airdropActionDelegate, setAirdropActionDelegate] = useState<boolean | null>(null);
     const [total, setTotal] = useState(0.0);
 
     useEffect(() => {
@@ -49,7 +55,15 @@ const AccountPage = (props: IProps): JSX.Element => {
             return;
         }
 
-        const { balance, allRewards, delegations, unbondings, commissions, vesting: vestingAccount } = account;
+        const {
+            balance,
+            allRewards,
+            delegations,
+            unbondings,
+            commissions,
+            vesting: vestingAccount,
+            airdrop: airdropAccount,
+        } = account;
 
         let available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
         const reward =
@@ -74,7 +88,31 @@ const AccountPage = (props: IProps): JSX.Element => {
             available -= convertVesting;
         }
 
-        const total = available + reward + delegated + unbonding + commission + vesting;
+        let airdrop = 0;
+
+        if (
+            airdropAccount &&
+            airdropAccount.actionCompleted.length >= 2 &&
+            airdropAccount.initialClaimableAmount.length >= 2
+        ) {
+            const amount = AccountUtils.sumOfAirdrops(airdropAccount.initialClaimableAmount);
+
+            const [vote, delegate] = airdropAccount.actionCompleted;
+
+            if (vote && delegate) {
+                airdrop = 0;
+            } else if (vote || delegate) {
+                airdrop = amount / 2;
+            } else {
+                airdrop = amount;
+            }
+
+            airdrop = NumbersUtils.convertUnitNumber(airdrop);
+            setAirdropActionVote(vote);
+            setAirdropActionDelegate(delegate);
+        }
+
+        const total = available + reward + delegated + unbonding + commission + vesting + airdrop;
 
         setAvailable(available);
         setReward(reward);
@@ -82,6 +120,7 @@ const AccountPage = (props: IProps): JSX.Element => {
         setUnbonding(unbonding);
         setCommission(commission);
         setVesting(vesting);
+        setAirdrop(airdrop);
         setTotal(total);
     }, [account]);
 
@@ -168,7 +207,7 @@ const AccountPage = (props: IProps): JSX.Element => {
     };
 
     const renderPie = (): JSX.Element | null => {
-        if (!available && !delegated && !unbonding && !reward && !commission && !vesting) {
+        if (!available && !delegated && !unbonding && !reward && !commission && !vesting && !airdrop) {
             return null;
         }
 
@@ -217,11 +256,26 @@ const AccountPage = (props: IProps): JSX.Element => {
             ];
         }
 
+        if (airdrop) {
+            data = [
+                ...data,
+                {
+                    title: i18n.t('airdrop'),
+                    value: NumbersUtils.getPercentage(airdrop, total),
+                    color: '#ffd029',
+                },
+            ];
+        }
+
         return (
             <div className="col-12 col-lg-3 col-xxl-2 d-flex justify-content-center mb-4 mb-lg-0">
                 <PieChart data={data} animate rounded lineWidth={25} className="d-flex app-pie-container" />
             </div>
         );
+    };
+
+    const renderCheckOrCross = (success: boolean) => {
+        return <img src={success ? checkLogo : crossLogo} alt={success ? 'check' : 'cross'} />;
     };
 
     const renderInformation = (): JSX.Element => {
@@ -310,6 +364,22 @@ const AccountPage = (props: IProps): JSX.Element => {
                                         {i18n.t('vesting')}
                                     </div>
                                 ) : null}
+                                {airdrop ? (
+                                    <div className="d-flex align-items-center mb-1">
+                                        <div className="app-dot yellow me-2" />
+                                        {i18n.t('airdrop')}
+                                        <div className="help ms-2" data-tip="React-tooltip">
+                                            <ReactTooltip className="tooltip-light" effect="solid" type="light">
+                                                {renderCheckOrCross(airdropActionVote || false)}&nbsp;&nbsp;
+                                                {i18n.t('voteClaimAction')}
+                                                <br />
+                                                {renderCheckOrCross(airdropActionDelegate || false)}&nbsp;&nbsp;
+                                                {i18n.t('delegateClaimAction')}
+                                            </ReactTooltip>
+                                            ?
+                                        </div>
+                                    </div>
+                                ) : null}
                             </div>
                             <div className="col-5 col-md-4 col-lg-3 col-xxl-2 text-end">
                                 <div className="mb-1">
@@ -334,6 +404,11 @@ const AccountPage = (props: IProps): JSX.Element => {
                                         <SmallerDecimal nb={numeral(vesting).format('0,0.000000')} />
                                     </div>
                                 ) : null}
+                                {airdrop ? (
+                                    <div className="mb-1">
+                                        <SmallerDecimal nb={numeral(airdrop).format('0,0.000000')} />
+                                    </div>
+                                ) : null}
                             </div>
                             <div className="col-2 col-md-4 col-lg-3 col-xxl-2 text-end">
                                 <div className="mb-1">
@@ -356,6 +431,11 @@ const AccountPage = (props: IProps): JSX.Element => {
                                 {vesting ? (
                                     <div className="mb-1">
                                         <p>{numeral(vesting / total).format('0.00%')}</p>
+                                    </div>
+                                ) : null}
+                                {airdrop ? (
+                                    <div className="mb-1">
+                                        <p>{numeral(airdrop / total).format('0.00%')}</p>
                                     </div>
                                 ) : null}
                             </div>

@@ -36,6 +36,17 @@ export class VestingModel {
     lockedBankCoins: CoinModel = new CoinModel();
 }
 
+class AirdropModel {
+    @Expose()
+    address = '';
+
+    @Expose({ name: 'action_completed' })
+    actionCompleted: boolean[] = [];
+
+    @Expose({ name: 'initial_claimable_amount' })
+    initialClaimableAmount: CoinModel[] = [];
+}
+
 export class RewardModel {
     @Expose({ name: 'validator_address' })
     validatorAddress?: string;
@@ -145,6 +156,9 @@ class AccountModel {
 
     @Type(() => VestingModel)
     vesting: VestingModel | null = null;
+
+    @Type(() => AirdropModel)
+    airdrop: AirdropModel = new AirdropModel();
 }
 
 export default AccountModel;

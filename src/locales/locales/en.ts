@@ -66,6 +66,7 @@ export default {
     noVestingToken: 'No vesting token',
     startsAt: 'Starts at',
     vestingSchedule: 'Vesting schedule',
+    airdrop: 'Airdrop',
 
     // Layout
     dashboard: 'Board',
@@ -114,6 +115,8 @@ export default {
     noUnbondedToken: 'No unbonded token',
     noDelegatedToken: 'No delegated token',
     noAccountFound: 'Account not found',
+    voteClaimAction: 'Vote action claimed',
+    delegateClaimAction: 'Delegate action claimed',
 
     // Block
     blockTime: 'Block time',
