@@ -59,3 +59,10 @@
     font-size: 12px;
     cursor: pointer;
 }
+
+@media (prefers-color-scheme: dark) {
+    .help {
+        background-color: $color-white;
+        color: $color-primary;
+    }
+}
