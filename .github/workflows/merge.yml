@@ -16,13 +16,13 @@ jobs:
       - name: Checkout repository and submodules
         uses: actions/checkout@v2
         with:
-            submodules: recursive
+          submodules: recursive
         - uses: actions/setup-node@v2
           with:
             node-version: '14'
 
       - name: Install packages
-        run: node -v && yarn && cd src/frontend-elements && yarn
+        run: yarn && cd src/frontend-elements && yarn
 
       - name: Build the test net bundle
         run: yarn build
