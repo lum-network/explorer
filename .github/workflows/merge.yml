@@ -22,7 +22,7 @@ jobs:
             node-version: '14'
 
       - name: Install packages
-        run: yarn && cd src/frontend-elements && yarn
+        run: node -v && yarn && cd src/frontend-elements && yarn
 
       - name: Build the test net bundle
         run: yarn build
