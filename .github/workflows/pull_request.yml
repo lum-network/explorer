@@ -16,7 +16,7 @@ jobs:
             submodules: recursive
 
       - name: Install packages
-        run: npm rebuild node-sass && yarn && cd src/frontend-elements && yarn
+        run: npm -v && npm rebuild node-sass && yarn && cd src/frontend-elements && yarn
 
       - name: Build
         run: yarn build
