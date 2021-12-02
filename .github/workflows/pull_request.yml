@@ -10,11 +10,15 @@ jobs:
   build_and_preview:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Node version to 14
+        uses: actions/setup-node@v2
+        with:
+          nodenode-version: '14'
+
       - name: Checkout repository and submodules
         uses: actions/checkout@v2
         with:
           submodules: recursive
-          node-version: '14'
 
       - name: Install packages
         run: node -v && yarn && cd src/frontend-elements && yarn
