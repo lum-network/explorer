@@ -19,13 +19,12 @@ jobs:
             submodules: recursive
 
       - name: Install packages
-        run: npm rebuild node-sass && yarn && cd src/frontend-elements && yarn
+        run: yarn && cd src/frontend-elements && yarn
 
       - name: Build the test net bundle
         run: yarn build
         env:
           REACT_APP_BASE_URL: "https://bridge.testnet.lum.network"
-          SASS_PATH: "node_modules:src/styles"
 
       - name: Deploy on firebase testnet project
         uses: FirebaseExtended/action-hosting-deploy@v0
