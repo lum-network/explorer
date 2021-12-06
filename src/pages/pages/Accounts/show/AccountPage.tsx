@@ -371,10 +371,14 @@ const AccountPage = (props: IProps): JSX.Element => {
                                         <div className="help ms-2" data-tip="React-tooltip">
                                             <ReactTooltip className="tooltip-light" effect="solid" type="light">
                                                 {renderCheckOrCross(airdropActionVote || false)}&nbsp;&nbsp;
-                                                {i18n.t('voteClaimAction')}
+                                                {i18n.t(airdropActionVote ? 'voteClaimAction' : 'voteUnclaimAction')}
                                                 <br />
                                                 {renderCheckOrCross(airdropActionDelegate || false)}&nbsp;&nbsp;
-                                                {i18n.t('delegateClaimAction')}
+                                                {i18n.t(
+                                                    airdropActionDelegate
+                                                        ? 'delegateClaimAction'
+                                                        : 'delegateUnclaimAction',
+                                                )}
                                             </ReactTooltip>
                                             ?
                                         </div>

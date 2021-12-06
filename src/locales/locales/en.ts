@@ -116,8 +116,10 @@ export default {
     noUnbondedToken: 'No unbonded token',
     noDelegatedToken: 'No delegated token',
     noAccountFound: 'Account not found',
-    voteClaimAction: 'Vote action claimed',
-    delegateClaimAction: 'Delegate action claimed',
+    voteUnclaimAction: 'Vote reward not done yet',
+    voteClaimAction: 'Vote reward claimed',
+    delegateUnclaimAction: 'Delegate reward not done yet',
+    delegateClaimAction: 'Delegate reward claimed',
 
     // Block
     blockTime: 'Block time',
