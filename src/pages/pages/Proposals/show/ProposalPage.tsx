@@ -190,7 +190,14 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                     </div>
                     <div className="col-12">
                         <h4>{i18n.t('details')}</h4>
-                        {proposal.content.description}
+                        {proposal.content.description
+                            ? proposal.content.description.split('\\n').map((line, i) => (
+                                  <span key={i}>
+                                      {line}
+                                      <br />
+                                  </span>
+                              ))
+                            : ''}
                     </div>
                 </div>
                 {renderResult()}
