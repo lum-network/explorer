@@ -1,4 +1,4 @@
-import { DelegationsModel } from 'models';
+import { CoinModel, DelegationsModel } from 'models';
 import { UnbondingModel } from 'models/models/account';
 
 export const sumOfDelegations = (delegations: DelegationsModel[]): number => {
@@ -20,4 +20,8 @@ export const sumOfUnbonding = (unbondings: UnbondingModel[]): number => {
     }
 
     return array.reduce((total, array) => total + array, 0);
+};
+
+export const sumOfAirdrops = (airdrops: CoinModel[]): number => {
+    return airdrops.reduce((total, value) => total + parseInt(value.amount), 0);
 };
