@@ -7,6 +7,7 @@ export { default as LogModel } from './models/log';
 export { default as StatsModel } from './models/stats';
 export { default as ProposalsModel } from './models/proposals';
 export { default as VotesResultModel } from './models/votesResult';
+export { default as LumModel } from './models/lum';
 
 export type { default as CoinModel } from './models/coin';
 
