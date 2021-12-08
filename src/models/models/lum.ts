@@ -18,6 +18,9 @@ export class LumModel {
 
     @Expose()
     name?: number;
+
+    @Expose({ name: 'previous_day_price' })
+    previousDayPrice?: number;
 }
 
 export default LumModel;

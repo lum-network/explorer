@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import lumLogo from 'assets/images/lum.svg';
 import { Card, Loading } from 'frontend-elements';
 import numeral from 'numeral';
 import './Lum.scss';
-import { i18n } from 'utils';
+import { i18n, NumbersUtils } from 'utils';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { LumConstants } from 'constant';
@@ -11,6 +11,16 @@ import { LumConstants } from 'constant';
 const Lum = (): JSX.Element => {
     const lum = useSelector((state: RootState) => state.core.lum);
     const loading = useSelector((state: RootState) => state.loading.effects.core.getLum);
+
+    const [previousDayPercentage, setPreviousDayPercentage] = useState(0);
+
+    useEffect(() => {
+        if (!lum || !lum.price || !lum.volume24h || !lum.previousDayPrice) {
+            return;
+        }
+
+        setPreviousDayPercentage(NumbersUtils.getDifferencePercentage(lum.previousDayPrice, lum.price));
+    }, [lum]);
 
     if (loading) {
         return (
@@ -20,7 +30,7 @@ const Lum = (): JSX.Element => {
         );
     }
 
-    if (!lum || !lum.price || !lum.volume24h) {
+    if (!lum || !lum.price || !lum.volume24h || !lum.previousDayPrice) {
         return (
             <Card className="h-100">
                 <img alt="Lum" className="placeholder-image mb-4" src={lumLogo} />
@@ -43,8 +53,8 @@ const Lum = (): JSX.Element => {
                 </div>
                 <div className="col-12 offset-md-2 offset-xxl-0 col-md-4">
                     <p className="d-flex flex-row align-items-center">
-                        <span className="arrow-up me-1" />
-                        {numeral(0).format('+0.00%')} ({i18n.t('day')})
+                        <span className={`me-1 ${previousDayPercentage >= 0 ? 'arrow-up' : 'arrow-down'}`} />
+                        {numeral(previousDayPercentage).format('+0.00%')} ({i18n.t('day')})
                     </p>
                     <p className="big-text">{numeral(lum.price).format('$0,0.00')}</p>
                 </div>
