@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: recursive
-
+          
       - name: Install packages
         run: yarn && cd src/frontend-elements && yarn
 
@@ -47,15 +47,15 @@ jobs:
     runs-on: ubuntu-latest
     environment: mainnet
     steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
       - name: Set up Node version to 14
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-
-      - name: Checkout repository and submodules
-        uses: actions/checkout@v2
-        with:
-            submodules: recursive
 
       - name: Install packages
         run: yarn && cd src/frontend-elements && yarn
@@ -63,7 +63,7 @@ jobs:
       - name: Build the main net bundle
         run: yarn build
         env:
-          REACT_APP_BASE_URL: "https://bridge.lum.network"
+          REACT_APP_BASE_URL: "https://bridge.mainnet.lum.network"
 
       - name: Deploy on firebase main net project
         uses: FirebaseExtended/action-hosting-deploy@v0
