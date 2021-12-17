@@ -1986,9 +1986,9 @@
   integrity sha512-4sLWHiuTW50zjdbhUVHb9HB9Ors6+ktM9tANBOinYu4c43TSArZLkaC7lb8fZYLb6eCsHHAtrrWYsz8lBJ6UOw==
 
 "@rematch/persist@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@rematch/persist/-/persist-2.1.0.tgz#11f61567765e014acfa261e9800b9be15100b420"
-  integrity sha512-xSXyiegkMN5Aso4MgSzpLyiqPAalrjjk5Hc+6NkotUja2+Kn7uPyG8TZ3hBwzyLEK68SeZmY0Mm182ii+B3B1Q==
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@rematch/persist/-/persist-2.1.2.tgz#1d4b0e91a301e6564c4a80799cc7e98f5b60780f"
+  integrity sha512-QiXo3pKCZFv8WW6zeMtBXGOXXp+BuUnoYNpr6p8Euah6gWThoWtbDS8NmlbKj3igmG9TtowuBVSxJCAgFk45zQ==
   dependencies:
     redux-persist "^6.0.0"
 
