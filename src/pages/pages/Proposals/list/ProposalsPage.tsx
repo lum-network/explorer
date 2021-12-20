@@ -3,7 +3,7 @@ import proposalLogo from 'assets/images/proposalDark.svg';
 import { i18n, NumbersUtils } from 'utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
-import { Card, Table } from 'frontend-elements';
+import { Card, Loading, Table } from 'frontend-elements';
 import { ProposalsModel } from 'models';
 import { NavigationConstants } from 'constant';
 import { Link } from 'react-router-dom';
@@ -16,6 +16,7 @@ import '../Proposals.scss';
 const ProposalsPage = (): JSX.Element | null => {
     const dispatch = useDispatch<Dispatch>();
     const proposals = useSelector((state: RootState) => state.governance.proposals);
+    const loading = useSelector((state: RootState) => state.loading.models.governance);
 
     useEffect(() => {
         dispatch.governance.fetchProposals().finally(() => null);
@@ -73,6 +74,14 @@ const ProposalsPage = (): JSX.Element | null => {
     };
 
     const renderDetails = (): JSX.Element => {
+        if (loading) {
+            return (
+                <Card className="mb-5">
+                    <Loading />
+                </Card>
+            );
+        }
+
         if (!proposals.length) {
             return (
                 <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
