@@ -10,7 +10,6 @@ import * as TimeConstants from './constant/time';
 import * as SocketConstants from './constant/sockets';
 import * as AddressConstants from './constant/address';
 import * as NumberConstants from './constant/number';
-import * as LumConstants from './constant/lum';
 
 import * as SystemConstants from './constant/system';
 
@@ -22,5 +21,4 @@ export {
     SocketConstants,
     AddressConstants,
     NumberConstants,
-    LumConstants,
 };

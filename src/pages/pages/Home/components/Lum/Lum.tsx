@@ -6,11 +6,13 @@ import './Lum.scss';
 import { i18n, NumbersUtils } from 'utils';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
-import { LumConstants } from 'constant';
 
 const Lum = (): JSX.Element => {
     const lum = useSelector((state: RootState) => state.core.lum);
-    const loading = useSelector((state: RootState) => state.loading.effects.core.getLum);
+    const stats = useSelector((state: RootState) => state.core.stats);
+    const loading = useSelector(
+        (state: RootState) => state.loading.effects.core.getLum || state.loading.effects.core.getStats,
+    );
 
     const [previousDayPercentage, setPreviousDayPercentage] = useState(0);
 
@@ -30,7 +32,15 @@ const Lum = (): JSX.Element => {
         );
     }
 
-    if (!lum || !lum.price || !lum.volume24h || !lum.previousDayPrice) {
+    if (
+        !lum ||
+        !lum.price ||
+        !lum.volume24h ||
+        !lum.previousDayPrice ||
+        !stats ||
+        !stats.totalSupply ||
+        !stats.totalSupply.length
+    ) {
         return (
             <Card className="h-100">
                 <img alt="Lum" className="placeholder-image mb-4" src={lumLogo} />
@@ -45,7 +55,11 @@ const Lum = (): JSX.Element => {
             <div className="row">
                 <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
                     <h4 className="mb-3">{i18n.t('marketCap')}</h4>
-                    <p>{numeral(LumConstants.TOTAL_TOKENS * lum.price).format('$0,0')}</p>
+                    <p>
+                        {numeral(NumbersUtils.convertUnitNumber(stats.totalSupply[0].amount) * lum.price).format(
+                            '$0,0',
+                        )}
+                    </p>
                 </div>
                 <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
                     <h4 className="mb-3">{i18n.t('dayVolume')}</h4>
@@ -56,7 +70,7 @@ const Lum = (): JSX.Element => {
                         <span className={`me-1 ${previousDayPercentage >= 0 ? 'arrow-up' : 'arrow-down'}`} />
                         {numeral(previousDayPercentage).format('+0.00%')} ({i18n.t('day')})
                     </p>
-                    <p className="big-text">{numeral(lum.price).format('$0,0.00')}</p>
+                    <p className="big-text">{numeral(lum.price).format('$0,0.000')}</p>
                 </div>
             </div>
         </Card>
