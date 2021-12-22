@@ -67,6 +67,7 @@ export default {
     startsAt: 'Starts at',
     vestingSchedule: 'Vesting schedule',
     airdrop: 'Airdrop',
+    noData: 'No data',
 
     // Layout
     dashboard: 'Board',
