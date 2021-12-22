@@ -9,6 +9,7 @@ import * as AnalyticsUtils from './utils/analytics';
 import * as GovernanceUtils from './utils/governance';
 
 export { default as i18n } from './utils/i18n';
+export { default as HttpClient } from './utils/http';
 
 export {
     StringsUtils,

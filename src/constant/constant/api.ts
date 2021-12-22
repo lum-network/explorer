@@ -10,3 +10,4 @@ export const SEARCH_URL = 'search';
 export const STATS_URL = 'stats';
 export const GOVERNANCE_URL = 'governance';
 export const PROPOSALS_URL = 'proposals';
+export const LUM_URL = 'lum';

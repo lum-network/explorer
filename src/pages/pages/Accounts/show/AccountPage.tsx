@@ -30,7 +30,10 @@ interface IProps extends RouteComponentProps<{ id: string }> {}
 const AccountPage = (props: IProps): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const account = useSelector((state: RootState) => state.accounts.account);
-    const loading = useSelector((state: RootState) => state.loading.models.accounts);
+    const lum = useSelector((state: RootState) => state.core.lum);
+    const loading = useSelector(
+        (state: RootState) => state.loading.models.accounts || state.loading.effects.core.getLum,
+    );
 
     const { id } = props.match.params;
 
@@ -455,17 +458,19 @@ const AccountPage = (props: IProps): JSX.Element => {
                                                 <SmallerDecimal nb={numeral(total).format('0,0.000000')} />
                                             </div>
                                         </div>
-                                        <div className="d-flex flex-column align-items-xxl-end mt-xxl-4">
-                                            <div className="d-flex align-items-center">
-                                                <p className="text-muted">{numeral(0.01).format('$0,0.00')}</p>
-                                                &nbsp;/&nbsp;
-                                                <span className="color-type">{LumConstants.LumDenom}</span>
+                                        {lum && lum.price && (
+                                            <div className="d-flex flex-column align-items-xxl-end mt-xxl-4">
+                                                <div className="d-flex align-items-center">
+                                                    <p className="text-muted">{numeral(lum.price).format('$0,0.00')}</p>
+                                                    &nbsp;/&nbsp;
+                                                    <span className="color-type">{LumConstants.LumDenom}</span>
+                                                </div>
+
+                                                <div>
+                                                    <SmallerDecimal nb={numeral(total * lum.price).format('$0,0.00')} />
+                                                </div>
                                             </div>
-                                            {/*TODO: get value */}
-                                            <div>
-                                                <SmallerDecimal nb={numeral(total * 0.01).format('$0,0.00')} />
-                                            </div>
-                                        </div>
+                                        )}
                                     </div>
                                 </Card>
                             </div>
