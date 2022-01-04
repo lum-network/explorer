@@ -77,7 +77,7 @@ const Kpi = (props: IProps): JSX.Element => {
                 }
 
                 const nb = NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators));
-                const total = stats.totalSupply ? NumbersUtils.convertUnitNumber(stats.totalSupply[0].amount) : 0;
+                const total = stats.totalSupply ? NumbersUtils.convertUnitNumber(stats.totalSupply.amount) : 0;
 
                 return (
                     <KpiCard
