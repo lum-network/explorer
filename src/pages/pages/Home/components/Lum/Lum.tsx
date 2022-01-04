@@ -32,15 +32,7 @@ const Lum = (): JSX.Element => {
         );
     }
 
-    if (
-        !lum ||
-        !lum.price ||
-        !lum.volume24h ||
-        !lum.previousDayPrice ||
-        !stats ||
-        !stats.totalSupply ||
-        !stats.totalSupply.length
-    ) {
+    if (!lum || !lum.price || !lum.volume24h || !lum.previousDayPrice || !stats || !stats.totalSupply) {
         return (
             <Card className="h-100">
                 <img alt="Lum" className="placeholder-image mb-4" src={lumLogo} />
@@ -56,9 +48,7 @@ const Lum = (): JSX.Element => {
                 <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
                     <h4 className="mb-3">{i18n.t('marketCap')}</h4>
                     <p>
-                        {numeral(NumbersUtils.convertUnitNumber(stats.totalSupply[0].amount) * lum.price).format(
-                            '$0,0',
-                        )}
+                        {numeral(NumbersUtils.convertUnitNumber(stats.totalSupply.amount) * lum.price).format('$0,0')}
                     </p>
                 </div>
                 <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
