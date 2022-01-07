@@ -1,8 +1,10 @@
 import { MessagesType } from 'constant';
 import { Expose, Type } from 'class-transformer';
 import MessageModel, {
+    BeginRedelegate,
     ClaimBeam,
     CreateValidator,
+    CreateVestingAccount,
     Delegate,
     Deposit,
     EditValidator,
@@ -12,9 +14,11 @@ import MessageModel, {
     Send,
     SubmitProposal,
     Undelegate,
+    Unjail,
     UpdateBeam,
     Value,
     Vote,
+    WithdrawValidatorCommission,
 } from './message';
 import CoinModel from './coin';
 import LogModel from './log';
@@ -65,6 +69,10 @@ class TransactionsModel {
                 { value: SubmitProposal, name: MessagesType.SUBMIT_PROPOSAL },
                 { value: Deposit, name: MessagesType.DEPOSIT },
                 { value: Vote, name: MessagesType.VOTE },
+                { value: CreateVestingAccount, name: MessagesType.CREATE_VESTING_ACCOUNT },
+                { value: BeginRedelegate, name: MessagesType.BEGIN_REDELEGATE },
+                { value: WithdrawValidatorCommission, name: MessagesType.WITHDRAW_VALIDATOR_COMMISSION },
+                { value: Unjail, name: MessagesType.UNJAIL },
             ],
         },
         keepDiscriminatorProperty: true,

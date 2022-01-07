@@ -2,7 +2,7 @@
 
 p.rank {
     font-size: $font-xxl;
-    font-weight: $bold;
+    font-weight: $medium;
 }
 
 p.top-rank {
@@ -34,6 +34,26 @@ p.top-rank {
     font-weight: $bold;
     font-size: $font-md;
     z-index: 2;
+}
+
+.genesis-flag-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 22px;
+    width: 22px;
+    border-radius: 11px;
+    background-color: $color-dark-background;
+}
+
+.genesis-flag-container-big {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 12px;
+    color: white;
+    border-radius: 18px;
+    background-color: $color-dark-background;
 }
 
 @include media-breakpoint-down(md) {

@@ -2,6 +2,50 @@ import { Expose, Transform, Type } from 'class-transformer';
 import TransactionsModel from './transactions';
 import CoinModel from './coin';
 import DelegationsModel from './delegations';
+import Long from 'long';
+
+export class VestingModel {
+    @Expose({ name: 'starts_at' })
+    startsAt?: string;
+
+    @Expose({ name: 'ends_at' })
+    endsAt?: string;
+
+    @Expose()
+    time?: string;
+
+    @Expose({ name: 'unlocked_percentage' })
+    unlockedPercentage?: number;
+
+    @Expose({ name: 'locked_percentage' })
+    lockedPercentage?: number;
+
+    @Expose({ name: 'total_coins' })
+    totalCoins: CoinModel = new CoinModel();
+
+    @Expose({ name: 'unlocked_coins' })
+    unlockedCoins: CoinModel = new CoinModel();
+
+    @Expose({ name: 'locked_coins' })
+    lockedCoins: CoinModel = new CoinModel();
+
+    @Expose({ name: 'locked_delegated_coins' })
+    lockedDelegatedCoins: CoinModel = new CoinModel();
+
+    @Expose({ name: 'locked_bank_coins' })
+    lockedBankCoins: CoinModel = new CoinModel();
+}
+
+class AirdropModel {
+    @Expose()
+    address = '';
+
+    @Expose({ name: 'action_completed' })
+    actionCompleted: boolean[] = [];
+
+    @Expose({ name: 'initial_claimable_amount' })
+    initialClaimableAmount: CoinModel[] = [];
+}
 
 export class RewardModel {
     @Expose({ name: 'validator_address' })
@@ -26,13 +70,9 @@ class UnbondingEntriesModel {
     completionTime?: string;
 
     @Transform(({ value }) => {
-        if (!value) {
-            return undefined;
-        }
-
-        return value.low;
+        return new Long(value.low, value.high, value.unsigned);
     })
-    height?: string;
+    height = new Long(0);
 }
 
 export class UnbondingModel {
@@ -41,6 +81,41 @@ export class UnbondingModel {
 
     @Expose({ name: 'validator_address' })
     validatorAddress?: string;
+}
+
+class RedelegationEntryModel {
+    @Expose({ name: 'completion_time' })
+    completionTime?: string;
+}
+
+class RedelegationEntriesModel {
+    @Expose()
+    balance?: string;
+
+    @Expose({ name: 'redelegation_entry' })
+    @Type(() => RedelegationEntryModel)
+    redelegationEntry: RedelegationEntryModel = new RedelegationEntryModel();
+}
+
+class RedelegationDetailsModel {
+    @Expose({ name: 'delegator_address' })
+    delegatorAddress?: string;
+
+    @Expose({ name: 'validator_src_address' })
+    validatorSrcAddress?: string;
+
+    @Expose({ name: 'validator_dst_address' })
+    validatorDstAddress?: string;
+}
+
+export class RedelegationModel {
+    @Expose()
+    @Type(() => RedelegationDetailsModel)
+    redelegation: RedelegationDetailsModel = new RedelegationDetailsModel();
+
+    @Expose()
+    @Type(() => RedelegationEntriesModel)
+    entries: RedelegationEntriesModel[] = [];
 }
 
 class AccountModel {
@@ -73,8 +148,17 @@ class AccountModel {
     @Type(() => UnbondingModel)
     unbondings: UnbondingModel[] = [];
 
+    @Type(() => RedelegationModel)
+    redelegations: RedelegationModel[] = [];
+
     @Type(() => CoinModel)
     commissions: CoinModel[] = [];
+
+    @Type(() => VestingModel)
+    vesting: VestingModel | null = null;
+
+    @Type(() => AirdropModel)
+    airdrop: AirdropModel = new AirdropModel();
 }
 
 export default AccountModel;

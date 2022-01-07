@@ -28,7 +28,9 @@ const UnbondingsList = (props: IProps): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <Link to={`${NavigationConstants.BLOCKS}/${value.height}`}>{value.height}</Link>
+                    <Link to={`${NavigationConstants.BLOCKS}/${value.height.toString()}`}>
+                        {value.height.toString()}
+                    </Link>
                 </td>
                 <td data-label={head[2]} className="text-end">
                     <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(value.balance)).format('0,0.000000')} />

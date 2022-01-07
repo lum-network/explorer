@@ -3,13 +3,13 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Badge, BlocksList, DelegatorsList, SmallerDecimal } from 'components';
-import { Card, Loading } from 'frontend-elements';
+import { Card, Loading, ValidatorLogo } from 'frontend-elements';
 import validatorLogo from 'assets/images/validatorDark.svg';
-import placeholderValidator from 'assets/images/placeholderValidator.svg';
 import { i18n, NumbersUtils, StringsUtils, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
 import { NavigationConstants, NumberConstants } from 'constant';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import genesisFlag from 'assets/images/genesisFlag.svg';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -17,12 +17,14 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const validator = useSelector((state: RootState) => state.validators.validator);
     const validators = useSelector((state: RootState) => state.validators.validators);
+    const stats = useSelector((state: RootState) => state.core.stats);
     const loading = useSelector((state: RootState) => state.loading.models.validators);
 
     const { id } = props.match.params;
 
     const [rank, setRank] = useState<number | null>(null);
     const [totalVotingPower, setTotalVotingPower] = useState<number | null>(null);
+    const [isGenesis, setIsGenesis] = useState(false);
 
     useEffect(() => {
         dispatch.validators.fetchValidators().finally(() => null);
@@ -36,7 +38,21 @@ const ValidatorPage = (props: IProps): JSX.Element => {
 
         setRank(ValidatorsUtils.findRank(validators, validator));
         setTotalVotingPower(NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)));
+        setIsGenesis(ValidatorsUtils.isGenesis(validators, validator));
     }, [validators, validator]);
+
+    const renderGenesisBadge = () => {
+        if (!isGenesis) {
+            return null;
+        }
+
+        return (
+            <div className="ms-3 genesis-flag-container-big">
+                <img src={genesisFlag} alt="genesis" className="me-2" />
+                {i18n.t('genesis')}
+            </div>
+        );
+    };
 
     const renderInformation = (): JSX.Element => {
         if (loading) {
@@ -69,21 +85,24 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         <div className="rank-dot-container">
                             <p className="rank-dot-text">{rank}</p>
                         </div>
-                        {/*TODO: Add logo */}
-                        <img
-                            className="validator-logo placeholder-image"
-                            alt="validators logo"
-                            src={placeholderValidator}
+                        <ValidatorLogo
+                            validatorAddress={validator.operatorAddress || ''}
+                            chainId={stats.chainId}
+                            githubUrl={NavigationConstants.GITHUB_ASSETS}
+                            className="validator-logo"
+                            width={72}
+                            height={72}
                         />
                     </div>
                     <div className="d-flex flex-column flex-grow-1">
                         <div className="row mb-3 mb-xl-4 mt-3 mt-md-0">
-                            <div className="col-12">
+                            <div className="col-12 d-flex align-items-center flex-row flex-wrap-reverse">
                                 <h1>
-                                    {validator.description.identity ||
-                                        validator.description.moniker ||
+                                    {validator.description.moniker ||
+                                        validator.description.identity ||
                                         StringsUtils.trunc(validator.operatorAddress || '')}
                                 </h1>
+                                {renderGenesisBadge()}
                             </div>
                         </div>
                         <div className="row">
@@ -110,7 +129,15 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
                             <p className="text-break">
                                 {validator.description.website ? (
-                                    <a rel="noreferrer" target="_blank" href={validator.description.website}>
+                                    <a
+                                        rel="noreferrer"
+                                        target="_blank"
+                                        href={
+                                            validator.description.website.startsWith('http')
+                                                ? validator.description.website
+                                                : `https://${validator.description.website}`
+                                        }
+                                    >
                                         {validator.description.website}
                                     </a>
                                 ) : (
@@ -155,15 +182,9 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                             <p>Soon</p>
                         </div>
                         <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
-                            <h4>{i18n.t('details')}</h4>
-                        </div>
-                        <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
-                            <p>{validator.description.details || '-'}</p>
-                        </div>
-                        <div className="col-lg-2 col-md-3 col-sm-4">
                             <h4>{i18n.t('votingPower')}</h4>
                         </div>
-                        <div className="col-lg-4 col-md-9 col-sm-8">
+                        <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                             <p className="d-flex align-items-center">
                                 {totalVotingPower &&
                                     numeral(
@@ -177,6 +198,12 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                                 />
                                 <span className="ms-2 color-type">{LumConstants.LumDenom}</span>)
                             </p>
+                        </div>
+                        <div className="col-lg-2 col-md-3 col-sm-4">
+                            <h4>{i18n.t('details')}</h4>
+                        </div>
+                        <div className="col-lg-4 col-md-9 col-sm-8">
+                            <p>{validator.description.details || '-'}</p>
                         </div>
                     </div>
                 </Card>

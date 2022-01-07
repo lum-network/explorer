@@ -26,3 +26,17 @@ export const findRank = (validators: ValidatorsModel[], validator: ValidatorsMod
 
     return index + 1;
 };
+
+export const isGenesis = (validators: ValidatorsModel[], validator: ValidatorsModel): boolean => {
+    if (!validators || !validators.length || !validator) {
+        return false;
+    }
+
+    const res = validators.find((value) => value.operatorAddress === validator.operatorAddress);
+
+    if (!res) {
+        return false;
+    }
+
+    return res.genesis;
+};

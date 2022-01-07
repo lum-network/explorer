@@ -53,6 +53,21 @@ export default {
     senders: 'Senders',
     receivers: 'Receivers',
     inflation: 'Inflation',
+    srcValidator: 'Source validator',
+    dstValidator: 'Destination validator',
+    genesis: 'Genesis',
+    delayed: 'Delayed',
+    endTime: 'End time',
+    from: 'From',
+    to: 'To',
+    redelegations: 'Redelegations',
+    noRedelegation: 'No redelegation',
+    vesting: 'Vesting',
+    noVestingToken: 'No vesting token',
+    startsAt: 'Starts at',
+    vestingSchedule: 'Vesting schedule',
+    airdrop: 'Airdrop',
+    noData: 'No data',
 
     // Layout
     dashboard: 'Board',
@@ -80,6 +95,10 @@ export default {
     submitProposalMessage: 'Submit proposal',
     depositMessage: 'Deposit',
     voteMessage: 'Vote',
+    createVestingAccount: 'Create vesting account',
+    redelegateMessage: 'Redelegate',
+    getCommission: 'Get commission',
+    unjail: 'Unjail',
 
     // Badge status
     badgeJailed: 'Jailed',
@@ -98,6 +117,10 @@ export default {
     noUnbondedToken: 'No unbonded token',
     noDelegatedToken: 'No delegated token',
     noAccountFound: 'Account not found',
+    voteUnclaimAction: 'Vote reward not done yet',
+    voteClaimAction: 'Vote reward claimed',
+    delegateUnclaimAction: 'Delegate reward not done yet',
+    delegateClaimAction: 'Delegate reward claimed',
 
     // Block
     blockTime: 'Block time',

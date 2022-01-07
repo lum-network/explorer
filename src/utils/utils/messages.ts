@@ -7,13 +7,17 @@ import undelegateLogo from 'assets/images/messageTypes/undelegate.svg';
 import sendLogo from 'assets/images/messageTypes/send.svg';
 import multiSendLogo from 'assets/images/messageTypes/multiSend.svg';
 import getRewardLogo from 'assets/images/messageTypes/reward.svg';
-import beamLogo from 'assets/images/messageTypes/beam.svg';
+import placeholderLogo from 'assets/images/messageTypes/beam.svg';
 import beamOpenLogo from 'assets/images/messageTypes/openBeam.svg';
 import beamUpdateLogo from 'assets/images/messageTypes/updateBeam.svg';
 import beamClaimLogo from 'assets/images/messageTypes/claimBeam.svg';
 import submitProposalLogo from 'assets/images/messageTypes/submitProposal.svg';
 import depositLogo from 'assets/images/messageTypes/deposit.svg';
 import voteLogo from 'assets/images/messageTypes/vote.svg';
+import redelegateLogo from 'assets/images/messageTypes/redelegate.svg';
+import gearsLogo from 'assets/images/messageTypes/gears.svg';
+import commissionLogo from 'assets/images/messageTypes/commission.svg';
+import unjailLogo from 'assets/images/messageTypes/unjail.svg';
 
 export const name = (type?: MessagesType | null): { text: string; icon: string } => {
     switch (type) {
@@ -56,7 +60,19 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
         case MessagesType.VOTE:
             return { text: i18n.t('voteMessage'), icon: voteLogo };
 
+        case MessagesType.BEGIN_REDELEGATE:
+            return { text: i18n.t('redelegateMessage'), icon: redelegateLogo };
+
+        case MessagesType.CREATE_VESTING_ACCOUNT:
+            return { text: i18n.t('createVestingAccount'), icon: gearsLogo };
+
+        case MessagesType.WITHDRAW_VALIDATOR_COMMISSION:
+            return { text: i18n.t('getCommission'), icon: commissionLogo };
+
+        case MessagesType.UNJAIL:
+            return { text: i18n.t('unjail'), icon: unjailLogo };
+
         default:
-            return { text: type || '', icon: beamLogo };
+            return { text: type || '', icon: placeholderLogo };
     }
 };

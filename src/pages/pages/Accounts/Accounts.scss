@@ -38,3 +38,31 @@
 .app-dot.grey {
     background-color: $color-dot-grey;
 }
+
+.app-dot.yellow {
+    background-color: $color-dot-yellow;
+}
+
+.app-dot.red {
+    background-color: $color-dot-red;
+}
+
+.help {
+    background-color: $color-primary;
+    color: $color-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+    .help {
+        background-color: $color-white;
+        color: $color-primary;
+    }
+}

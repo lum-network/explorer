@@ -36,8 +36,9 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
             return;
         }
 
-        setTotal(GovernanceUtils.sumOfVotes(proposal.result));
+        const total = GovernanceUtils.sumOfVotes(proposal.result);
 
+        setTotal(total);
         setVoteYes(NumbersUtils.getPercentage(proposal.result.yes, total));
         setVoteNo(NumbersUtils.getPercentage(proposal.result.no, total));
         setVoteNoWithVeto(NumbersUtils.getPercentage(proposal.result.noWithVeto, total));
@@ -142,7 +143,7 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('id').toUpperCase()}</h4>
                         {'#'}
-                        {proposal.proposalId}
+                        {proposal.proposalId.toString()}
                     </div>
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('status')}</h4>
@@ -150,7 +151,7 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                     </div>
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('proposer')}</h4>
-                        TODO: Proposer name
+                        coming soon
                     </div>
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('submitTime')}</h4>
@@ -188,8 +189,15 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                         )}
                     </div>
                     <div className="col-12">
-                        <h4>{i18n.t('details')}</h4>
-                        {proposal.content.description}
+                        <h4 className="mb-2">{i18n.t('details')}</h4>
+                        {proposal.content.description
+                            ? proposal.content.description.split('\\n').map((line, i) => (
+                                  <span key={i}>
+                                      {line}
+                                      <br />
+                                  </span>
+                              ))
+                            : ''}
                     </div>
                 </div>
                 {renderResult()}
@@ -202,7 +210,7 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
             <div className="mt-3 mb-4 d-flex align-items-center">
                 <h2 className="me-3">
                     <img alt="proposal" src={proposalLogo} /> {i18n.t('proposal')} #
-                    {(proposal && proposal.proposalId) || id}
+                    {(proposal && proposal.proposalId.toString()) || id}
                 </h2>
                 {proposal && <Badge proposalStatus={proposal.status} />}
             </div>

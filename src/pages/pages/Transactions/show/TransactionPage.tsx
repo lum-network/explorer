@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MessageType, Badge, Tooltip, SmallerDecimal, VoteOption } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import moment from 'moment-timezone';
-import { NavigationConstants, SystemConstants } from 'constant';
+import { NavigationConstants, NumberConstants, SystemConstants } from 'constant';
 import { i18n, StringsUtils, NumbersUtils } from 'utils';
 import { MessageModel } from 'models';
 import blockLogo from 'assets/images/blockDark.svg';
@@ -95,7 +95,18 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('minSelfDelegation')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {numeral(value.minSelfDelegation).format('0.000000')}
+                        {value.minSelfDelegation ? (
+                            <>
+                                <SmallerDecimal
+                                    nb={numeral(NumbersUtils.convertUnitNumber(value.minSelfDelegation)).format(
+                                        '0,0.000000',
+                                    )}
+                                />
+                                <span className="color-type ms-2">{LumConstants.LumDenom}</span>
+                            </>
+                        ) : (
+                            '-'
+                        )}
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('delegatorAddress')}</h5>
@@ -139,7 +150,15 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {value.description.website ? (
-                            <a rel="noreferrer" target="_blank" href={value.description.website}>
+                            <a
+                                rel="noreferrer"
+                                target="_blank"
+                                href={
+                                    value.description.website.startsWith('http')
+                                        ? value.description.website
+                                        : `https://${value.description.website}`
+                                }
+                            >
                                 {value.description.website}
                             </a>
                         ) : (
@@ -154,19 +173,31 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('comRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {numeral(value.commission.rate).format('0.00%') || '-'}
+                        {value.commission.rate
+                            ? numeral(
+                                  parseFloat(value.commission.rate || '') / NumberConstants.CLIENT_PRECISION,
+                              ).format('0.00%')
+                            : '-'}
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('comMaxRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {numeral(value.commission.maxRate).format('0.00%') || '-'}
+                        {value.commission.maxRate
+                            ? numeral(
+                                  parseFloat(value.commission.maxRate || '') / NumberConstants.CLIENT_PRECISION,
+                              ).format('0.00%')
+                            : '-'}
                     </div>
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('comMaxChangeRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        {numeral(value.commission.maxChangeRate).format('0.00%') || '-'}
+                        {value.commission.maxChangeRate
+                            ? numeral(
+                                  parseFloat(value.commission.maxChangeRate || '') / NumberConstants.CLIENT_PRECISION,
+                              ).format('0.00%')
+                            : '-'}
                     </div>
                 </div>
             );
@@ -254,7 +285,36 @@ const TransactionPage = (props: IProps): JSX.Element => {
         }
 
         if (message instanceof MessageModel.EditValidator) {
-            return <div>EditValidator</div>;
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('validatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('details')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.details || '-'}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('moniker')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.moniker || '-'}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('website')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.description.website}</div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('identity')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">{value.description.identity || '-'}</div>
+                </div>
+            );
         }
 
         if (message instanceof MessageModel.MultiSend) {
@@ -348,6 +408,23 @@ const TransactionPage = (props: IProps): JSX.Element => {
             );
         }
 
+        if (message instanceof MessageModel.WithdrawValidatorCommission) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('validatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                </div>
+            );
+        }
+
         if (message instanceof MessageModel.SubmitProposal) {
             const { value } = message;
 
@@ -389,7 +466,9 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('proposalId')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId}`}>{value.proposalId}</Link>
+                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId.toString()}`}>
+                            {value.proposalId.toString()}
+                        </Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('depositorAddress')}</h5>
@@ -427,7 +506,9 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('proposalId')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId}`}>{value.proposalId}</Link>
+                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId.toString()}`}>
+                            {value.proposalId.toString()}
+                        </Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('voterAddress')}</h5>
@@ -467,6 +548,120 @@ const TransactionPage = (props: IProps): JSX.Element => {
             if (value) {
                 return <div className="row align-items-center">{listItem(value as Record<string, unknown>)}</div>;
             }
+        }
+
+        if (message instanceof MessageModel.CreateVestingAccount) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('fromAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.fromAddress}`}>{value.fromAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2  mb-md-3">
+                        <h5>{i18n.t('toAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.toAddress}`}>{value.toAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <div className="d-flex">
+                            {value.amount && value.amount[0] ? (
+                                <>
+                                    {NumbersUtils.formatNumber(value.amount[0], true)}
+                                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('delayed')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.delayed}</div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('endTime')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <p>{`${moment.utc(value.endTime.toNumber() * 1000).fromNow()} (${moment
+                            .utc(value.endTime.toNumber() * 1000)
+                            .tz(SystemConstants.TIMEZONE)
+                            .format('lll')})`}</p>
+                    </div>
+                </div>
+            );
+        }
+
+        if (message instanceof MessageModel.BeginRedelegate) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('delegatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
+                            {value.delegatorAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('srcValidator')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorSrcAddress}`}>
+                            {value.validatorSrcAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('dstValidator')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorDstAddress}`}>
+                            {value.validatorDstAddress}
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <div className="d-flex">
+                            {value.amount ? (
+                                <>
+                                    {NumbersUtils.formatNumber(value.amount, true)}
+                                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        if (message instanceof MessageModel.Unjail) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('validatorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
+                            {value.validatorAddress}
+                        </Link>
+                    </div>
+                </div>
+            );
         }
 
         if (message) {
