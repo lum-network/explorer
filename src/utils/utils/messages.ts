@@ -64,13 +64,28 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
             return { text: i18n.t('redelegateMessage'), icon: redelegateLogo };
 
         case MessagesType.CREATE_VESTING_ACCOUNT:
-            return { text: i18n.t('createVestingAccount'), icon: gearsLogo };
+            return { text: i18n.t('createVestingAccountMessage'), icon: gearsLogo };
 
         case MessagesType.WITHDRAW_VALIDATOR_COMMISSION:
-            return { text: i18n.t('getCommission'), icon: commissionLogo };
+            return { text: i18n.t('getCommissionMessage'), icon: commissionLogo };
 
         case MessagesType.UNJAIL:
-            return { text: i18n.t('unjail'), icon: unjailLogo };
+            return { text: i18n.t('unjailMessage'), icon: unjailLogo };
+
+        case MessagesType.IBC_ACKNOWLEDGEMENT:
+            return { text: i18n.t('ibcAcknowledgementMessage'), icon: placeholderLogo };
+
+        case MessagesType.IBC_UPDATE_CLIENT:
+            return { text: i18n.t('ibcUpdateClientMessage'), icon: placeholderLogo };
+
+        case MessagesType.IBC_TIMEOUT:
+            return { text: i18n.t('ibcTimeoutMessage'), icon: placeholderLogo };
+
+        case MessagesType.IBC_TRANSFER:
+            return { text: i18n.t('ibcTransferMessage'), icon: placeholderLogo };
+
+        case MessagesType.IBC_RECV_PACKET:
+            return { text: i18n.t('ibcRecvPacketMessage'), icon: placeholderLogo };
 
         default:
             return { text: type || '', icon: placeholderLogo };

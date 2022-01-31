@@ -95,10 +95,15 @@ export default {
     submitProposalMessage: 'Submit proposal',
     depositMessage: 'Deposit',
     voteMessage: 'Vote',
-    createVestingAccount: 'Create vesting account',
+    createVestingAccountMessage: 'Create vesting account',
     redelegateMessage: 'Redelegate',
-    getCommission: 'Get commission',
-    unjail: 'Unjail',
+    getCommissionMessage: 'Get commission',
+    unjailMessage: 'Unjail',
+    ibcAcknowledgementMessage: 'IBC Acknowledgement',
+    ibcUpdateClientMessage: 'IBC Client update',
+    ibcTimeoutMessage: 'IBC Timeout',
+    ibcTransferMessage: 'IBC Transfer',
+    ibcRecvPacketMessage: 'IBC Receive packet',
 
     // Badge status
     badgeJailed: 'Jailed',
