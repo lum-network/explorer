@@ -127,6 +127,10 @@ export default {
     delegateUnclaimAction: 'Delegate reward not done yet',
     delegateClaimAction: 'Delegate reward claimed',
 
+    // Beam
+    beamDetails: 'Details for beam',
+    noBeamFound: 'Beam not found',
+
     // Block
     blockTime: 'Block time',
     blockHash: 'Block hash',
