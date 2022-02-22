@@ -2,7 +2,7 @@ import { AccountModel } from 'models';
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import { plainToClass } from 'class-transformer';
-import { ApiAccounts } from '../../../api';
+import { ApiAccounts } from 'api';
 
 interface AccountsState {
     account: AccountModel;
