@@ -7,7 +7,7 @@ import * as ApiStats from './api/stats';
 import * as ApiGovernance from './api/governance';
 import { HttpClient } from 'utils';
 import { ApiConstants } from 'constant';
-import { LumModel } from 'models';
+import { BeamModel, LumModel } from 'models';
 
 class ExplorerApi extends HttpClient {
     private static instance?: ExplorerApi;
@@ -24,7 +24,13 @@ class ExplorerApi extends HttpClient {
         return this.instance;
     }
 
+    // Core
+
     public getLum = () => this.request<LumModel>({ url: ApiConstants.LUM_URL }, LumModel);
+
+    // Beams
+
+    public getBeam = (id: string) => this.request<BeamModel>({ url: `${ApiConstants.BEAMS_URL}/${id}` }, BeamModel);
 }
 
 export default ExplorerApi.getInstance();
