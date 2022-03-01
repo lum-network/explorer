@@ -68,6 +68,7 @@ export default {
     vestingSchedule: 'Vesting schedule',
     airdrop: 'Airdrop',
     noData: 'No data',
+    secret: 'Secret',
 
     // Layout
     dashboard: 'Board',

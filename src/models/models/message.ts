@@ -206,7 +206,15 @@ export class Vote extends MessageModel {
     value: VoteValue = new VoteValue();
 }
 
-class OpenBeamValue {}
+class OpenBeamValue {
+    id?: string;
+
+    creator = '';
+
+    amount?: CoinModel;
+
+    secret = '';
+}
 
 export class OpenBeam extends MessageModel {
     @Type(() => OpenBeamValue)
