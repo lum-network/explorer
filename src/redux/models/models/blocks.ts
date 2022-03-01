@@ -15,28 +15,28 @@ const blocks = createModel<RootModel>()({
         block: plainToClass(BlocksModel, null),
     } as BlocksState,
     reducers: {
-        setBlocks(state, blocks: BlocksModel[]) {
+        SET_BLOCKS(state, blocks: BlocksModel[]) {
             return {
                 ...state,
                 blocks,
             };
         },
 
-        setBlock(state, block: BlocksModel) {
+        SET_BLOCK(state, block: BlocksModel) {
             return {
                 ...state,
                 block,
             };
         },
 
-        resetBlock(state) {
+        RESET_BLOCK(state) {
             return {
                 ...state,
                 block: plainToClass(BlocksModel, null),
             };
         },
 
-        addNewBlock(state, block: BlocksModel) {
+        ADD_NEW_BLOCK(state, block: BlocksModel) {
             let newBlocks = state.blocks;
 
             newBlocks.unshift(block);
@@ -55,25 +55,25 @@ const blocks = createModel<RootModel>()({
             try {
                 const blocks = await ApiBlocks.fetchBlocks();
 
-                dispatch.blocks.setBlocks(blocks);
+                dispatch.blocks.SET_BLOCKS(blocks);
             } catch (e) {}
         },
 
         async getBlock(id: string, state) {
             // We reset "block" only when we request a different block
             if (state.blocks.block && state.blocks.block.height !== id) {
-                dispatch.blocks.resetBlock();
+                dispatch.blocks.RESET_BLOCK();
             }
 
             try {
                 const block = await ApiBlocks.getBlock(id);
 
-                dispatch.blocks.setBlock(block);
+                dispatch.blocks.SET_BLOCK(block);
             } catch (e) {}
         },
 
         addBlock(block: BlocksModel) {
-            dispatch.blocks.addNewBlock(block);
+            dispatch.blocks.ADD_NEW_BLOCK(block);
         },
     }),
 });

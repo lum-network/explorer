@@ -26,7 +26,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
     return (
         <>
             <h2 className="mt-3 mb-4">
-                <img alt="Beam" src={beam} /> {i18n.t('beamDetails')} {id}
+                <img alt="Beam" src={beam} /> {i18n.t('beamDetails')}
             </h2>
             {renderInformation()}
         </>

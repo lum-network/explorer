@@ -13,14 +13,14 @@ const accounts = createModel<RootModel>()({
         account: plainToClass(AccountModel, null),
     } as AccountsState,
     reducers: {
-        setAccount(state, account: AccountModel) {
+        SET_ACCOUNT(state, account: AccountModel) {
             return {
                 ...state,
                 account,
             };
         },
 
-        resetAccount(state) {
+        RESET_ACCOUNT(state) {
             return {
                 ...state,
                 account: plainToClass(AccountModel, null),
@@ -31,13 +31,13 @@ const accounts = createModel<RootModel>()({
         async getAccount(id: string, state) {
             // We reset "account" only when we request a different block
             if (state.accounts.account && state.accounts.account.address !== id) {
-                dispatch.accounts.resetAccount();
+                dispatch.accounts.RESET_ACCOUNT();
             }
 
             try {
                 const account = await ApiAccounts.getAccount(id);
 
-                dispatch.accounts.setAccount(account);
+                dispatch.accounts.SET_ACCOUNT(account);
             } catch (e) {}
         },
     }),

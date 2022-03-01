@@ -15,14 +15,14 @@ const core = createModel<RootModel>()({
         lum: plainToClass(LumModel, null),
     } as CoreState,
     reducers: {
-        setStats(state, stats: StatsModel) {
+        SET_STATS(state, stats: StatsModel) {
             return {
                 ...state,
                 stats,
             };
         },
 
-        setLum(state, lum: LumModel) {
+        SET_LUM(state, lum: LumModel) {
             return {
                 ...state,
                 lum,
@@ -36,13 +36,13 @@ const core = createModel<RootModel>()({
             async getStats() {
                 const stats = await ApiStats.getStats();
 
-                dispatch.core.setStats(stats);
+                dispatch.core.SET_STATS(stats);
             },
 
             async getLum() {
                 const lum = await client.getLum();
 
-                dispatch.core.setLum(lum);
+                dispatch.core.SET_LUM(lum);
             },
         };
     },
