@@ -14,6 +14,7 @@ import {
     ProposalsPage,
     ProposalPage,
     BeamPage,
+    BeamsPage,
 } from 'pages';
 import { Route, BrowserRouter as Router, Switch, Redirect, useLocation } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
@@ -52,7 +53,8 @@ const RootNavigator = (): JSX.Element => {
                         <ValidatorsPage />
                     </Route>
                     <Route path={`${NavigationConstants.ACCOUNT}/:id`} component={AccountPage} />
-                    <Route path={`${NavigationConstants.BEAM}/:id`} component={BeamPage} />
+                    <Route path={`${NavigationConstants.BEAMS}/:id`} component={BeamPage} />
+                    <Route path={NavigationConstants.BEAMS} component={BeamsPage} />
                     <Route path={`${NavigationConstants.PROPOSALS}/:id`} component={ProposalPage} />
                     <Route path={NavigationConstants.PROPOSALS}>
                         <ProposalsPage />

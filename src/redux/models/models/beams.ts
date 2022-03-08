@@ -6,17 +6,26 @@ import Api from 'api';
 
 interface BeamsState {
     beam: BeamModel;
+    beams: BeamModel[];
 }
 
 const beams = createModel<RootModel>()({
     state: {
         beam: plainToClass(BeamModel, null),
+        beams: [],
     } as BeamsState,
     reducers: {
         SET_BEAM(state, beam: BeamModel) {
             return {
                 ...state,
                 beam,
+            };
+        },
+
+        SET_BEAMS(state, beams: BeamModel[]) {
+            return {
+                ...state,
+                beams,
             };
         },
 
@@ -32,6 +41,12 @@ const beams = createModel<RootModel>()({
             const beam = await Api.getBeam(id);
 
             dispatch.beams.SET_BEAM(beam);
+        },
+
+        async fetchBeams() {
+            const beams = await Api.fetchBeams();
+
+            dispatch.beams.SET_BEAMS(beams);
         },
     }),
 });

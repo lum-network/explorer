@@ -31,6 +31,8 @@ class ExplorerApi extends HttpClient {
     // Beams
 
     public getBeam = (id: string) => this.request<BeamModel>({ url: `${ApiConstants.BEAMS_URL}/${id}` }, BeamModel);
+
+    public fetchBeams = () => this.request<BeamModel[]>({ url: ApiConstants.BEAMS_URL }, BeamModel);
 }
 
 export default ExplorerApi.getInstance();

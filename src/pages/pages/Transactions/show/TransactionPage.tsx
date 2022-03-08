@@ -536,7 +536,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                             <h5>{i18n.t('id')}</h5>
                         </div>
                         <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                            <Link to={`${NavigationConstants.BEAM}/${value.id}`}>{value.id}</Link>
+                            <Link to={`${NavigationConstants.BEAMS}/${value.id}`}>{value.id}</Link>
                         </div>
                         <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                             <h5>{i18n.t('amount')}</h5>

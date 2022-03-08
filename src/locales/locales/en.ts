@@ -131,6 +131,10 @@ export default {
     // Beam
     beamDetails: 'Beam details',
     noBeamFound: 'Beam not found',
+    creatorAddress: 'Creator address',
+    closed: 'Closed',
+    canceled: 'Canceled',
+    unspecified: 'Unspecified',
 
     // Block
     blockTime: 'Block time',

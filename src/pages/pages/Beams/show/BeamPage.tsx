@@ -38,7 +38,15 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
             );
         }
 
-        return <Card className="mb-5">Test</Card>;
+        return (
+            <Card className="mb-5">
+                <div className="row g-4 g-md-3">
+                    <div className="col-lg-2 col-md-3 col-sm-4">
+                        <h4></h4>
+                    </div>
+                </div>
+            </Card>
+        );
     };
 
     return (
