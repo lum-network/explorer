@@ -15,7 +15,7 @@ const search = createModel<RootModel>()({
         searchText: '',
     } as SearchState,
     reducers: {
-        resetSearch(state) {
+        RESET_SEARCH(state) {
             return {
                 ...state,
                 type: null,
@@ -23,7 +23,7 @@ const search = createModel<RootModel>()({
             };
         },
 
-        setSearchResult(state, payload?: { type: string; data: string }) {
+        SET_SEARCH_RESULT(state, payload?: { type: string; data: string }) {
             if (!payload) {
                 return {
                     ...state,
@@ -41,7 +41,7 @@ const search = createModel<RootModel>()({
             };
         },
 
-        setSearchText(state, searchText: string) {
+        SET_SEARCH_TEXT(state, searchText: string) {
             return {
                 ...state,
                 searchText,
@@ -50,18 +50,18 @@ const search = createModel<RootModel>()({
     },
     effects: (dispatch) => ({
         async getSearch(text: string) {
-            dispatch.search.resetSearch();
-            dispatch.search.setSearchText(text);
+            dispatch.search.RESET_SEARCH();
+            dispatch.search.SET_SEARCH_TEXT(text);
 
             try {
                 const result = await ApiSearch.search(text);
 
                 if (result) {
-                    dispatch.search.setSearchResult(result);
+                    dispatch.search.SET_SEARCH_RESULT(result);
 
                     return result;
                 } else {
-                    dispatch.search.setSearchResult();
+                    dispatch.search.SET_SEARCH_RESULT();
                 }
             } catch (e) {}
         },

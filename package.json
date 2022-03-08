@@ -20,6 +20,7 @@
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "react-minimal-pie-chart": "^8.2.0",
+        "react-rating": "^2.0.5",
         "react-redux": "^7.2.5",
         "react-router-dom": "^5.3.0",
         "react-scripts": "4.0.3",

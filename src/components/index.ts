@@ -13,3 +13,4 @@ export { default as Tooltip } from './components/Tooltip/Tooltip';
 export { default as SmallerDecimal } from './components/SmallerDecimal/SmallerDecimal';
 export { default as VoteOption } from './components/VoteOption/VoteOption';
 export { default as VestingList } from './components/vesting/VestingList/VestingList';
+export { default as Rating } from './components/Rating/Rating';

@@ -68,6 +68,7 @@ export default {
     vestingSchedule: 'Vesting schedule',
     airdrop: 'Airdrop',
     noData: 'No data',
+    secret: 'Secret',
 
     // Layout
     dashboard: 'Board',
@@ -126,6 +127,17 @@ export default {
     voteClaimAction: 'Vote reward claimed',
     delegateUnclaimAction: 'Delegate reward not done yet',
     delegateClaimAction: 'Delegate reward claimed',
+
+    // Beam
+    beams: 'Beams',
+    beamDetails: 'Beam details',
+    noBeamFound: 'Beam not found',
+    creatorAddress: 'Creator address',
+    closed: 'Closed',
+    canceled: 'Canceled',
+    unspecified: 'Unspecified',
+    rewardAmount: 'Reward amount',
+    ratings: 'Ratings',
 
     // Block
     blockTime: 'Block time',
