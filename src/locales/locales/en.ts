@@ -135,6 +135,8 @@ export default {
     closed: 'Closed',
     canceled: 'Canceled',
     unspecified: 'Unspecified',
+    rewardAmount: 'Reward amount',
+    ratings: 'Ratings',
 
     // Block
     blockTime: 'Block time',
