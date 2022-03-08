@@ -81,7 +81,7 @@ const BeamsPage = (): JSX.Element => {
     return (
         <>
             <h2 className="mt-3 mb-4">
-                <img alt="Beam" src={beamLogo} /> {i18n.t('beamDetails')}
+                <img alt="Beam" src={beamLogo} /> {i18n.t('beams')}
             </h2>
             {renderInformation()}
         </>

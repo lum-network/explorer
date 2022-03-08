@@ -129,6 +129,7 @@ export default {
     delegateClaimAction: 'Delegate reward claimed',
 
     // Beam
+    beams: 'Beams',
     beamDetails: 'Beam details',
     noBeamFound: 'Beam not found',
     creatorAddress: 'Creator address',
