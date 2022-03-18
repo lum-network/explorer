@@ -15,28 +15,28 @@ const transactions = createModel<RootModel>()({
         transaction: plainToClass(TransactionsModel, null),
     } as TransactionsState,
     reducers: {
-        setTransactions(state, transactions: TransactionsModel[]) {
+        SET_TRANSACTIONS(state, transactions: TransactionsModel[]) {
             return {
                 ...state,
                 transactions,
             };
         },
 
-        setTransaction(state, transaction: TransactionsModel) {
+        SET_TRANSACTION(state, transaction: TransactionsModel) {
             return {
                 ...state,
                 transaction,
             };
         },
 
-        resetTransaction(state) {
+        RESET_TRANSACTION(state) {
             return {
                 ...state,
                 transaction: plainToClass(TransactionsModel, {}),
             };
         },
 
-        addNewTransaction(state, transaction: TransactionsModel) {
+        ADD_NEW_TRANSACTION(state, transaction: TransactionsModel) {
             let newTransactions = state.transactions;
 
             newTransactions.unshift(transaction);
@@ -54,25 +54,25 @@ const transactions = createModel<RootModel>()({
             try {
                 const transactions = await ApiTransactions.fetchTransactions();
 
-                dispatch.transactions.setTransactions(transactions);
+                dispatch.transactions.SET_TRANSACTIONS(transactions);
             } catch (e) {}
         },
 
         async getTransaction(id: string, state) {
             // We reset "transaction" only when we request a different transaction
             if (state.transactions.transaction && state.transactions.transaction.hash !== id) {
-                dispatch.transactions.resetTransaction();
+                dispatch.transactions.RESET_TRANSACTION();
             }
 
             try {
                 const transaction = await ApiTransactions.getTransaction(id);
 
-                dispatch.transactions.setTransaction(transaction);
+                dispatch.transactions.SET_TRANSACTION(transaction);
             } catch (e) {}
         },
 
         addTransaction(transaction: TransactionsModel) {
-            dispatch.transactions.addNewTransaction(transaction);
+            dispatch.transactions.ADD_NEW_TRANSACTION(transaction);
         },
     }),
 });
