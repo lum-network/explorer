@@ -30,6 +30,7 @@ jobs:
         run: yarn build
         env:
           REACT_APP_BASE_URL: "https://bridge.testnet.lum.network"
+          REACT_APP_SENTRY_DSN: '${{ secrets.REACT_APP_SENTRY_DSN }}'
 
       - name: Deploy on firebase testnet project
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -64,6 +65,7 @@ jobs:
         run: yarn build
         env:
           REACT_APP_BASE_URL: "https://bridge.mainnet.lum.network"
+          REACT_APP_SENTRY_DSN: "${{ secrets.REACT_APP_SENTRY_DSN }}"
 
       - name: Deploy on firebase main net project
         uses: FirebaseExtended/action-hosting-deploy@v0
