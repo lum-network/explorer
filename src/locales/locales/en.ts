@@ -105,6 +105,8 @@ export default {
     ibcTimeoutMessage: 'IBC Timeout',
     ibcTransferMessage: 'IBC Transfer',
     ibcRecvPacketMessage: 'IBC Receive packet',
+    execMessage: 'Exec',
+    grantMessage: 'Grant',
 
     // Badge status
     badgeJailed: 'Jailed',
