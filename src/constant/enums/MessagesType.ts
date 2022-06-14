@@ -16,6 +16,11 @@ enum MessagesType {
     BEGIN_REDELEGATE = '/cosmos.staking.v1beta1.MsgBeginRedelegate',
     WITHDRAW_VALIDATOR_COMMISSION = '/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission',
     UNJAIL = '/cosmos.slashing.v1beta1.MsgUnjail',
+    IBC_TIMEOUT = '/ibc.core.channel.v1.MsgTimeout',
+    IBC_ACKNOWLEDGEMENT = '/ibc.core.channel.v1.MsgAcknowledgement',
+    IBC_UPDATE_CLIENT = '/ibc.core.client.v1.MsgUpdateClient',
+    IBC_TRANSFER = '/ibc.applications.transfer.v1.MsgTransfer',
+    IBC_RECV_PACKET = '/ibc.core.channel.v1.MsgRecvPacket',
 }
 
 export default MessagesType;

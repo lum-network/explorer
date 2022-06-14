@@ -68,6 +68,7 @@ export default {
     vestingSchedule: 'Vesting schedule',
     airdrop: 'Airdrop',
     noData: 'No data',
+    secret: 'Secret',
 
     // Layout
     dashboard: 'Board',
@@ -95,10 +96,15 @@ export default {
     submitProposalMessage: 'Submit proposal',
     depositMessage: 'Deposit',
     voteMessage: 'Vote',
-    createVestingAccount: 'Create vesting account',
+    createVestingAccountMessage: 'Create vesting account',
     redelegateMessage: 'Redelegate',
-    getCommission: 'Get commission',
-    unjail: 'Unjail',
+    getCommissionMessage: 'Get commission',
+    unjailMessage: 'Unjail',
+    ibcAcknowledgementMessage: 'IBC Acknowledgement',
+    ibcUpdateClientMessage: 'IBC Client update',
+    ibcTimeoutMessage: 'IBC Timeout',
+    ibcTransferMessage: 'IBC Transfer',
+    ibcRecvPacketMessage: 'IBC Receive packet',
 
     // Badge status
     badgeJailed: 'Jailed',
@@ -121,6 +127,17 @@ export default {
     voteClaimAction: 'Vote reward claimed',
     delegateUnclaimAction: 'Delegate reward not done yet',
     delegateClaimAction: 'Delegate reward claimed',
+
+    // Beam
+    beams: 'Beams',
+    beamDetails: 'Beam details',
+    noBeamFound: 'Beam not found',
+    creatorAddress: 'Creator address',
+    closed: 'Closed',
+    canceled: 'Canceled',
+    unspecified: 'Unspecified',
+    rewardAmount: 'Reward amount',
+    ratings: 'Ratings',
 
     // Block
     blockTime: 'Block time',

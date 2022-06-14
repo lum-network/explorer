@@ -15,7 +15,7 @@ const validators = createModel<RootModel>()({
         validator: plainToClass(ValidatorsModel, null),
     } as ValidatorsState,
     reducers: {
-        setValidators(state, validators: ValidatorsModel[]) {
+        SET_VALIDATORS(state, validators: ValidatorsModel[]) {
             return {
                 ...state,
                 validators: validators.sort(
@@ -24,14 +24,14 @@ const validators = createModel<RootModel>()({
             };
         },
 
-        setValidator(state, validator: ValidatorsModel) {
+        SET_VALIDATOR(state, validator: ValidatorsModel) {
             return {
                 ...state,
                 validator,
             };
         },
 
-        resetValidator(state) {
+        RESET_VALIDATOR(state) {
             return {
                 ...state,
                 validator: plainToClass(ValidatorsModel, null),
@@ -43,17 +43,17 @@ const validators = createModel<RootModel>()({
             try {
                 const validators = await ApiValidators.fetchValidators();
 
-                dispatch.validators.setValidators(validators);
+                dispatch.validators.SET_VALIDATORS(validators);
             } catch (e) {}
         },
 
         async getValidator(id: string) {
-            dispatch.validators.resetValidator();
+            dispatch.validators.RESET_VALIDATOR();
 
             try {
                 const validator = await ApiValidators.getValidator(id);
 
-                dispatch.validators.setValidator(validator);
+                dispatch.validators.SET_VALIDATOR(validator);
             } catch (e) {}
         },
     }),

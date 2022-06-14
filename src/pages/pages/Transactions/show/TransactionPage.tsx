@@ -530,7 +530,35 @@ const TransactionPage = (props: IProps): JSX.Element => {
             const { value } = message;
 
             if (value) {
-                return <div className="row align-items-center">{listItem(value as Record<string, unknown>)}</div>;
+                return (
+                    <div className="row align-items-center">
+                        <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                            <h5>{i18n.t('id')}</h5>
+                        </div>
+                        <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                            <Link to={`${NavigationConstants.BEAMS}/${value.id}`}>{value.id}</Link>
+                        </div>
+                        <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                            <h5>{i18n.t('amount')}</h5>
+                        </div>
+                        <div className="col-12 col-md-9 col-xl-10 text-break mb-3">
+                            <div className="d-flex">
+                                {value.amount ? (
+                                    <>
+                                        {NumbersUtils.formatNumber(value.amount, true)}
+                                        <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                                    </>
+                                ) : (
+                                    '-'
+                                )}
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-3 col-xl-2">
+                            <h5>{i18n.t('secret')}</h5>
+                        </div>
+                        <div className="col-12 col-md-9 col-xl-10 text-break">{value.secret}</div>
+                    </div>
+                );
             }
         }
 

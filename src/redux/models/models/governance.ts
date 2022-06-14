@@ -14,19 +14,19 @@ const governance = createModel<RootModel>()({
         proposal: null,
     } as GovernanceState,
     reducers: {
-        setProposals(state, proposals: ProposalsModel[]) {
+        SET_PROPOSALS(state, proposals: ProposalsModel[]) {
             return {
                 ...state,
                 proposals: proposals.sort((a, b) => b.proposalId.toNumber() - a.proposalId.toNumber()),
             };
         },
-        setProposal(state, proposal: ProposalsModel) {
+        SET_PROPOSAL(state, proposal: ProposalsModel) {
             return {
                 ...state,
                 proposal,
             };
         },
-        resetProposal(state) {
+        RESET_PROPOSAL(state) {
             return {
                 ...state,
                 proposal: null,
@@ -37,16 +37,16 @@ const governance = createModel<RootModel>()({
         async fetchProposals() {
             const proposals = await ApiGovernance.fetchProposals();
 
-            dispatch.governance.setProposals(proposals);
+            dispatch.governance.SET_PROPOSALS(proposals);
         },
 
         async getProposal(id: string) {
-            dispatch.governance.resetProposal();
+            dispatch.governance.RESET_PROPOSAL();
 
             const proposal = await ApiGovernance.getProposal(id);
             proposal.result = await ApiGovernance.getTally(id);
 
-            dispatch.governance.setProposal(proposal);
+            dispatch.governance.SET_PROPOSAL(proposal);
         },
 
         async getTally(id: string) {

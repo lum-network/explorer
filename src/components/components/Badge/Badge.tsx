@@ -5,10 +5,11 @@ import warning from 'assets/images/warning.svg';
 import depositPeriod from 'assets/images/depositPeriod.svg';
 import votePeriod from 'assets/images/votePeriod.svg';
 import './Badge.scss';
-import { ProposalStatus, ValidatorsType } from 'constant';
+import { BeamsStatus, ProposalStatus, ValidatorsType } from 'constant';
 import { i18n } from 'utils';
 
 interface IProps {
+    beamsStatus?: BeamsStatus;
     text?: boolean;
     proposalStatus?: ProposalStatus;
     validatorsType?: ValidatorsType;
@@ -17,7 +18,20 @@ interface IProps {
 }
 
 const Badge = (props: IProps): JSX.Element => {
-    const { success, jailed, validatorsType, proposalStatus, text } = props;
+    const { success, jailed, validatorsType, proposalStatus, text, beamsStatus } = props;
+
+    const getBeamStatus = () => {
+        switch (beamsStatus) {
+            case BeamsStatus.OPEN:
+                return i18n.t('open');
+            case BeamsStatus.CLOSED:
+                return i18n.t('closed');
+            case BeamsStatus.CANCELED:
+                return i18n.t('canceled');
+            case BeamsStatus.UNSPECIFIED:
+                return i18n.t('unspecified');
+        }
+    };
 
     if (jailed) {
         return (
@@ -77,6 +91,16 @@ const Badge = (props: IProps): JSX.Element => {
                     </div>
                 );
         }
+    }
+
+    if (beamsStatus !== undefined) {
+        return (
+            <div>
+                <div className="app-badge info">
+                    <p className="text info">{getBeamStatus()}</p>
+                </div>
+            </div>
+        );
     }
 
     if (validatorsType !== undefined) {
