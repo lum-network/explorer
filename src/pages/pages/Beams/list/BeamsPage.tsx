@@ -70,7 +70,7 @@ const BeamsPage = (): JSX.Element => {
             );
         }
 
-        const head = [i18n.t('id'), i18n.t('creatorAddress'), i18n.t('status'), i18n.t('amount')];
+        const head = [i18n.t('id'), i18n.t('walletMerchant'), i18n.t('status'), i18n.t('amount')];
 
         return (
             <Card withoutPadding className="mb-5 h-100">
