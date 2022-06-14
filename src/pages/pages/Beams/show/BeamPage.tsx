@@ -35,6 +35,25 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
         );
     };
 
+    const renderRatings = (ratings: any): JSX.Element[] => {
+        const view: JSX.Element[] = [];
+
+        for (const [key, value] of Object.entries(ratings)) {
+            if (!value) {
+                continue;
+            }
+
+            view.push(
+                <div>
+                    <span className="ratings-title">{i18n.t(key)}</span>
+                    {renderRating(value as number)}
+                </div>,
+            );
+        }
+
+        return view;
+    };
+
     const renderInformation = (): JSX.Element => {
         if (loading) {
             return (
@@ -106,7 +125,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                     {beam.data && beam.data.merchantReview && beam.data.merchantReview.ratings && (
                         <div className="col-12 col-lg-6">
                             <h4 className="mb-2">{i18n.t('merchantRatings')}</h4>
-                            {renderRating(beam.data.merchantReview.ratings.overall)}
+                            {renderRatings(beam.data.merchantReview.ratings)}
                         </div>
                     )}
                     {beam.data && beam.data.productsReviews && beam.data.productsReviews.length && (

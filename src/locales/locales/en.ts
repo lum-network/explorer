@@ -147,7 +147,7 @@ export default {
     overall: 'Overall',
     quality: 'Quality',
     nps: 'Nps',
-    customer_service: 'Customer service',
+    customerService: 'Customer service',
 
     // Block
     blockTime: 'Block time',
