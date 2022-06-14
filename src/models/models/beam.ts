@@ -173,7 +173,7 @@ class MerchantReviewResponse {
 
 @Exclude()
 class DataResponse {
-    @Expose({ name: 'products_Reviews' })
+    @Expose({ name: 'products_reviews' })
     @Type(() => ProductsReviewsResponse)
     productsReviews: ProductsReviewsResponse[];
 

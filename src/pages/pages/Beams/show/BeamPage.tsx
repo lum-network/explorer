@@ -131,6 +131,12 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                     {beam.data && beam.data.productsReviews && beam.data.productsReviews.length && (
                         <div className="col-12 col-lg-6">
                             <h4 className="mb-2">{i18n.t('products')}</h4>
+                            {beam.data.productsReviews.map((product) => (
+                                <>
+                                    <span>{decodeURIComponent(product.title).replaceAll('+', ' ')}</span>
+                                    {renderRatings(product.ratings)}
+                                </>
+                            ))}
                         </div>
                     )}
                 </div>
