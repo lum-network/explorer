@@ -9,6 +9,7 @@ import { NavigationConstants } from 'constant';
 import { Link } from 'react-router-dom';
 import { Badge } from 'components';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import '../Beams.scss';
 
 const BeamsPage = (): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
