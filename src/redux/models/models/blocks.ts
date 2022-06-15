@@ -1,11 +1,12 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
-import { BlocksModel } from 'models';
-import { ApiBlocks } from 'api';
+import { BlocksModel, MetadataModel } from 'models';
 import { plainToClass } from 'class-transformer';
+import Api from 'api';
 
 interface BlocksState {
     blocks: BlocksModel[];
+    metadata?: MetadataModel;
     block: BlocksModel;
 }
 
@@ -15,10 +16,11 @@ const blocks = createModel<RootModel>()({
         block: plainToClass(BlocksModel, null),
     } as BlocksState,
     reducers: {
-        SET_BLOCKS(state, blocks: BlocksModel[]) {
+        SET_BLOCKS(state, blocks: BlocksModel[], metadata: MetadataModel) {
             return {
                 ...state,
                 blocks,
+                metadata,
             };
         },
 
@@ -53,9 +55,9 @@ const blocks = createModel<RootModel>()({
     effects: (dispatch) => ({
         async fetchBlocks() {
             try {
-                const blocks = await ApiBlocks.fetchBlocks();
+                const [blocks, metadata] = await Api.fetchBlocks();
 
-                dispatch.blocks.SET_BLOCKS(blocks);
+                dispatch.blocks.SET_BLOCKS(blocks, metadata);
             } catch (e) {}
         },
 
@@ -66,14 +68,16 @@ const blocks = createModel<RootModel>()({
             }
 
             try {
-                const block = await ApiBlocks.getBlock(id);
+                const [block] = await Api.getBlock(id);
 
                 dispatch.blocks.SET_BLOCK(block);
             } catch (e) {}
         },
 
         addBlock(block: BlocksModel) {
-            dispatch.blocks.ADD_NEW_BLOCK(block);
+            console.log(block);
+            // FIXME
+            // dispatch.blocks.ADD_NEW_BLOCK(block);
         },
     }),
 });

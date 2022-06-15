@@ -124,10 +124,7 @@ const BlockPage = (props: IProps): JSX.Element => {
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                        <p>{`${moment.utc(block.time).fromNow()} (${moment
-                            .utc(block.time)
-                            .tz(SystemConstants.TIMEZONE)
-                            .format('lll')})`}</p>
+                        <p>{`${moment.utc(block.time).fromNow()} (${moment.utc(block.time).tz(SystemConstants.TIMEZONE).format('lll')})`}</p>
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>
@@ -136,9 +133,7 @@ const BlockPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                         <p title={block.operatorAddress}>
-                            <Link to={`${NavigationConstants.VALIDATORS}/${block.operatorAddress}`}>
-                                {StringsUtils.trunc(block.operatorAddress || '', 5)}
-                            </Link>
+                            <Link to={`${NavigationConstants.VALIDATORS}/${block.operatorAddress}`}>{StringsUtils.trunc(block.operatorAddress || '', 5)}</Link>
                         </p>
                     </div>
                     <div className="col-lg-2 col-md-3 col-sm-4">
@@ -150,12 +145,7 @@ const BlockPage = (props: IProps): JSX.Element => {
                         <Tooltip show={copied} content="Copied!" className="me-2" direction="right">
                             <div className="d-flex align-items-center">
                                 <p title={block.hash}>{StringsUtils.trunc(block.hash || '', 10)}&nbsp;</p>
-                                <img
-                                    alt="copy"
-                                    src={copyLogo}
-                                    onClick={copyHash}
-                                    className="pointer img-cpy placeholder-image"
-                                />
+                                <img alt="copy" src={copyLogo} onClick={copyHash} className="pointer img-cpy placeholder-image" />
                             </div>
                         </Tooltip>
                     </div>

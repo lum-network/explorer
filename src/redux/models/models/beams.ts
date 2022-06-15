@@ -38,13 +38,13 @@ const beams = createModel<RootModel>()({
     },
     effects: (dispatch) => ({
         async getBeam(id: string) {
-            const beam = await Api.getBeam(id);
+            const [beam] = await Api.getBeam(id);
 
             dispatch.beams.SET_BEAM(beam);
         },
 
         async fetchBeams() {
-            const beams = await Api.fetchBeams();
+            const [beams] = await Api.fetchBeams();
 
             dispatch.beams.SET_BEAMS(beams);
         },

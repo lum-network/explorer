@@ -3,15 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
-import {
-    DelegationsList,
-    TransactionsList,
-    Tooltip,
-    UnbondingsList,
-    SmallerDecimal,
-    RedelegatesList,
-    VestingList,
-} from 'components';
+import { DelegationsList, TransactionsList, Tooltip, UnbondingsList, SmallerDecimal, RedelegatesList, VestingList } from 'components';
 import { Card, CodeQr, Loading } from 'frontend-elements';
 import '../Accounts.scss';
 import copyLogo from 'assets/images/copy.svg';
@@ -31,9 +23,7 @@ const AccountPage = (props: IProps): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const account = useSelector((state: RootState) => state.accounts.account);
     const lum = useSelector((state: RootState) => state.core.lum);
-    const loading = useSelector(
-        (state: RootState) => state.loading.models.accounts || state.loading.effects.core.getLum,
-    );
+    const loading = useSelector((state: RootState) => state.loading.models.accounts || state.loading.effects.core.getLum);
 
     const { id } = props.match.params;
 
@@ -58,21 +48,10 @@ const AccountPage = (props: IProps): JSX.Element => {
             return;
         }
 
-        const {
-            balance,
-            allRewards,
-            delegations,
-            unbondings,
-            commissions,
-            vesting: vestingAccount,
-            airdrop: airdropAccount,
-        } = account;
+        const { balance, allRewards, delegations, unbondings, commissions, vesting: vestingAccount, airdrop: airdropAccount } = account;
 
         let available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
-        const reward =
-            NumbersUtils.convertUnitNumber(
-                allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0',
-            ) / NumberConstants.CLIENT_PRECISION;
+        const reward = NumbersUtils.convertUnitNumber(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0') / NumberConstants.CLIENT_PRECISION;
         const delegated = NumbersUtils.convertUnitNumber(AccountUtils.sumOfDelegations(delegations));
         const unbonding = NumbersUtils.convertUnitNumber(AccountUtils.sumOfUnbonding(unbondings));
 
@@ -93,11 +72,7 @@ const AccountPage = (props: IProps): JSX.Element => {
 
         let airdrop = 0;
 
-        if (
-            airdropAccount &&
-            airdropAccount.actionCompleted.length >= 2 &&
-            airdropAccount.initialClaimableAmount.length >= 2
-        ) {
+        if (airdropAccount && airdropAccount.actionCompleted.length >= 2 && airdropAccount.initialClaimableAmount.length >= 2) {
             const amount = AccountUtils.sumOfAirdrops(airdropAccount.initialClaimableAmount);
 
             const [vote, delegate] = airdropAccount.actionCompleted;
@@ -193,9 +168,7 @@ const AccountPage = (props: IProps): JSX.Element => {
 
         return (
             <div className="row mb-5 g-4 g-xxl-5">
-                <div className="col-12 col-xxl-6">
-                    {allRewards && <DelegationsList title delegations={delegations} rewards={allRewards.rewards} />}
-                </div>
+                <div className="col-12 col-xxl-6">{allRewards && <DelegationsList title delegations={delegations} rewards={allRewards.rewards} />}</div>
                 <div className="col-12 col-xxl-6">
                     <UnbondingsList unbondings={unbondings} title />
                 </div>
@@ -285,13 +258,7 @@ const AccountPage = (props: IProps): JSX.Element => {
         if (!account && !loading) {
             return (
                 <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
-                    <img
-                        width={44}
-                        height={44}
-                        className="mb-2 placeholder-image"
-                        alt="placeholder"
-                        src={accountLogo}
-                    />
+                    <img width={44} height={44} className="mb-2 placeholder-image" alt="placeholder" src={accountLogo} />
                     {i18n.t('noAccountFound')}
                 </Card>
             );
@@ -313,12 +280,7 @@ const AccountPage = (props: IProps): JSX.Element => {
                                         <Tooltip show={copied} content="Copied!" className="me-2" direction="right">
                                             <div className="d-flex flex-row align-items-center">
                                                 <h4 className="mb-1 text-white">{i18n.t('address')}&nbsp;</h4>
-                                                <img
-                                                    alt="copy"
-                                                    src={copyLogo}
-                                                    onClick={copyAddress}
-                                                    className="pointer img-cpy placeholder-image"
-                                                />
+                                                <img alt="copy" src={copyLogo} onClick={copyAddress} className="pointer img-cpy placeholder-image" />
                                             </div>
                                         </Tooltip>
                                         <p className="text-break">{account.address}</p>
@@ -377,11 +339,7 @@ const AccountPage = (props: IProps): JSX.Element => {
                                                 {i18n.t(airdropActionVote ? 'voteClaimAction' : 'voteUnclaimAction')}
                                                 <br />
                                                 {renderCheckOrCross(airdropActionDelegate || false)}&nbsp;&nbsp;
-                                                {i18n.t(
-                                                    airdropActionDelegate
-                                                        ? 'delegateClaimAction'
-                                                        : 'delegateUnclaimAction',
-                                                )}
+                                                {i18n.t(airdropActionDelegate ? 'delegateClaimAction' : 'delegateUnclaimAction')}
                                             </ReactTooltip>
                                             ?
                                         </div>

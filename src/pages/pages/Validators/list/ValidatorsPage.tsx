@@ -5,7 +5,7 @@ import genesisFlag from 'assets/images/genesisFlag.svg';
 import { i18n, NumbersUtils, StringsUtils, ValidatorsUtils } from 'utils';
 import { Card, Loading, Table, ValidatorLogo } from 'frontend-elements';
 import { Kpi, Badge } from 'components';
-import { ValidatorsModel } from 'models';
+import { ValidatorModel } from 'models';
 import numeral from 'numeral';
 import { KpiType, NavigationConstants, NumberConstants } from 'constant';
 import { Link } from 'react-router-dom';
@@ -34,8 +34,8 @@ const ValidatorsPage = (): JSX.Element => {
         setTotalVotingPower(NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)));
     }, [validators]);
 
-    const renderGenesisBadge = (validator: ValidatorsModel) => {
-        if (!validator.genesis) {
+    const renderGenesisBadge = (validator: ValidatorModel) => {
+        if (validator.bondedHeight !== 0) {
             return null;
         }
 
@@ -46,17 +46,14 @@ const ValidatorsPage = (): JSX.Element => {
         );
     };
 
-    const renderRow = (validator: ValidatorsModel, index: number): JSX.Element => {
+    const renderRow = (validator: ValidatorModel, index: number): JSX.Element => {
         return (
             <tr key={index}>
                 <td data-label={head[0]}>
                     <p className={index + 1 > 5 ? 'rank' : 'top-rank'}>{index + 1}</p>
                 </td>
                 <td data-label={head[1]}>
-                    <Link
-                        title={validator.operatorAddress}
-                        to={`${NavigationConstants.VALIDATORS}/${validator.operatorAddress}`}
-                    >
+                    <Link title={validator.operatorAddress} to={`${NavigationConstants.VALIDATORS}/${validator.operatorAddress}`}>
                         <div className="d-flex flex-row align-items-center">
                             <ValidatorLogo
                                 width={34}
@@ -66,9 +63,7 @@ const ValidatorsPage = (): JSX.Element => {
                                 githubUrl={NavigationConstants.GITHUB_ASSETS}
                                 className="me-3"
                             />
-                            {validator.description.moniker ||
-                                validator.description.identity ||
-                                StringsUtils.trunc(validator.operatorAddress || '')}
+                            {validator.description.moniker || validator.description.identity || StringsUtils.trunc(validator.operatorAddress || '')}
                             {renderGenesisBadge(validator)}
                         </div>
                     </Link>
@@ -79,20 +74,11 @@ const ValidatorsPage = (): JSX.Element => {
                 <td data-label={head[3]}>
                     <div className="d-flex flex-column align-items-end">
                         <p>{numeral(NumbersUtils.convertUnitNumber(validator.tokens || 0)).format('0,0')}</p>
-                        <p className="text-muted">
-                            {totalVotingPower &&
-                                numeral(
-                                    NumbersUtils.convertUnitNumber(validator.tokens || 0) / totalVotingPower,
-                                ).format('0.00%')}
-                        </p>
+                        <p className="text-muted">{totalVotingPower && numeral(NumbersUtils.convertUnitNumber(validator.tokens || 0) / totalVotingPower).format('0.00%')}</p>
                     </div>
                 </td>
                 <td data-label={head[4]} className="text-end">
-                    <p>
-                        {numeral(
-                            parseFloat(validator.commission.rates.rate || '') / NumberConstants.CLIENT_PRECISION,
-                        ).format('0.00%')}
-                    </p>
+                    <p>{numeral(parseFloat(validator.commission.rates.rate || '') / NumberConstants.CLIENT_PRECISION).format('0.00%')}</p>
                 </td>
             </tr>
         );
@@ -109,11 +95,7 @@ const ValidatorsPage = (): JSX.Element => {
             </h2>
             {renderKpi()}
             <Card withoutPadding className="mb-5">
-                {!validators || !validators.length || loading ? (
-                    <Loading />
-                ) : (
-                    <Table head={head}>{validators.map((value, index) => renderRow(value, index))}</Table>
-                )}
+                {!validators || !validators.length || loading ? <Loading /> : <Table head={head}>{validators.map((value, index) => renderRow(value, index))}</Table>}
             </Card>
         </>
     );

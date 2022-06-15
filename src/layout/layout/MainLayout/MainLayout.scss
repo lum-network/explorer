@@ -100,7 +100,7 @@
     margin-right: 6px;
 }
 
-.main-layout ul {
+.main-layout ul.nav {
     background-color: $color-primary;
     list-style: none;
     display: flex;
@@ -210,7 +210,7 @@ footer {
         padding-bottom: 100px;
     }
 
-    .main-layout ul {
+    .main-layout ul.nav {
         justify-content: center;
         height: 60px;
     }
@@ -220,7 +220,7 @@ footer {
         display: none;
     }
 
-    .main-layout ul li .nav-title {
+    .main-layout ul.nav li .nav-title {
         display: none;
     }
 

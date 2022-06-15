@@ -20,17 +20,12 @@ const UnbondingsList = (props: IProps): JSX.Element => {
         return unbonding.entries.map((value, index) => (
             <tr key={String(index) + unbonding.validatorAddress}>
                 <td data-label={head[0]}>
-                    <Link
-                        title={unbonding.validatorAddress}
-                        to={`${NavigationConstants.VALIDATORS}/${unbonding.validatorAddress}`}
-                    >
+                    <Link title={unbonding.validatorAddress} to={`${NavigationConstants.VALIDATORS}/${unbonding.validatorAddress}`}>
                         {StringsUtils.trunc(unbonding.validatorAddress || '', 6)}
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <Link to={`${NavigationConstants.BLOCKS}/${value.height.toString()}`}>
-                        {value.height.toString()}
-                    </Link>
+                    <Link to={`${NavigationConstants.BLOCKS}/${value.height.toString()}`}>{value.height.toString()}</Link>
                 </td>
                 <td data-label={head[2]} className="text-end">
                     <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(value.balance)).format('0,0.000000')} />
@@ -61,9 +56,7 @@ const UnbondingsList = (props: IProps): JSX.Element => {
 
     return (
         <Card withoutPadding className="mb-5 h-100">
-            <div className="d-flex justify-content-between">
-                {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('unbondings')}</h3>}
-            </div>
+            <div className="d-flex justify-content-between">{title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('unbondings')}</h3>}</div>
             <Table head={head}>{unbondings.map((unbonding) => renderRow(unbonding, head))}</Table>
         </Card>
     );

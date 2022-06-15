@@ -8,6 +8,7 @@ import { i18n } from 'utils';
 const BlocksPage = (): JSX.Element | null => {
     const dispatch = useDispatch<Dispatch>();
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
+    const metadata = useSelector((state: RootState) => state.blocks.metadata);
 
     useEffect(() => {
         dispatch.blocks.fetchBlocks().finally(() => null);
@@ -22,7 +23,7 @@ const BlocksPage = (): JSX.Element | null => {
             <h2 className="mt-3 mb-4">
                 <img alt="block" src={blockLogo} /> {i18n.t('blocks')}
             </h2>
-            <BlocksList blocks={blocks} />
+            <BlocksList blocks={blocks} metadata={metadata} />
         </>
     );
 };

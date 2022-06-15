@@ -7,10 +7,7 @@ export const fetchTransactions = (): Promise<TransactionsModel[]> => {
     return new Promise((resolve, reject) => {
         axios(ApiConstants.TRANSACTIONS_URL, { baseURL: ApiConstants.BASE_URL, method: 'GET' })
             .then((result) => {
-                const transactions = plainToClass(
-                    TransactionsModel,
-                    result.data.result,
-                ) as unknown as TransactionsModel[];
+                const transactions = plainToClass(TransactionsModel, result.data.result) as unknown as TransactionsModel[];
 
                 resolve(transactions);
             })

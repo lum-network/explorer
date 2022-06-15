@@ -1,30 +1,28 @@
-import { ValidatorsModel } from 'models';
+import { ValidatorModel } from 'models';
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import { plainToClass } from 'class-transformer';
-import { ApiValidators } from 'api';
+import Api from 'api';
 
 interface ValidatorsState {
-    validators: ValidatorsModel[];
-    validator: ValidatorsModel;
+    validators: ValidatorModel[];
+    validator: ValidatorModel;
 }
 
 const validators = createModel<RootModel>()({
     state: {
         validators: [],
-        validator: plainToClass(ValidatorsModel, null),
+        validator: plainToClass(ValidatorModel, null),
     } as ValidatorsState,
     reducers: {
-        SET_VALIDATORS(state, validators: ValidatorsModel[]) {
+        SET_VALIDATORS(state, validators: ValidatorModel[]) {
             return {
                 ...state,
-                validators: validators.sort(
-                    (a, b) => parseInt((b && b.tokens) || '0', 10) - parseInt((a && a.tokens) || '0', 10),
-                ),
+                validators: validators.sort((a, b) => parseInt((b && b.tokens) || '0', 10) - parseInt((a && a.tokens) || '0', 10)),
             };
         },
 
-        SET_VALIDATOR(state, validator: ValidatorsModel) {
+        SET_VALIDATOR(state, validator: ValidatorModel) {
             return {
                 ...state,
                 validator,
@@ -34,14 +32,14 @@ const validators = createModel<RootModel>()({
         RESET_VALIDATOR(state) {
             return {
                 ...state,
-                validator: plainToClass(ValidatorsModel, null),
+                validator: plainToClass(ValidatorModel, null),
             };
         },
     },
     effects: (dispatch) => ({
         async fetchValidators() {
             try {
-                const validators = await ApiValidators.fetchValidators();
+                const [validators] = await Api.fetchValidators();
 
                 dispatch.validators.SET_VALIDATORS(validators);
             } catch (e) {}
@@ -51,7 +49,12 @@ const validators = createModel<RootModel>()({
             dispatch.validators.RESET_VALIDATOR();
 
             try {
-                const validator = await ApiValidators.getValidator(id);
+                const [validator] = await Api.getValidator(id);
+                const [blocks] = await Api.fetchValidatorBlocks(id);
+                const [delegations] = await Api.fetchValidatorDelegations(id);
+
+                validator.blocks = blocks;
+                validator.delegations = delegations;
 
                 dispatch.validators.SET_VALIDATOR(validator);
             } catch (e) {}

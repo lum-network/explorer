@@ -54,17 +54,11 @@ const TransactionsList = (props: IProps): JSX.Element => {
                 </td>
                 <td data-label={head[1]}>
                     <MessageType
-                        receive={
-                            transaction.messageType === MessagesType.SEND &&
-                            props.accountAddress !== undefined &&
-                            props.accountAddress !== transaction.addresses[0]
-                        }
+                        receive={transaction.messageType === MessagesType.SEND && props.accountAddress !== undefined && props.accountAddress !== transaction.addresses[0]}
                         badge
                         type={transaction.messageType}
                     />
-                    {transaction.messagesCount > 1 && (
-                        <span className="ms-2 color-type round-tags">+{transaction.messagesCount - 1}</span>
-                    )}
+                    {transaction.messagesCount > 1 && <span className="ms-2 color-type round-tags">+{transaction.messagesCount - 1}</span>}
                 </td>
                 {!rej && (
                     <>
@@ -95,17 +89,12 @@ const TransactionsList = (props: IProps): JSX.Element => {
             <div className="d-flex justify-content-between">
                 {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('transactions')}</h3>}
                 {more && (
-                    <Button
-                        className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3"
-                        onPress={() => history.push(NavigationConstants.TRANSACTIONS)}
-                    >
+                    <Button className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3" onPress={() => history.push(NavigationConstants.TRANSACTIONS)}>
                         {i18n.t('viewAll')}
                     </Button>
                 )}
             </div>
-            <Table head={rej ? simplified : full}>
-                {transactions.map((transaction, index) => renderRow(transaction, index, full))}
-            </Table>
+            <Table head={rej ? simplified : full}>{transactions.map((transaction, index) => renderRow(transaction, index, full))}</Table>
         </Card>
     );
 };

@@ -97,11 +97,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {value.minSelfDelegation ? (
                             <>
-                                <SmallerDecimal
-                                    nb={numeral(NumbersUtils.convertUnitNumber(value.minSelfDelegation)).format(
-                                        '0,0.000000',
-                                    )}
-                                />
+                                <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(value.minSelfDelegation)).format('0,0.000000')} />
                                 <span className="color-type ms-2">{LumConstants.LumDenom}</span>
                             </>
                         ) : (
@@ -112,17 +108,13 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('delegatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
-                            {value.delegatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>{value.delegatorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('validatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
-                            {value.validatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>{value.validatorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('pubkey')}</h5>
@@ -150,15 +142,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         {value.description.website ? (
-                            <a
-                                rel="noreferrer"
-                                target="_blank"
-                                href={
-                                    value.description.website.startsWith('http')
-                                        ? value.description.website
-                                        : `https://${value.description.website}`
-                                }
-                            >
+                            <a rel="noreferrer" target="_blank" href={value.description.website.startsWith('http') ? value.description.website : `https://${value.description.website}`}>
                                 {value.description.website}
                             </a>
                         ) : (
@@ -173,32 +157,19 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('comRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {value.commission.rates.rate
-                            ? numeral(
-                                  parseFloat(value.commission.rates.rate || '') / NumberConstants.CLIENT_PRECISION,
-                              ).format('0.00%')
-                            : '-'}
+                        {value.commission.rates.rate ? numeral(parseFloat(value.commission.rates.rate || '') / NumberConstants.CLIENT_PRECISION).format('0.00%') : '-'}
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('comMaxRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {value.commission.rates.maxRate
-                            ? numeral(
-                                  parseFloat(value.commission.rates.maxRate || '') / NumberConstants.CLIENT_PRECISION,
-                              ).format('0.00%')
-                            : '-'}
+                        {value.commission.rates.maxRate ? numeral(parseFloat(value.commission.rates.maxRate || '') / NumberConstants.CLIENT_PRECISION).format('0.00%') : '-'}
                     </div>
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('comMaxChangeRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        {value.commission.rates.maxChangeRate
-                            ? numeral(
-                                  parseFloat(value.commission.rates.maxChangeRate || '') /
-                                      NumberConstants.CLIENT_PRECISION,
-                              ).format('0.00%')
-                            : '-'}
+                        {value.commission.rates.maxChangeRate ? numeral(parseFloat(value.commission.rates.maxChangeRate || '') / NumberConstants.CLIENT_PRECISION).format('0.00%') : '-'}
                     </div>
                 </div>
             );
@@ -213,17 +184,13 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('delegatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
-                            {value.delegatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>{value.delegatorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2  mb-md-3">
                         <h5>{i18n.t('validatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
-                            {value.validatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>{value.validatorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('amount')}</h5>
@@ -247,17 +214,13 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('delegatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
-                            {value.delegatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>{value.delegatorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2  mb-md-3">
                         <h5>{i18n.t('validatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
-                            {value.validatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>{value.validatorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('amount')}</h5>
@@ -294,9 +257,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('validatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
-                            {value.validatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>{value.validatorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('details')}</h5>
@@ -327,21 +288,12 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('senders')}</h5>
                     </div>
                     {value.inputs.map((input, index) => (
-                        <div
-                            key={index}
-                            className={`${
-                                index !== 0 && 'offset-md-3 offset-xl-2'
-                            } col-12 col-md-9 col-xl-10 mb-2 text-break`}
-                        >
+                        <div key={index} className={`${index !== 0 && 'offset-md-3 offset-xl-2'} col-12 col-md-9 col-xl-10 mb-2 text-break`}>
                             <Link to={`${NavigationConstants.ACCOUNT}/${input.address}`}>{input.address}</Link>
                             {input.coins.length && (
                                 <>
                                     &nbsp;&nbsp; (
-                                    <SmallerDecimal
-                                        nb={numeral(NumbersUtils.convertUnitNumber(input.coins[0].amount)).format(
-                                            '0,0.000000',
-                                        )}
-                                    />
+                                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(input.coins[0].amount)).format('0,0.000000')} />
                                     <span className="color-type ms-2">{LumConstants.LumDenom}</span>)
                                 </>
                             )}
@@ -351,21 +303,12 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('receivers')}</h5>
                     </div>
                     {value.outputs.map((output, index) => (
-                        <div
-                            key={index}
-                            className={`${
-                                index !== 0 ? 'offset-md-3 offset-xl-2' : 'mt-md-3'
-                            } col-12 col-md-9 col-xl-10 mb-2 text-break`}
-                        >
+                        <div key={index} className={`${index !== 0 ? 'offset-md-3 offset-xl-2' : 'mt-md-3'} col-12 col-md-9 col-xl-10 mb-2 text-break`}>
                             <Link to={`${NavigationConstants.ACCOUNT}/${output.address}`}>{output.address}</Link>
                             {output.coins.length && (
                                 <>
                                     &nbsp;&nbsp; (
-                                    <SmallerDecimal
-                                        nb={numeral(NumbersUtils.convertUnitNumber(output.coins[0].amount)).format(
-                                            '0,0.000000',
-                                        )}
-                                    />
+                                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(output.coins[0].amount)).format('0,0.000000')} />
                                     <span className="color-type ms-2">{LumConstants.LumDenom}</span>)
                                 </>
                             )}
@@ -384,17 +327,13 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('delegatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
-                            {value.delegatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>{value.delegatorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2  mb-md-3">
                         <h5>{i18n.t('validatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
-                            {value.validatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>{value.validatorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('amount')}</h5>
@@ -418,9 +357,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('validatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
-                            {value.validatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>{value.validatorAddress}</Link>
                     </div>
                 </div>
             );
@@ -435,9 +372,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('proposerAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.proposerAddress}`}>
-                            {value.proposerAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.proposerAddress}`}>{value.proposerAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('initialDeposit')}</h5>
@@ -467,17 +402,13 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('proposalId')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId.toString()}`}>
-                            {value.proposalId.toString()}
-                        </Link>
+                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId.toString()}`}>{value.proposalId.toString()}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('depositorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.depositorAddress}`}>
-                            {value.depositorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.depositorAddress}`}>{value.depositorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('amount')}</h5>
@@ -507,9 +438,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('proposalId')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId.toString()}`}>
-                            {value.proposalId.toString()}
-                        </Link>
+                        <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId.toString()}`}>{value.proposalId.toString()}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('voterAddress')}</h5>
@@ -520,9 +449,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('option')}</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-xl-10 text-break">
-                        {value.option && <VoteOption option={value.option} />}
-                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">{value.option && <VoteOption option={value.option} />}</div>
                 </div>
             );
         }
@@ -637,25 +564,19 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('delegatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>
-                            {value.delegatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.delegatorAddress}`}>{value.delegatorAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('srcValidator')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorSrcAddress}`}>
-                            {value.validatorSrcAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorSrcAddress}`}>{value.validatorSrcAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('dstValidator')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorDstAddress}`}>
-                            {value.validatorDstAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorDstAddress}`}>{value.validatorDstAddress}</Link>
                     </div>
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('amount')}</h5>
@@ -685,9 +606,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('validatorAddress')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>
-                            {value.validatorAddress}
-                        </Link>
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>{value.validatorAddress}</Link>
                     </div>
                 </div>
             );
@@ -715,9 +634,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                             <h5>{property}</h5>
                         </div>
-                        <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                            {JSON.stringify(value[property])}
-                        </div>
+                        <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{JSON.stringify(value[property])}</div>
                     </>
                 );
             }
@@ -767,11 +684,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
 
         return (
             <div className="col-12 mb-4">
-                <div className="error-container">
-                    {transaction.rawLogs && transaction.rawLogs[0] && transaction.rawLogs[0].log
-                        ? transaction.rawLogs[0].log
-                        : i18n.t('errorOccurred')}
-                </div>
+                <div className="error-container">{transaction.rawLogs && transaction.rawLogs[0] && transaction.rawLogs[0].log ? transaction.rawLogs[0].log : i18n.t('errorOccurred')}</div>
             </div>
         );
     };
@@ -798,12 +711,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <Tooltip show={copied} content="Copied!" className="me-2" direction="right">
                             <div className="d-flex align-items-center">
                                 <p title={transaction.hash}>{StringsUtils.trunc(transaction.hash || '', 10)}&nbsp;</p>
-                                <img
-                                    alt="copy"
-                                    src={copyLogo}
-                                    onClick={copyHash}
-                                    className="pointer img-cpy placeholder-image"
-                                />
+                                <img alt="copy" src={copyLogo} onClick={copyHash} className="pointer img-cpy placeholder-image" />
                             </div>
                         </Tooltip>
                     </div>
@@ -823,10 +731,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         </h4>
                     </div>
                     <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                        <p>{`${moment.utc(transaction.time).fromNow()} (${moment
-                            .utc(transaction.time)
-                            .tz(SystemConstants.TIMEZONE)
-                            .format('lll')})`}</p>
+                        <p>{`${moment.utc(transaction.time).fromNow()} (${moment.utc(transaction.time).tz(SystemConstants.TIMEZONE).format('lll')})`}</p>
                     </div>
                     <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                         <h4>

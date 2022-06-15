@@ -68,8 +68,7 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
 
             return (
                 <p className="mb-1">
-                    {i18n.t('mostVotedOn')} {renderDot(dotClass)} <strong>{name}</strong>{' '}
-                    <small className="text-muted">{numeral(percent).format('0.00')}%</small>
+                    {i18n.t('mostVotedOn')} {renderDot(dotClass)} <strong>{name}</strong> <small className="text-muted">{numeral(percent).format('0.00')}%</small>
                 </p>
             );
         }
@@ -109,8 +108,7 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
                     <h4>{date1Title}</h4>
                     {date1 ? (
                         <p>
-                            {moment.utc(date1).tz(SystemConstants.TIMEZONE).format('ll')}{' '}
-                            <span className="text-muted">({moment.utc(date1).fromNow()})</span>
+                            {moment.utc(date1).tz(SystemConstants.TIMEZONE).format('ll')} <span className="text-muted">({moment.utc(date1).fromNow()})</span>
                         </p>
                     ) : (
                         '-'
@@ -120,8 +118,7 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
                     <h4>{date2Title}</h4>
                     {date2 ? (
                         <p>
-                            {moment.utc(date2).tz(SystemConstants.TIMEZONE).format('ll')}{' '}
-                            <span className="text-muted">({moment.utc(date2).fromNow()})</span>
+                            {moment.utc(date2).tz(SystemConstants.TIMEZONE).format('ll')} <span className="text-muted">({moment.utc(date2).fromNow()})</span>
                         </p>
                     ) : (
                         '-'
@@ -139,13 +136,7 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
                     <Badge proposalStatus={proposal.status} />
                 </div>
                 <div>
-                    <Button
-                        onPress={() =>
-                            history.push(`${NavigationConstants.PROPOSALS}/${proposal.proposalId.toString()}`)
-                        }
-                    >
-                        {i18n.t('open')}
-                    </Button>
+                    <Button onPress={() => history.push(`${NavigationConstants.PROPOSALS}/${proposal.proposalId.toString()}`)}>{i18n.t('open')}</Button>
                 </div>
             </div>
             <h6 className="mt-3">{proposal.content.title}</h6>

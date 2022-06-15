@@ -26,14 +26,7 @@ const ProposalsPage = (): JSX.Element | null => {
         return null;
     }
 
-    const head = [
-        i18n.t('id'),
-        i18n.t('title'),
-        i18n.t('status'),
-        i18n.t('submitTime'),
-        i18n.t('votingStart'),
-        i18n.t('totalDeposit'),
-    ];
+    const head = [i18n.t('id'), i18n.t('title'), i18n.t('status'), i18n.t('submitTime'), i18n.t('votingStart'), i18n.t('totalDeposit')];
 
     const renderRow = (proposal: ProposalsModel, index: number): JSX.Element => {
         return (
@@ -42,9 +35,7 @@ const ProposalsPage = (): JSX.Element | null => {
                     <p className="list-id">#{proposal.proposalId.toString()}</p>
                 </td>
                 <td data-label={head[1]}>
-                    <Link to={`${NavigationConstants.PROPOSALS}/${proposal.proposalId.toString()}`}>
-                        {proposal.content.title}
-                    </Link>
+                    <Link to={`${NavigationConstants.PROPOSALS}/${proposal.proposalId.toString()}`}>{proposal.content.title}</Link>
                 </td>
                 <td data-label={head[2]}>
                     <Badge text proposalStatus={proposal.status} />
@@ -53,11 +44,7 @@ const ProposalsPage = (): JSX.Element | null => {
                     <small>{moment.utc(proposal.submitTime).fromNow()}</small>
                 </td>
                 <td data-label={head[4]} className="text-end">
-                    {proposal.votingStartTime === '0001-01-01T00:00:00.000Z' ? (
-                        '-'
-                    ) : (
-                        <small>{moment.utc(proposal.votingStartTime).fromNow()}</small>
-                    )}
+                    {proposal.votingStartTime === '0001-01-01T00:00:00.000Z' ? '-' : <small>{moment.utc(proposal.votingStartTime).fromNow()}</small>}
                 </td>
                 <td data-label={head[5]} className="text-end">
                     {proposal.totalDeposit && proposal.totalDeposit[0] ? (
@@ -85,13 +72,7 @@ const ProposalsPage = (): JSX.Element | null => {
         if (!proposals.length) {
             return (
                 <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
-                    <img
-                        width={44}
-                        height={44}
-                        className="mb-2 placeholder-image"
-                        alt="placeholder"
-                        src={proposalLogo}
-                    />
+                    <img width={44} height={44} className="mb-2 placeholder-image" alt="placeholder" src={proposalLogo} />
                     {i18n.t('noProposalsFound')}
                 </Card>
             );

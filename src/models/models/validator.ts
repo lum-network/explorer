@@ -8,6 +8,10 @@ class ValidatorModel {
     @Expose({ name: 'operator_address' })
     operatorAddress?: string;
 
+    @Expose({ name: 'display_name' })
+    displayName?: string;
+
+    @Expose({ name: 'account_address' })
     address?: string;
 
     @Expose({ name: 'self_bonded' })
@@ -18,6 +22,9 @@ class ValidatorModel {
     jailed = false;
 
     tokens?: string;
+
+    @Expose({ name: 'bonded_height' })
+    bondedHeight?: number;
 
     @Expose({ name: 'delegator_shares' })
     delegatorShares?: string;
@@ -35,6 +42,8 @@ class ValidatorModel {
 
     @Type(() => DelegationsModel)
     delegations: DelegationsModel[] = [];
+
+    uptime = 0;
 }
 
 export default ValidatorModel;

@@ -28,9 +28,7 @@ const BeamsPage = (): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <Link to={`${NavigationConstants.ACCOUNT}/${beam.creatorAddress}`}>
-                        {StringsUtils.trunc(beam.creatorAddress || '')}
-                    </Link>
+                    <Link to={`${NavigationConstants.ACCOUNT}/${beam.creatorAddress}`}>{StringsUtils.trunc(beam.creatorAddress || '')}</Link>
                 </td>
                 <td data-label={head[2]} className="text-end">
                     <Badge beamsStatus={beam.status} />
