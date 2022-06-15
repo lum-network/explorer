@@ -11,4 +11,4 @@ export const STATS_URL = 'stats';
 export const GOVERNANCE_URL = 'governance';
 export const PROPOSALS_URL = 'proposals';
 export const BEAMS_URL = 'beams';
-export const LUM_URL = 'lum';
+export const LUM_URL = 'price';
