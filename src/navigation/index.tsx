@@ -16,7 +16,6 @@ import {
     BeamPage,
     BeamsPage,
 } from 'pages';
-import { DelegatorsSubpage } from 'pages/subpages';
 import { Route, BrowserRouter as Router, Switch, Redirect, useLocation } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import { AnalyticsUtils } from 'utils';
@@ -49,10 +48,6 @@ const RootNavigator = (): JSX.Element => {
                     <Route path={NavigationConstants.TRANSACTIONS}>
                         <TransactionsPage />
                     </Route>
-                    <Route
-                        path={`${NavigationConstants.VALIDATORS}/:id${NavigationConstants.DELEGATORS}`}
-                        component={DelegatorsSubpage}
-                    />
                     <Route path={`${NavigationConstants.VALIDATORS}/:id`} component={ValidatorPage} />
                     <Route path={NavigationConstants.VALIDATORS}>
                         <ValidatorsPage />

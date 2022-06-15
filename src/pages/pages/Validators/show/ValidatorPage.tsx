@@ -157,7 +157,8 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
                             <p>
                                 {numeral(
-                                    parseFloat(validator.commission.rate || '0') / NumberConstants.CLIENT_PRECISION,
+                                    parseFloat(validator.commission.rates.rate || '0') /
+                                        NumberConstants.CLIENT_PRECISION,
                                 ).format('0.00%')}
                             </p>
                         </div>
@@ -242,7 +243,6 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                 </div>
                 <div className="col-12 col-xxl-6 mb-5">
                     <DelegatorsList
-                        more
                         title
                         delegators={delegations.slice(0, 5)}
                         validatorTokens={parseFloat(tokens || '0')}

@@ -1,4 +1,4 @@
-import { Expose, plainToClass, Transform, Type } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import { Commission, Description } from './message';
 import { ValidatorsType } from 'constant';
 import BlocksModel from './blocks';
@@ -26,13 +26,6 @@ class ValidatorModel {
     description: Description = new Description();
 
     @Type(() => Commission)
-    @Transform(({ value }) => {
-        if (!value || !value.commission_rates) {
-            return new Commission();
-        }
-
-        return plainToClass(Commission, value.commission_rates);
-    })
     commission: Commission = new Commission();
 
     status?: ValidatorsType;

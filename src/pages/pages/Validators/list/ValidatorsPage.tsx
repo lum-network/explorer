@@ -89,9 +89,9 @@ const ValidatorsPage = (): JSX.Element => {
                 </td>
                 <td data-label={head[4]} className="text-end">
                     <p>
-                        {numeral(parseFloat(validator.commission.rate || '') / NumberConstants.CLIENT_PRECISION).format(
-                            '0.00%',
-                        )}
+                        {numeral(
+                            parseFloat(validator.commission.rates.rate || '') / NumberConstants.CLIENT_PRECISION,
+                        ).format('0.00%')}
                     </p>
                 </td>
             </tr>

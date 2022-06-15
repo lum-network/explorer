@@ -173,9 +173,9 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('comRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {value.commission.rate
+                        {value.commission.rates.rate
                             ? numeral(
-                                  parseFloat(value.commission.rate || '') / NumberConstants.CLIENT_PRECISION,
+                                  parseFloat(value.commission.rates.rate || '') / NumberConstants.CLIENT_PRECISION,
                               ).format('0.00%')
                             : '-'}
                     </div>
@@ -183,9 +183,9 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('comMaxRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {value.commission.maxRate
+                        {value.commission.rates.maxRate
                             ? numeral(
-                                  parseFloat(value.commission.maxRate || '') / NumberConstants.CLIENT_PRECISION,
+                                  parseFloat(value.commission.rates.maxRate || '') / NumberConstants.CLIENT_PRECISION,
                               ).format('0.00%')
                             : '-'}
                     </div>
@@ -193,9 +193,10 @@ const TransactionPage = (props: IProps): JSX.Element => {
                         <h5>{i18n.t('comMaxChangeRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        {value.commission.maxChangeRate
+                        {value.commission.rates.maxChangeRate
                             ? numeral(
-                                  parseFloat(value.commission.maxChangeRate || '') / NumberConstants.CLIENT_PRECISION,
+                                  parseFloat(value.commission.rates.maxChangeRate || '') /
+                                      NumberConstants.CLIENT_PRECISION,
                               ).format('0.00%')
                             : '-'}
                     </div>
