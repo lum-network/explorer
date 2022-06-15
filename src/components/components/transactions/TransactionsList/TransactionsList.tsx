@@ -30,7 +30,7 @@ const TransactionsList = (props: IProps): JSX.Element => {
 
         return (
             <div className="d-flex justify-content-end">
-                {transaction.amount.amount ? (
+                {transaction.amount && transaction.amount.amount ? (
                     <>
                         {NumbersUtils.formatNumber(transaction.amount, true)}
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
