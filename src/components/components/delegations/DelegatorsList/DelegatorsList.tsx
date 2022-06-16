@@ -43,7 +43,7 @@ const DelegatorsList = (props: IProps): JSX.Element => {
     const head = [i18n.t('delegatorAddress'), i18n.t('amount'), i18n.t('shares')];
 
     return (
-        <Card withoutPadding className="mb-5 h-100">
+        <Card withoutPadding className="mb-5 pb-3">
             <div className="d-flex justify-content-between">
                 {title && (
                     <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">
