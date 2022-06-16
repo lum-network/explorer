@@ -45,16 +45,24 @@ const AccountPage = (props: IProps): JSX.Element => {
     const [transactionsPage, setTransactionsPage] = useState(0);
 
     useEffect(() => {
+        dispatch.accounts.getAccount(id).finally(() => null);
+    }, []);
+
+    useEffect(() => {
+        if (!account) {
+            return;
+        }
+
         dispatch.accounts.fetchAccountDelegations({ id, page: delegationsPage }).finally(() => null);
     }, [delegationsPage]);
 
     useEffect(() => {
+        if (!account) {
+            return;
+        }
+
         dispatch.accounts.fetchAccountTransactions({ id, page: transactionsPage }).finally(() => null);
     }, [transactionsPage]);
-
-    useEffect(() => {
-        dispatch.accounts.getAccount(id).finally(() => null);
-    }, []);
 
     useEffect(() => {
         if (!account) {
@@ -279,6 +287,10 @@ const AccountPage = (props: IProps): JSX.Element => {
             );
         }
 
+        if (lum && lum.price) {
+            console.log(total * lum.price);
+        }
+
         return (
             <>
                 <Card dark withoutPadding={!loading} className="p-3 p-xl-3 mb-5">
@@ -434,13 +446,13 @@ const AccountPage = (props: IProps): JSX.Element => {
                                         {lum && lum.price && (
                                             <div className="d-flex flex-column align-items-xxl-end mt-xxl-4">
                                                 <div className="d-flex align-items-center">
-                                                    <p className="text-muted">{numeral(lum.price).format('$0,0.00')}</p>
+                                                    <p className="text-muted">{numeral(lum.price).format('$0,0.00000')}</p>
                                                     &nbsp;/&nbsp;
                                                     <span className="color-type">{LumConstants.LumDenom}</span>
                                                 </div>
 
                                                 <div>
-                                                    <SmallerDecimal nb={numeral(total * lum.price).format('$0,0.00')} />
+                                                    {numeral(total * lum.price).format('$0,0.00')}
                                                 </div>
                                             </div>
                                         )}
