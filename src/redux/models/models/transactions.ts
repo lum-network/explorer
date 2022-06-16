@@ -1,12 +1,13 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
-import { TransactionsModel } from 'models';
-import { ApiTransactions } from 'api';
+import { MetadataModel, TransactionsModel } from 'models';
 import { plainToClass } from 'class-transformer';
+import Api from 'api';
 
 interface TransactionsState {
     transactions: TransactionsModel[];
     transaction: TransactionsModel;
+    metadata?: MetadataModel;
 }
 
 const transactions = createModel<RootModel>()({
@@ -15,10 +16,11 @@ const transactions = createModel<RootModel>()({
         transaction: plainToClass(TransactionsModel, null),
     } as TransactionsState,
     reducers: {
-        SET_TRANSACTIONS(state, transactions: TransactionsModel[]) {
+        SET_TRANSACTIONS(state, transactions: TransactionsModel[], metadata: MetadataModel) {
             return {
                 ...state,
                 transactions,
+                metadata,
             };
         },
 
@@ -50,11 +52,11 @@ const transactions = createModel<RootModel>()({
         },
     },
     effects: (dispatch) => ({
-        async fetchTransactions() {
+        async fetchTransactions(page?: number) {
             try {
-                const transactions = await ApiTransactions.fetchTransactions();
+                const [transactions, metadata] = await Api.fetchTransactions(page);
 
-                dispatch.transactions.SET_TRANSACTIONS(transactions);
+                dispatch.transactions.SET_TRANSACTIONS(transactions, metadata);
             } catch (e) {}
         },
 
@@ -65,14 +67,16 @@ const transactions = createModel<RootModel>()({
             }
 
             try {
-                const transaction = await ApiTransactions.getTransaction(id);
+                const [transaction] = await Api.getTransaction(id);
 
                 dispatch.transactions.SET_TRANSACTION(transaction);
             } catch (e) {}
         },
 
         addTransaction(transaction: TransactionsModel) {
-            dispatch.transactions.ADD_NEW_TRANSACTION(transaction);
+            console.log(transaction);
+            // FIXME
+            // dispatch.transactions.ADD_NEW_TRANSACTION(transaction);
         },
     }),
 });

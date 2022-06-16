@@ -1,11 +1,10 @@
-import * as ApiTransactions from './api/transactions';
 import * as ApiAccounts from './api/accounts';
 import * as ApiSearch from './api/search';
 import * as ApiStats from './api/stats';
 import * as ApiGovernance from './api/governance';
 import { HttpClient } from 'utils';
 import { ApiConstants } from 'constant';
-import { BeamModel, BlocksModel, DelegationModel, LumModel, ValidatorModel } from 'models';
+import { BeamModel, BlocksModel, DelegationModel, LumModel, TransactionsModel, ValidatorModel } from 'models';
 
 class ExplorerApi extends HttpClient {
     private static instance?: ExplorerApi;
@@ -32,6 +31,12 @@ class ExplorerApi extends HttpClient {
 
     public getBlock = (height: string) => this.request<BlocksModel>({ url: `${ApiConstants.BLOCKS_URL}/${height}` }, BlocksModel);
 
+    // Transactions
+
+    public fetchTransactions = (page = 0) => this.request<TransactionsModel[]>({ url: `${ApiConstants.TRANSACTIONS_URL}?page=${page}` }, TransactionsModel);
+
+    public getTransaction = (hash: string) => this.request<TransactionsModel>({ url: `${ApiConstants.TRANSACTIONS_URL}/${hash}` }, TransactionsModel);
+
     // Beams
 
     public getBeam = (id: string) => this.request<BeamModel>({ url: `${ApiConstants.BEAMS_URL}/${id}` }, BeamModel);
@@ -51,4 +56,4 @@ class ExplorerApi extends HttpClient {
 
 export default ExplorerApi.getInstance();
 
-export { ApiTransactions, ApiAccounts, ApiSearch, ApiStats, ApiGovernance };
+export { ApiAccounts, ApiSearch, ApiStats, ApiGovernance };

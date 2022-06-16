@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransactionsModel } from 'models';
+import { MetadataModel, TransactionsModel } from 'models';
 import { Badge, MessageType } from 'components';
 import { Button, Card, Table } from 'frontend-elements';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
@@ -11,6 +11,8 @@ import { LumConstants } from '@lum-network/sdk-javascript';
 
 interface IProps extends RouteComponentProps {
     transactions: TransactionsModel[];
+    metadata?: MetadataModel;
+    onChangePage?: (page: number) => void;
     rej?: boolean;
     title?: boolean;
     more?: boolean;
@@ -80,7 +82,7 @@ const TransactionsList = (props: IProps): JSX.Element => {
         );
     };
 
-    const { transactions, rej, title, more, history } = props;
+    const { transactions, rej, title, more, history, metadata, onChangePage } = props;
     const full = [i18n.t('hash'), i18n.t('type'), i18n.t('status'), i18n.t('amount'), i18n.t('block'), i18n.t('time')];
     const simplified = [i18n.t('hash'), i18n.t('type'), i18n.t('block'), i18n.t('time')];
 
@@ -94,7 +96,7 @@ const TransactionsList = (props: IProps): JSX.Element => {
                     </Button>
                 )}
             </div>
-            <Table head={rej ? simplified : full}>{transactions.map((transaction, index) => renderRow(transaction, index, full))}</Table>
+            <Table pagination={metadata} onPageChange={onChangePage} head={rej ? simplified : full}>{transactions.map((transaction, index) => renderRow(transaction, index, full))}</Table>
         </Card>
     );
 };
