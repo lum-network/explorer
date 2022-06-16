@@ -9,6 +9,7 @@ import { i18n, StringsUtils } from 'utils';
 interface IProps extends RouteComponentProps {
     blocks: BlocksModel[];
     metadata?: MetadataModel;
+    onPageChange?: (page: number) => void;
     title?: boolean;
     more?: boolean;
     rej?: boolean;
@@ -38,7 +39,7 @@ const BlocksList = (props: IProps): JSX.Element => {
         );
     };
 
-    const { blocks, title, more, history, rej, metadata } = props;
+    const { blocks, title, more, history, rej, metadata, onPageChange } = props;
     const full = [i18n.t('height'), i18n.t('proposer'), i18n.t('transactions'), i18n.t('time')];
     const simplified = [i18n.t('height'), i18n.t('transactions'), i18n.t('time')];
 
@@ -52,7 +53,7 @@ const BlocksList = (props: IProps): JSX.Element => {
                     </Button>
                 )}
             </div>
-            <Table head={rej ? simplified : full} pagination={metadata}>
+            <Table head={rej ? simplified : full} pagination={metadata} onPageChange={onPageChange}>
                 {blocks.map((block, index) => renderRow(block, index, full))}
             </Table>
         </Card>

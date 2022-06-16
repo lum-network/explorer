@@ -53,9 +53,9 @@ const blocks = createModel<RootModel>()({
         },
     },
     effects: (dispatch) => ({
-        async fetchBlocks() {
+        async fetchBlocks(page?: number) {
             try {
-                const [blocks, metadata] = await Api.fetchBlocks();
+                const [blocks, metadata] = await Api.fetchBlocks(page);
 
                 dispatch.blocks.SET_BLOCKS(blocks, metadata);
             } catch (e) {}

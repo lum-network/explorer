@@ -30,7 +30,7 @@ abstract class HttpClient {
     protected request = async <T>(config: AxiosRequestConfig, Model: any): Promise<[T, MetadataModel]> => {
         const response = await this.instance.request(config);
 
-        return [plainToClass(Model, response.result) as unknown as T, response.metadata];
+        return [plainToClass(Model, response.result) as unknown as T, plainToClass(MetadataModel, response.metadata)];
     };
 }
 

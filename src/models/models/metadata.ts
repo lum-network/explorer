@@ -1,7 +1,7 @@
 import { Expose } from 'class-transformer';
 
 class MetadataModel {
-    @Expose({ name: 'has_nex_page' })
+    @Expose({ name: 'has_next_page' })
     hasNextPage?: boolean;
 
     @Expose({ name: 'has_previous_page' })
