@@ -18,17 +18,36 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     const validator = useSelector((state: RootState) => state.validators.validator);
     const validators = useSelector((state: RootState) => state.validators.validators);
     const stats = useSelector((state: RootState) => state.core.stats);
-    const loading = useSelector((state: RootState) => state.loading.models.validators);
+    const loading = useSelector((state: RootState) => state.loading.effects.validators.fetchValidators);
+    const blocksMetadata = useSelector((state: RootState) => state.validators.blocksMetadata);
+    const delegationsMetadata = useSelector((state: RootState) => state.validators.delegationsMetadata);
 
     const { id } = props.match.params;
 
     const [rank, setRank] = useState<number | null>(null);
     const [totalVotingPower, setTotalVotingPower] = useState<number | null>(null);
+    const [blocksPage, setBlocksPage] = useState(0);
+    const [delegationsPage, setDelegationsPage] = useState(0);
 
     useEffect(() => {
-        dispatch.validators.fetchValidators().finally(() => null);
         dispatch.validators.getValidator(id).finally(() => null);
     }, []);
+
+    useEffect(() => {
+        if (!validator) {
+            return;
+        }
+
+        dispatch.validators.fetchValidatorBlocks({ id, page: blocksPage }).finally(() => null);
+    }, [blocksPage]);
+
+    useEffect(() => {
+        if (!validator) {
+            return;
+        }
+
+        dispatch.validators.fetchValidatorDelegations({ id, page: delegationsPage }).finally(() => null);
+    }, [delegationsPage]);
 
     useEffect(() => {
         if (!validators || !validators.length || !validator) {
@@ -153,6 +172,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                             <h4>{i18n.t('selfBonded')}</h4>
                         </div>
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
+                            soon
                             {/*//FIXME*/}
                             {/*<p>*/}
                             {/*    {numeral(validator.selfBonded / parseFloat(validator.tokens || '0')).format('0.00%')} (*/}
@@ -219,10 +239,10 @@ const ValidatorPage = (props: IProps): JSX.Element => {
         return (
             <div className="row">
                 <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                    <BlocksList rej title blocks={blocks} />
+                    <BlocksList total metadata={blocksMetadata} onPageChange={setBlocksPage} rej title blocks={blocks} />
                 </div>
                 <div className="col-12 col-xxl-6 mb-5">
-                    <DelegatorsList title delegators={delegations.slice(0, 5)} validatorTokens={parseFloat(tokens || '0')} />
+                    <DelegatorsList total metadata={delegationsMetadata} onPageChange={setDelegationsPage} title delegators={delegations.slice(0, 5)} validatorTokens={parseFloat(tokens || '0')} />
                 </div>
             </div>
         );

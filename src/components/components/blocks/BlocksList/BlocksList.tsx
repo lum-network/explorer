@@ -5,6 +5,7 @@ import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import moment from 'moment-timezone';
 import { i18n, StringsUtils } from 'utils';
+import numeral from 'numeral';
 
 interface IProps extends RouteComponentProps {
     blocks: BlocksModel[];
@@ -13,6 +14,7 @@ interface IProps extends RouteComponentProps {
     title?: boolean;
     more?: boolean;
     rej?: boolean;
+    total?: boolean;
 }
 
 const BlocksList = (props: IProps): JSX.Element => {
@@ -39,14 +41,18 @@ const BlocksList = (props: IProps): JSX.Element => {
         );
     };
 
-    const { blocks, title, more, history, rej, metadata, onPageChange } = props;
+    const { blocks, title, more, history, rej, metadata, onPageChange, total } = props;
     const full = [i18n.t('height'), i18n.t('proposer'), i18n.t('transactions'), i18n.t('time')];
     const simplified = [i18n.t('height'), i18n.t('transactions'), i18n.t('time')];
 
     return (
-        <Card withoutPadding className="mb-5 h-100">
+        <Card withoutPadding className="mb-5 pb-3 h-100">
             <div className="d-flex justify-content-between">
-                {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('blocks')}</h3>}
+                {title && (
+                    <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">
+                        {i18n.t('blocks')} {total && metadata && <span> ({numeral(metadata.itemsTotal).format('0,0')})</span>}
+                    </h3>
+                )}
                 {more && (
                     <Button className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3" onPress={() => history.push(NavigationConstants.BLOCKS)}>
                         {i18n.t('viewAll')}

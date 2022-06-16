@@ -87,7 +87,7 @@ const TransactionsList = (props: IProps): JSX.Element => {
     const simplified = [i18n.t('hash'), i18n.t('type'), i18n.t('block'), i18n.t('time')];
 
     return (
-        <Card withoutPadding className="mb-5 h-100">
+        <Card withoutPadding className="mb-5 h-100 pb-3">
             <div className="d-flex justify-content-between">
                 {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('transactions')}</h3>}
                 {more && (

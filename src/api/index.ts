@@ -49,9 +49,10 @@ class ExplorerApi extends HttpClient {
 
     public getValidator = (id: string) => this.request<ValidatorModel>({ url: `${ApiConstants.VALIDATORS_URL}/${id}` }, ValidatorModel);
 
-    public fetchValidatorBlocks = (id: string) => this.request<BlocksModel[]>({ url: `${ApiConstants.VALIDATORS_URL}/${id}/${ApiConstants.BLOCKS_URL}?limit=5` }, BlocksModel);
+    public fetchValidatorBlocks = (id: string, page = 0) => this.request<BlocksModel[]>({ url: `${ApiConstants.VALIDATORS_URL}/${id}/${ApiConstants.BLOCKS_URL}?limit=5&page=${page}` }, BlocksModel);
 
-    public fetchValidatorDelegations = (id: string) => this.request<DelegationModel[]>({ url: `${ApiConstants.VALIDATORS_URL}/${id}/${ApiConstants.DELEGATIONS_URL}?limit=5` }, DelegationModel);
+    public fetchValidatorDelegations = (id: string, page = 0) =>
+        this.request<DelegationModel[]>({ url: `${ApiConstants.VALIDATORS_URL}/${id}/${ApiConstants.DELEGATIONS_URL}?limit=5&page=${page}` }, DelegationModel);
 }
 
 export default ExplorerApi.getInstance();

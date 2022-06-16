@@ -1,17 +1,20 @@
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { DelegationModel } from 'models';
+import { DelegationModel, MetadataModel } from 'models';
 import { Card, Table } from 'frontend-elements';
 import { i18n, NumbersUtils, StringsUtils } from 'utils';
 import { NavigationConstants, NumberConstants } from 'constant';
 import numeral from 'numeral';
 import { LumConstants } from '@lum-network/sdk-javascript';
-import SmallerDecimal from '../../SmallerDecimal/SmallerDecimal';
+import { SmallerDecimal } from 'components';
 
 interface IProps extends RouteComponentProps {
     delegators: DelegationModel[];
     title?: boolean;
     validatorTokens: number;
+    metadata?: MetadataModel;
+    onPageChange?: (page: number) => void;
+    total?: boolean;
 }
 
 const DelegatorsList = (props: IProps): JSX.Element => {
@@ -36,13 +39,21 @@ const DelegatorsList = (props: IProps): JSX.Element => {
         );
     };
 
-    const { delegators, title } = props;
+    const { delegators, title, onPageChange, metadata, total } = props;
     const head = [i18n.t('delegatorAddress'), i18n.t('amount'), i18n.t('shares')];
 
     return (
         <Card withoutPadding className="mb-5 h-100">
-            <div className="d-flex justify-content-between">{title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('delegators')}</h3>}</div>
-            <Table head={head}>{delegators.map((delegator, index) => renderRow(delegator, index, head))}</Table>
+            <div className="d-flex justify-content-between">
+                {title && (
+                    <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">
+                        {i18n.t('delegators')} {total && metadata && <span> ({numeral(metadata.itemsTotal).format('0,0')})</span>}
+                    </h3>
+                )}
+            </div>
+            <Table pagination={metadata} onPageChange={onPageChange} head={head}>
+                {delegators.map((delegator, index) => renderRow(delegator, index, head))}
+            </Table>
         </Card>
     );
 };
