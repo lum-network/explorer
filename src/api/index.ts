@@ -1,10 +1,9 @@
-import * as ApiAccounts from './api/accounts';
 import * as ApiSearch from './api/search';
 import * as ApiStats from './api/stats';
 import * as ApiGovernance from './api/governance';
 import { HttpClient } from 'utils';
 import { ApiConstants } from 'constant';
-import { BeamModel, BlocksModel, DelegationModel, LumModel, TransactionsModel, ValidatorModel } from 'models';
+import { AccountModel, BeamModel, BlocksModel, DelegationModel, LumModel, TransactionsModel, ValidatorModel } from 'models';
 
 class ExplorerApi extends HttpClient {
     private static instance?: ExplorerApi;
@@ -53,8 +52,18 @@ class ExplorerApi extends HttpClient {
 
     public fetchValidatorDelegations = (id: string, page = 0) =>
         this.request<DelegationModel[]>({ url: `${ApiConstants.VALIDATORS_URL}/${id}/${ApiConstants.DELEGATIONS_URL}?limit=5&page=${page}` }, DelegationModel);
+
+    // Accounts
+
+    public getAccount = (address: string) => this.request<AccountModel>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}` }, AccountModel);
+
+    public fetchAccountDelegations = (address: string, page = 0) =>
+        this.request<DelegationModel[]>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}/${ApiConstants.DELEGATIONS_URL}?limit=5&page=${page}` }, DelegationModel);
+
+    public fetchAccountTransactions = (address: string, page = 0) =>
+        this.request<TransactionsModel[]>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}/${ApiConstants.TRANSACTIONS_URL}?limit=10&page=${page}` }, TransactionsModel);
 }
 
 export default ExplorerApi.getInstance();
 
-export { ApiAccounts, ApiSearch, ApiStats, ApiGovernance };
+export { ApiSearch, ApiStats, ApiGovernance };

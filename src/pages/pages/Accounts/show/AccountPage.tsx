@@ -23,7 +23,9 @@ const AccountPage = (props: IProps): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const account = useSelector((state: RootState) => state.accounts.account);
     const lum = useSelector((state: RootState) => state.core.lum);
-    const loading = useSelector((state: RootState) => state.loading.models.accounts || state.loading.effects.core.getLum);
+    const loading = useSelector((state: RootState) => state.loading.effects.accounts.getAccount || state.loading.effects.core.getLum);
+    const delegationsMetadata = useSelector((state: RootState) => state.accounts.delegationsMetadata);
+    const transactionsMetadata = useSelector((state: RootState) => state.accounts.transactionsMetadata);
 
     const { id } = props.match.params;
 
@@ -38,6 +40,17 @@ const AccountPage = (props: IProps): JSX.Element => {
     const [airdropActionVote, setAirdropActionVote] = useState<boolean | null>(null);
     const [airdropActionDelegate, setAirdropActionDelegate] = useState<boolean | null>(null);
     const [total, setTotal] = useState(0.0);
+
+    const [delegationsPage, setDelegationsPage] = useState(0);
+    const [transactionsPage, setTransactionsPage] = useState(0);
+
+    useEffect(() => {
+        dispatch.accounts.fetchAccountDelegations({ id, page: delegationsPage }).finally(() => null);
+    }, [delegationsPage]);
+
+    useEffect(() => {
+        dispatch.accounts.fetchAccountTransactions({ id, page: transactionsPage }).finally(() => null);
+    }, [transactionsPage]);
 
     useEffect(() => {
         dispatch.accounts.getAccount(id).finally(() => null);
@@ -139,7 +152,7 @@ const AccountPage = (props: IProps): JSX.Element => {
             );
         }
 
-        return <TransactionsList accountAddress={account.address} title transactions={transactions} />;
+        return <TransactionsList total metadata={transactionsMetadata} onChangePage={setTransactionsPage} accountAddress={account.address} title transactions={transactions} />;
     };
 
     const renderCards = (): JSX.Element | null => {
@@ -168,7 +181,9 @@ const AccountPage = (props: IProps): JSX.Element => {
 
         return (
             <div className="row mb-5 g-4 g-xxl-5">
-                <div className="col-12 col-xxl-6">{allRewards && <DelegationsList title delegations={delegations} rewards={allRewards.rewards} />}</div>
+                <div className="col-12 col-xxl-6">
+                    {allRewards && <DelegationsList metadata={delegationsMetadata} onPageChange={setDelegationsPage} total title delegations={delegations} rewards={allRewards.rewards} />}
+                </div>
                 <div className="col-12 col-xxl-6">
                     <UnbondingsList unbondings={unbondings} title />
                 </div>
