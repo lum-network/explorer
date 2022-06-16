@@ -41,7 +41,7 @@ class ExplorerApi extends HttpClient {
 
     public getBeam = (id: string) => this.request<BeamModel>({ url: `${ApiConstants.BEAMS_URL}/${id}` }, BeamModel);
 
-    public fetchBeams = () => this.request<BeamModel[]>({ url: ApiConstants.BEAMS_URL }, BeamModel);
+    public fetchBeams = (page = 0) => this.request<BeamModel[]>({ url: `${ApiConstants.BEAMS_URL}?page=${page}` }, BeamModel);
 
     // Validators
 

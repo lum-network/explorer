@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { TransactionsList } from 'components';
@@ -15,10 +15,6 @@ const TransactionsPage = (): JSX.Element | null => {
     useEffect(() => {
         dispatch.transactions.fetchTransactions(page).finally(() => null);
     }, [page]);
-
-    useEffect(() => {
-        dispatch.transactions.fetchTransactions().finally(() => null);
-    }, []);
 
     if (!transactions) {
         return null;

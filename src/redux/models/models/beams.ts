@@ -1,4 +1,4 @@
-import { BeamModel } from 'models';
+import { BeamModel, MetadataModel } from 'models';
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import { plainToClass } from 'class-transformer';
@@ -7,6 +7,7 @@ import Api from 'api';
 interface BeamsState {
     beam: BeamModel;
     beams: BeamModel[];
+    metadata?: MetadataModel;
 }
 
 const beams = createModel<RootModel>()({
@@ -22,10 +23,11 @@ const beams = createModel<RootModel>()({
             };
         },
 
-        SET_BEAMS(state, beams: BeamModel[]) {
+        SET_BEAMS(state, beams: BeamModel[], metadata: MetadataModel) {
             return {
                 ...state,
                 beams,
+                metadata,
             };
         },
 
@@ -43,10 +45,10 @@ const beams = createModel<RootModel>()({
             dispatch.beams.SET_BEAM(beam);
         },
 
-        async fetchBeams() {
-            const [beams] = await Api.fetchBeams();
+        async fetchBeams(page?: number) {
+            const [beams, metadata] = await Api.fetchBeams(page);
 
-            dispatch.beams.SET_BEAMS(beams);
+            dispatch.beams.SET_BEAMS(beams, metadata);
         },
     }),
 });

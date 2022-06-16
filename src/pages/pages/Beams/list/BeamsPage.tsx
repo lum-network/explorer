@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
 import { Card, Loading, Table } from 'frontend-elements';
@@ -14,10 +14,13 @@ const BeamsPage = (): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const beams = useSelector((state: RootState) => state.beams.beams);
     const loading = useSelector((state: RootState) => state.loading.effects.beams.fetchBeams);
+    const metadata = useSelector((state: RootState) => state.beams.metadata);
+
+    const [page, setPage] = useState(0);
 
     useEffect(() => {
-        dispatch.beams.fetchBeams().finally(() => null);
-    }, []);
+        dispatch.beams.fetchBeams(page).finally(() => null);
+    }, [page]);
 
     const renderRows = (beam: BeamModel, index: number, head: string[]): JSX.Element => {
         return (
@@ -71,7 +74,9 @@ const BeamsPage = (): JSX.Element => {
 
         return (
             <Card withoutPadding className="mb-5 h-100">
-                <Table head={head}>{beams.map((beam, index) => renderRows(beam, index, head))}</Table>
+                <Table pagination={metadata} onPageChange={setPage} head={head}>
+                    {beams.map((beam, index) => renderRows(beam, index, head))}
+                </Table>
             </Card>
         );
     };

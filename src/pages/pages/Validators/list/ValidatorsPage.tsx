@@ -59,7 +59,7 @@ const ValidatorsPage = (): JSX.Element => {
                                 width={34}
                                 height={34}
                                 validatorAddress={validator.operatorAddress || ''}
-                                chainId={stats.chainId}
+                                chainId={stats && stats.chainId}
                                 githubUrl={NavigationConstants.GITHUB_ASSETS}
                                 className="me-3"
                             />

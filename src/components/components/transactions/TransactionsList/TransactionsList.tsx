@@ -96,7 +96,9 @@ const TransactionsList = (props: IProps): JSX.Element => {
                     </Button>
                 )}
             </div>
-            <Table pagination={metadata} onPageChange={onChangePage} head={rej ? simplified : full}>{transactions.map((transaction, index) => renderRow(transaction, index, full))}</Table>
+            <Table pagination={metadata} onPageChange={onChangePage} head={rej ? simplified : full}>
+                {transactions.map((transaction, index) => renderRow(transaction, index, full))}
+            </Table>
         </Card>
     );
 };

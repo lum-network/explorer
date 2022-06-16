@@ -16,10 +16,6 @@ const BlocksPage = (): JSX.Element | null => {
         dispatch.blocks.fetchBlocks(page).finally(() => null);
     }, [page]);
 
-    useEffect(() => {
-        dispatch.blocks.fetchBlocks().finally(() => null);
-    }, []);
-
     if (!blocks) {
         return null;
     }
