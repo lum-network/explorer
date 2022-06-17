@@ -75,7 +75,6 @@ const blocks = createModel<RootModel>()({
         },
 
         addBlock(block: BlocksModel) {
-            console.log(block);
             // FIXME
             // dispatch.blocks.ADD_NEW_BLOCK(block);
         },

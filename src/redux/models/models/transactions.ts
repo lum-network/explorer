@@ -74,7 +74,6 @@ const transactions = createModel<RootModel>()({
         },
 
         addTransaction(transaction: TransactionsModel) {
-            console.log(transaction);
             // FIXME
             // dispatch.transactions.ADD_NEW_TRANSACTION(transaction);
         },
