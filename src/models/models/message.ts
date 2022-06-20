@@ -8,14 +8,23 @@ export default abstract class MessageModel {
     typeUrl?: MessagesType;
 }
 
-export class Commission {
+export class CommissionRates {
     @Expose({ name: 'max_change_rate' })
     maxChangeRate?: string;
 
+    @Expose({ name: 'current_rate' })
     rate?: string;
 
     @Expose({ name: 'max_rate' })
     maxRate?: string;
+}
+
+export class Commission {
+    @Expose({ name: 'last_updated_at' })
+    lastUpdatedAt?: string;
+
+    @Type(() => CommissionRates)
+    rates: CommissionRates = new CommissionRates();
 }
 
 export class Description {

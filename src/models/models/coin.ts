@@ -7,6 +7,7 @@ class CoinModel {
         if (!param || !param.value) {
             return '';
         }
+
         return param.value.toString();
     })
     amount = '';

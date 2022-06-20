@@ -1,19 +1,13 @@
-import { CoinModel, DelegationsModel } from 'models';
+import { CoinModel, DelegationModel } from 'models';
 import { UnbondingModel } from 'models/models/account';
+import { NumberConstants } from 'constant';
 
-export const sumOfDelegations = (delegations: DelegationsModel[]): number => {
-    return delegations.reduce((total, currentValue) => total + parseFloat(currentValue.balance?.amount || '0'), 0);
+export const sumOfDelegations = (delegations: DelegationModel[]): number => {
+    return delegations.reduce((total, currentValue) => total + parseFloat(currentValue.shares || '0') / NumberConstants.CLIENT_PRECISION, 0);
 };
 
 export const sumOfUnbonding = (unbondings: UnbondingModel[]): number => {
-    const array =
-        unbondings &&
-        unbondings.map((value) =>
-            value.entries.reduce(
-                (totalEntries, valueEntries) => totalEntries + parseFloat(valueEntries.balance || ''),
-                0,
-            ),
-        );
+    const array = unbondings && unbondings.map((value) => value.entries.reduce((totalEntries, valueEntries) => totalEntries + parseFloat(valueEntries.balance || ''), 0));
 
     if (!array) {
         return 0;

@@ -74,12 +74,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                         <h4 className="mb-2">{i18n.t('ratings')}</h4>
                         <Rating
                             initialRating={
-                                beam.data &&
-                                beam.data.merchantReview &&
-                                beam.data.merchantReview.ratings &&
-                                beam.data.merchantReview.ratings.overall
-                                    ? beam.data.merchantReview.ratings.overall / 2
-                                    : 0
+                                beam.data && beam.data.merchantReview && beam.data.merchantReview.ratings && beam.data.merchantReview.ratings.overall ? beam.data.merchantReview.ratings.overall / 2 : 0
                             }
                         />
                     </div>

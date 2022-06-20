@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransactionsModel } from 'models';
+import { MetadataModel, TransactionsModel } from 'models';
 import { Badge, MessageType } from 'components';
 import { Button, Card, Table } from 'frontend-elements';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
@@ -8,13 +8,17 @@ import { i18n, NumbersUtils, StringsUtils } from 'utils';
 import moment from 'moment-timezone';
 import moreLogo from 'assets/images/more.svg';
 import { LumConstants } from '@lum-network/sdk-javascript';
+import numeral from 'numeral';
 
 interface IProps extends RouteComponentProps {
     transactions: TransactionsModel[];
+    metadata?: MetadataModel;
+    onChangePage?: (page: number) => void;
     rej?: boolean;
     title?: boolean;
     more?: boolean;
     accountAddress?: string;
+    total?: boolean;
 }
 
 const TransactionsList = (props: IProps): JSX.Element => {
@@ -30,7 +34,7 @@ const TransactionsList = (props: IProps): JSX.Element => {
 
         return (
             <div className="d-flex justify-content-end">
-                {transaction.amount.amount ? (
+                {transaction.amount && transaction.amount.amount ? (
                     <>
                         {NumbersUtils.formatNumber(transaction.amount, true)}
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
@@ -54,17 +58,11 @@ const TransactionsList = (props: IProps): JSX.Element => {
                 </td>
                 <td data-label={head[1]}>
                     <MessageType
-                        receive={
-                            transaction.messageType === MessagesType.SEND &&
-                            props.accountAddress !== undefined &&
-                            props.accountAddress !== transaction.addresses[0]
-                        }
+                        receive={transaction.messageType === MessagesType.SEND && props.accountAddress !== undefined && props.accountAddress !== transaction.addresses[0]}
                         badge
                         type={transaction.messageType}
                     />
-                    {transaction.messagesCount > 1 && (
-                        <span className="ms-2 color-type round-tags">+{transaction.messagesCount - 1}</span>
-                    )}
+                    {transaction.messagesCount > 1 && <span className="ms-2 color-type round-tags">+{transaction.messagesCount - 1}</span>}
                 </td>
                 {!rej && (
                     <>
@@ -86,24 +84,25 @@ const TransactionsList = (props: IProps): JSX.Element => {
         );
     };
 
-    const { transactions, rej, title, more, history } = props;
+    const { transactions, rej, title, more, history, metadata, onChangePage, total } = props;
     const full = [i18n.t('hash'), i18n.t('type'), i18n.t('status'), i18n.t('amount'), i18n.t('block'), i18n.t('time')];
     const simplified = [i18n.t('hash'), i18n.t('type'), i18n.t('block'), i18n.t('time')];
 
     return (
-        <Card withoutPadding className="mb-5 h-100">
+        <Card withoutPadding className="mb-5 pb-3">
             <div className="d-flex justify-content-between">
-                {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('transactions')}</h3>}
+                {title && (
+                    <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">
+                        {i18n.t('transactions')} {total && metadata && <span> ({numeral(metadata.itemsTotal).format('0,0')})</span>}
+                    </h3>
+                )}
                 {more && (
-                    <Button
-                        className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3"
-                        onPress={() => history.push(NavigationConstants.TRANSACTIONS)}
-                    >
+                    <Button className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3" onPress={() => history.push(NavigationConstants.TRANSACTIONS)}>
                         {i18n.t('viewAll')}
                     </Button>
                 )}
             </div>
-            <Table head={rej ? simplified : full}>
+            <Table pagination={metadata} onPageChange={onChangePage} head={rej ? simplified : full}>
                 {transactions.map((transaction, index) => renderRow(transaction, index, full))}
             </Table>
         </Card>

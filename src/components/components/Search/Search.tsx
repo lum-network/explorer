@@ -27,13 +27,7 @@ const Search = (props: IProps): JSX.Element => {
 
     return (
         <div className="search-container">
-            <TextInput
-                placeholder={i18n.t('searchPlaceholder')}
-                icon={searchLogo}
-                value={text}
-                onSubmit={onSubmit}
-                onChangeText={onChangeText}
-            />
+            <TextInput placeholder={i18n.t('searchPlaceholder')} icon={searchLogo} value={text} onSubmit={onSubmit} onChangeText={onChangeText} />
         </div>
     );
 };

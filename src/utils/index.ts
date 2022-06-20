@@ -11,14 +11,4 @@ import * as GovernanceUtils from './utils/governance';
 export { default as i18n } from './utils/i18n';
 export { default as HttpClient } from './utils/http';
 
-export {
-    StringsUtils,
-    TimesUtils,
-    MessagesUtils,
-    ValidatorsUtils,
-    NumbersUtils,
-    AccountUtils,
-    BlockUtils,
-    AnalyticsUtils,
-    GovernanceUtils,
-};
+export { StringsUtils, TimesUtils, MessagesUtils, ValidatorsUtils, NumbersUtils, AccountUtils, BlockUtils, AnalyticsUtils, GovernanceUtils };

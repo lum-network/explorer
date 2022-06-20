@@ -28,9 +28,7 @@ const VestingList = ({ vesting, title }: IProps): JSX.Element => {
 
     return (
         <Card withoutPadding className="mb-5 h-100">
-            <div className="d-flex justify-content-between">
-                {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('vesting')}</h3>}
-            </div>
+            <div className="d-flex justify-content-between">{title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('vesting')}</h3>}</div>
             <Table head={head}>
                 <tr>
                     <td data-label={head[0]}>
@@ -41,11 +39,7 @@ const VestingList = ({ vesting, title }: IProps): JSX.Element => {
                         </small>
                     </td>
                     <td data-label={head[1]}>
-                        <SmallerDecimal
-                            nb={numeral(NumbersUtils.convertUnitNumber(vesting.lockedCoins.amount)).format(
-                                '0,0.000000',
-                            )}
-                        />
+                        <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(vesting.lockedCoins.amount)).format('0,0.000000')} />
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                     </td>
                     <td data-label={head[2]} className="text-end">

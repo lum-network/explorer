@@ -14,12 +14,4 @@ import * as NumberConstants from './constant/number';
 
 import * as SystemConstants from './constant/system';
 
-export {
-    NavigationConstants,
-    ApiConstants,
-    SystemConstants,
-    TimeConstants,
-    SocketConstants,
-    AddressConstants,
-    NumberConstants,
-};
+export { NavigationConstants, ApiConstants, SystemConstants, TimeConstants, SocketConstants, AddressConstants, NumberConstants };

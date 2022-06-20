@@ -20,34 +20,24 @@ const RedelegatesList = ({ title, redelegates }: IProps): JSX.Element => {
         return redelegate.entries.map((value, index) => (
             <tr key={String(index)}>
                 <td data-label={head[0]}>
-                    <Link
-                        title={redelegate.redelegation.validatorSrcAddress}
-                        to={`${NavigationConstants.VALIDATORS}/${redelegate.redelegation.validatorSrcAddress}`}
-                    >
+                    <Link title={redelegate.redelegation.validatorSrcAddress} to={`${NavigationConstants.VALIDATORS}/${redelegate.redelegation.validatorSrcAddress}`}>
                         {StringsUtils.trunc(redelegate.redelegation.validatorSrcAddress || '', 4)}
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <Link
-                        title={redelegate.redelegation.validatorDstAddress}
-                        to={`${NavigationConstants.VALIDATORS}/${redelegate.redelegation.validatorDstAddress}`}
-                    >
+                    <Link title={redelegate.redelegation.validatorDstAddress} to={`${NavigationConstants.VALIDATORS}/${redelegate.redelegation.validatorDstAddress}`}>
                         {StringsUtils.trunc(redelegate.redelegation.validatorDstAddress || '', 4)}
                     </Link>
                 </td>
                 <td data-label={head[2]} className="text-end">
-                    <SmallerDecimal
-                        nb={numeral(NumbersUtils.convertUnitNumber(value.balance || 0)).format('0,0.000000')}
-                    />
+                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(value.balance || 0)).format('0,0.000000')} />
                     <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td data-label={head[3]} className="text-end">
                     <small>
                         {moment.utc(value.redelegationEntry.completionTime).tz(SystemConstants.TIMEZONE).format('ll')}
                         <br />
-                        <span className="text-muted">
-                            ({moment.utc(value.redelegationEntry.completionTime).fromNow()})
-                        </span>
+                        <span className="text-muted">({moment.utc(value.redelegationEntry.completionTime).fromNow()})</span>
                     </small>
                 </td>
             </tr>
@@ -67,9 +57,7 @@ const RedelegatesList = ({ title, redelegates }: IProps): JSX.Element => {
 
     return (
         <Card withoutPadding className="mb-5 h-100">
-            <div className="d-flex justify-content-between">
-                {title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('redelegations')}</h3>}
-            </div>
+            <div className="d-flex justify-content-between">{title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('redelegations')}</h3>}</div>
             <Table head={head}>{redelegates.map((redelegate) => renderRow(redelegate, head))}</Table>
         </Card>
     );
