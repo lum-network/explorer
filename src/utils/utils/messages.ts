@@ -87,6 +87,12 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
         case MessagesType.IBC_RECV_PACKET:
             return { text: i18n.t('ibcRecvPacketMessage'), icon: placeholderLogo };
 
+        case MessagesType.EXEC:
+            return { text: i18n.t('execMessage'), icon: placeholderLogo };
+
+        case MessagesType.GRANT:
+            return { text: i18n.t('grantMessage'), icon: placeholderLogo };
+
         default:
             return { text: type || '', icon: placeholderLogo };
     }

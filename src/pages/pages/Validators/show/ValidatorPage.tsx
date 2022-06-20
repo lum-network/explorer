@@ -59,12 +59,16 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     }, [validators, validator]);
 
     const renderUptime = () => {
-        if (validator.uptime === 100) {
-            return <p className="text-success fw-bold">{validator.uptime}%</p>;
-        } else if (validator.uptime <= 90) {
-            return <p className="text-warning fw-bold">{validator.uptime}%</p>;
+        if (!validator.uptime) {
+            return null;
+        }
+
+        if (validator.uptime >= 99) {
+            return <p className="text-success fw-bold">{validator.uptime.toFixed()}%</p>;
+        } else if (validator.uptime < 90) {
+            return <p className="text-danger fw-bold">{validator.uptime.toFixed()}%</p>;
         } else {
-            return <p className="text-danger fw-bold">{validator.uptime}%</p>;
+            return <p className="text-warning fw-bold">{validator.uptime.toFixed()}%</p>;
         }
     };
 
@@ -100,7 +104,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
         }
 
         return (
-            <Card badge={<Badge jailed={validator.jailed} validatorsType={validator.status} />} className="mb-5">
+            <Card badge={<Badge tombstoned={validator.tombstoned} jailed={validator.jailed} validatorsType={validator.status} />} className="mb-5">
                 <div className="d-flex align-items-center flex-wrap flex-sm-nowrap">
                     <div className="position-relative validator-logo me-3 me-xxl-5 me-sm-4">
                         <div className="rank-dot-container">

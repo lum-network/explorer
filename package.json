@@ -11,6 +11,7 @@
         "axios": "^0.21.4",
         "bootstrap": "^5.1.1",
         "class-transformer": "^0.4.0",
+        "currency-symbol-map": "^5.1.0",
         "firebase": "^8.10.0",
         "i18n-js": "^3.8.0",
         "long": "^5.1.0",

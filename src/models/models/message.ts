@@ -306,6 +306,20 @@ export class Unjail extends MessageModel {
     value: UnjailValue = new UnjailValue();
 }
 
+class ExecValue {}
+
+export class Exec extends MessageModel {
+    @Type(() => ExecValue)
+    value: ExecValue = new ExecValue();
+}
+
+class GrantValue {}
+
+export class Grant extends MessageModel {
+    @Type(() => GrantValue)
+    value: GrantValue = new GrantValue();
+}
+
 export type Value =
     | Send
     | CreateValidator
@@ -323,4 +337,6 @@ export type Value =
     | CreateVestingAccount
     | BeginRedelegate
     | WithdrawValidatorCommission
-    | Unjail;
+    | Unjail
+    | Exec
+    | Grant;

@@ -69,6 +69,7 @@ export default {
     airdrop: 'Airdrop',
     noData: 'No data',
     secret: 'Secret',
+    createdAt: 'Created at',
 
     // Layout
     dashboard: 'Board',
@@ -105,6 +106,8 @@ export default {
     ibcTimeoutMessage: 'IBC Timeout',
     ibcTransferMessage: 'IBC Transfer',
     ibcRecvPacketMessage: 'IBC Receive packet',
+    execMessage: 'Exec',
+    grantMessage: 'Grant',
 
     // Badge status
     badgeJailed: 'Jailed',
@@ -132,12 +135,19 @@ export default {
     beams: 'Beams',
     beamDetails: 'Beam details',
     noBeamFound: 'Beam not found',
-    creatorAddress: 'Creator address',
     closed: 'Closed',
     canceled: 'Canceled',
     unspecified: 'Unspecified',
     rewardAmount: 'Reward amount',
-    ratings: 'Ratings',
+    merchantRatings: 'Merchant Ratings',
+    walletMerchant: 'Wallet merchant',
+    walletDestination: 'Wallet destination',
+    rewardNotClaimed: 'Reward not yet claimed',
+    products: 'Products',
+    overall: 'Overall',
+    quality: 'Quality',
+    nps: 'Nps',
+    customerService: 'Customer service',
 
     // Block
     blockTime: 'Block time',
@@ -168,6 +178,7 @@ export default {
     validatorDetails: 'Validator details',
     bondedTokens: 'Bonded tokens',
     noValidatorFound: 'Validator not found',
+    tombstoned: 'Tombstoned',
 
     // Gov
     proposals: 'Proposals',
