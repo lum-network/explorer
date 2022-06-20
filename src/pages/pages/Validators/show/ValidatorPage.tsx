@@ -61,10 +61,10 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     const renderUptime = () => {
         if (validator.uptime === 100) {
             return <p className="text-success fw-bold">{validator.uptime}%</p>;
-        } else if (validator.uptime <= 90) {
-            return <p className="text-warning fw-bold">{validator.uptime}%</p>;
-        } else {
+        } else if (validator.uptime < 90) {
             return <p className="text-danger fw-bold">{validator.uptime}%</p>;
+        } else {
+            return <p className="text-warning fw-bold">{validator.uptime}%</p>;
         }
     };
 
