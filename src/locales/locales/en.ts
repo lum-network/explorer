@@ -178,6 +178,7 @@ export default {
     validatorDetails: 'Validator details',
     bondedTokens: 'Bonded tokens',
     noValidatorFound: 'Validator not found',
+    tombstoned: 'Tombstoned',
 
     // Gov
     proposals: 'Proposals',

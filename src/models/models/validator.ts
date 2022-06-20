@@ -21,6 +21,8 @@ class ValidatorModel {
 
     jailed = false;
 
+    tombstoned = false;
+
     tokens?: string;
 
     @Expose({ name: 'bonded_height' })

@@ -14,11 +14,12 @@ interface IProps {
     proposalStatus?: ProposalStatus;
     validatorsType?: ValidatorsType;
     jailed?: boolean;
+    tombstoned?: boolean;
     success?: boolean;
 }
 
 const Badge = (props: IProps): JSX.Element => {
-    const { success, jailed, validatorsType, proposalStatus, text, beamsStatus } = props;
+    const { success, jailed, validatorsType, proposalStatus, text, beamsStatus, tombstoned } = props;
 
     const getBeamStatus = () => {
         switch (beamsStatus) {
@@ -32,6 +33,18 @@ const Badge = (props: IProps): JSX.Element => {
                 return i18n.t('unspecified');
         }
     };
+
+    if (tombstoned) {
+        return (
+            <div className="d-flex align-items-center">
+                <div className="app-badge failure">
+                    <p className="text failure">
+                        <img alt="checkmark" src={cross} /> {i18n.t('tombstoned')}
+                    </p>
+                </div>
+            </div>
+        );
+    }
 
     if (jailed) {
         return (
