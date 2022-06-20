@@ -70,38 +70,28 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                         <h4>{i18n.t('yes')}</h4>
                         <small>{numeral(voteYes).format('0.00')}%</small>
                         <br />
-                        <SmallerDecimal
-                            nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.yes)).format('0,0.000000')}
-                        />
+                        <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.yes)).format('0,0.000000')} />
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                     </div>
                     <div className="col-12 col-md-6 col-xl-3 border-vote-red">
                         <h4>{i18n.t('no')}</h4>
                         <small>{numeral(voteNo).format('0.00')}%</small>
                         <br />
-                        <SmallerDecimal
-                            nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.no)).format('0,0.000000')}
-                        />
+                        <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.no)).format('0,0.000000')} />
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                     </div>
                     <div className="col-12 col-md-6 col-xl-3 border-vote-yellow">
                         <h4>{i18n.t('noWithVeto')}</h4>
                         <small>{numeral(voteNoWithVeto).format('0.00')}%</small>
                         <br />
-                        <SmallerDecimal
-                            nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.noWithVeto)).format(
-                                '0,0.000000',
-                            )}
-                        />
+                        <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.noWithVeto)).format('0,0.000000')} />
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                     </div>
                     <div className="col-12 col-md-6 col-xl-3 border-vote-grey">
                         <h4>{i18n.t('abstain')}</h4>
                         <small>{numeral(voteAbstain).format('0.00')}%</small>
                         <br />
-                        <SmallerDecimal
-                            nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.abstain)).format('0,0.000000')}
-                        />
+                        <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(proposal.result.abstain)).format('0,0.000000')} />
                         <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                     </div>
                 </div>
@@ -121,13 +111,7 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
         if (!proposal) {
             return (
                 <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
-                    <img
-                        width={44}
-                        height={44}
-                        className="mb-2 placeholder-image"
-                        alt="placeholder"
-                        src={proposalLogo}
-                    />
+                    <img width={44} height={44} className="mb-2 placeholder-image" alt="placeholder" src={proposalLogo} />
                     {i18n.t('noProposalFound')}
                 </Card>
             );
@@ -155,27 +139,19 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                     </div>
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('submitTime')}</h4>
-                        {proposal.submitTime && proposal.submitTime !== '0001-01-01T00:00:00.000Z'
-                            ? moment(proposal.submitTime).format('lll')
-                            : '-'}
+                        {proposal.submitTime && proposal.submitTime !== '0001-01-01T00:00:00.000Z' ? moment(proposal.submitTime).format('lll') : '-'}
                     </div>
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('depositEnd')}</h4>
-                        {proposal.depositEndTime && proposal.depositEndTime !== '0001-01-01T00:00:00.000Z'
-                            ? moment(proposal.depositEndTime).format('lll')
-                            : '-'}
+                        {proposal.depositEndTime && proposal.depositEndTime !== '0001-01-01T00:00:00.000Z' ? moment(proposal.depositEndTime).format('lll') : '-'}
                     </div>
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('votingStart')}</h4>
-                        {proposal.votingStartTime && proposal.votingStartTime !== '0001-01-01T00:00:00.000Z'
-                            ? moment(proposal.votingStartTime).format('lll')
-                            : '-'}
+                        {proposal.votingStartTime && proposal.votingStartTime !== '0001-01-01T00:00:00.000Z' ? moment(proposal.votingStartTime).format('lll') : '-'}
                     </div>
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('votingEnd')}</h4>
-                        {proposal.votingEndTime && proposal.votingEndTime !== '0001-01-01T00:00:00.000Z'
-                            ? moment(proposal.votingEndTime).format('lll')
-                            : '-'}
+                        {proposal.votingEndTime && proposal.votingEndTime !== '0001-01-01T00:00:00.000Z' ? moment(proposal.votingEndTime).format('lll') : '-'}
                     </div>
                     <div className="col-12">
                         <h4 className="mb-2">{i18n.t('totalDeposit')}</h4>
@@ -209,8 +185,7 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
         <>
             <div className="mt-3 mb-4 d-flex align-items-center">
                 <h2 className="me-3">
-                    <img alt="proposal" src={proposalLogo} /> {i18n.t('proposal')} #
-                    {(proposal && proposal.proposalId.toString()) || id}
+                    <img alt="proposal" src={proposalLogo} /> {i18n.t('proposal')} #{(proposal && proposal.proposalId.toString()) || id}
                 </h2>
                 {proposal && <Badge proposalStatus={proposal.status} />}
             </div>

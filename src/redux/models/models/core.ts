@@ -40,7 +40,7 @@ const core = createModel<RootModel>()({
             },
 
             async getLum() {
-                const lum = await client.getLum();
+                const [lum] = await client.getLum();
 
                 dispatch.core.SET_LUM(lum);
             },

@@ -18,18 +18,36 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     const validator = useSelector((state: RootState) => state.validators.validator);
     const validators = useSelector((state: RootState) => state.validators.validators);
     const stats = useSelector((state: RootState) => state.core.stats);
-    const loading = useSelector((state: RootState) => state.loading.models.validators);
+    const loading = useSelector((state: RootState) => state.loading.effects.validators.fetchValidators);
+    const blocksMetadata = useSelector((state: RootState) => state.validators.blocksMetadata);
+    const delegationsMetadata = useSelector((state: RootState) => state.validators.delegationsMetadata);
 
     const { id } = props.match.params;
 
     const [rank, setRank] = useState<number | null>(null);
     const [totalVotingPower, setTotalVotingPower] = useState<number | null>(null);
-    const [isGenesis, setIsGenesis] = useState(false);
+    const [blocksPage, setBlocksPage] = useState(0);
+    const [delegationsPage, setDelegationsPage] = useState(0);
 
     useEffect(() => {
-        dispatch.validators.fetchValidators().finally(() => null);
         dispatch.validators.getValidator(id).finally(() => null);
     }, []);
+
+    useEffect(() => {
+        if (!validator) {
+            return;
+        }
+
+        dispatch.validators.fetchValidatorBlocks({ id, page: blocksPage }).finally(() => null);
+    }, [blocksPage]);
+
+    useEffect(() => {
+        if (!validator) {
+            return;
+        }
+
+        dispatch.validators.fetchValidatorDelegations({ id, page: delegationsPage }).finally(() => null);
+    }, [delegationsPage]);
 
     useEffect(() => {
         if (!validators || !validators.length || !validator) {
@@ -38,11 +56,20 @@ const ValidatorPage = (props: IProps): JSX.Element => {
 
         setRank(ValidatorsUtils.findRank(validators, validator));
         setTotalVotingPower(NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators)));
-        setIsGenesis(ValidatorsUtils.isGenesis(validators, validator));
     }, [validators, validator]);
 
+    const renderUptime = () => {
+        if (validator.uptime === 100) {
+            return <p className="text-success fw-bold">{validator.uptime}%</p>;
+        } else if (validator.uptime <= 90) {
+            return <p className="text-warning fw-bold">{validator.uptime}%</p>;
+        } else {
+            return <p className="text-danger fw-bold">{validator.uptime}%</p>;
+        }
+    };
+
     const renderGenesisBadge = () => {
-        if (!isGenesis) {
+        if (validator.bondedHeight !== 0) {
             return null;
         }
 
@@ -66,13 +93,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
         if (!validator) {
             return (
                 <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
-                    <img
-                        width={44}
-                        height={44}
-                        className="mb-2 placeholder-image"
-                        alt="placeholder"
-                        src={validatorLogo}
-                    />
+                    <img width={44} height={44} className="mb-2 placeholder-image" alt="placeholder" src={validatorLogo} />
                     {i18n.t('noValidatorFound')}
                 </Card>
             );
@@ -87,7 +108,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         </div>
                         <ValidatorLogo
                             validatorAddress={validator.operatorAddress || ''}
-                            chainId={stats.chainId}
+                            chainId={stats && stats.chainId}
                             githubUrl={NavigationConstants.GITHUB_ASSETS}
                             className="validator-logo"
                             width={72}
@@ -97,11 +118,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                     <div className="d-flex flex-column flex-grow-1">
                         <div className="row mb-3 mb-xl-4 mt-3 mt-md-0">
                             <div className="col-12 d-flex align-items-center flex-row flex-wrap-reverse">
-                                <h1>
-                                    {validator.description.moniker ||
-                                        validator.description.identity ||
-                                        StringsUtils.trunc(validator.operatorAddress || '')}
-                                </h1>
+                                <h1>{validator.displayName || validator.description.moniker || validator.description.identity || StringsUtils.trunc(validator.operatorAddress || '')}</h1>
                                 {renderGenesisBadge()}
                             </div>
                         </div>
@@ -113,9 +130,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                             <div className="mt-3 mt-xl-0 col-xl-6 offset-xxl-1 col-xxl-5">
                                 <h4 className="mb-1">{i18n.t('address')}</h4>
                                 <p className="text-break">
-                                    <Link to={`${NavigationConstants.ACCOUNT}/${validator.address}`}>
-                                        {validator.address}
-                                    </Link>
+                                    <Link to={`${NavigationConstants.ACCOUNT}/${validator.address}`}>{validator.address}</Link>
                                 </p>
                             </div>
                         </div>
@@ -132,11 +147,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                                     <a
                                         rel="noreferrer"
                                         target="_blank"
-                                        href={
-                                            validator.description.website.startsWith('http')
-                                                ? validator.description.website
-                                                : `https://${validator.description.website}`
-                                        }
+                                        href={validator.description.website.startsWith('http') ? validator.description.website : `https://${validator.description.website}`}
                                     >
                                         {validator.description.website}
                                     </a>
@@ -149,53 +160,43 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                             <h4>{i18n.t('bondedHeight')}</h4>
                         </div>
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
-                            <p>Soon</p>
+                            <p>{numeral(validator.bondedHeight).format('0,0')}</p>
                         </div>
                         <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                             <h4>{i18n.t('commission')}</h4>
                         </div>
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                            <p>
-                                {numeral(
-                                    parseFloat(validator.commission.rate || '0') / NumberConstants.CLIENT_PRECISION,
-                                ).format('0.00%')}
-                            </p>
+                            <p>{numeral(parseFloat(validator.commission.rates.rate || '0') / NumberConstants.CLIENT_PRECISION).format('0.00%')}</p>
                         </div>
                         <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                             <h4>{i18n.t('selfBonded')}</h4>
                         </div>
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
-                            <p>
-                                {numeral(validator.selfBonded / parseFloat(validator.tokens || '0')).format('0.00%')} (
-                                <SmallerDecimal
-                                    nb={numeral(NumbersUtils.convertUnitNumber(validator.selfBonded)).format(
-                                        '0,0.000000',
-                                    )}
-                                />
-                                <span className="ms-2 color-type">{LumConstants.LumDenom}</span>)
-                            </p>
+                            soon
+                            {/*//FIXME*/}
+                            {/*<p>*/}
+                            {/*    {numeral(validator.selfBonded / parseFloat(validator.tokens || '0')).format('0.00%')} (*/}
+                            {/*    <SmallerDecimal*/}
+                            {/*        nb={numeral(NumbersUtils.convertUnitNumber(validator.selfBonded)).format(*/}
+                            {/*            '0,0.000000',*/}
+                            {/*        )}*/}
+                            {/*    />*/}
+                            {/*    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>)*/}
+                            {/*</p>*/}
                         </div>
                         <div className="mb-sm-4 col-lg-2 col-md-3 col-sm-4">
                             <h4>{i18n.t('uptime')}</h4>
                         </div>
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                            <p>Soon</p>
+                            <p>{renderUptime()}</p>
                         </div>
                         <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                             <h4>{i18n.t('votingPower')}</h4>
                         </div>
                         <div className="mb-4 col-lg-3 col-md-9 col-sm-8">
                             <p className="d-flex align-items-center">
-                                {totalVotingPower &&
-                                    numeral(
-                                        NumbersUtils.convertUnitNumber(validator.tokens || 0) / totalVotingPower,
-                                    ).format('0.00%')}{' '}
-                                (
-                                <SmallerDecimal
-                                    nb={numeral(NumbersUtils.convertUnitNumber(validator.tokens || 0)).format(
-                                        '0,0.000000',
-                                    )}
-                                />
+                                {totalVotingPower && numeral(NumbersUtils.convertUnitNumber(validator.tokens || 0) / totalVotingPower).format('0.00%')} (
+                                <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(validator.tokens || 0)).format('0,0.000000')} />
                                 <span className="ms-2 color-type">{LumConstants.LumDenom}</span>)
                             </p>
                         </div>
@@ -238,10 +239,10 @@ const ValidatorPage = (props: IProps): JSX.Element => {
         return (
             <div className="row">
                 <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                    <BlocksList rej title blocks={blocks} />
+                    <BlocksList total metadata={blocksMetadata} onPageChange={setBlocksPage} rej title blocks={blocks} />
                 </div>
                 <div className="col-12 col-xxl-6 mb-5">
-                    <DelegatorsList title delegators={delegations} validatorTokens={parseFloat(tokens || '0')} />
+                    <DelegatorsList total metadata={delegationsMetadata} onPageChange={setDelegationsPage} title delegators={delegations.slice(0, 5)} validatorTokens={parseFloat(tokens || '0')} />
                 </div>
             </div>
         );

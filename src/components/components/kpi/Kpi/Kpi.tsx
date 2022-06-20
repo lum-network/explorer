@@ -80,11 +80,7 @@ const Kpi = (props: IProps): JSX.Element => {
                 const total = stats && stats.totalSupply ? NumbersUtils.convertUnitNumber(stats.totalSupply.amount) : 0;
 
                 return (
-                    <KpiCard
-                        title={i18n.t('bondedTokens')}
-                        logo={bondedTokensLogo}
-                        additionalInfo={`${numeral(NumbersUtils.getPercentage(nb, total)).format('0.00')}%`}
-                    >
+                    <KpiCard title={i18n.t('bondedTokens')} logo={bondedTokensLogo} additionalInfo={`${numeral(NumbersUtils.getPercentage(nb, total)).format('0.00')}%`}>
                         {numeral(nb).format('0,0')}
                     </KpiCard>
                 );

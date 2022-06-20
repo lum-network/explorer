@@ -1,14 +1,15 @@
-import { ValidatorsModel } from 'models';
+import { ValidatorModel } from 'models';
+import { ValidatorsType } from 'constant';
 
-export const calculateTotalVotingPower = (validators: ValidatorsModel[]): number => {
+export const calculateTotalVotingPower = (validators: ValidatorModel[]): number => {
     if (!validators || !validators.length) {
         return 0;
     }
 
-    return validators.reduce((acc, validator) => acc + parseFloat(validator.tokens || '0'), 0);
+    return validators.reduce((acc, validator) => acc + parseFloat(validator.status === ValidatorsType.ACTIVE ? validator.tokens || '0' : '0'), 0);
 };
 
-export const findRank = (validators: ValidatorsModel[], validator: ValidatorsModel): number | null => {
+export const findRank = (validators: ValidatorModel[], validator: ValidatorModel): number | null => {
     if (!validators || !validators.length || !validator) {
         return null;
     }
@@ -20,18 +21,4 @@ export const findRank = (validators: ValidatorsModel[], validator: ValidatorsMod
     }
 
     return index + 1;
-};
-
-export const isGenesis = (validators: ValidatorsModel[], validator: ValidatorsModel): boolean => {
-    if (!validators || !validators.length || !validator) {
-        return false;
-    }
-
-    const res = validators.find((value) => value.operatorAddress === validator.operatorAddress);
-
-    if (!res) {
-        return false;
-    }
-
-    return res.genesis;
 };

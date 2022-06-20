@@ -16,11 +16,7 @@ export const initialize = async (): Promise<firebase.analytics.Analytics | null>
     });
 };
 
-export const logEvent = (
-    eventName: string,
-    eventParams?: { [key: string]: unknown },
-    options?: firebase.analytics.AnalyticsCallOptions,
-): void => {
+export const logEvent = (eventName: string, eventParams?: { [key: string]: unknown }, options?: firebase.analytics.AnalyticsCallOptions): void => {
     if (!IS_ENABLED || !App) {
         return;
     }
@@ -45,10 +41,7 @@ export const setUserId = (userId: string, options?: firebase.analytics.Analytics
     firebase.analytics().setUserId(userId, options);
 };
 
-export const setUserProperties = (
-    properties: firebase.analytics.CustomParams,
-    options?: firebase.analytics.AnalyticsCallOptions,
-): void => {
+export const setUserProperties = (properties: firebase.analytics.CustomParams, options?: firebase.analytics.AnalyticsCallOptions): void => {
     if (!IS_ENABLED || !App) {
         return;
     }

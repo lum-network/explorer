@@ -33,7 +33,7 @@ const MainLayout = (props: IProps): JSX.Element => {
 
     const renderNav = (tab?: boolean): JSX.Element => {
         return (
-            <ul className={tab ? 'tab' : ''}>
+            <ul className={tab ? 'tab nav' : 'nav'}>
                 {!tab && (
                     <>
                         <li className="logo">
@@ -73,8 +73,7 @@ const MainLayout = (props: IProps): JSX.Element => {
                 <li>
                     <NavLink to={NavigationConstants.TRANSACTIONS} className="link" activeClassName="active-link">
                         <div className="nav-title">
-                            <img className="icon-nav" alt="transaction" src={transactionLogo} />{' '}
-                            {i18n.t('transactions')}
+                            <img className="icon-nav" alt="transaction" src={transactionLogo} /> {i18n.t('transactions')}
                         </div>
                         <div className="bar">
                             <div className="bar-2">

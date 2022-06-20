@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
 import { Card, Loading, Table } from 'frontend-elements';
@@ -15,10 +15,13 @@ const BeamsPage = (): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const beams = useSelector((state: RootState) => state.beams.beams);
     const loading = useSelector((state: RootState) => state.loading.effects.beams.fetchBeams);
+    const metadata = useSelector((state: RootState) => state.beams.metadata);
+
+    const [page, setPage] = useState(0);
 
     useEffect(() => {
-        dispatch.beams.fetchBeams().finally(() => null);
-    }, []);
+        dispatch.beams.fetchBeams(page).finally(() => null);
+    }, [page]);
 
     const renderRows = (beam: BeamModel, index: number, head: string[]): JSX.Element => {
         return (
@@ -29,9 +32,7 @@ const BeamsPage = (): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <Link to={`${NavigationConstants.ACCOUNT}/${beam.creatorAddress}`}>
-                        {StringsUtils.trunc(beam.creatorAddress || '')}
-                    </Link>
+                    <Link to={`${NavigationConstants.ACCOUNT}/${beam.creatorAddress}`}>{StringsUtils.trunc(beam.creatorAddress || '')}</Link>
                 </td>
                 <td data-label={head[2]} className="text-end">
                     <Badge beamsStatus={beam.status} />
@@ -73,8 +74,10 @@ const BeamsPage = (): JSX.Element => {
         const head = [i18n.t('id'), i18n.t('walletMerchant'), i18n.t('status'), i18n.t('amount')];
 
         return (
-            <Card withoutPadding className="mb-5 h-100">
-                <Table head={head}>{beams.map((beam, index) => renderRows(beam, index, head))}</Table>
+            <Card withoutPadding className="mb-5 h-100 pb-3">
+                <Table pagination={metadata} onPageChange={setPage} head={head}>
+                    {beams.map((beam, index) => renderRows(beam, index, head))}
+                </Table>
             </Card>
         );
     };
