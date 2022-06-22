@@ -54,9 +54,5 @@ export const formatNumber = (coin: CoinModel, moreDecimal?: boolean): JSX.Elemen
         return <SmallerDecimal nb={'0'} />;
     }
 
-    if (!coin.denom) {
-        coin.denom = LumConstants.MicroLumDenom;
-    }
-
-    return <SmallerDecimal nb={numeral(LumUtils.convertUnit(coin, LumConstants.LumDenom)).format(moreDecimal ? '0,0.000000' : '0,0.000')} />;
+    return <SmallerDecimal nb={numeral(convertUnitNumber(coin.amount)).format(moreDecimal ? '0,0.000000' : '0,0.000')} />;
 };
