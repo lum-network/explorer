@@ -3,7 +3,7 @@ import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { DelegationModel, MetadataModel } from 'models';
 import { Card, Table } from 'frontend-elements';
 import { i18n, NumbersUtils, StringsUtils } from 'utils';
-import { NavigationConstants, NumberConstants } from 'constant';
+import { NavigationConstants } from 'constant';
 import numeral from 'numeral';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import { SmallerDecimal } from 'components';
@@ -29,11 +29,11 @@ const DelegatorsList = (props: IProps): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(delegator.shares || 0) / NumberConstants.CLIENT_PRECISION).format('0,0.000000')} />
+                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(delegator.shares || 0)).format('0,0.000000')} />
                     <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td className="text-end" data-label={head[2]}>
-                    {numeral((parseFloat(delegator.shares || '0') / NumberConstants.CLIENT_PRECISION / validatorTokens).toFixed(6)).format('0.00%')}
+                    {numeral((parseFloat(delegator.shares || '0') / validatorTokens).toFixed(6)).format('0.00%')}
                 </td>
             </tr>
         );

@@ -13,7 +13,6 @@ import { PieChart } from 'react-minimal-pie-chart';
 import numeral from 'numeral';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { AccountUtils, i18n, NumbersUtils } from 'utils';
-import { NumberConstants } from 'constant';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import ReactTooltip from 'react-tooltip';
 
@@ -72,14 +71,14 @@ const AccountPage = (props: IProps): JSX.Element => {
         const { balance, allRewards, totalShares, unbondings, commissions, vesting: vestingAccount, airdrop: airdropAccount } = account;
 
         let available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
-        const reward = NumbersUtils.convertUnitNumber(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0') / NumberConstants.CLIENT_PRECISION;
+        const reward = NumbersUtils.convertUnitNumber(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0');
         const delegated = NumbersUtils.convertUnitNumber(totalShares);
         const unbonding = NumbersUtils.convertUnitNumber(AccountUtils.sumOfUnbonding(unbondings));
 
         let commission = 0;
 
         if (commissions && commissions.length) {
-            commission = NumbersUtils.convertUnitNumber(commissions[0].amount) / NumberConstants.CLIENT_PRECISION;
+            commission = NumbersUtils.convertUnitNumber(commissions[0].amount);
         }
 
         let vesting = 0;
