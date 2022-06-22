@@ -69,11 +69,11 @@ const AccountPage = (props: IProps): JSX.Element => {
             return;
         }
 
-        const { balance, allRewards, delegations, unbondings, commissions, vesting: vestingAccount, airdrop: airdropAccount } = account;
+        const { balance, allRewards, totalShares, unbondings, commissions, vesting: vestingAccount, airdrop: airdropAccount } = account;
 
         let available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
         const reward = NumbersUtils.convertUnitNumber(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0') / NumberConstants.CLIENT_PRECISION;
-        const delegated = NumbersUtils.convertUnitNumber(AccountUtils.sumOfDelegations(delegations));
+        const delegated = NumbersUtils.convertUnitNumber(totalShares);
         const unbonding = NumbersUtils.convertUnitNumber(AccountUtils.sumOfUnbonding(unbondings));
 
         let commission = 0;
@@ -287,10 +287,6 @@ const AccountPage = (props: IProps): JSX.Element => {
             );
         }
 
-        if (lum && lum.price) {
-            console.log(total * lum.price);
-        }
-
         return (
             <>
                 <Card dark withoutPadding={!loading} className="p-3 p-xl-3 mb-5">
@@ -451,9 +447,7 @@ const AccountPage = (props: IProps): JSX.Element => {
                                                     <span className="color-type">{LumConstants.LumDenom}</span>
                                                 </div>
 
-                                                <div>
-                                                    {numeral(total * lum.price).format('$0,0.00')}
-                                                </div>
+                                                <div>{numeral(total * lum.price).format('$0,0.00')}</div>
                                             </div>
                                         )}
                                     </div>

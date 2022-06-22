@@ -4,6 +4,7 @@ import * as ApiGovernance from './api/governance';
 import { HttpClient } from 'utils';
 import { ApiConstants } from 'constant';
 import { AccountModel, BeamModel, BlocksModel, DelegationModel, LumModel, TransactionsModel, ValidatorModel } from 'models';
+import { RedelegationModel, UnbondingModel } from '../models/models/account';
 
 class ExplorerApi extends HttpClient {
     private static instance?: ExplorerApi;
@@ -62,6 +63,10 @@ class ExplorerApi extends HttpClient {
 
     public fetchAccountTransactions = (address: string, page = 0) =>
         this.request<TransactionsModel[]>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}/${ApiConstants.TRANSACTIONS_URL}?limit=10&page=${page}` }, TransactionsModel);
+
+    public fetchAccountRedelegations = (address: string) => this.request<RedelegationModel[]>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}/${ApiConstants.REDELEGATIONS_URL}` }, RedelegationModel);
+
+    public fetchAccountUnbondings = (address: string) => this.request<UnbondingModel[]>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}/${ApiConstants.UNBONDINGS_URL}` }, UnbondingModel);
 }
 
 export default ExplorerApi.getInstance();

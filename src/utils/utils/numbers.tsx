@@ -33,6 +33,10 @@ export const getRandomInt = (max: number): number => {
 export const convertUnitNumber = (nb: number | string): number => {
     let amount: string;
 
+    if (!nb) {
+        return 0;
+    }
+
     if (typeof nb === 'string') {
         const split = nb.split('.');
 

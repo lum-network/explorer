@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { KpiType, NumberConstants } from 'constant';
+import { KpiType } from 'constant';
 import { KpiCard } from 'components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
@@ -92,7 +92,7 @@ const Kpi = (props: IProps): JSX.Element => {
 
                 return (
                     <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
-                        {numeral(parseFloat(stats.inflation) / NumberConstants.CLIENT_PRECISION).format('0.00%')}
+                        {numeral(parseFloat(stats.inflation)).format('0.00%')}
                     </KpiCard>
                 );
 
