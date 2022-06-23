@@ -11,6 +11,6 @@ export const SEARCH = '/search';
 
 export const WALLET = `https://wallet.${IS_TESTNET ? 'testnet.' : ''}lum.network`;
 export const GITHUB = 'https://github.com/lum-network/explorer';
-export const LUMKI = 'https://lumki.com';
+export const LUMKI = 'https://rwd.skeepers.io';
 export const DISCORD = 'https://discord.gg/KwyVvnBcXF';
 export const GITHUB_ASSETS = 'https://github.com/lum-network/public-assets';

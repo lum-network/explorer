@@ -208,9 +208,9 @@ export default {
     search: 'Search',
 
     // Lumki
-    lumWallet: 'Lumki',
-    walletDescription: 'Available on the App Store<br/>and on the Google Store',
-    accessLumWallet: 'Discover Lumki',
+    lumWallet: 'Skeepers Rewards',
+    walletDescription: 'Get rewarded<br/>for your reviews',
+    accessLumWallet: 'Skeepers Rewards',
 
     // Errors
     errorOccurred: 'An error occurred',

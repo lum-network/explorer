@@ -1,67 +1,9 @@
 @import 'src/frontend-elements/styles/main';
 
-div.wallet-background {
-    background-image: url('../../../../../assets/images/lumkiBackground.png');
-    background-size: auto 110%;
-    background-repeat: no-repeat;
-    background-position: 101%;
-    border-radius: 15px;
-    position: relative;
-    overflow: hidden;
-}
-
-.lumki-phone-image {
-    position: absolute;
-    right: 15%;
-    top: 30%;
-    transform: rotate(13deg);
-}
-
-.lumki-phone-image > img {
-    width: 230px;
-}
-
-.background-phone-version {
-    display: none;
-    width: 100%;
-}
-
 .wallet-title {
     font-weight: $semibold;
 }
 
 .wallet-button {
     width: 200px;
-}
-
-@media screen and (min-width: 1400px) and (max-width: 1850px) {
-    div.wallet-background {
-        background-image: url('../../../../../assets/images/lumkiBackgroundSquare.png');
-        background-size: auto 100%;
-    }
-
-    .lumki-phone-image {
-        right: 10%;
-        top: 40%;
-    }
-
-    .lumki-phone-image > img {
-        width: 180px;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    div.wallet-background {
-        background-image: none;
-    }
-
-    .lumki-phone-image > img {
-        display: none;
-    }
-
-    .background-phone-version {
-        display: block;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-    }
 }
