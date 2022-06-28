@@ -18,7 +18,7 @@ interface Props {
 const BeamClaim = ({ address, amount, date }: Props): JSX.Element => {
     return (
         <>
-            <BeamStatusHeader date={date} status="Claim" />
+            <BeamStatusHeader date={date} status={i18n.t('claim')} />
             <BeamStatusUpdateCard>
                 <Card className="status-update-card mb-5">
                     <div className="d-flex flex-row align-items-center">

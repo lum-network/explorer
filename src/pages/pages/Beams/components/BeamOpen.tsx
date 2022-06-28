@@ -17,7 +17,7 @@ interface Props {
 const BeamOpen = ({ date, infos, withLine }: Props): JSX.Element => {
     return (
         <>
-            <BeamStatusHeader date={date} status="Open" />
+            <BeamStatusHeader date={date} status={i18n.t('open')} />
             <BeamStatusUpdateCard withLine={withLine}>
                 <Card className="status-update-card">
                     <div>

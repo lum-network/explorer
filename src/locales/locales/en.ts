@@ -136,6 +136,8 @@ export default {
     beamDetails: 'Beam details',
     noBeamFound: 'Beam not found',
     closed: 'Closed',
+    claim: 'Claim',
+    update: 'Update',
     canceled: 'Canceled',
     unspecified: 'Unspecified',
     rewardAmount: 'Reward amount',

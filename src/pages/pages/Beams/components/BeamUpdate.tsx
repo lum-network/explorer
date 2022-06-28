@@ -21,7 +21,7 @@ interface Props {
 const BeamUpdate = ({ reward, description, image, rating, date }: Props): JSX.Element => {
     return (
         <>
-            <BeamStatusHeader date={date} status="Update" />
+            <BeamStatusHeader date={date} status={i18n.t('update')} />
             <BeamStatusUpdateCard>
                 <Card className="status-update-card">
                     <div>
