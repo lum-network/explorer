@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {KpiType, NumberConstants} from 'constant';
-import {KpiCard, SmallerDecimal} from 'components';
-import {useSelector} from 'react-redux';
-import {RootState} from 'redux/store';
-import {BlockUtils, i18n, NumbersUtils, ValidatorsUtils} from 'utils';
+import React, { useEffect, useState } from 'react';
+import { KpiType, NumberConstants } from 'constant';
+import { KpiCard, SmallerDecimal } from 'components';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
+import { BlockUtils, i18n, NumbersUtils, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
 import blockLogo from 'assets/images/blockDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
@@ -13,8 +13,9 @@ import inflationLogo from 'assets/images/inflationDark.svg';
 import totalReviewsLogo from 'assets/images/totalReviews.svg';
 import merchantsLogo from 'assets/images/merchants.svg';
 import rewardsLogo from 'assets/images/rewards.svg';
-import {BlocksModel} from 'models';
-import {LumConstants} from "@lum-network/sdk-javascript";
+import todayRewardsLogo from 'assets/images/rewardsToday.svg';
+import { BlocksModel } from 'models';
+import { LumConstants } from '@lum-network/sdk-javascript';
 
 interface IProps {
     types: KpiType[];
@@ -140,7 +141,7 @@ const Kpi = (props: IProps): JSX.Element => {
                 }
 
                 return (
-                    <KpiCard color={'#F06451'} title={i18n.t('todaysRewards')} logo={rewardsLogo}>
+                    <KpiCard color={'#F06451'} title={i18n.t('todaysRewards')} logo={todayRewardsLogo}>
                         {<SmallerDecimal nb={numeral(stats.todayRewards).format('0,0.000000')} />}
                         <span className="ms-1">{LumConstants.LumDenom}</span>
                     </KpiCard>

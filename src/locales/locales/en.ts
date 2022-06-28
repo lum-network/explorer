@@ -86,7 +86,7 @@ export default {
     totalReviews: 'Total reviews',
     merchants: 'Merchants',
     totalRewards: 'Total rewards',
-    todaysRewards: 'Today\'s rewards',
+    todaysRewards: "Today's rewards",
 
     // Transaction Messages
     messages: 'Messages',
