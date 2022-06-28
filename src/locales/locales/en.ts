@@ -148,6 +148,14 @@ export default {
     quality: 'Quality',
     nps: 'Nps',
     customerService: 'Customer service',
+    beamHistory: 'Beam\'s history',
+    beamDescriptionAdded: 'A description has been added',
+    beamImageAdded: 'An image has been added',
+    beamRewardAdded: 'A reward has been added',
+    beamRatingAdded: 'A rating has been added',
+    beamMerchantAdded: 'A merchant has been added',
+    beamVerifierAdded: 'A verifier has been added',
+    lumSent: 'LUM sent through the BEAM',
 
     // Block
     blockTime: 'Block time',

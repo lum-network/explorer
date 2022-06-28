@@ -17,3 +17,54 @@
     font-size: 30px;
     font-weight: normal;
 }
+
+.status-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.status-header .dot {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: black;
+}
+
+.status-header .date-badge {
+    background-color: #D1E6FF;
+    border-radius: 18px;
+    padding: 5px 15px;
+    color: black;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.history-line {
+    border: 2px solid black;
+    width: 0px;
+    margin-left: 9px;
+
+    &.hidden {
+        border-color: transparent;
+    }
+}
+
+.status-update-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-update-card .status-update-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0px 2.40476px 14.4286px rgba(0, 0, 0, 0.12);
+    margin-right: 3rem;
+}

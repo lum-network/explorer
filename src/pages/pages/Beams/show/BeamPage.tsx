@@ -12,6 +12,10 @@ import { Badge, Rating } from 'components';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import moment from 'moment';
+import BeamOpen from '../components/BeamOpen';
+import BeamClaim from '../components/BeamClaim';
+import BeamUpdate from '../components/BeamUpdate';
+import BeamClose from '../components/BeamClose';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -63,6 +67,27 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
             );
         }
 
+        return (
+            <>
+                <h4>{i18n.t('beamHistory')}</h4>
+                <Card className="d-flex flex-column mt-3 beam-history-card">
+                    <BeamClose date={new Date().toUTCString()} />
+                    <BeamClaim date={new Date().toUTCString()} address="lum18v2schsdrqkjnp9nnc5kura2xcq8wv8ysz6llz" amount={5} />
+                    <BeamUpdate date={new Date().toUTCString()} description="test" reward={12} />
+                    <BeamOpen
+                        date={new Date().toUTCString()}
+                        withLine={false}
+                        infos={{
+                            merchant: 'Brand',
+                            verifier: 'Verifier',
+                            rating: 4.3,
+                            amount: 12,
+                        }}
+                    />
+                </Card>
+            </>
+        );
+
         if (!beam) {
             return (
                 <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
@@ -89,11 +114,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-lg-6">
                         <h4 className="mb-2">{i18n.t('walletDestination')}</h4>
-                        {beam.claimAddress ? (
-                            <Link to={`${NavigationConstants.ACCOUNT}/${beam.claimAddress}`}>{beam.claimAddress}</Link>
-                        ) : (
-                            <>{i18n.t('rewardNotClaimed')}</>
-                        )}
+                        {beam.claimAddress ? <Link to={`${NavigationConstants.ACCOUNT}/${beam.claimAddress}`}>{beam.claimAddress}</Link> : <>{i18n.t('rewardNotClaimed')}</>}
                     </div>
                     <div className="col-12 col-lg-6">
                         <h4 className="mb-2">{i18n.t('status')}</h4>
