@@ -36,6 +36,12 @@ const core = createModel<RootModel>()({
             async getStats() {
                 const stats = await ApiStats.getStats();
 
+                //FIXME
+                stats.totalReviews = 1584645;
+                stats.totalMerchants = 1482;
+                stats.totalRewards = 125818241459.4854758;
+                stats.todayRewards = 14857.84;
+
                 dispatch.core.SET_STATS(stats);
             },
 

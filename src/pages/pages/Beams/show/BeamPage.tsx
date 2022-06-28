@@ -89,11 +89,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-lg-6">
                         <h4 className="mb-2">{i18n.t('walletDestination')}</h4>
-                        {beam.claimAddress ? (
-                            <Link to={`${NavigationConstants.ACCOUNT}/${beam.claimAddress}`}>{beam.claimAddress}</Link>
-                        ) : (
-                            <>{i18n.t('rewardNotClaimed')}</>
-                        )}
+                        {beam.claimAddress ? <Link to={`${NavigationConstants.ACCOUNT}/${beam.claimAddress}`}>{beam.claimAddress}</Link> : <>{i18n.t('rewardNotClaimed')}</>}
                     </div>
                     <div className="col-12 col-lg-6">
                         <h4 className="mb-2">{i18n.t('status')}</h4>

@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { KpiType, NumberConstants } from 'constant';
-import { KpiCard } from 'components';
-import { useSelector } from 'react-redux';
-import { RootState } from 'redux/store';
-import { BlockUtils, i18n, NumbersUtils, ValidatorsUtils } from 'utils';
+import React, {useEffect, useState} from 'react';
+import {KpiType, NumberConstants} from 'constant';
+import {KpiCard, SmallerDecimal} from 'components';
+import {useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import {BlockUtils, i18n, NumbersUtils, ValidatorsUtils} from 'utils';
 import numeral from 'numeral';
 import blockLogo from 'assets/images/blockDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import clockLogo from 'assets/images/clockDark.svg';
 import bondedTokensLogo from 'assets/images/bondedTokensDark.svg';
 import inflationLogo from 'assets/images/inflationDark.svg';
-import { BlocksModel } from 'models';
+import totalReviewsLogo from 'assets/images/totalReviews.svg';
+import merchantsLogo from 'assets/images/merchants.svg';
+import rewardsLogo from 'assets/images/rewards.svg';
+import {BlocksModel} from 'models';
+import {LumConstants} from "@lum-network/sdk-javascript";
 
 interface IProps {
     types: KpiType[];
@@ -93,6 +97,52 @@ const Kpi = (props: IProps): JSX.Element => {
                 return (
                     <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
                         {numeral(parseFloat(stats.inflation) / NumberConstants.CLIENT_PRECISION).format('0.00%')}
+                    </KpiCard>
+                );
+
+            case KpiType.TOTAL_REVIEWS:
+                if (!stats || !stats.totalReviews) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#FFC107'} title={i18n.t('totalReviews')} logo={totalReviewsLogo}>
+                        {numeral(stats.totalReviews).format('0,0')}
+                    </KpiCard>
+                );
+
+            case KpiType.MERCHANTS:
+                if (!stats || !stats.totalMerchants) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#3BDCC4'} title={i18n.t('merchants')} logo={merchantsLogo}>
+                        {numeral(stats.totalMerchants).format('0,0')}
+                    </KpiCard>
+                );
+
+            case KpiType.REWARDS:
+                if (!stats || !stats.totalRewards) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#F06451'} title={i18n.t('totalRewards')} logo={rewardsLogo}>
+                        {<SmallerDecimal nb={numeral(stats.totalRewards).format('0,0.000000')} />}
+                        <span className="ms-1">{LumConstants.LumDenom}</span>
+                    </KpiCard>
+                );
+
+            case KpiType.REWARDS_TODAY:
+                if (!stats || !stats.todayRewards) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#F06451'} title={i18n.t('todaysRewards')} logo={rewardsLogo}>
+                        {<SmallerDecimal nb={numeral(stats.todayRewards).format('0,0.000000')} />}
+                        <span className="ms-1">{LumConstants.LumDenom}</span>
                     </KpiCard>
                 );
 

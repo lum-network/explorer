@@ -451,9 +451,7 @@ const AccountPage = (props: IProps): JSX.Element => {
                                                     <span className="color-type">{LumConstants.LumDenom}</span>
                                                 </div>
 
-                                                <div>
-                                                    {numeral(total * lum.price).format('$0,0.00')}
-                                                </div>
+                                                <div>{numeral(total * lum.price).format('$0,0.00')}</div>
                                             </div>
                                         )}
                                     </div>

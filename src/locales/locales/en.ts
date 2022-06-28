@@ -81,6 +81,13 @@ export default {
     testnet: '⚠️ You are connected to the Testnet ⚠️',
     copyright: '© LUM Explorer 2021',
 
+    // Home
+    overview: 'Overview',
+    totalReviews: 'Total reviews',
+    merchants: 'Merchants',
+    totalRewards: 'Total rewards',
+    todaysRewards: 'Today\'s rewards',
+
     // Transaction Messages
     messages: 'Messages',
     createValidatorMessage: 'Create validator',

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import Lum from './components/Lum/Lum';
 import Lumki from './components/Lumki/Lumki';
 import { KpiType } from 'constant';
+import { i18n } from 'utils';
 
 const HomePage = (): JSX.Element | null => {
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
@@ -22,8 +23,12 @@ const HomePage = (): JSX.Element | null => {
             <div className="col-12 col-xxl-6 mb-4">
                 <Lumki />
             </div>
+            <h1 className="my-2 placeholder-image">{i18n.t('overview')}</h1>
             <div className="col-12">
-                <Kpi className="mb-5" types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME, KpiType.BONDED_TOKEN, KpiType.INFLATION]} />
+                <Kpi
+                    className="mb-5"
+                    types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME, KpiType.BONDED_TOKEN, KpiType.INFLATION, KpiType.TOTAL_REVIEWS, KpiType.MERCHANTS, KpiType.REWARDS, KpiType.REWARDS_TODAY]}
+                />
             </div>
             <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                 <BlocksList more title blocks={blocks.slice(0, 5)} />
