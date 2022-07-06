@@ -58,7 +58,7 @@ const BeamUpdate = ({ reward, description, image, rating, date }: Props): JSX.El
                             </div>
                         )}
                     </div>
-                    <h1 className="display-4">{reward}$</h1>
+                    <h1 className="display-4 mt-4 mt-lg-0 ms-2 ms-lg-0">{reward}$</h1>
                 </Card>
             </BeamStatusUpdateCard>
         </>

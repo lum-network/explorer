@@ -70,7 +70,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
         return (
             <>
                 <h4>{i18n.t('beamHistory')}</h4>
-                <Card className="d-flex flex-column mt-3 beam-history-card">
+                <Card className="d-flex flex-column mt-4 mb-5 beam-history-card">
                     <BeamClose date={new Date().toUTCString()} />
                     <BeamClaim date={new Date().toUTCString()} address="lum18v2schsdrqkjnp9nnc5kura2xcq8wv8ysz6llz" amount={5} />
                     <BeamUpdate date={new Date().toUTCString()} description="test" reward={12} />

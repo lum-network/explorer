@@ -45,7 +45,7 @@ const BeamOpen = ({ date, infos, withLine }: Props): JSX.Element => {
                             <h4 className="fw-normal">{i18n.t('beamRewardAdded')}</h4>
                         </div>
                     </div>
-                    <h1 className="display-4">{infos.amount}$</h1>
+                    <h1 className="display-4 mt-4 mt-lg-0 ms-2 ms-lg-0">{infos.amount}$</h1>
                 </Card>
             </BeamStatusUpdateCard>
         </>

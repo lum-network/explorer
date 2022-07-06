@@ -1,3 +1,5 @@
+@import 'src/frontend-elements/styles/main';
+
 .beam h4 {
     font-size: 20px;
     font-weight: bold;
@@ -40,22 +42,36 @@
     font-weight: normal;
 }
 
-.history-line {
-    border: 2px solid black;
-    width: 0px;
-    margin-left: 9px;
-
-    &.hidden {
-        border-color: transparent;
-    }
-}
-
 .status-update-card {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
+
+.beam-history .content {
+    margin-left: 0.5rem;
+    padding-bottom: 1rem;
+}
+
+.beam-history .with-line {
+    position: relative;
+    padding-left: 2.5rem;
+
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 1rem;
+        width: 3px;
+        height: 100%;
+        z-index: 400;;
+        background-color: black;
+    }
+} 
 
 .status-update-card .status-update-icon {
     display: flex;
@@ -67,4 +83,36 @@
     background-color: white;
     box-shadow: 0px 2.40476px 14.4286px rgba(0, 0, 0, 0.12);
     margin-right: 3rem;
+}
+
+@include media-breakpoint-down(lg) {
+    .status-update-card .status-update-icon {
+        width: 50px;
+        height: 50px;
+        margin-right: 1rem;
+
+        & img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .status-update-card {
+        flex-direction: column;
+        align-items: flex-start
+    }
+
+    .status-update-card h4 {
+        @include font-size(1rem);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .status-update-card .status-update-icon {
+        background-color: #1A1A1A;
+    }
+
+    .status-update-card .lum-logo {
+        filter: brightness(0) invert(1);
+    }
 }

@@ -8,6 +8,8 @@ import BeamStatusHeader from './BeamStatusHeader';
 import { i18n } from 'utils';
 import { Link } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
+import { useWindowSize } from 'utils/utils/hooks';
+import { trunc } from 'utils/utils/strings';
 
 interface Props {
     address: string;
@@ -16,23 +18,25 @@ interface Props {
 }
 
 const BeamClaim = ({ address, amount, date }: Props): JSX.Element => {
+    const winSizes = useWindowSize();
+
     return (
         <>
             <BeamStatusHeader date={date} status={i18n.t('claim')} />
             <BeamStatusUpdateCard>
-                <Card className="status-update-card mb-5">
+                <Card className="status-update-card text-wrap mb-5">
                     <div className="d-flex flex-row align-items-center">
                         <div className="status-update-icon">
                             <img src={walletLogo} />
                         </div>
                         <div>
                             <h4 className="mb-3">{i18n.t('walletDestination')}</h4>
-                            <Link to={`${NavigationConstants.ACCOUNT}/${address}`}>{address}</Link>
+                            <Link to={`${NavigationConstants.ACCOUNT}/${address}`}>{winSizes.width <= 992 ? trunc(address) : address}</Link>
                         </div>
                     </div>
-                    <h1 className="display-4">
+                    <h1 className="display-4 mt-4 mt-lg-0 ms-2 ms-lg-0">
                         {amount}
-                        <span className="ms-2">
+                        <span className="lum-logo ms-2">
                             <img src={lumLogo} height={28} />
                         </span>
                     </h1>
