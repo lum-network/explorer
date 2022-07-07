@@ -1,0 +1,92 @@
+@import 'src/frontend-elements/styles/main';
+
+.letter-btn {
+    background-color: transparent;
+    border: none;
+    color: $color-black;
+    font-size: 32px;
+    font-weight: bold;
+    transition: all linear 150ms;
+    opacity: 0.4;
+    
+    &:hover {
+        color: $color-black;
+        opacity: 1;
+        cursor: pointer;
+    }
+}
+
+.merchants-section {
+    color: $color-black;
+}
+
+.merchant .merchant-tooltip {
+    padding: 0 !important;
+    background-color: transparent !important;
+}
+
+.shop-card {
+    border-radius: 24px;
+    background-color: white;
+    box-shadow: 0 8.86364px 29.5455px rgba(55, 58, 66, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 18px;
+}
+
+.shop-card .shop-infos {
+    color: $color-black;
+}
+
+.shop-card .shop-infos > img {
+    height: 100px;
+}
+
+.shop-card .information {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 215px;
+}
+
+.shop-card .reviews-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-card .reviews-number {
+    color: #616368;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+.shop-card .cashback {
+    background-color: #FFCB54;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    padding: 4px 14px;
+    border-radius: 18px;
+
+    & img {
+        height: 12.5px;
+        filter: brightness(0) invert(1);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .letter-btn {
+        color: $color-white;
+
+        &:hover {
+            color: $color-white;
+        }
+    }
+
+    .merchants-section {
+        color: $color-white;
+    }
+}

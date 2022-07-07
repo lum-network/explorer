@@ -10,6 +10,10 @@ import validatorLogo from 'assets/images/validatorDark.svg';
 import clockLogo from 'assets/images/clockDark.svg';
 import bondedTokensLogo from 'assets/images/bondedTokensDark.svg';
 import inflationLogo from 'assets/images/inflationDark.svg';
+import merchantsLogo from 'assets/images/merchantsKpi.svg';
+import rewardsLogo from 'assets/images/rewardsKpi.svg';
+import qAndALogo from 'assets/images/qAndAKpi.svg';
+import reviewsLogo from 'assets/images/starFull.svg';
 import { BlocksModel } from 'models';
 
 interface IProps {
@@ -96,6 +100,30 @@ const Kpi = (props: IProps): JSX.Element => {
                     </KpiCard>
                 );
 
+            case KpiType.MERCHANTS:
+                return (
+                    <KpiCard title="Merchants" logo={merchantsLogo}>
+                        190281
+                    </KpiCard>
+                );
+            case KpiType.REWARDS:
+                return (
+                    <KpiCard title="Rewards" logo={rewardsLogo}>
+                        190281
+                    </KpiCard>
+                );
+            case KpiType.REVIEWS:
+                return (
+                    <KpiCard title="Reviews" logo={reviewsLogo}>
+                        190281
+                    </KpiCard>
+                );
+            case KpiType.QANDA:
+                return (
+                    <KpiCard title="Q/A" logo={qAndALogo}>
+                        190281
+                    </KpiCard>
+                );
             default:
                 return null;
         }

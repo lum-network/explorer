@@ -15,6 +15,7 @@ import {
     ProposalPage,
     BeamPage,
     BeamsPage,
+    MerchantsPage,
 } from 'pages';
 import { Route, BrowserRouter as Router, Switch, Redirect, useLocation } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
@@ -60,6 +61,7 @@ const RootNavigator = (): JSX.Element => {
                         <ProposalsPage />
                     </Route>
                     <Route path={`${NavigationConstants.SEARCH}/:text`} component={SearchPage} />
+                    <Route path={[NavigationConstants.MERCHANTS, `${NavigationConstants.MERCHANTS}/:id`]} component={MerchantsPage} />
                     <Route path="/">
                         <NotFoundPage />
                     </Route>

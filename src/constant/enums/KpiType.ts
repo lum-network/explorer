@@ -4,6 +4,10 @@ enum KpiType {
     VALIDATORS,
     BLOCK_TIME,
     INFLATION,
+    REVIEWS,
+    MERCHANTS,
+    REWARDS,
+    QANDA
 }
 
 export default KpiType;
