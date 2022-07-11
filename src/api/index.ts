@@ -1,6 +1,7 @@
 import * as ApiSearch from './api/search';
 import * as ApiStats from './api/stats';
 import * as ApiGovernance from './api/governance';
+import * as ApiParams from './api/params';
 import { HttpClient } from 'utils';
 import { ApiConstants } from 'constant';
 import { AccountModel, BeamModel, BlocksModel, DelegationModel, LumModel, TransactionsModel, ValidatorModel } from 'models';
@@ -66,4 +67,4 @@ class ExplorerApi extends HttpClient {
 
 export default ExplorerApi.getInstance();
 
-export { ApiSearch, ApiStats, ApiGovernance };
+export { ApiSearch, ApiStats, ApiGovernance, ApiParams };
