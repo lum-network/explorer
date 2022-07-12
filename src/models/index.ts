@@ -11,7 +11,7 @@ export { default as LumModel } from './models/lum';
 export { default as BeamModel } from './models/beam';
 export { default as MetadataModel } from './models/metadata';
 
-export type { default as CoinModel } from './models/coin';
+export { default as CoinModel } from './models/coin';
 
 import * as MessageModel from './models/message';
 export { MessageModel };
