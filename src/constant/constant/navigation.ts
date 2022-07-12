@@ -8,6 +8,7 @@ export const ACCOUNT = '/account';
 export const BEAMS = '/beams';
 export const PROPOSALS = '/proposals';
 export const SEARCH = '/search';
+export const PARAMETERS = '/parameters';
 export const ASSETS = '/assets';
 
 export const WALLET = `https://wallet.${IS_TESTNET ? 'testnet.' : ''}lum.network`;

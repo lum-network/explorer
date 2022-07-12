@@ -4,7 +4,7 @@ import * as ApiGovernance from './api/governance';
 
 import { HttpClient } from 'utils';
 import { ApiConstants } from 'constant';
-import { AccountModel, BeamModel, BlocksModel, CoinModel, DelegationModel, LumModel, TransactionsModel, ValidatorModel } from 'models';
+import { AccountModel, BeamModel, BlocksModel, CoinModel, DelegationModel, LumModel, ParamsModel, TransactionsModel, ValidatorModel } from 'models';
 
 class ExplorerApi extends HttpClient {
     private static instance?: ExplorerApi;
@@ -25,8 +25,10 @@ class ExplorerApi extends HttpClient {
 
     public getLum = () => this.request<LumModel>({ url: ApiConstants.LUM_URL }, LumModel);
 
-    public getAssets = () => this.request<CoinModel[]>({ url: ApiConstants.ASSETS_URL }, CoinModel);
+    public getParams = () => this.request<ParamsModel>({ url: ApiConstants.PARAMETERS_URL }, ParamsModel);
 
+    public getAssets = () => this.request<CoinModel[]>({ url: ApiConstants.ASSETS_URL }, CoinModel);
+    
     // Blocks
 
     public fetchBlocks = (page = 0) => this.request<BlocksModel[]>({ url: `${ApiConstants.BLOCKS_URL}?page=${page}` }, BlocksModel);
