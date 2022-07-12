@@ -30,6 +30,8 @@ const Core = (): JSX.Element => {
         dispatch.validators.fetchValidators().finally(() => null);
         dispatch.core.getStats().finally(() => null);
         dispatch.core.getLum().finally(() => null);
+        dispatch.core.getParams().finally(() => null);
+        dispatch.core.getAssets().finally(() => null);
     };
 
     // const sockets = () => {

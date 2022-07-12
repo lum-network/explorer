@@ -14,3 +14,5 @@ export const LUM_URL = 'price';
 export const DELEGATIONS_URL = 'delegations';
 export const REDELEGATIONS_URL = 'redelegations';
 export const UNBONDINGS_URL = 'unbondings';
+export const PARAMETERS_URL = 'params';
+export const ASSETS_URL = 'assets';
