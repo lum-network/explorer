@@ -242,6 +242,12 @@ export default {
     noResultFound: 'No result found',
     search: 'Search',
 
+    // Assets
+    assets: 'Assets',
+    assetName: 'Name',
+    totalSupply: 'Total supply',
+
+
     // Lumki
     lumWallet: 'Lumki',
     walletDescription: 'Available on the App Store<br/>and on the Google Store',

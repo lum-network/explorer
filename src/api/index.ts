@@ -1,9 +1,10 @@
 import * as ApiSearch from './api/search';
 import * as ApiStats from './api/stats';
 import * as ApiGovernance from './api/governance';
+
 import { HttpClient } from 'utils';
 import { ApiConstants } from 'constant';
-import { AccountModel, BeamModel, BlocksModel, DelegationModel, LumModel, ParamsModel, TransactionsModel, ValidatorModel } from 'models';
+import { AccountModel, BeamModel, BlocksModel, CoinModel, DelegationModel, LumModel, ParamsModel, TransactionsModel, ValidatorModel } from 'models';
 
 class ExplorerApi extends HttpClient {
     private static instance?: ExplorerApi;
@@ -26,6 +27,8 @@ class ExplorerApi extends HttpClient {
 
     public getParams = () => this.request<ParamsModel>({ url: ApiConstants.PARAMETERS_URL }, ParamsModel);
 
+    public getAssets = () => this.request<CoinModel[]>({ url: ApiConstants.ASSETS_URL }, CoinModel);
+    
     // Blocks
 
     public fetchBlocks = (page = 0) => this.request<BlocksModel[]>({ url: `${ApiConstants.BLOCKS_URL}?page=${page}` }, BlocksModel);

@@ -13,3 +13,4 @@ export { default as ProposalPage } from './pages/Proposals/show/ProposalPage';
 export { default as BeamPage } from './pages/Beams/show/BeamPage';
 export { default as BeamsPage } from './pages/Beams/list/BeamsPage';
 export { default as ParametersPage } from './pages/Parameters/ParametersPage';
+export { default as AssetsPage } from './pages/Assets/AssetsPage';

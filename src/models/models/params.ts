@@ -5,10 +5,10 @@ import CoinModel from './coin';
 
 class Inflation {
     @Expose({ name: 'rate_change' })
-    rateChange: string;
+    rateChange: number;
 
-    min: string;
-    max: string;
+    min: number;
+    max: number;
 }
 
 class MintParams {
@@ -18,7 +18,7 @@ class MintParams {
     inflation: Inflation;
 
     @Expose({ name: 'goal_bonded' })
-    goalBonded: string;
+    goalBonded: number;
 
     @Expose({ name: 'blocks_per_year' })
     blocksPerYear: number;
@@ -77,13 +77,13 @@ class GovParams {
 
 class DistributionParams {
     @Expose({ name: 'community_tax'})
-    communityTax: string;
+    communityTax: number;
 
     @Expose({ name: 'base_proposer_reward' })
-    baseProposerReward: string;
+    baseProposerReward: number;
 
     @Expose({ name: 'bonus_proposer_reward' })
-    bonusProposerReward: string;
+    bonusProposerReward: number;
 
     @Expose({ name: 'withdraw_address_enabled' })
     withdrawAddrEnabled: boolean;

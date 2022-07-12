@@ -127,10 +127,16 @@ const MainLayout = (props: IProps): JSX.Element => {
                                 <img alt="logo" src={logo} /> <h1>Explorer</h1>
                             </Link>
                         </div>
+                        <Link className="nav-title ms-lg-5 ms-4" to={NavigationConstants.BEAMS}>
+                            {i18n.t('beams')}
+                        </Link>
+                        <Link className="nav-title ms-lg-5 ms-4" to={NavigationConstants.ASSETS}>
+                            {i18n.t('assets')}
+                        </Link>
                         <Link className="nav-title ms-lg-5 ms-4" to={NavigationConstants.PARAMETERS}>
                             {i18n.t('parameters')}
                         </Link>
-                        <div className="ms-sm-5 ms-3 button-wallet">
+                        <div className="ms-lg-5 ms-4 button-wallet">
                             <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank">
                                 <img alt="wallet" src={walletBis} />
                                 {i18n.t('webWallet')}

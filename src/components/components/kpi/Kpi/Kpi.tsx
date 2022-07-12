@@ -116,25 +116,25 @@ const Kpi = (props: IProps): JSX.Element => {
                     return null;
                 }
 
-                return <KpiCard title={i18n.t('goalBonded')}>{numeral(parseFloat(params.mint.goalBonded) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
+                return <KpiCard title={i18n.t('goalBonded')}>{numeral(params.mint.goalBonded).format('0.00%')}</KpiCard>;
             case KpiType.INFLATION_MAX:
                 if (!params || !params.mint || !params.mint.inflation || !params.mint.inflation.max) {
                     return null;
                 }
 
-                return <KpiCard title={i18n.t('inflationMax')}>{numeral(parseFloat(params.mint.inflation.max) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
+                return <KpiCard title={i18n.t('inflationMax')}>{numeral(params.mint.inflation.max).format('0.00%')}</KpiCard>;
             case KpiType.INFLATION_MIN:
                 if (!params || !params.mint || !params.mint.inflation || !params.mint.inflation.min) {
                     return null;
                 }
 
-                return <KpiCard title={i18n.t('inflationMin')}>{numeral(parseFloat(params.mint.inflation.min) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
+                return <KpiCard title={i18n.t('inflationMin')}>{numeral(params.mint.inflation.min).format('0.00%')}</KpiCard>;
             case KpiType.INFLATION_RATE:
                 if (!params || !params.mint || !params.mint.inflation || !params.mint.inflation.rateChange) {
                     return null;
                 }
 
-                return <KpiCard title={i18n.t('inflationRate')}>{numeral(parseFloat(params.mint.inflation.rateChange) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
+                return <KpiCard title={i18n.t('inflationRate')}>{numeral(params.mint.inflation.rateChange).format('0.00%')}</KpiCard>;
             case KpiType.MINT_DENOM:
                 if (!params || !params.mint || !params.mint.denom) {
                     return null;
@@ -217,19 +217,19 @@ const Kpi = (props: IProps): JSX.Element => {
                 if (!params || !params.distribution || !params.distribution.baseProposerReward) {
                     return null;
                 }
-                return <KpiCard title={i18n.t('baseProposerReward')}>{numeral(parseFloat(params.distribution.baseProposerReward) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
+                return <KpiCard title={i18n.t('baseProposerReward')}>{numeral(params.distribution.baseProposerReward).format('0.00%')}</KpiCard>;
             case KpiType.BONUS_PROPOSER_REWARD:
                 if (!params || !params.distribution || !params.distribution.bonusProposerReward) {
                     return null;
                 }
 
-                return <KpiCard title={i18n.t('bonusProposerReward')}>{numeral(parseFloat(params.distribution.bonusProposerReward) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
+                return <KpiCard title={i18n.t('bonusProposerReward')}>{numeral(params.distribution.bonusProposerReward).format('0.00%')}</KpiCard>;
             case KpiType.COMMUNITY_TAX:
                 if (!params || !params.distribution || !params.distribution.communityTax) {
                     return null;
                 }
 
-                return <KpiCard title={i18n.t('communityTax')}>{numeral(parseFloat(params.distribution.communityTax) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
+                return <KpiCard title={i18n.t('communityTax')}>{numeral(params.distribution.communityTax).format('0.00%')}</KpiCard>;
             case KpiType.WITHDRAW_ADDR_ENABLED:
                 if (!params || !params.distribution || !params.distribution.withdrawAddrEnabled) {
                     return null;

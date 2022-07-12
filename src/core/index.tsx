@@ -31,6 +31,7 @@ const Core = (): JSX.Element => {
         dispatch.core.getStats().finally(() => null);
         dispatch.core.getLum().finally(() => null);
         dispatch.core.getParams().finally(() => null);
+        dispatch.core.getAssets().finally(() => null);
     };
 
     // const sockets = () => {

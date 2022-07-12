@@ -13,3 +13,4 @@ export const BEAMS_URL = 'beams';
 export const LUM_URL = 'price';
 export const DELEGATIONS_URL = 'delegations';
 export const PARAMETERS_URL = 'params';
+export const ASSETS_URL = 'assets';
