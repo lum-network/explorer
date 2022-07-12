@@ -87,6 +87,10 @@ export default {
     merchants: 'Merchants',
     totalRewards: 'Total rewards',
     todaysRewards: "Today's rewards",
+    lumsValue: "Lum's value",
+    rewards: 'Rewards',
+    averageReward: 'Average reward',
+    bestRewardEver: 'Best reward ever',
 
     // Transaction Messages
     messages: 'Messages',

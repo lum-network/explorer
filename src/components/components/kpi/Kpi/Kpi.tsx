@@ -14,6 +14,8 @@ import totalReviewsLogo from 'assets/images/totalReviews.svg';
 import merchantsLogo from 'assets/images/merchants.svg';
 import rewardsLogo from 'assets/images/rewards.svg';
 import todayRewardsLogo from 'assets/images/rewardsToday.svg';
+import averageRewardLogo from 'assets/images/averageReward.svg';
+import bestRewardEverLogo from 'assets/images/bestRewardEver.svg';
 import { BlocksModel } from 'models';
 import { LumConstants } from '@lum-network/sdk-javascript';
 
@@ -144,6 +146,28 @@ const Kpi = (props: IProps): JSX.Element => {
                     <KpiCard color={'#F06451'} title={i18n.t('todaysRewards')} logo={todayRewardsLogo}>
                         {<SmallerDecimal nb={numeral(stats.todayRewards).format('0,0.000000')} />}
                         <span className="ms-1">{LumConstants.LumDenom}</span>
+                    </KpiCard>
+                );
+
+            case KpiType.REWARD_AVERAGE:
+                if (!stats || !stats.averageReward) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#F06451'} title={i18n.t('averageReward')} logo={averageRewardLogo}>
+                        {numeral(stats.averageReward).format('0,0.00')}€
+                    </KpiCard>
+                );
+
+            case KpiType.BEST_REWARD_EVER:
+                if (!stats || !stats.bestRewardEver) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#F06451'} title={i18n.t('bestRewardEver')} logo={bestRewardEverLogo}>
+                        {numeral(stats.bestRewardEver).format('0,0.00')}€
                     </KpiCard>
                 );
 

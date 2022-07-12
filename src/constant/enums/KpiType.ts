@@ -8,6 +8,8 @@ enum KpiType {
     MERCHANTS,
     REWARDS,
     REWARDS_TODAY,
+    REWARD_AVERAGE,
+    BEST_REWARD_EVER,
 }
 
 export default KpiType;

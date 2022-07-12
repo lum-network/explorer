@@ -41,6 +41,8 @@ const core = createModel<RootModel>()({
                 stats.totalMerchants = 1482;
                 stats.totalRewards = 125818241459.4854758;
                 stats.todayRewards = 14857.84;
+                stats.averageReward = 0.54;
+                stats.bestRewardEver = 12.57;
 
                 dispatch.core.SET_STATS(stats);
             },
