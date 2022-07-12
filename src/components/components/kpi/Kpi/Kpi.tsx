@@ -257,7 +257,7 @@ const Kpi = (props: IProps): JSX.Element => {
                 }
 
                 // FIXME: correctly compute those hex values
-                return <KpiCard title={i18n.t('slashFractionDoubleSign')}>{Number(params.slashing.slashFractionDoubleSign) / NumberConstants.CLIENT_PRECISION}</KpiCard>;
+                return <KpiCard title={i18n.t('slashFractionDoubleSign')}>{Number(params.slashing.slashFractionDoubleSign)}</KpiCard>;
             case KpiType.SLASH_FRACTION_DOWNTIME:
                 // FIXME: correctly compute those hex values
                 return <KpiCard title={i18n.t('slashFractionDowntime')}>0.00</KpiCard>;
