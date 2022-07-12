@@ -127,6 +127,9 @@ const MainLayout = (props: IProps): JSX.Element => {
                                 <img alt="logo" src={logo} /> <h1>Explorer</h1>
                             </Link>
                         </div>
+                        <Link className="nav-title ms-lg-5 ms-4" to={NavigationConstants.PARAMETERS}>
+                            {i18n.t('parameters')}
+                        </Link>
                         <div className="ms-sm-5 ms-3 button-wallet">
                             <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank">
                                 <img alt="wallet" src={walletBis} />

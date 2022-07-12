@@ -2,7 +2,7 @@ import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import { StatsModel, LumModel, ParamsModel } from 'models';
 import { plainToClass } from 'class-transformer';
-import ExplorerApi, { ApiParams, ApiStats } from 'api';
+import ExplorerApi, { ApiStats } from 'api';
 
 interface CoreState {
     stats: StatsModel;
@@ -55,7 +55,7 @@ const core = createModel<RootModel>()({
             },
             
             async getParams() {
-                const params = await ApiParams.getParams();
+                const [params] = await client.getParams();
 
                 dispatch.core.SET_PARAMS(params);
             },

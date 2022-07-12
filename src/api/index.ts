@@ -1,10 +1,9 @@
 import * as ApiSearch from './api/search';
 import * as ApiStats from './api/stats';
 import * as ApiGovernance from './api/governance';
-import * as ApiParams from './api/params';
 import { HttpClient } from 'utils';
 import { ApiConstants } from 'constant';
-import { AccountModel, BeamModel, BlocksModel, DelegationModel, LumModel, TransactionsModel, ValidatorModel } from 'models';
+import { AccountModel, BeamModel, BlocksModel, DelegationModel, LumModel, ParamsModel, TransactionsModel, ValidatorModel } from 'models';
 
 class ExplorerApi extends HttpClient {
     private static instance?: ExplorerApi;
@@ -24,6 +23,8 @@ class ExplorerApi extends HttpClient {
     // Core
 
     public getLum = () => this.request<LumModel>({ url: ApiConstants.LUM_URL }, LumModel);
+
+    public getParams = () => this.request<ParamsModel>({ url: ApiConstants.PARAMETERS_URL }, ParamsModel);
 
     // Blocks
 
@@ -67,4 +68,4 @@ class ExplorerApi extends HttpClient {
 
 export default ExplorerApi.getInstance();
 
-export { ApiSearch, ApiStats, ApiGovernance, ApiParams };
+export { ApiSearch, ApiStats, ApiGovernance };

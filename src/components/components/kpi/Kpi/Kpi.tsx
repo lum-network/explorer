@@ -13,7 +13,6 @@ import validatorLogo from 'assets/images/validatorDark.svg';
 import clockLogo from 'assets/images/clockDark.svg';
 import bondedTokensLogo from 'assets/images/bondedTokensDark.svg';
 import inflationLogo from 'assets/images/inflationDark.svg';
-import walletLogo from 'assets/images/walletBis.svg';
 
 interface IProps {
     types: KpiType[];
@@ -108,7 +107,7 @@ const Kpi = (props: IProps): JSX.Element => {
                 }
 
                 return (
-                    <KpiCard title={i18n.t('unbondingTime')} logo={clockLogo}>
+                    <KpiCard title={i18n.t('unbondingTime')}>
                         {params.staking.unbondingTime / 3600 / 24} {i18n.t('days')}
                     </KpiCard>
                 );
@@ -117,108 +116,68 @@ const Kpi = (props: IProps): JSX.Element => {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('goalBonded')} logo={bondedTokensLogo}>
-                        {numeral(parseFloat(params.mint.goalBonded) / NumberConstants.CLIENT_PRECISION).format('0.00%')}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('goalBonded')}>{numeral(parseFloat(params.mint.goalBonded) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
             case KpiType.INFLATION_MAX:
                 if (!params || !params.mint || !params.mint.inflation || !params.mint.inflation.max) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('inflationMax')} logo={inflationLogo}>
-                        {numeral(parseFloat(params.mint.inflation.max) / NumberConstants.CLIENT_PRECISION).format('0.00%')}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('inflationMax')}>{numeral(parseFloat(params.mint.inflation.max) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
             case KpiType.INFLATION_MIN:
                 if (!params || !params.mint || !params.mint.inflation || !params.mint.inflation.min) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('inflationMin')} logo={inflationLogo}>
-                        {numeral(parseFloat(params.mint.inflation.min) / NumberConstants.CLIENT_PRECISION).format('0.00%')}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('inflationMin')}>{numeral(parseFloat(params.mint.inflation.min) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
             case KpiType.INFLATION_RATE:
                 if (!params || !params.mint || !params.mint.inflation || !params.mint.inflation.rateChange) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('inflationRate')} logo={inflationLogo}>
-                        {numeral(parseFloat(params.mint.inflation.rateChange) / NumberConstants.CLIENT_PRECISION).format('0.00%')}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('inflationRate')}>{numeral(parseFloat(params.mint.inflation.rateChange) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
             case KpiType.MINT_DENOM:
                 if (!params || !params.mint || !params.mint.denom) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('mintDenom')} logo={walletLogo}>
-                        {params.mint.denom}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('mintDenom')}>{params.mint.denom}</KpiCard>;
             case KpiType.BOND_DENOM:
                 if (!params || !params.staking || !params.staking.bondDenom) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('bondDenom')} logo={walletLogo}>
-                        {params.staking.bondDenom}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('bondDenom')}>{params.staking.bondDenom}</KpiCard>;
             case KpiType.BLOCKS_PER_YEAR:
                 if (!params || !params.mint || !params.mint.blocksPerYear) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('blocksPerYear')} logo={clockLogo}>
-                        {numeral(params.mint.blocksPerYear).format('0,0')}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('blocksPerYear')}>{numeral(params.mint.blocksPerYear).format('0,0')}</KpiCard>;
             case KpiType.MAX_ENTRIES:
                 if (!params || !params.staking || !params.staking.maxEntries) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('maxEntries')} logo={inflationLogo}>
-                        {params.staking.maxEntries}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('maxEntries')}>{params.staking.maxEntries}</KpiCard>;
             case KpiType.MAX_VALIDATORS:
                 if (!params || !params.staking || !params.staking.maxValidators) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('maxValidators')} logo={validatorLogo}>
-                        {params.staking.maxValidators}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('maxValidators')}>{params.staking.maxValidators}</KpiCard>;
             case KpiType.HISTORICAL_ENTRIES:
                 if (!params || !params.staking || !params.staking.historicalEntries) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('historicalEntries')} logo={inflationLogo}>
-                        {params.staking.historicalEntries}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('historicalEntries')}>{params.staking.historicalEntries}</KpiCard>;
             case KpiType.MIN_DEPOSIT:
                 if (!params || !params.gov || !params.gov.deposit.minimum) {
                     return null;
                 }
 
                 return (
-                    <KpiCard title={i18n.t('minDeposit')} logo={inflationLogo}>
+                    <KpiCard title={i18n.t('minDeposit')}>
                         {NumbersUtils.formatNumber(params.gov.deposit.minimum[0])} <span className="color-type">{LumConstants.LumDenom}</span>
                     </KpiCard>
                 );
@@ -228,7 +187,7 @@ const Kpi = (props: IProps): JSX.Element => {
                 }
 
                 return (
-                    <KpiCard title={i18n.t('maxDepositPeriod')} logo={inflationLogo}>
+                    <KpiCard title={i18n.t('maxDepositPeriod')}>
                         {params.gov.deposit.period / 3600 / 24} {i18n.t('days')}
                     </KpiCard>
                 );
@@ -238,105 +197,70 @@ const Kpi = (props: IProps): JSX.Element => {
                 }
 
                 return (
-                    <KpiCard title={i18n.t('votingPeriod')} logo={inflationLogo}>
+                    <KpiCard title={i18n.t('votingPeriod')}>
                         {params.gov.vote.period / 3600 / 24} {i18n.t('days')}
                     </KpiCard>
                 );
             case KpiType.QUORUM:
-                return (
-                    <KpiCard title={i18n.t('quorum')} logo={inflationLogo}>
-                        0.00
-                    </KpiCard>
-                );
+                // FIXME: correctly compute those hex values
+
+                return <KpiCard title={i18n.t('quorum')}>0.00</KpiCard>;
             case KpiType.THRESHOLD:
-                return (
-                    <KpiCard title={i18n.t('threshold')} logo={inflationLogo}>
-                        0.00
-                    </KpiCard>
-                );
+                // FIXME: correctly compute those hex values
+
+                return <KpiCard title={i18n.t('threshold')}>0.00</KpiCard>;
             case KpiType.VETO_THRESHOLD:
-                return (
-                    <KpiCard title={i18n.t('vetoThreshold')} logo={inflationLogo}>
-                        0.00
-                    </KpiCard>
-                );
+                // FIXME: correctly compute those hex values
+
+                return <KpiCard title={i18n.t('vetoThreshold')}>0.00</KpiCard>;
             case KpiType.BASE_PROPOSER_REWARD:
                 if (!params || !params.distribution || !params.distribution.baseProposerReward) {
                     return null;
                 }
-                return (
-                    <KpiCard title={i18n.t('baseProposerReward')} logo={inflationLogo}>
-                        {numeral(parseFloat(params.distribution.baseProposerReward) / NumberConstants.CLIENT_PRECISION).format('0.00%')}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('baseProposerReward')}>{numeral(parseFloat(params.distribution.baseProposerReward) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
             case KpiType.BONUS_PROPOSER_REWARD:
                 if (!params || !params.distribution || !params.distribution.bonusProposerReward) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('bonusProposerReward')} logo={inflationLogo}>
-                        {numeral(parseFloat(params.distribution.bonusProposerReward) / NumberConstants.CLIENT_PRECISION).format('0.00%')}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('bonusProposerReward')}>{numeral(parseFloat(params.distribution.bonusProposerReward) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
             case KpiType.COMMUNITY_TAX:
                 if (!params || !params.distribution || !params.distribution.communityTax) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('communityTax')} logo={inflationLogo}>
-                        {numeral(parseFloat(params.distribution.communityTax) / NumberConstants.CLIENT_PRECISION).format('0.00%')}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('communityTax')}>{numeral(parseFloat(params.distribution.communityTax) / NumberConstants.CLIENT_PRECISION).format('0.00%')}</KpiCard>;
             case KpiType.WITHDRAW_ADDR_ENABLED:
-                return (
-                    <KpiCard title={i18n.t('withdrawAddrEnabled')} logo={inflationLogo}>
-                        {(!!params.distribution.withdrawAddrEnabled).toString()}
-                    </KpiCard>
-                );
+                if (!params || !params.distribution || !params.distribution.withdrawAddrEnabled) {
+                    return null;
+                }
+
+                return <KpiCard title={i18n.t('withdrawAddrEnabled')}>{(!!params.distribution.withdrawAddrEnabled).toString()}</KpiCard>;
             case KpiType.SIGNED_BLOCKS_WINDOW:
                 if (!params || !params.slashing || !params.slashing.signedBlocksWindow) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('signedBlocksWindow')} logo={inflationLogo}>
-                        {numeral(params.slashing.signedBlocksWindow).format('0,0')}
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('signedBlocksWindow')}>{numeral(params.slashing.signedBlocksWindow).format('0,0')}</KpiCard>;
             case KpiType.MIN_SIGNED_PER_WINDOW:
-                return (
-                    <KpiCard title={i18n.t('minSignedPerWindow')} logo={inflationLogo}>
-                        0.00
-                    </KpiCard>
-                );
+                // FIXME: correctly compute those hex values
+                return <KpiCard title={i18n.t('minSignedPerWindow')}>0.00</KpiCard>;
             case KpiType.DOWNTIME_JAIL_DURATION:
                 if (!params || !params.slashing || !params.slashing.downtimeJailDuration) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('downtimeJailDuration')} logo={inflationLogo}>
-                        {params.slashing.downtimeJailDuration}s
-                    </KpiCard>
-                );
+                return <KpiCard title={i18n.t('downtimeJailDuration')}>{params.slashing.downtimeJailDuration}s</KpiCard>;
             case KpiType.SLASH_FRACTION_DOUBLE_SIGN:
                 if (!params || !params.slashing || !params.slashing.slashFractionDoubleSign) {
                     return null;
                 }
 
-                return (
-                    <KpiCard title={i18n.t('slashFractionDoubleSign')} logo={inflationLogo}>
-                        {Number('0x' + params.slashing.slashFractionDoubleSign) / NumberConstants.CLIENT_PRECISION}
-                    </KpiCard>
-                );
+                // FIXME: correctly compute those hex values
+                return <KpiCard title={i18n.t('slashFractionDoubleSign')}>{Number(params.slashing.slashFractionDoubleSign) / NumberConstants.CLIENT_PRECISION}</KpiCard>;
             case KpiType.SLASH_FRACTION_DOWNTIME:
-                return (
-                    <KpiCard title={i18n.t('slashFractionDowntime')} logo={inflationLogo}>
-                        0.00
-                    </KpiCard>
-                );
+                // FIXME: correctly compute those hex values
+                return <KpiCard title={i18n.t('slashFractionDowntime')}>0.00</KpiCard>;
             default:
                 return null;
         }

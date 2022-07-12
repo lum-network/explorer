@@ -204,6 +204,7 @@ export default {
     mostVotedOn: 'Most voted on',
 
     // Parameters
+    parameters: 'Parameters',
     mintingParam: 'Minting Parameters',
     stakingParam: 'Staking Parameters',
     governanceParam: 'Governance Parameters',
