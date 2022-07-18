@@ -4,7 +4,7 @@ export { default as AccountModel } from './models/account';
 export { default as ValidatorModel } from './models/validator';
 export { default as DelegationModel } from './models/delegations';
 export { default as LogModel } from './models/log';
-export { default as StatsModel } from './models/stats';
+export { default as KpiModel } from './models/kpi';
 export { default as ProposalsModel } from './models/proposals';
 export { default as VotesResultModel } from './models/votesResult';
 export { default as LumModel } from './models/lum';

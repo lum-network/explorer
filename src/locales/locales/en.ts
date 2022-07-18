@@ -87,7 +87,7 @@ export default {
     totalReviews: 'Total reviews',
     merchants: 'Merchants',
     totalRewards: 'Total rewards',
-    todaysRewards: "Today's rewards",
+    bestRewardToday: 'Best reward today',
     lumsValue: "Lum's value",
     rewards: 'Rewards',
     averageReward: 'Average reward',

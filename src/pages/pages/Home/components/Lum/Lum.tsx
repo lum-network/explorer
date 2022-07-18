@@ -10,7 +10,7 @@ import { RootState } from 'redux/store';
 const Lum = (): JSX.Element => {
     const lum = useSelector((state: RootState) => state.core.lum);
     const assets = useSelector((state: RootState) => state.core.assets);
-    const loading = useSelector((state: RootState) => state.loading.effects.core.getLum || state.loading.effects.core.getStats);
+    const loading = useSelector((state: RootState) => state.loading.effects.core.getLum || state.loading.effects.core.getKpi);
 
     const [previousDayPercentage, setPreviousDayPercentage] = useState(0);
 

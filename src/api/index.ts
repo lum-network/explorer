@@ -1,10 +1,9 @@
 import * as ApiSearch from './api/search';
-import * as ApiStats from './api/stats';
 import * as ApiGovernance from './api/governance';
 
 import { HttpClient } from 'utils';
 import { ApiConstants } from 'constant';
-import { AccountModel, BeamModel, BlocksModel, CoinModel, DelegationModel, LumModel, ParamsModel, TransactionsModel, ValidatorModel } from 'models';
+import { AccountModel, BeamModel, BlocksModel, CoinModel, DelegationModel, LumModel, ParamsModel, TransactionsModel, ValidatorModel, KpiModel } from 'models';
 import { RedelegationModel, UnbondingModel } from '../models/models/account';
 
 class ExplorerApi extends HttpClient {
@@ -29,6 +28,8 @@ class ExplorerApi extends HttpClient {
     public getParams = () => this.request<ParamsModel>({ url: ApiConstants.PARAMETERS_URL }, ParamsModel);
 
     public getAssets = () => this.request<CoinModel[]>({ url: ApiConstants.ASSETS_URL }, CoinModel);
+
+    public getKpi = () => this.request<KpiModel>({ url: ApiConstants.KPI_URL }, KpiModel);
 
     // Blocks
 
@@ -76,4 +77,4 @@ class ExplorerApi extends HttpClient {
 
 export default ExplorerApi.getInstance();
 
-export { ApiSearch, ApiStats, ApiGovernance };
+export { ApiSearch, ApiGovernance };

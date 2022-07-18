@@ -12,7 +12,7 @@ import blockLogo from 'assets/images/blockDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import clockLogo from 'assets/images/clockDark.svg';
 import bondedTokensLogo from 'assets/images/bondedTokensDark.svg';
-import inflationLogo from 'assets/images/inflationDark.svg';
+// import inflationLogo from 'assets/images/inflationDark.svg';
 import totalReviewsLogo from 'assets/images/totalReviews.svg';
 import merchantsLogo from 'assets/images/merchants.svg';
 import rewardsLogo from 'assets/images/rewards.svg';
@@ -31,7 +31,7 @@ const Kpi = (props: IProps): JSX.Element => {
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const validators = useSelector((state: RootState) => state.validators.validators);
     const assets = useSelector((state: RootState) => state.core.assets);
-    const stats = useSelector((state: RootState) => state.core.stats);
+    const kpi = useSelector((state: RootState) => state.core.kpi);
     const params = useSelector((state: RootState) => state.core.params);
 
     const processBlockTime = (blocks: BlocksModel[]): void => {
@@ -94,85 +94,87 @@ const Kpi = (props: IProps): JSX.Element => {
                     </KpiCard>
                 );
 
-            case KpiType.INFLATION:
-                if (!stats || !stats.inflation) {
-                    return null;
-                }
-
-                return (
-                    <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
-                        {numeral(parseFloat(stats.inflation)).format('0.00%')}
-                    </KpiCard>
-                );
+            // TODO: Get inflation from chain bridge when available
+            // case KpiType.INFLATION:
+            //     if (!kpi || !kpi.inflation) {
+            //         return null;
+            //     }
+            //
+            //     return (
+            //         <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
+            //             {numeral(parseFloat(kpi.inflation)).format('0.00%')}
+            //         </KpiCard>
+            //     );
 
             case KpiType.TOTAL_REVIEWS:
-                if (!stats || !stats.totalReviews) {
+                if (!kpi || !kpi.beams.total) {
                     return null;
                 }
 
                 return (
                     <KpiCard color={'#FFC107'} title={i18n.t('totalReviews')} logo={totalReviewsLogo}>
-                        {numeral(stats.totalReviews).format('0,0')}
+                        {numeral(kpi.beams.total).format('0,0')}
                     </KpiCard>
                 );
 
             case KpiType.MERCHANTS:
-                if (!stats || !stats.totalMerchants) {
+                if (!kpi || !kpi.merchants.total) {
                     return null;
                 }
 
                 return (
                     <KpiCard color={'#3BDCC4'} title={i18n.t('merchants')} logo={merchantsLogo}>
-                        {numeral(stats.totalMerchants).format('0,0')}
+                        {numeral(kpi.merchants.total).format('0,0')}
                     </KpiCard>
                 );
 
             case KpiType.REWARDS:
-                if (!stats || !stats.totalRewards) {
+                if (!kpi || !kpi.rewards.total) {
                     return null;
                 }
 
                 return (
                     <KpiCard color={'#F06451'} title={i18n.t('totalRewards')} logo={rewardsLogo}>
-                        {<SmallerDecimal nb={numeral(stats.totalRewards).format('0,0.000000')} />}
+                        {<SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(kpi.rewards.total)).format('0,0.000000')} />}
                         <span className="ms-1">{LumConstants.LumDenom}</span>
                     </KpiCard>
                 );
 
-            case KpiType.REWARDS_TODAY:
-                if (!stats || !stats.todayRewards) {
+            case KpiType.BEST_REWARD_TODAY:
+                if (!kpi || !kpi.rewards.bestToday) {
                     return null;
                 }
 
                 return (
-                    <KpiCard color={'#F06451'} title={i18n.t('todaysRewards')} logo={todayRewardsLogo}>
-                        {<SmallerDecimal nb={numeral(stats.todayRewards).format('0,0.000000')} />}
+                    <KpiCard color={'#F06451'} title={i18n.t('bestRewardToday')} logo={todayRewardsLogo}>
+                        {<SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(kpi.rewards.bestToday)).format('0,0.000000')} />}
                         <span className="ms-1">{LumConstants.LumDenom}</span>
                     </KpiCard>
                 );
 
             case KpiType.REWARD_AVERAGE:
-                if (!stats || !stats.averageReward) {
+                if (!kpi || !kpi.rewards.average) {
                     return null;
                 }
 
                 return (
                     <KpiCard color={'#F06451'} title={i18n.t('averageReward')} logo={averageRewardLogo}>
-                        {numeral(stats.averageReward).format('0,0.00')}€
+                        {<SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(kpi.rewards.average)).format('0,0.000000')} />}
+                        <span className="ms-1">{LumConstants.LumDenom}</span>
                     </KpiCard>
                 );
 
             case KpiType.BEST_REWARD_EVER:
-                if (!stats || !stats.bestRewardEver) {
+                if (!kpi || !kpi.rewards.bestAth) {
                     return null;
                 }
 
                 return (
                     <KpiCard color={'#F06451'} title={i18n.t('bestRewardEver')} logo={bestRewardEverLogo}>
-                        {numeral(stats.bestRewardEver).format('0,0.00')}€
+                        {<SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(kpi.rewards.bestAth)).format('0,0.000000')} />}
+                        <span className="ms-1">{LumConstants.LumDenom}</span>
                     </KpiCard>
                 );
-
 
             // Parameters
 

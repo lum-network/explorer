@@ -1,11 +1,11 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
-import { StatsModel, LumModel, ParamsModel, CoinModel } from 'models';
+import { KpiModel, LumModel, ParamsModel, CoinModel } from 'models';
 import { plainToClass } from 'class-transformer';
-import ExplorerApi, { ApiStats } from 'api';
+import ExplorerApi from 'api';
 
 interface CoreState {
-    stats: StatsModel;
+    kpi: KpiModel;
     lum: LumModel;
     params: ParamsModel;
     assets: CoinModel[];
@@ -13,16 +13,16 @@ interface CoreState {
 
 const core = createModel<RootModel>()({
     state: {
-        stats: plainToClass(StatsModel, null),
+        kpi: plainToClass(KpiModel, null),
         params: plainToClass(ParamsModel, null),
         lum: plainToClass(LumModel, null),
         assets: [],
     } as CoreState,
     reducers: {
-        SET_STATS(state, stats: StatsModel) {
+        SET_KPI(state, kpi: KpiModel) {
             return {
                 ...state,
-                stats,
+                kpi,
             };
         },
 
@@ -51,18 +51,12 @@ const core = createModel<RootModel>()({
         const client = ExplorerApi;
 
         return {
-            async getStats() {
-                const stats = await ApiStats.getStats();
+            async getKpi() {
+                const [kpi] = await client.getKpi();
 
-                //FIXME
-                stats.totalReviews = 1584645;
-                stats.totalMerchants = 1482;
-                stats.totalRewards = 125818241459.4854758;
-                stats.todayRewards = 14857.84;
-                stats.averageReward = 0.54;
-                stats.bestRewardEver = 12.57;
+                console.log(kpi);
 
-                dispatch.core.SET_STATS(stats);
+                dispatch.core.SET_KPI(kpi);
             },
 
             async getLum() {
