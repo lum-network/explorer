@@ -247,7 +247,6 @@ export default {
     assetName: 'Name',
     totalSupply: 'Total supply',
 
-
     // Lumki
     lumWallet: 'Lumki',
     walletDescription: 'Available on the App Store<br/>and on the Google Store',

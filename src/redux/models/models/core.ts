@@ -37,15 +37,15 @@ const core = createModel<RootModel>()({
             return {
                 ...state,
                 params,
-            }
+            };
         },
-        
+
         SET_ASSETS(state, assets: CoinModel[]) {
             return {
                 ...state,
                 assets,
             };
-        }
+        },
     },
     effects: (dispatch) => {
         const client = ExplorerApi;
@@ -62,7 +62,7 @@ const core = createModel<RootModel>()({
 
                 dispatch.core.SET_LUM(lum);
             },
-            
+
             async getParams() {
                 const [params] = await client.getParams();
 
@@ -73,7 +73,7 @@ const core = createModel<RootModel>()({
                 const [assets] = await client.getAssets();
 
                 dispatch.core.SET_ASSETS(assets);
-            }
+            },
         };
     },
 });

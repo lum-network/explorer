@@ -3,7 +3,7 @@ import { KpiType } from 'constant';
 import { KpiCard } from 'components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
-import { BlockUtils, i18n, NumbersUtils, ValidatorsUtils } from 'utils';
+import {AssetsUtils, BlockUtils, i18n, NumbersUtils, ValidatorsUtils} from 'utils';
 import numeral from 'numeral';
 import { BlocksModel } from 'models';
 import { LumConstants } from '@lum-network/sdk-javascript';
@@ -24,6 +24,7 @@ const Kpi = (props: IProps): JSX.Element => {
 
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const validators = useSelector((state: RootState) => state.validators.validators);
+    const assets = useSelector((state: RootState) => state.core.assets);
     const stats = useSelector((state: RootState) => state.core.stats);
     const params = useSelector((state: RootState) => state.core.params);
 
@@ -80,10 +81,9 @@ const Kpi = (props: IProps): JSX.Element => {
                 }
 
                 const nb = NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators));
-                const total = stats && stats.totalSupply ? NumbersUtils.convertUnitNumber(stats.totalSupply.amount) : 0;
 
                 return (
-                    <KpiCard title={i18n.t('bondedTokens')} logo={bondedTokensLogo} additionalInfo={`${numeral(NumbersUtils.getPercentage(nb, total)).format('0.00')}%`}>
+                    <KpiCard title={i18n.t('bondedTokens')} logo={bondedTokensLogo} additionalInfo={`${numeral(NumbersUtils.getPercentage(nb, AssetsUtils.getTotalSupply(assets))).format('0.00')}%`}>
                         {numeral(nb).format('0,0')}
                     </KpiCard>
                 );
@@ -235,7 +235,7 @@ const Kpi = (props: IProps): JSX.Element => {
                     return null;
                 }
 
-                return <KpiCard title={i18n.t('withdrawAddrEnabled')}>{(!!params.distribution.withdrawAddrEnabled).toString()}</KpiCard>;
+                return <KpiCard title={i18n.t('withdrawAddrEnabled')}>{params.distribution.withdrawAddrEnabled.toString()}</KpiCard>;
             case KpiType.SIGNED_BLOCKS_WINDOW:
                 if (!params || !params.slashing || !params.slashing.signedBlocksWindow) {
                     return null;

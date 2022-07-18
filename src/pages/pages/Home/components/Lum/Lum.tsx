@@ -3,13 +3,13 @@ import lumLogo from 'assets/images/lum.svg';
 import { Card, Loading } from 'frontend-elements';
 import numeral from 'numeral';
 import './Lum.scss';
-import { i18n, NumbersUtils } from 'utils';
+import {AssetsUtils, i18n, NumbersUtils} from 'utils';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 
 const Lum = (): JSX.Element => {
     const lum = useSelector((state: RootState) => state.core.lum);
-    const stats = useSelector((state: RootState) => state.core.stats);
+    const assets = useSelector((state: RootState) => state.core.assets);
     const loading = useSelector((state: RootState) => state.loading.effects.core.getLum || state.loading.effects.core.getStats);
 
     const [previousDayPercentage, setPreviousDayPercentage] = useState(0);
@@ -30,7 +30,7 @@ const Lum = (): JSX.Element => {
         );
     }
 
-    if (!lum || !lum.price || !lum.volume24h || !lum.previousDayPrice || !stats || !stats.totalSupply) {
+    if (!lum || !lum.price || !lum.volume24h || !lum.previousDayPrice || !assets) {
         return (
             <Card className="h-100">
                 <img alt="Lum" className="placeholder-image mb-4" src={lumLogo} />
@@ -45,7 +45,7 @@ const Lum = (): JSX.Element => {
             <div className="row">
                 <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
                     <h4 className="mb-3">{i18n.t('marketCap')}</h4>
-                    <p>{numeral(NumbersUtils.convertUnitNumber(stats.totalSupply.amount) * lum.price).format('$0,0')}</p>
+                    <p>{numeral(AssetsUtils.getTotalSupply(assets) * lum.price).format('$0,0')}</p>
                 </div>
                 <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
                     <h4 className="mb-3">{i18n.t('dayVolume')}</h4>

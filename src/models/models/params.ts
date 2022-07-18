@@ -52,7 +52,7 @@ class Vote {
 class Deposit {
     @Type(() => CoinModel)
     minimum: CoinModel[];
-    
+
     period: number;
 }
 
@@ -76,7 +76,7 @@ class GovParams {
 // Distribution
 
 class DistributionParams {
-    @Expose({ name: 'community_tax'})
+    @Expose({ name: 'community_tax' })
     communityTax: number;
 
     @Expose({ name: 'base_proposer_reward' })
@@ -109,20 +109,20 @@ class SlashingParams {
 }
 
 class ParamsModel {
-    @Type(()=> MintParams)
+    @Type(() => MintParams)
     mint: MintParams;
-    
-    @Type(()=> StakingParams)
+
+    @Type(() => StakingParams)
     staking: StakingParams;
 
-    @Type(()=> GovParams)
+    @Type(() => GovParams)
     gov: GovParams;
 
-    @Type(()=> DistributionParams)
+    @Type(() => DistributionParams)
     distribution: DistributionParams;
 
-    @Type(()=> SlashingParams)
+    @Type(() => SlashingParams)
     slashing: SlashingParams;
-};
+}
 
 export default ParamsModel;
