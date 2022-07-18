@@ -34,6 +34,10 @@ div.wallet-background {
     width: 200px;
 }
 
+a.app-btn:hover {
+    color: $color-white;
+}
+
 @media screen and (min-width: 1400px) and (max-width: 1850px) {
     div.wallet-background {
         background-image: url('../../../../../assets/images/lumkiBackgroundSquare.png');

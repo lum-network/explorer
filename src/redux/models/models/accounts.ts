@@ -49,6 +49,8 @@ const accounts = createModel<RootModel>()({
 
                 await dispatch.accounts.fetchAccountDelegations({ id, page: 0 });
                 await dispatch.accounts.fetchAccountTransactions({ id, page: 0 });
+                await dispatch.accounts.fetchAccountRedelegations(id);
+                await dispatch.accounts.fetchAccountUnbondings(id);
             } catch (e) {}
         },
 
@@ -78,6 +80,34 @@ const accounts = createModel<RootModel>()({
             account.transactions = transactions;
 
             dispatch.accounts.SET_ACCOUNT(account, [state.accounts.delegationsMetadata, transactionsMetadata]);
+        },
+
+        async fetchAccountRedelegations(id: string, state) {
+            const [redelegations] = await Api.fetchAccountRedelegations(id);
+
+            const account = state.accounts.account;
+
+            if (!account) {
+                return null;
+            }
+
+            account.redelegations = redelegations;
+
+            dispatch.accounts.SET_ACCOUNT(account, [state.accounts.delegationsMetadata, state.accounts.transactionsMetadata]);
+        },
+
+        async fetchAccountUnbondings(id: string, state) {
+            const [unbondings] = await Api.fetchAccountUnbondings(id);
+
+            const account = state.accounts.account;
+
+            if (!account) {
+                return null;
+            }
+
+            account.unbondings = unbondings;
+
+            dispatch.accounts.SET_ACCOUNT(account, [state.accounts.delegationsMetadata, state.accounts.transactionsMetadata]);
         },
     }),
 });
