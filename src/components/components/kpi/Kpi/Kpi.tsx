@@ -3,7 +3,7 @@ import { KpiType } from 'constant';
 import { KpiCard } from 'components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
-import {AssetsUtils, BlockUtils, i18n, NumbersUtils, ValidatorsUtils} from 'utils';
+import { AssetsUtils, BlockUtils, i18n, NumbersUtils, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
 import { BlocksModel } from 'models';
 import { LumConstants } from '@lum-network/sdk-javascript';

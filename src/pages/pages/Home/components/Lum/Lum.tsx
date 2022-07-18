@@ -3,7 +3,7 @@ import lumLogo from 'assets/images/lum.svg';
 import { Card, Loading } from 'frontend-elements';
 import numeral from 'numeral';
 import './Lum.scss';
-import {AssetsUtils, i18n, NumbersUtils} from 'utils';
+import { AssetsUtils, i18n, NumbersUtils } from 'utils';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 
