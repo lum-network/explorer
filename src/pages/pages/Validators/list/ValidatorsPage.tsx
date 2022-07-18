@@ -7,7 +7,7 @@ import { Card, Loading, Table, ValidatorLogo } from 'frontend-elements';
 import { Kpi, Badge } from 'components';
 import { ValidatorModel } from 'models';
 import numeral from 'numeral';
-import { KpiType, NavigationConstants, NumberConstants } from 'constant';
+import { KpiType, NavigationConstants } from 'constant';
 import { Link } from 'react-router-dom';
 import '../Validators.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -78,7 +78,7 @@ const ValidatorsPage = (): JSX.Element => {
                     </div>
                 </td>
                 <td data-label={head[4]} className="text-end">
-                    <p>{numeral(parseFloat(validator.commission.rates.rate || '') / NumberConstants.CLIENT_PRECISION).format('0.00%')}</p>
+                    <p>{numeral(parseFloat(validator.commission.rates.rate || '')).format('0.00%')}</p>
                 </td>
             </tr>
         );

@@ -1,18 +1,22 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
-import { StatsModel, LumModel } from 'models';
+import { StatsModel, LumModel, ParamsModel, CoinModel } from 'models';
 import { plainToClass } from 'class-transformer';
 import ExplorerApi, { ApiStats } from 'api';
 
 interface CoreState {
     stats: StatsModel;
     lum: LumModel;
+    params: ParamsModel;
+    assets: CoinModel[];
 }
 
 const core = createModel<RootModel>()({
     state: {
         stats: plainToClass(StatsModel, null),
+        params: plainToClass(ParamsModel, null),
         lum: plainToClass(LumModel, null),
+        assets: [],
     } as CoreState,
     reducers: {
         SET_STATS(state, stats: StatsModel) {
@@ -26,6 +30,20 @@ const core = createModel<RootModel>()({
             return {
                 ...state,
                 lum,
+            };
+        },
+
+        SET_PARAMS(state, params: ParamsModel) {
+            return {
+                ...state,
+                params,
+            };
+        },
+
+        SET_ASSETS(state, assets: CoinModel[]) {
+            return {
+                ...state,
+                assets,
             };
         },
     },
@@ -51,6 +69,18 @@ const core = createModel<RootModel>()({
                 const [lum] = await client.getLum();
 
                 dispatch.core.SET_LUM(lum);
+            },
+
+            async getParams() {
+                const [params] = await client.getParams();
+
+                dispatch.core.SET_PARAMS(params);
+            },
+
+            async getAssets() {
+                const [assets] = await client.getAssets();
+
+                dispatch.core.SET_ASSETS(assets);
             },
         };
     },

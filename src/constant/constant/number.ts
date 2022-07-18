@@ -1,1 +1,0 @@
-export const CLIENT_PRECISION = 1_000_000_000_000_000_000;

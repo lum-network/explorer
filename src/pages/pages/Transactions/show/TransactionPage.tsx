@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MessageType, Badge, Tooltip, SmallerDecimal, VoteOption } from 'components';
 import { Card, Loading } from 'frontend-elements';
 import moment from 'moment-timezone';
-import { NavigationConstants, NumberConstants, SystemConstants } from 'constant';
+import { NavigationConstants, SystemConstants } from 'constant';
 import { i18n, StringsUtils, NumbersUtils } from 'utils';
 import { MessageModel } from 'models';
 import blockLogo from 'assets/images/blockDark.svg';
@@ -156,20 +156,16 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('comRate')}</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {value.commission.rates.rate ? numeral(parseFloat(value.commission.rates.rate || '') / NumberConstants.CLIENT_PRECISION).format('0.00%') : '-'}
-                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.commission.rates.rate ? numeral(parseFloat(value.commission.rates.rate || '')).format('0.00%') : '-'}</div>
                     <div className="col-12 col-md-3 col-xl-2 mb-md-3">
                         <h5>{i18n.t('comMaxRate')}</h5>
                     </div>
-                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        {value.commission.rates.maxRate ? numeral(parseFloat(value.commission.rates.maxRate || '') / NumberConstants.CLIENT_PRECISION).format('0.00%') : '-'}
-                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.commission.rates.maxRate ? numeral(parseFloat(value.commission.rates.maxRate || '')).format('0.00%') : '-'}</div>
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('comMaxChangeRate')}</h5>
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
-                        {value.commission.rates.maxChangeRate ? numeral(parseFloat(value.commission.rates.maxChangeRate || '') / NumberConstants.CLIENT_PRECISION).format('0.00%') : '-'}
+                        {value.commission.rates.maxChangeRate ? numeral(parseFloat(value.commission.rates.maxChangeRate || '')).format('0.00%') : '-'}
                     </div>
                 </div>
             );
