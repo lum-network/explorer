@@ -1,0 +1,126 @@
+@import 'src/frontend-elements/styles/main';
+
+.rewards-calendar .tiles {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    margin-top: 2rem;
+    overflow: visible !important;
+    & abbr {
+        padding: 8px;
+        border-radius: 50%;
+    }
+}
+
+.rewards-calendar .tiles-0 abbr {
+    color: #BBBBBB;
+}
+
+.rewards-calendar .tiles-5 abbr {
+    color: black;
+    background-color: rgba(240, 100, 81, 0.2);
+}
+
+.rewards-calendar .tiles-10 abbr {
+    color: black;
+    background-color: rgba(240, 100, 81, 0.4);
+}
+
+.rewards-calendar .tiles-15 abbr {
+    color: black;
+    background-color: rgba(240, 100, 81, 0.6);
+}
+
+.rewards-calendar .tiles-20 abbr {
+    color: white;
+    background-color: rgba(240, 100, 81, 0.8);
+}
+
+.rewards-calendar .tiles-25 abbr {
+    color: white;
+    background-color: rgba(240, 100, 81, 1);
+}
+
+.rewards-calendar .reward-count-tile {
+    height: 18px;
+    width: 18px;
+
+    &.tile-5 {
+        background-color: rgba(240, 100, 81, 0.2);
+    }
+
+    &.tile-10 {
+        background-color: rgba(240, 100, 81, 0.4);
+    }
+    
+    &.tile-15 {
+        background-color: rgba(240, 100, 81, 0.6);
+    }
+
+    &.tile-20 {
+        background-color: rgba(240, 100, 81, 0.8);
+    }
+
+    &.tile-25 {
+        background-color: rgba(240, 100, 81, 1);
+    }
+}
+
+.react-calendar__navigation {
+    display: flex;
+    align-items: center;
+    background-color: #F2F3F7;
+    border-radius: 24px;
+    padding: 8px 10px;
+    margin-bottom: 1rem;
+}
+
+.react-calendar__navigation button {
+    border: none;
+}
+
+.react-calendar__navigation__label {
+    background-color: transparent;
+}
+
+.react-calendar__navigation__arrow {
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+.react-calendar__navigation__prev-button,
+.react-calendar__navigation__next2-button {
+    margin-left: 0.5rem;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    text-align: center;
+    & abbr {
+        text-decoration: none !important;
+        //color: #BBBBBB;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .rewards-calendar .tiles {
+        color: white;
+    }
+    
+    .react-calendar__navigation {
+        background-color: black;
+    }
+
+    .react-calendar__navigation__label__labelText {
+        color: white;
+    }
+
+    .react-calendar__navigation__arrow {
+        background-color: $color-primary;
+        color: white;
+    }
+}

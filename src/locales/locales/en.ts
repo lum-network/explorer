@@ -92,6 +92,10 @@ export default {
     rewards: 'Rewards',
     averageReward: 'Average reward',
     bestRewardEver: 'Best reward ever',
+    rewardsThisMonth: 'Rewards this month',
+    bestRewardedWallet: 'Best rewarded wallet',
+    lastRewards: 'Last rewards',
+    reviews: 'Reviews',
 
     // Transaction Messages
     messages: 'Messages',

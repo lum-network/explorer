@@ -2,10 +2,15 @@ import React from 'react';
 import { BlocksList, Kpi, LumsValueChart, TransactionsList } from 'components';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
-import Lum from './components/Lum/Lum';
-import Lumki from './components/Lumki/Lumki';
 import { KpiType } from 'constant';
 import { i18n } from 'utils';
+
+import Lum from './components/Lum/Lum';
+import Lumki from './components/Lumki/Lumki';
+import BestRewardedWallets from './components/Rewards/BestRewarded/BestRewardedWallets';
+import LastRewards from './components/Rewards/LastRewards/LastRewards';
+import RewardsCalendar from './components/Rewards/RewardsCalendar/RewardsCalendar';
+import MerchantsOTW from './components/Reviews/MerchantsOTW';
 
 const HomePage = (): JSX.Element | null => {
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
@@ -38,8 +43,20 @@ const HomePage = (): JSX.Element | null => {
             <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                 <BlocksList more title blocks={blocks.slice(0, 5)} />
             </div>
-            <div className="col-12 col-xxl-6 mb-5">
+            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                 <TransactionsList more title rej transactions={transactions.slice(0, 5)} />
+            </div>
+            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                <BestRewardedWallets />
+            </div>
+            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                <LastRewards />
+            </div>
+            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                <RewardsCalendar />
+            </div>
+            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                <MerchantsOTW />
             </div>
         </div>
     );

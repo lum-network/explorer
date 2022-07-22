@@ -1,0 +1,24 @@
+@import 'src/frontend-elements/styles/main';
+
+.best-rewarded-wallets .rank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: bold;
+    color: #F06451;
+    background-color: #FFE3E0;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    margin-right: 10px;
+}
+
+.best-rewarded-wallets .reward {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #F06451;
+    border-radius: 11px;
+    padding: 8px 16px;
+}

@@ -19,6 +19,7 @@ interface IProps extends RouteComponentProps {
     more?: boolean;
     accountAddress?: string;
     total?: boolean;
+    className?: string;
 }
 
 const TransactionsList = (props: IProps): JSX.Element => {
@@ -84,12 +85,12 @@ const TransactionsList = (props: IProps): JSX.Element => {
         );
     };
 
-    const { transactions, rej, title, more, history, metadata, onChangePage, total } = props;
+    const { transactions, rej, title, more, history, metadata, onChangePage, total, className } = props;
     const full = [i18n.t('hash'), i18n.t('type'), i18n.t('status'), i18n.t('amount'), i18n.t('block'), i18n.t('time')];
     const simplified = [i18n.t('hash'), i18n.t('type'), i18n.t('block'), i18n.t('time')];
 
     return (
-        <Card withoutPadding className="mb-5 pb-3">
+        <Card withoutPadding className={`pb-3 ${className}`}>
             <div className="d-flex justify-content-between">
                 {title && (
                     <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">
