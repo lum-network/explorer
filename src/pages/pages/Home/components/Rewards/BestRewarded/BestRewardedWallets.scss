@@ -11,7 +11,17 @@
     border-radius: 50%;
     width: 34px;
     height: 34px;
+    min-width: 34px;
+    min-height: 34px;
     margin-right: 10px;
+
+    @include media-breakpoint-down(sm) {
+        font-size: 16px;
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        min-height: 28px;
+    }
 }
 
 .best-rewarded-wallets .reward {
@@ -21,4 +31,9 @@
     background-color: #F06451;
     border-radius: 11px;
     padding: 8px 16px;
+
+    @include media-breakpoint-down(sm) {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
 }

@@ -40,7 +40,7 @@ const LastRewards = (): JSX.Element => {
 
     return (
         <Card className="last-rewards pt-4 pt-xl-5 pb-3" withoutPadding>
-            <h1 className="px-5 mb-4">{i18n.t('lastRewards')}</h1>
+            <h1 className="px-3 px-xl-5 mb-4">{i18n.t('lastRewards')}</h1>
             <Table head={head}>{wallets.map((wallet, index) => renderRow(wallet, index, head))}</Table>
         </Card>
     );
