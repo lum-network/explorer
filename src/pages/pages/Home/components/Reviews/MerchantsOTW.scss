@@ -67,3 +67,20 @@
         }
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    .shop-card {
+        background: black;
+        box-shadow: 0px 3.55981px 3.55981px rgba(0, 0, 0, 0.08);
+        color: #FFFFFF;
+        & .rank.first {
+            background: #1D1D1D;
+        }
+        & .reviews {
+            color: #FFC107;
+        }
+        & .stars {
+            background: #FFC107;
+        }
+    }
+}

@@ -22,16 +22,28 @@
 .rewards-calendar .tiles-5 abbr {
     color: black;
     background-color: rgba(240, 100, 81, 0.2);
+
+    @media (prefers-color-scheme: dark) {
+        color: white;
+    }
 }
 
 .rewards-calendar .tiles-10 abbr {
     color: black;
     background-color: rgba(240, 100, 81, 0.4);
+
+    @media (prefers-color-scheme: dark) {
+        color: white;
+    }
 }
 
 .rewards-calendar .tiles-15 abbr {
     color: black;
     background-color: rgba(240, 100, 81, 0.6);
+
+    @media (prefers-color-scheme: dark) {
+        color: white;
+    }
 }
 
 .rewards-calendar .tiles-20 abbr {
@@ -107,11 +119,7 @@
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    .rewards-calendar .tiles {
-        color: white;
-    }
-
+@media (prefers-color-scheme: dark) {    
     .react-calendar__navigation {
         background-color: black;
     }
