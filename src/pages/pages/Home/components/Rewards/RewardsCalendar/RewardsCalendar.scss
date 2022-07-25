@@ -8,6 +8,7 @@
     background-color: transparent;
     margin-top: 2rem;
     overflow: visible !important;
+    cursor: default !important;
     & abbr {
         padding: 8px;
         border-radius: 50%;
@@ -54,7 +55,7 @@
     &.tile-10 {
         background-color: rgba(240, 100, 81, 0.4);
     }
-    
+
     &.tile-15 {
         background-color: rgba(240, 100, 81, 0.6);
     }
@@ -110,7 +111,7 @@
     .rewards-calendar .tiles {
         color: white;
     }
-    
+
     .react-calendar__navigation {
         background-color: black;
     }
