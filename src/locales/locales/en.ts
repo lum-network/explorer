@@ -71,6 +71,8 @@ export default {
     noData: 'No data',
     secret: 'Secret',
     createdAt: 'Created at',
+    discover: 'Discover',
+    less: 'Less',
 
     // Layout
     dashboard: 'Board',
@@ -96,6 +98,7 @@ export default {
     bestRewardedWallet: 'Best rewarded wallet',
     lastRewards: 'Last rewards',
     reviews: 'Reviews',
+    merchantsOTW: 'Merchants of the week',
 
     // Transaction Messages
     messages: 'Messages',

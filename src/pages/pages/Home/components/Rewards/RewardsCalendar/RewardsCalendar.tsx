@@ -61,13 +61,13 @@ const RewardsCalendar = (): JSX.Element => {
             <h1>{i18n.t('rewardsThisMonth')}</h1>
             <Calendar className="mt-4" locale="en-US" tileClassName={tileClassName} />
             <div className="d-flex flex-row align-items-center justify-content-center mt-5">
-                <small>Less</small>
+                <small>{i18n.t('less')}</small>
                 <div className="reward-count-tile tile-5 ms-2" />
                 <div className="reward-count-tile tile-10 ms-2" />
                 <div className="reward-count-tile tile-15 ms-2" />
                 <div className="reward-count-tile tile-20 ms-2" />
                 <div className="reward-count-tile tile-25 mx-2" />
-                <small>More</small>
+                <small>{i18n.t('more')}</small>
             </div>
         </Card>
     );

@@ -13,7 +13,7 @@ const Lumki = (): JSX.Element => {
                     <h3 className="wallet-title mb-2">{i18n.t('lumWallet')}</h3>
                     <p className="mb-3" dangerouslySetInnerHTML={{ __html: i18n.t('walletDescription') }} />
                     <a className="wallet-button app-btn app-btn-plain" href={NavigationConstants.LUMKI} target="_blank" rel="noreferrer">
-                        {i18n.t('accessLumWallet')}
+                        {i18n.t('discover')}
                     </a>
                 </div>
                 <div className="lumki-phone-image">

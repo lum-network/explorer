@@ -22,11 +22,13 @@ const BestRewardedWallet = (): JSX.Element => {
     const renderRow = (wallet: { address: string; reward: CoinModel }, index: number) => {
         return (
             <div key={'best-rewarded-wallet-' + index} className={`d-flex flex-row align-items-center justify-content-between ${index < 4 ? 'mb-4' : ''}`}>
-                <div className="d-flex flex-row align-items-center">
+                <div className="d-flex flex-row align-items-center text-truncate me-4">
                     <div className="rank">{index + 1}</div>
-                    <Link to={`${NavigationConstants.ACCOUNT}/${wallet.address}`}>{wallet.address}</Link>
+                    <Link className="text-truncate" to={`${NavigationConstants.ACCOUNT}/${wallet.address}`}>
+                        {wallet.address}
+                    </Link>
                 </div>
-                <div className="reward">
+                <div className="reward text-nowrap">
                     {NumbersUtils.formatNumber(wallet.reward)} <span className="fw-normal">lum</span>
                 </div>
             </div>

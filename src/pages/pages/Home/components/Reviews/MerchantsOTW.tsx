@@ -55,7 +55,7 @@ const MerchantsOTW = (): JSX.Element => {
                     </a>
                 </div>
                 <div className="d-flex flex-row align-items-center">
-                    <div className="reviews mx-2 mx-sm-4">
+                    <div className="reviews mx-2 mx-sm-4 text-nowrap">
                         {shop.reviews} {i18n.t('reviews')}
                     </div>
                     <div className="stars">
@@ -69,7 +69,7 @@ const MerchantsOTW = (): JSX.Element => {
 
     return (
         <Card>
-            <h1 className="mb-4">Merchants of the Week</h1>
+            <h1 className="mb-4">{i18n.t('merchantsOTW')}</h1>
             {shops.map((shop, index) => renderShop(shop, index))}
         </Card>
     );
