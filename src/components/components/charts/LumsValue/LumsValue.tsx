@@ -5,6 +5,7 @@ import { Card } from 'frontend-elements';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 import numeral from 'numeral';
+import { useDarkMode } from 'hooks';
 
 const LumsValue = (): JSX.Element => {
     const data = [
@@ -251,6 +252,8 @@ const LumsValue = (): JSX.Element => {
         { time: 1656576000, close: 0.0010270363, high: 0.0010478937, low: 0.001022514, open: 0.0010473119, volume: 177.619902783 },
     ];
 
+    const isDarkMode = useDarkMode();
+
     const [chartOptions, setChartOptions] = useState<Highcharts.Options>({
         credits: {
             enabled: false,
@@ -280,7 +283,22 @@ const LumsValue = (): JSX.Element => {
 
     useEffect(() => {
         setChartOptions({
-            series: [{ color: '#98BBFF', name: 'Lum', type: 'spline', data: data.map((value) => [value.time * 1000, value.close]) }],
+            chart: {
+                backgroundColor: isDarkMode ? '#2E2E2E' : '#FFFFFF',
+            },
+            series: [
+                {
+                    color: {
+                        linearGradient: { x1: 0, x2: 0, y1: 0, y2: 50 },
+                        stops: [
+                            [0, '#149CF522'],
+                            [100, '#FFFFFF'],
+                        ],
+                    },
+                    name: 'Lum',
+                    type: 'areaspline',
+                    data: data.map((value) => [value.time * 1000, value.close]) }
+            ],
             xAxis: {
                 ...chartOptions.xAxis,
                 type: 'datetime',
