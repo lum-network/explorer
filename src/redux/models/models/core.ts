@@ -54,8 +54,6 @@ const core = createModel<RootModel>()({
             async getKpi() {
                 const [kpi] = await client.getKpi();
 
-                console.log(kpi);
-
                 dispatch.core.SET_KPI(kpi);
             },
 

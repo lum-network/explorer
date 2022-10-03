@@ -14,4 +14,4 @@ export { default as SmallerDecimal } from './components/SmallerDecimal/SmallerDe
 export { default as VoteOption } from './components/VoteOption/VoteOption';
 export { default as VestingList } from './components/vesting/VestingList/VestingList';
 export { default as Rating } from './components/Rating/Rating';
-export { default as LumsValueChart } from './components/charts/LumsValue/LumsValue';
+export { default as LineChart } from './components/charts/LineChart/LineChart';

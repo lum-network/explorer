@@ -1,7 +1,7 @@
-import React from 'react';
-import { BlocksList, Kpi, LumsValueChart, TransactionsList } from 'components';
-import { RootState } from 'redux/store';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { BlocksList, Kpi, LineChart, TransactionsList } from 'components';
+import { Dispatch, RootState } from 'redux/store';
+import { useDispatch, useSelector } from 'react-redux';
 import { KpiType } from 'constant';
 import { i18n } from 'utils';
 
@@ -13,8 +13,17 @@ import RewardsCalendar from './components/Rewards/RewardsCalendar/RewardsCalenda
 import MerchantsOTW from './components/Reviews/MerchantsOTW';
 
 const HomePage = (): JSX.Element | null => {
+    const dispatch = useDispatch<Dispatch>();
+
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const transactions = useSelector((state: RootState) => state.transactions.transactions);
+    const assetValue = useSelector((state: RootState) => state.charts.assetValue);
+
+    const loadingAssetValue = useSelector((state: RootState) => state.loading.effects.charts.getAssetValue);
+
+    useEffect(() => {
+        dispatch.charts.getAssetValue().finally(() => null);
+    }, []);
 
     if (!blocks || !transactions) {
         return null;
@@ -34,7 +43,7 @@ const HomePage = (): JSX.Element | null => {
             </div>
             <h1 className="mb-2 placeholder-image">{i18n.t('lumsValue')}</h1>
             <div className="col-12 mb-5">
-                <LumsValueChart />
+                <LineChart color={'#149CF544'} loading={loadingAssetValue} data={assetValue} title={i18n.t('lumsValue')} />
             </div>
             <h1 className="mb-2 placeholder-image">{i18n.t('rewards')}</h1>
             <div className="col-12 mb-3">

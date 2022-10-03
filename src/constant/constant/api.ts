@@ -7,6 +7,7 @@ export const VALIDATORS_URL = 'validators';
 export const ACCOUNTS_URL = 'accounts';
 export const SEARCH_URL = 'search';
 export const KPI_URL = 'stats/kpi';
+export const CHART_URL = 'stats/chart';
 export const GOVERNANCE_URL = 'governance';
 export const PROPOSALS_URL = 'proposals';
 export const BEAMS_URL = 'beams';

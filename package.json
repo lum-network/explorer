@@ -19,7 +19,7 @@
         "long": "^5.1.0",
         "moment": "^2.29.1",
         "moment-timezone": "^0.5.33",
-        "node-sass": "^5.0.0",
+        "sass": "^1.52.1",
         "numeral": "^2.0.6",
         "react": "^17.0.1",
         "react-calendar": "^3.7.0",

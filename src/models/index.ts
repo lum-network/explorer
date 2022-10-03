@@ -12,6 +12,7 @@ export { default as BeamModel } from './models/beam';
 export { default as MetadataModel } from './models/metadata';
 export { default as ParamsModel } from './models/params';
 export { default as CoinModel } from './models/coin';
+export { default as ChartDataModel } from './models/chart';
 
 import * as MessageModel from './models/message';
 export { MessageModel };

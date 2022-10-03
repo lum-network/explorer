@@ -8,6 +8,6 @@ const useDarkMode = (): boolean => {
     }, []);
 
     return isDarkMode;
-}
+};
 
 export default useDarkMode;

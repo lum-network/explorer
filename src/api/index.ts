@@ -2,9 +2,10 @@ import * as ApiSearch from './api/search';
 import * as ApiGovernance from './api/governance';
 
 import { HttpClient } from 'utils';
-import { ApiConstants } from 'constant';
-import { AccountModel, BeamModel, BlocksModel, CoinModel, DelegationModel, LumModel, ParamsModel, TransactionsModel, ValidatorModel, KpiModel } from 'models';
+import { ApiConstants, ChartTypes } from 'constant';
+import { AccountModel, BeamModel, BlocksModel, CoinModel, DelegationModel, LumModel, ParamsModel, TransactionsModel, ValidatorModel, KpiModel, ChartDataModel } from 'models';
 import { RedelegationModel, UnbondingModel } from '../models/models/account';
+import moment from 'moment';
 
 class ExplorerApi extends HttpClient {
     private static instance?: ExplorerApi;
@@ -73,6 +74,14 @@ class ExplorerApi extends HttpClient {
     public fetchAccountRedelegations = (address: string) => this.request<RedelegationModel[]>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}/${ApiConstants.REDELEGATIONS_URL}` }, RedelegationModel);
 
     public fetchAccountUnbondings = (address: string) => this.request<UnbondingModel[]>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}/${ApiConstants.UNBONDINGS_URL}` }, UnbondingModel);
+
+    // Charts
+
+    public postChart = (type: ChartTypes) =>
+        this.request<ChartDataModel[]>(
+            { url: `${ApiConstants.CHART_URL}`, method: 'POST', data: { type, end_at: moment().format('YYYY-MM-DD'), start_at: moment().day(-30).format('YYYY-MM-DD') } },
+            Object,
+        );
 }
 
 export default ExplorerApi.getInstance();
