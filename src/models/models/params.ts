@@ -57,9 +57,9 @@ class Deposit {
 }
 
 class Tally {
-    quorum: string;
-    threshold: string;
-    veto_threshold: string;
+    quorum: number;
+    threshold: number;
+    veto_threshold: number;
 }
 
 class GovParams {
