@@ -6,11 +6,15 @@ import { ChartDataModel } from 'models';
 
 interface ChartsState {
     assetValue: ChartDataModel[] | null;
+    reviewsSum: ChartDataModel[] | null;
+    rewardsSum: ChartDataModel[] | null;
 }
 
 const charts = createModel<RootModel>()({
     state: {
         assetValue: null,
+        reviewsSum: null,
+        rewardsSum: null,
     } as ChartsState,
     reducers: {
         SET_ASSET_VALUE(state, assetValue: ChartDataModel[]) {
@@ -25,6 +29,30 @@ const charts = createModel<RootModel>()({
                 assetValue: null,
             };
         },
+        SET_REVIEWS_SUM(state, reviewsSum: ChartDataModel[]) {
+            return {
+                ...state,
+                reviewsSum,
+            };
+        },
+        RESET_REVIEWS_SUM(state) {
+            return {
+                ...state,
+                reviewsSum: null,
+            };
+        },
+        SET_REWARDS_SUM(state, rewardsSum: ChartDataModel[]) {
+            return {
+                ...state,
+                rewardsSum,
+            };
+        },
+        RESET_REWARDS_SUM(state) {
+            return {
+                ...state,
+                rewardsSum: null,
+            };
+        },
     },
     effects: (dispatch) => {
         const client = ExplorerApi;
@@ -34,6 +62,12 @@ const charts = createModel<RootModel>()({
                 const [assetValue] = await client.postChart(ChartTypes.ASSET_VALUE);
 
                 dispatch.charts.SET_ASSET_VALUE(assetValue);
+            },
+            async getReviewsAndRewardsSum() {
+                const [[reviewsSum], [rewardsSum]] = await Promise.all([client.postChart(ChartTypes.REVIEWS_SUM), client.postChart(ChartTypes.REWARDS_SUM)]);
+
+                dispatch.charts.SET_REVIEWS_SUM(reviewsSum);
+                dispatch.charts.SET_REWARDS_SUM(rewardsSum);
             },
         };
     },

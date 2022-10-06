@@ -114,7 +114,7 @@ const AccountPage = (props: IProps): JSX.Element => {
 
         setAvailable(available);
         setReward(reward);
-        setDelegated(delegated); //FIXME
+        setDelegated(delegated);
         setUnbonding(unbonding);
         setCommission(commission);
         setVesting(vesting);

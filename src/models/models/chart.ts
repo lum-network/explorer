@@ -1,6 +1,6 @@
 class ChartDataModel {
-    key: number;
-    value: number;
+    key: string;
+    value: string;
 }
 
 export default ChartDataModel;

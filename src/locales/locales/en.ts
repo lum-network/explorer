@@ -73,6 +73,7 @@ export default {
     createdAt: 'Created at',
     discover: 'Discover',
     less: 'Less',
+    of: 'of',
 
     // Layout
     dashboard: 'Board',
@@ -220,6 +221,8 @@ export default {
     results: 'Results',
     noVoteYet: 'No vote yet',
     mostVotedOn: 'Most voted on',
+    turnout: 'Turnout',
+    hasVoted: 'has voted',
 
     // Parameters
     parameters: 'Parameters',

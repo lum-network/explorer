@@ -23,6 +23,7 @@ const HomePage = (): JSX.Element | null => {
 
     useEffect(() => {
         dispatch.charts.getAssetValue().finally(() => null);
+        dispatch.charts.getReviewsAndRewardsSum().finally(() => null);
     }, []);
 
     if (!blocks || !transactions) {
@@ -49,11 +50,8 @@ const HomePage = (): JSX.Element | null => {
             <div className="col-12 mb-3">
                 <Kpi types={[KpiType.REWARDS, KpiType.REWARD_AVERAGE, KpiType.BEST_REWARD_EVER, KpiType.BEST_REWARD_TODAY]} />
             </div>
-            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                <BlocksList more title blocks={blocks.slice(0, 5)} />
-            </div>
-            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                <TransactionsList more title rej transactions={transactions.slice(0, 5)} />
+            <div className="col-12 mb-4 mb-xxl-5">
+                <LineChart color={'#149CF544'} loading={loadingAssetValue} data={assetValue} title={i18n.t('lumsValue')} />
             </div>
             <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                 <BestRewardedWallets />
@@ -66,6 +64,12 @@ const HomePage = (): JSX.Element | null => {
             </div>
             <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                 <MerchantsOTW />
+            </div>
+            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                <BlocksList more title blocks={blocks.slice(0, 5)} />
+            </div>
+            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                <TransactionsList more title rej transactions={transactions.slice(0, 5)} />
             </div>
         </div>
     );

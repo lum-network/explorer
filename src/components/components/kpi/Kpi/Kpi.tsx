@@ -86,11 +86,15 @@ const Kpi = (props: IProps): JSX.Element => {
                     return null;
                 }
 
-                const nb = NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators));
+                const totalVotingPower = NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators));
 
                 return (
-                    <KpiCard title={i18n.t('bondedTokens')} logo={bondedTokensLogo} additionalInfo={`${numeral(NumbersUtils.getPercentage(nb, AssetsUtils.getTotalSupply(assets))).format('0.00')}%`}>
-                        {numeral(nb).format('0,0')}
+                    <KpiCard
+                        title={i18n.t('bondedTokens')}
+                        logo={bondedTokensLogo}
+                        additionalInfo={`${numeral(NumbersUtils.getPercentage(totalVotingPower, AssetsUtils.getTotalSupply(assets))).format('0.00')}%`}
+                    >
+                        {numeral(totalVotingPower).format('0,0')}
                     </KpiCard>
                 );
 
@@ -281,15 +285,15 @@ const Kpi = (props: IProps): JSX.Element => {
             case KpiType.QUORUM:
                 // FIXME: correctly compute those hex values
 
-                return <KpiCard title={i18n.t('quorum')}>0.00</KpiCard>;
+                return <KpiCard title={i18n.t('quorum')}>33.40%</KpiCard>;
             case KpiType.THRESHOLD:
                 // FIXME: correctly compute those hex values
 
-                return <KpiCard title={i18n.t('threshold')}>0.00</KpiCard>;
+                return <KpiCard title={i18n.t('threshold')}>50%</KpiCard>;
             case KpiType.VETO_THRESHOLD:
                 // FIXME: correctly compute those hex values
 
-                return <KpiCard title={i18n.t('vetoThreshold')}>0.00</KpiCard>;
+                return <KpiCard title={i18n.t('vetoThreshold')}>33.40%</KpiCard>;
             case KpiType.BASE_PROPOSER_REWARD:
                 if (!params || !params.distribution || !params.distribution.baseProposerReward) {
                     return null;

@@ -83,6 +83,12 @@ const LineChart = ({ data, loading, title, color }: IProps): JSX.Element => {
             tooltip: {
                 ...chartOptions.tooltip,
             },
+            credits: {
+                ...chartOptions.credits,
+            },
+            legend: {
+                ...chartOptions.legend,
+            },
         });
     }, [data, loading]);
 
