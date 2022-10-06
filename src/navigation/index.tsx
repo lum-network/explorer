@@ -17,6 +17,7 @@ import {
     BeamsPage,
     ParametersPage,
     AssetsPage,
+    MerchantPage,
 } from 'pages';
 import { Route, BrowserRouter as Router, Switch, Redirect, useLocation } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
@@ -68,6 +69,7 @@ const RootNavigator = (): JSX.Element => {
                     <Route path={NavigationConstants.ASSETS}>
                         <AssetsPage />
                     </Route>
+                    <Route path={`${NavigationConstants.MERCHANT}/:id`} component={MerchantPage} />
                     <Route path="/">
                         <NotFoundPage />
                     </Route>

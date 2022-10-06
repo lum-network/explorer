@@ -1,0 +1,20 @@
+@import 'src/frontend-elements/styles/main';
+
+.merchant .merchant-title-logo {
+    filter: brightness(0);
+}
+
+.merchant .rating {
+    display: flex;
+    align-items: center;
+    color: #FFC107;
+    font-size: 26px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .merchant .merchant-title-logo,
+    .merchant .media-kpi-card > h4 > img {
+        filter: brightness(0) invert(1);
+    }
+}
+

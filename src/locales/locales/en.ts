@@ -199,6 +199,21 @@ export default {
     noValidatorFound: 'Validator not found',
     tombstoned: 'Tombstoned',
 
+    //Merchant
+    merchantDetails: 'Merchant details',
+    merchant: 'Merchant',
+    verifiedBy: 'Verified by',
+    merchantWallet: 'Merchant wallet',
+    rating: 'Rating',
+    validatedReviews: 'Validated reviews',
+    pendingReviews: 'Pending reviews',
+    rejectedReviews: 'Rejected reviews',
+    medias: 'Medias',
+    reviewsCategories: 'Reviews categories',
+    reviewsNumbers: 'Reviews numbers',
+    ratingsNumbers: 'Ratings numbers',
+    communityTime: 'Community time',
+    
     // Gov
     proposals: 'Proposals',
     proposal: 'Proposal',
