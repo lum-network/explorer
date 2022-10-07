@@ -18,7 +18,7 @@ const wallets: {
     { address: 'lum80opcsdds19dspindscip92msdmdincsi92npc2', reward: { amount: '291291992', denom: 'ulum' } },
 ];
 
-const BestRewardedWallet = (): JSX.Element => {
+const BestRewardedWallets = (): JSX.Element => {
     const renderRow = (wallet: { address: string; reward: CoinModel }, index: number) => {
         return (
             <div key={'best-rewarded-wallet-' + index} className={`d-flex flex-row align-items-center justify-content-between ${index < 4 ? 'mb-4' : ''}`}>
@@ -43,4 +43,4 @@ const BestRewardedWallet = (): JSX.Element => {
     );
 };
 
-export default BestRewardedWallet;
+export default BestRewardedWallets;

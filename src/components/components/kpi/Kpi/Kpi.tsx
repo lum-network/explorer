@@ -12,7 +12,7 @@ import blockLogo from 'assets/images/blockDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import clockLogo from 'assets/images/clockDark.svg';
 import bondedTokensLogo from 'assets/images/bondedTokensDark.svg';
-// import inflationLogo from 'assets/images/inflationDark.svg';
+import inflationLogo from 'assets/images/inflationDark.svg';
 import totalReviewsLogo from 'assets/images/totalReviews.svg';
 import merchantsLogo from 'assets/images/merchants.svg';
 import rewardsLogo from 'assets/images/rewards.svg';
@@ -98,17 +98,16 @@ const Kpi = (props: IProps): JSX.Element => {
                     </KpiCard>
                 );
 
-            // TODO: Get inflation from chain bridge when available
-            // case KpiType.INFLATION:
-            //     if (!kpi || !kpi.inflation) {
-            //         return null;
-            //     }
-            //
-            //     return (
-            //         <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
-            //             {numeral(parseFloat(kpi.inflation)).format('0.00%')}
-            //         </KpiCard>
-            //     );
+            case KpiType.INFLATION:
+                if (!params || !params.mint.inflation.current) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
+                        {numeral(params.mint.inflation.current).format('0.00%')}
+                    </KpiCard>
+                );
 
             case KpiType.TOTAL_REVIEWS:
                 if (!kpi || !kpi.beams.total) {

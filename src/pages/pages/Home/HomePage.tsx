@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
-import { BlocksList, Kpi, LineChart, TransactionsList } from 'components';
+import { BestRewardedWallets, BlocksList, ColumnChart, Kpi, LastRewards, LineChart, MerchantsOTW, RewardsCalendar, TransactionsList } from 'components';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { KpiType } from 'constant';
-import { i18n } from 'utils';
+import { ChartsUtils, i18n } from 'utils';
 
 import Lum from './components/Lum/Lum';
 import Lumki from './components/Lumki/Lumki';
-import BestRewardedWallets from './components/Rewards/BestRewarded/BestRewardedWallets';
-import LastRewards from './components/Rewards/LastRewards/LastRewards';
-import RewardsCalendar from './components/Rewards/RewardsCalendar/RewardsCalendar';
-import MerchantsOTW from './components/Reviews/MerchantsOTW';
 
 const HomePage = (): JSX.Element | null => {
     const dispatch = useDispatch<Dispatch>();
@@ -18,12 +14,16 @@ const HomePage = (): JSX.Element | null => {
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const transactions = useSelector((state: RootState) => state.transactions.transactions);
     const assetValue = useSelector((state: RootState) => state.charts.assetValue);
+    const rewardsLast = useSelector((state: RootState) => state.charts.rewardsLast);
+    const rewardsAvg = useSelector((state: RootState) => state.charts.rewardsAvg);
 
     const loadingAssetValue = useSelector((state: RootState) => state.loading.effects.charts.getAssetValue);
 
     useEffect(() => {
         dispatch.charts.getAssetValue().finally(() => null);
         dispatch.charts.getReviewsAndRewardsSum().finally(() => null);
+        dispatch.charts.getRewardsAvg({ daysOffset: 365 }).finally(() => null);
+        dispatch.charts.getRewardsLast().finally(() => null);
     }, []);
 
     if (!blocks || !transactions) {
@@ -56,12 +56,21 @@ const HomePage = (): JSX.Element | null => {
             <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                 <BestRewardedWallets />
             </div>
-            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                <LastRewards />
-            </div>
-            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                <RewardsCalendar />
-            </div>
+            {rewardsLast && rewardsLast.length > 0 && (
+                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                    <LastRewards data={rewardsLast} />
+                </div>
+            )}
+            {rewardsAvg && (
+                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                    <RewardsCalendar data={ChartsUtils.reduceChartToDaily(rewardsAvg)} />
+                </div>
+            )}
+            {rewardsAvg && (
+                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+                    <ColumnChart data={ChartsUtils.reduceChartToMonthly(rewardsAvg).slice(-30)} />
+                </div>
+            )}
             <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                 <MerchantsOTW />
             </div>

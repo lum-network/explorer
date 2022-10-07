@@ -9,6 +9,7 @@ class Inflation {
 
     min: number;
     max: number;
+    current: number;
 }
 
 class MintParams {

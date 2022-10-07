@@ -96,6 +96,7 @@ export default {
     averageReward: 'Average reward',
     bestRewardEver: 'Best reward ever',
     rewardsThisMonth: 'Rewards this month',
+    rewardsAverage: 'Rewards average',
     bestRewardedWallet: 'Best rewarded wallet',
     lastRewards: 'Last rewards',
     reviews: 'Reviews',

@@ -77,9 +77,19 @@ class ExplorerApi extends HttpClient {
 
     // Charts
 
-    public postChart = (type: ChartTypes) =>
+    public postChart = (type: ChartTypes, options?: { startAt?: Date; endAt?: Date; daysOffset?: number }) =>
         this.request<ChartDataModel[]>(
-            { url: `${ApiConstants.CHART_URL}`, method: 'POST', data: { type, end_at: moment().format('YYYY-MM-DD'), start_at: moment().day(-30).format('YYYY-MM-DD') } },
+            {
+                url: `${ApiConstants.CHART_URL}`,
+                method: 'POST',
+                data: {
+                    type,
+                    end_at: moment(options?.endAt).format('YYYY-MM-DD'),
+                    start_at: moment(options?.startAt)
+                        .day(-1 * (options?.daysOffset || 30))
+                        .format('YYYY-MM-DD'),
+                },
+            },
             Object,
         );
 }

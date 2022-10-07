@@ -4,31 +4,10 @@ import Calendar, { CalendarTileProperties } from 'react-calendar';
 import { i18n } from 'utils';
 
 import './RewardsCalendar.scss';
+import { ChartDataModel } from 'models';
+import moment from 'moment';
 
-const data = [
-    {
-        date: new Date(2022, 6, 11),
-        rewardsCount: 4,
-    },
-    {
-        date: new Date(2022, 6, 12),
-        rewardsCount: 12,
-    },
-    {
-        date: new Date(2022, 6, 13),
-        rewardsCount: 25,
-    },
-    {
-        date: new Date(2022, 6, 20),
-        rewardsCount: 18,
-    },
-    {
-        date: new Date(2022, 6, 19),
-        rewardsCount: 8,
-    },
-];
-
-const RewardsCalendar = (): JSX.Element => {
+const RewardsCalendar = ({ data }: { data: ChartDataModel[] }): JSX.Element => {
     const tileClassName = (props: CalendarTileProperties): string | string[] => {
         const classNames = ['tiles'];
 
@@ -36,16 +15,18 @@ const RewardsCalendar = (): JSX.Element => {
             classNames.push('tiles-0');
 
             for (const item of data) {
-                if (item.date.getTime() === props.date.getTime()) {
-                    if (item.rewardsCount === 0) {
+                if (moment(item.key).utc().unix() === props.date.getTime()) {
+                    const value = Number(item.value);
+
+                    if (value === 0) {
                         classNames.push('tiles-0');
-                    } else if (item.rewardsCount < 5) {
+                    } else if (value < 5) {
                         classNames.push('tiles-5');
-                    } else if (item.rewardsCount < 10) {
+                    } else if (value < 10) {
                         classNames.push('tiles-10');
-                    } else if (item.rewardsCount < 15) {
+                    } else if (value < 15) {
                         classNames.push('tiles-15');
-                    } else if (item.rewardsCount < 20) {
+                    } else if (value < 20) {
                         classNames.push('tiles-20');
                     } else {
                         classNames.push('tiles-25');
