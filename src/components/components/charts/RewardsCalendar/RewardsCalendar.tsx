@@ -1,15 +1,19 @@
 import React from 'react';
-import { Card } from 'frontend-elements';
 import Calendar, { CalendarTileProperties } from 'react-calendar';
+import { Card } from 'frontend-elements';
+import moment from 'moment';
+
+import { ChartDataModel } from 'models';
 import { i18n } from 'utils';
 
 import './RewardsCalendar.scss';
-import { ChartDataModel } from 'models';
-import moment from 'moment';
 
 const RewardsCalendar = ({ data }: { data: ChartDataModel[] }): JSX.Element => {
     const tileClassName = (props: CalendarTileProperties): string | string[] => {
         const classNames = ['tiles'];
+        const valuesArray = data.map((item) => Number(item.value));
+
+        const maxValue = Math.max(...valuesArray);
 
         if (props.view === 'month') {
             classNames.push('tiles-0');
@@ -17,18 +21,19 @@ const RewardsCalendar = ({ data }: { data: ChartDataModel[] }): JSX.Element => {
             for (const item of data) {
                 const dateToUnix = moment(item.key, 'DD/MM/YYYY').utc().unix();
                 const tileDateToUnix = moment(props.date.toISOString()).utc().unix();
-                if (dateToUnix === tileDateToUnix) {
-                    const value = Number(item.value);
 
-                    if (value === 0) {
+                if (dateToUnix === tileDateToUnix) {
+                    const percentage = (Number(item.value) / maxValue) * 100;
+
+                    if (percentage === 0) {
                         classNames.push('tiles-0');
-                    } else if (value < 5) {
+                    } else if (percentage < 20) {
                         classNames.push('tiles-5');
-                    } else if (value < 10) {
+                    } else if (percentage < 40) {
                         classNames.push('tiles-10');
-                    } else if (value < 15) {
+                    } else if (percentage < 60) {
                         classNames.push('tiles-15');
-                    } else if (value < 20) {
+                    } else if (percentage < 80) {
                         classNames.push('tiles-20');
                     } else {
                         classNames.push('tiles-25');
