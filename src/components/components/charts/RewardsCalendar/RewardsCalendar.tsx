@@ -15,7 +15,9 @@ const RewardsCalendar = ({ data }: { data: ChartDataModel[] }): JSX.Element => {
             classNames.push('tiles-0');
 
             for (const item of data) {
-                if (moment(item.key).utc().unix() === props.date.getTime()) {
+                const dateToUnix = moment(item.key, 'DD/MM/YYYY').utc().unix();
+                const tileDateToUnix = moment(props.date.toISOString()).utc().unix();
+                if (dateToUnix === tileDateToUnix) {
                     const value = Number(item.value);
 
                     if (value === 0) {

@@ -59,6 +59,10 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
             series: [
                 {
                     color: '#F06451',
+                    pointWidth: 14,
+                    borderRadius: 7,
+                    borderWidth: 0,
+                    name: 'Rewards',
                     data: data.map((item) => ({
                         name: item.key,
                         y: Number(item.value),
