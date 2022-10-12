@@ -17,6 +17,12 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
     const isDarkMode = useDarkMode();
 
     const [chartOptions, setChartOptions] = useState<Highcharts.Options>({
+        chart: {
+            plotBorderWidth: 0,
+            style: {
+                fontFamily: 'Work Sans',
+            },
+        },
         credits: {
             enabled: false,
         },
@@ -31,11 +37,15 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
             title: {
                 text: undefined,
             },
+            labels: {
+                enabled: false,
+            },
         },
         xAxis: {
             grid: {
                 enabled: false,
             },
+            lineColor: 'transparent',
         },
         legend: {
             enabled: false,
@@ -63,6 +73,11 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
                     formatter: (props) => {
                         return moment(props.value, 'MM/YYYY').format('MMM YY');
                     },
+                    style: {
+                        color: isDarkMode ? '#FFFFFF' : '#2E2E2E',
+                        fontSize: '12px',
+                        fontWeight: '400',
+                    },
                 },
             },
             series: [
@@ -80,7 +95,7 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
                 },
             ],
         });
-    }, [data, loading]);
+    }, [data, loading, isDarkMode]);
 
     if (!data || loading) {
         return (
