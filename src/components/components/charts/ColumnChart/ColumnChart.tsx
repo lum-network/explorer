@@ -4,7 +4,8 @@ import Highcharts from 'highcharts';
 import { ChartDataModel } from 'models';
 import { useDarkMode } from 'hooks';
 import { Card, Loading } from 'frontend-elements';
-import { i18n } from 'utils';
+import { i18n, NumbersUtils } from 'utils';
+import moment from 'moment';
 
 interface Props {
     options?: Highcharts.Options;
@@ -52,9 +53,17 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
             title: {
                 text: '',
             },
+            tooltip: {
+                pointFormat: '{point.y:,.2f} lum',
+            },
             xAxis: {
                 categories: data.map((item) => item.key),
                 type: 'datetime',
+                labels: {
+                    formatter: (props) => {
+                        return moment(props.value, 'MM/YYYY').format('MMM YY');
+                    },
+                },
             },
             series: [
                 {
@@ -65,7 +74,7 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
                     name: 'Rewards',
                     data: data.map((item) => ({
                         name: item.key,
-                        y: Number(item.value),
+                        y: NumbersUtils.convertUnitNumber(item.value),
                     })),
                     type: 'column',
                 },
