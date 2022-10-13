@@ -74,6 +74,7 @@ export default {
     discover: 'Discover',
     less: 'Less',
     of: 'of',
+    price: 'Price',
 
     // Layout
     dashboard: 'Board',

@@ -80,7 +80,7 @@ const charts = createModel<RootModel>()({
                 ...state,
                 rewardsLast: null,
             };
-        }
+        },
     },
     effects: (dispatch) => {
         const client = ExplorerApi;
@@ -91,22 +91,25 @@ const charts = createModel<RootModel>()({
 
                 dispatch.charts.SET_ASSET_VALUE(assetValue);
             },
+
             async getReviewsAndRewardsSum() {
                 const [[reviewsSum], [rewardsSum]] = await Promise.all([client.postChart(ChartTypes.REVIEWS_SUM), client.postChart(ChartTypes.REWARDS_SUM)]);
 
                 dispatch.charts.SET_REVIEWS_SUM(reviewsSum);
                 dispatch.charts.SET_REWARDS_SUM(rewardsSum);
             },
+
             async getRewardsAvg(options?: { startAt?: Date; endAt?: Date; daysOffset?: number }) {
                 const [rewardsAvg] = await client.postChart(ChartTypes.REWARDS_AVG, options);
 
                 dispatch.charts.SET_REWARDS_AVG(rewardsAvg);
             },
+
             async getRewardsLast() {
                 const [rewardsLast] = await client.postChart(ChartTypes.REWARDS_LAST);
 
                 dispatch.charts.SET_REWARDS_LAST(rewardsLast);
-            }
+            },
         };
     },
 });

@@ -1,4 +1,4 @@
-import { ChartDataModel } from "models";
+import { ChartDataModel } from 'models';
 
 // Reduce chart data to monthly values
 export const reduceChartToMonthly = (data: ChartDataModel[]): ChartDataModel[] => {
@@ -15,13 +15,13 @@ export const reduceChartToMonthly = (data: ChartDataModel[]): ChartDataModel[] =
         } else {
             result.push({
                 key,
-                value: item.value
+                value: item.value,
             });
         }
     });
 
     return result;
-}
+};
 
 // Reduce chart data to daily values
 export const reduceChartToDaily = (data: ChartDataModel[]): ChartDataModel[] => {
@@ -39,10 +39,10 @@ export const reduceChartToDaily = (data: ChartDataModel[]): ChartDataModel[] => 
         } else {
             result.push({
                 key,
-                value: item.value
+                value: item.value,
             });
         }
     });
 
     return result;
-}
+};

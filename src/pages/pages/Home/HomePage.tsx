@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BestRewardedWallets, BlocksList, ColumnChart, Kpi, LastRewards, LineChart, MerchantsOTW, RewardsCalendar, TransactionsList } from 'components';
+import { BlocksList, ColumnChart, Kpi, LastRewards, LineChart, RewardsCalendar, TransactionsList } from 'components';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { KpiType } from 'constant';
@@ -14,10 +14,13 @@ const HomePage = (): JSX.Element | null => {
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const transactions = useSelector((state: RootState) => state.transactions.transactions);
     const assetValue = useSelector((state: RootState) => state.charts.assetValue);
+    const reviewsSum = useSelector((state: RootState) => state.charts.reviewsSum);
+    const rewardsSum = useSelector((state: RootState) => state.charts.rewardsSum);
     const rewardsLast = useSelector((state: RootState) => state.charts.rewardsLast);
     const rewardsAvg = useSelector((state: RootState) => state.charts.rewardsAvg);
 
     const loadingAssetValue = useSelector((state: RootState) => state.loading.effects.charts.getAssetValue);
+    const loadingReviewsAndRewardsSum = useSelector((state: RootState) => state.loading.effects.charts.getReviewsAndRewardsSum);
 
     useEffect(() => {
         dispatch.charts.getAssetValue().finally(() => null);
@@ -44,18 +47,23 @@ const HomePage = (): JSX.Element | null => {
             </div>
             <h1 className="mb-2 placeholder-image">{i18n.t('lumsValue')}</h1>
             <div className="col-12 mb-5">
-                <LineChart color={'#149CF544'} loading={loadingAssetValue} data={assetValue} title={i18n.t('lumsValue')} />
+                <LineChart timestamp yAxisTitle={[i18n.t('price')]} color={['#149CF577']} loading={loadingAssetValue} data={[assetValue]} title={i18n.t('lumsValue')} />
             </div>
             <h1 className="mb-2 placeholder-image">{i18n.t('rewards')}</h1>
             <div className="col-12 mb-3">
                 <Kpi types={[KpiType.REWARDS, KpiType.REWARD_AVERAGE, KpiType.BEST_REWARD_EVER, KpiType.BEST_REWARD_TODAY]} />
             </div>
-            <div className="col-12 mb-4 mb-xxl-5">
-                <LineChart color={'#149CF544'} loading={loadingAssetValue} data={assetValue} title={i18n.t('lumsValue')} />
-            </div>
-            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                <BestRewardedWallets />
-            </div>
+            {reviewsSum && reviewsSum.length && rewardsSum && rewardsSum.length && (
+                <div className="col-12 mb-4 mb-xxl-5">
+                    <LineChart
+                        yAxisTitle={[i18n.t('reviews'), i18n.t('rewards')]}
+                        color={['#FFC107', '#73ABFF']}
+                        loading={loadingReviewsAndRewardsSum}
+                        data={[ChartsUtils.reduceChartToDaily(reviewsSum), ChartsUtils.reduceChartToDaily(rewardsSum)]}
+                        title=""
+                    />
+                </div>
+            )}
             {rewardsLast && rewardsLast.length > 0 && (
                 <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                     <LastRewards data={rewardsLast} />
@@ -71,9 +79,6 @@ const HomePage = (): JSX.Element | null => {
                     <ColumnChart data={ChartsUtils.reduceChartToMonthly(rewardsAvg).slice(-30)} />
                 </div>
             )}
-            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                <MerchantsOTW />
-            </div>
             <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
                 <BlocksList more title blocks={blocks.slice(0, 5)} />
             </div>

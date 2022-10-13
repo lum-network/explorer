@@ -86,7 +86,7 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
                     pointWidth: 14,
                     borderRadius: 7,
                     borderWidth: 0,
-                    name: 'Rewards',
+                    name: i18n.t('Rewards'),
                     data: data.map((item) => ({
                         name: item.key,
                         y: NumbersUtils.convertUnitNumber(item.value),
