@@ -35,7 +35,7 @@ const RewardsCalendar = ({ data }: { data: ChartDataModel[] }): JSX.Element => {
                         classNames.push('tiles-15');
                     } else if (percentage < 80) {
                         classNames.push('tiles-20');
-                    } else {
+                    } else if (percentage < 100) {
                         classNames.push('tiles-25');
                     }
                 }
