@@ -1,5 +1,3 @@
-import 'frontend-elements/styles/main.scss';
-
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 

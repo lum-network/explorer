@@ -17,7 +17,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const validator = useSelector((state: RootState) => state.validators.validator);
     const validators = useSelector((state: RootState) => state.validators.validators);
-    const stats = useSelector((state: RootState) => state.core.stats);
+    const params = useSelector((state: RootState) => state.core.params);
     const loading = useSelector((state: RootState) => state.loading.effects.validators.fetchValidators);
     const blocksMetadata = useSelector((state: RootState) => state.validators.blocksMetadata);
     const delegationsMetadata = useSelector((state: RootState) => state.validators.delegationsMetadata);
@@ -112,7 +112,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         </div>
                         <ValidatorLogo
                             validatorAddress={validator.operatorAddress || ''}
-                            chainId={stats && stats.chainId}
+                            chainId={params && params.chainId}
                             githubUrl={NavigationConstants.GITHUB_ASSETS}
                             className="validator-logo"
                             width={72}

@@ -71,6 +71,10 @@ export default {
     noData: 'No data',
     secret: 'Secret',
     createdAt: 'Created at',
+    discover: 'Discover',
+    less: 'Less',
+    of: 'of',
+    price: 'Price',
 
     // Layout
     dashboard: 'Board',
@@ -81,6 +85,23 @@ export default {
     webWallet: 'Web Wallet',
     testnet: '⚠️ You are connected to the Testnet ⚠️',
     copyright: '© LUM Explorer 2021',
+
+    // Home
+    overview: 'Overview',
+    totalReviews: 'Total reviews',
+    merchants: 'Merchants',
+    totalRewards: 'Total rewards',
+    bestRewardToday: 'Best reward today',
+    lumsValue: "Lum's value",
+    rewards: 'Rewards',
+    averageReward: 'Average reward',
+    bestRewardEver: 'Best reward ever',
+    rewardsThisMonth: 'Rewards this month',
+    rewardsAverage: 'Rewards average',
+    bestRewardedWallet: 'Best rewarded wallet',
+    lastRewards: 'Last rewards',
+    reviews: 'Reviews',
+    merchantsOTW: 'Merchants of the week',
 
     // Transaction Messages
     messages: 'Messages',
@@ -202,6 +223,8 @@ export default {
     results: 'Results',
     noVoteYet: 'No vote yet',
     mostVotedOn: 'Most voted on',
+    turnout: 'Turnout',
+    hasVoted: 'has voted',
 
     // Parameters
     parameters: 'Parameters',

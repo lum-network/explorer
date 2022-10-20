@@ -9,6 +9,7 @@ class Inflation {
 
     min: number;
     max: number;
+    current: number;
 }
 
 class MintParams {
@@ -57,9 +58,9 @@ class Deposit {
 }
 
 class Tally {
-    quorum: string;
-    threshold: string;
-    veto_threshold: string;
+    quorum: number;
+    threshold: number;
+    veto_threshold: number;
 }
 
 class GovParams {
@@ -109,6 +110,9 @@ class SlashingParams {
 }
 
 class ParamsModel {
+    @Expose({ name: 'chain_id' })
+    chainId: string;
+
     @Type(() => MintParams)
     mint: MintParams;
 

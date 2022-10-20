@@ -25,7 +25,6 @@ const Kpi = (props: IProps): JSX.Element => {
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const validators = useSelector((state: RootState) => state.validators.validators);
     const assets = useSelector((state: RootState) => state.core.assets);
-    const stats = useSelector((state: RootState) => state.core.stats);
     const params = useSelector((state: RootState) => state.core.params);
 
     const processBlockTime = (blocks: BlocksModel[]): void => {
@@ -80,22 +79,26 @@ const Kpi = (props: IProps): JSX.Element => {
                     return null;
                 }
 
-                const nb = NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators));
+                const totalVotingPower = NumbersUtils.convertUnitNumber(ValidatorsUtils.calculateTotalVotingPower(validators));
 
                 return (
-                    <KpiCard title={i18n.t('bondedTokens')} logo={bondedTokensLogo} additionalInfo={`${numeral(NumbersUtils.getPercentage(nb, AssetsUtils.getTotalSupply(assets))).format('0.00')}%`}>
-                        {numeral(nb).format('0,0')}
+                    <KpiCard
+                        title={i18n.t('bondedTokens')}
+                        logo={bondedTokensLogo}
+                        additionalInfo={`${numeral(NumbersUtils.getPercentage(totalVotingPower, AssetsUtils.getTotalSupply(assets))).format('0.00')}%`}
+                    >
+                        {numeral(totalVotingPower).format('0,0')}
                     </KpiCard>
                 );
 
             case KpiType.INFLATION:
-                if (!stats || !stats.inflation) {
+                if (!params || !params.mint.inflation.current) {
                     return null;
                 }
 
                 return (
                     <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
-                        {numeral(parseFloat(stats.inflation)).format('0.00%')}
+                        {numeral(params.mint.inflation.current).format('0.00%')}
                     </KpiCard>
                 );
 

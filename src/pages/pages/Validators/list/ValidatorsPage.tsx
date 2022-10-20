@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const ValidatorsPage = (): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const validators = useSelector((state: RootState) => state.validators.validators);
-    const stats = useSelector((state: RootState) => state.core.stats);
+    const params = useSelector((state: RootState) => state.core.params);
     const loading = useSelector((state: RootState) => state.loading.effects.validators.fetchValidators);
 
     const head = [i18n.t('rank'), i18n.t('validator'), i18n.t('status'), i18n.t('votingPower'), i18n.t('commission')];
@@ -59,7 +59,7 @@ const ValidatorsPage = (): JSX.Element => {
                                 width={34}
                                 height={34}
                                 validatorAddress={validator.operatorAddress || ''}
-                                chainId={stats && stats.chainId}
+                                chainId={params && params.chainId}
                                 githubUrl={NavigationConstants.GITHUB_ASSETS}
                                 className="me-3"
                             />
