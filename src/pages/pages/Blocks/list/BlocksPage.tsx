@@ -25,7 +25,7 @@ const BlocksPage = (): JSX.Element | null => {
             <h2 className="mt-3 mb-4">
                 <img alt="block" src={blockLogo} /> {i18n.t('blocks')}
             </h2>
-            <BlocksList blocks={blocks} metadata={metadata} onPageChange={setPage} />
+            <BlocksList className="mb-5" blocks={blocks} metadata={metadata} onPageChange={setPage} />
         </>
     );
 };

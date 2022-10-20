@@ -28,7 +28,7 @@ const Core = (): JSX.Element => {
         dispatch.blocks.fetchBlocks().finally(() => null);
         dispatch.transactions.fetchTransactions().finally(() => null);
         dispatch.validators.fetchValidators().finally(() => null);
-        dispatch.core.getStats().finally(() => null);
+        dispatch.core.getKpi().finally(() => null);
         dispatch.core.getLum().finally(() => null);
         dispatch.core.getParams().finally(() => null);
         dispatch.core.getAssets().finally(() => null);

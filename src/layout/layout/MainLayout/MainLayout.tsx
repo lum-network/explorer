@@ -143,14 +143,16 @@ const MainLayout = (props: IProps): JSX.Element => {
                             </a>
                         </div>
                     </div>
-                    <div className="d-flex align-items-center flex-wrap-reverse">
-                        <span className="copyright">{i18n.t('copyright')}</span>
-                        <a href={NavigationConstants.DISCORD} rel="noreferrer" target="_blank">
-                            <img alt="discord" src={discord} className="link-icon" />
-                        </a>
-                        <a href={NavigationConstants.GITHUB} rel="noreferrer" target="_blank">
-                            <img alt="github" src={github} className="ms-2 link-icon" />
-                        </a>
+                    <div className="d-none d-sm-flex align-items-center flex-column-reverse flex-md-row">
+                        <span className="copyright mt-2 mt-md-0">{i18n.t('copyright')}</span>
+                        <div>
+                            <a href={NavigationConstants.DISCORD} rel="noreferrer" target="_blank">
+                                <img alt="discord" src={discord} className="link-icon" />
+                            </a>
+                            <a href={NavigationConstants.GITHUB} rel="noreferrer" target="_blank">
+                                <img alt="github" src={github} className="ms-2 link-icon" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </footer>

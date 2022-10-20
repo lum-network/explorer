@@ -17,7 +17,6 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const validator = useSelector((state: RootState) => state.validators.validator);
     const validators = useSelector((state: RootState) => state.validators.validators);
-    const stats = useSelector((state: RootState) => state.core.stats);
     const loading = useSelector((state: RootState) => state.loading.effects.validators.fetchValidators);
     const blocksMetadata = useSelector((state: RootState) => state.validators.blocksMetadata);
     const delegationsMetadata = useSelector((state: RootState) => state.validators.delegationsMetadata);
@@ -112,7 +111,8 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         </div>
                         <ValidatorLogo
                             validatorAddress={validator.operatorAddress || ''}
-                            chainId={stats && stats.chainId}
+                            // TODO: Get chainId from chainbridge when available
+                            chainId={'lum-network-1'}
                             githubUrl={NavigationConstants.GITHUB_ASSETS}
                             className="validator-logo"
                             width={72}

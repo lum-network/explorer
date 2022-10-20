@@ -202,6 +202,10 @@ footer {
         width: 12px;
         margin-right: 3px;
     }
+
+    .button-wallet {
+        display: none;
+    }
 }
 
 @include media-breakpoint-down(md) {
