@@ -110,6 +110,9 @@ class SlashingParams {
 }
 
 class ParamsModel {
+    @Expose({ name: 'chain_id' })
+    chainId: string;
+
     @Type(() => MintParams)
     mint: MintParams;
 
