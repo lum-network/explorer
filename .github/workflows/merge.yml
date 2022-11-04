@@ -29,7 +29,7 @@ jobs:
       - name: Build the test net bundle
         run: yarn build
         env:
-          REACT_APP_BASE_URL: "https://bridge.testnet.lum.network"
+          REACT_APP_BASE_URL: "https://explorer-testnet.infra.lum.network"
           REACT_APP_SENTRY_DSN: '${{ secrets.REACT_APP_SENTRY_DSN }}'
 
       - name: Deploy on firebase testnet project
@@ -64,7 +64,7 @@ jobs:
       - name: Build the main net bundle
         run: yarn build
         env:
-          REACT_APP_BASE_URL: "https://bridge.mainnet.lum.network"
+          REACT_APP_BASE_URL: "https://explorer-mainnet.infra.lum.network"
           REACT_APP_SENTRY_DSN: "${{ secrets.REACT_APP_SENTRY_DSN }}"
 
       - name: Deploy on firebase main net project
