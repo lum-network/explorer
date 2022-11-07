@@ -6,18 +6,17 @@ import numeral from 'numeral';
 import { useDarkMode } from 'hooks';
 import { ChartDataModel } from 'models';
 import moment from 'moment';
-import { NumbersUtils } from '../../../../utils';
+import { NumbersUtils } from 'utils';
 
 interface IProps {
     data: (ChartDataModel[] | null)[];
     loading?: boolean;
-    title: string;
     color: string[];
     yAxisTitle: string[];
     timestamp?: boolean;
 }
 
-const LineChart = ({ data, loading, title, color, yAxisTitle, timestamp }: IProps): JSX.Element => {
+const LineChart = ({ data, loading, color, yAxisTitle, timestamp }: IProps): JSX.Element => {
     const isDarkMode = useDarkMode();
 
     const [chartOptions, setChartOptions] = useState<Highcharts.Options>({
@@ -28,7 +27,7 @@ const LineChart = ({ data, loading, title, color, yAxisTitle, timestamp }: IProp
             },
         },
         title: {
-            text: title,
+            text: '',
         },
         credits: {
             enabled: false,

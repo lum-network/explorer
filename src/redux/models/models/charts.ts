@@ -113,7 +113,12 @@ const charts = createModel<RootModel>()({
                 dispatch.charts.SET_REWARDS_SUM(rewardsSum);
             },
 
-            async getRewardsSumCalendar(options?: ChartOptions) {
+            async getRewardsSumCalendar(options: ChartOptions, state) {
+                if (state.charts.rewardsSumCalendar.find((item) => item.key === options.startAt)) {
+                    return;
+                }
+
+
                 const [rewardsSumCalendar] = await client.postChart(ChartTypes.REWARDS_SUM, options);
 
                 dispatch.charts.SET_REWARDS_SUM_CALENDAR(rewardsSumCalendar);
