@@ -56,7 +56,7 @@ const RewardsCalendar = ({ data }: { data: ChartDataModel[] }): JSX.Element => {
                 startAt: moment(activeStartDate).startOf('month').format('YYYY-MM-DD'),
                 endAt: moment(activeStartDate).endOf('month').format('YYYY-MM-DD'),
                 groupType: ChartGroupType.DAILY,
-            });
+            }).finally(() => null);
         }
     };
 
