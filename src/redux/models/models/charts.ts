@@ -1,24 +1,26 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import ExplorerApi from 'api';
-import { ChartTypes } from 'constant';
+import { ChartOptions, ChartTypes } from 'constant';
 import { ChartDataModel } from 'models';
 
 interface ChartsState {
-    assetValue: ChartDataModel[] | null;
-    reviewsSum: ChartDataModel[] | null;
-    rewardsSum: ChartDataModel[] | null;
-    rewardsAvg: ChartDataModel[] | null;
-    rewardsLast: ChartDataModel[] | null;
+    assetValue: ChartDataModel[];
+    reviewsSum: ChartDataModel[];
+    rewardsSum: ChartDataModel[];
+    rewardsSumCalendar: ChartDataModel[];
+    rewardsSumColumn: ChartDataModel[];
+    rewardsLast: ChartDataModel[];
 }
 
 const charts = createModel<RootModel>()({
     state: {
-        assetValue: null,
-        reviewsSum: null,
-        rewardsSum: null,
-        rewardsAvg: null,
-        rewardsLast: null,
+        assetValue: [],
+        reviewsSum: [],
+        rewardsSum: [],
+        rewardsSumCalendar: [],
+        rewardsSumColumn: [],
+        rewardsLast: [],
     } as ChartsState,
     reducers: {
         SET_ASSET_VALUE(state, assetValue: ChartDataModel[]) {
@@ -30,7 +32,7 @@ const charts = createModel<RootModel>()({
         RESET_ASSET_VALUE(state) {
             return {
                 ...state,
-                assetValue: null,
+                assetValue: [],
             };
         },
         SET_REVIEWS_SUM(state, reviewsSum: ChartDataModel[]) {
@@ -42,7 +44,7 @@ const charts = createModel<RootModel>()({
         RESET_REVIEWS_SUM(state) {
             return {
                 ...state,
-                reviewsSum: null,
+                reviewsSum: [],
             };
         },
         SET_REWARDS_SUM(state, rewardsSum: ChartDataModel[]) {
@@ -54,19 +56,31 @@ const charts = createModel<RootModel>()({
         RESET_REWARDS_SUM(state) {
             return {
                 ...state,
-                rewardsSum: null,
+                rewardsSum: [],
             };
         },
-        SET_REWARDS_AVG(state, rewardsAvg: ChartDataModel[]) {
+        SET_REWARDS_SUM_CALENDAR(state, rewardsSumCalendar: ChartDataModel[]) {
             return {
                 ...state,
-                rewardsAvg,
+                rewardsSumCalendar: [...state.rewardsSumCalendar, ...rewardsSumCalendar],
             };
         },
-        RESET_REWARDS_AVG(state) {
+        RESET_REWARDS_SUM_CALENDAR(state) {
             return {
                 ...state,
-                rewardsAvg: null,
+                rewardsSumCalendar: [],
+            };
+        },
+        SET_REWARDS_SUM_COLUMN(state, rewardsSumColumn: ChartDataModel[]) {
+            return {
+                ...state,
+                rewardsSumColumn,
+            };
+        },
+        RESET_REWARDS_SUM_COLUMN(state) {
+            return {
+                ...state,
+                rewardsSumColumn: [],
             };
         },
         SET_REWARDS_LAST(state, rewardsLast: ChartDataModel[]) {
@@ -78,7 +92,7 @@ const charts = createModel<RootModel>()({
         RESET_REWARDS_LAST(state) {
             return {
                 ...state,
-                rewardsLast: null,
+                rewardsLast: [],
             };
         },
     },
@@ -86,23 +100,29 @@ const charts = createModel<RootModel>()({
         const client = ExplorerApi;
 
         return {
-            async getAssetValue() {
-                const [assetValue] = await client.postChart(ChartTypes.ASSET_VALUE);
+            async getAssetValue(options?: ChartOptions) {
+                const [assetValue] = await client.postChart(ChartTypes.ASSET_VALUE, options);
 
                 dispatch.charts.SET_ASSET_VALUE(assetValue);
             },
 
-            async getReviewsAndRewardsSum() {
-                const [[reviewsSum], [rewardsSum]] = await Promise.all([client.postChart(ChartTypes.REVIEWS_SUM), client.postChart(ChartTypes.REWARDS_SUM)]);
+            async getReviewsAndRewardsSum(options?: ChartOptions) {
+                const [[reviewsSum], [rewardsSum]] = await Promise.all([client.postChart(ChartTypes.REVIEWS_SUM, options), client.postChart(ChartTypes.REWARDS_SUM, options)]);
 
                 dispatch.charts.SET_REVIEWS_SUM(reviewsSum);
                 dispatch.charts.SET_REWARDS_SUM(rewardsSum);
             },
 
-            async getRewardsAvg(options?: { startAt?: Date; endAt?: Date; daysOffset?: number }) {
-                const [rewardsAvg] = await client.postChart(ChartTypes.REWARDS_AVG, options);
+            async getRewardsSumCalendar(options?: ChartOptions) {
+                const [rewardsSumCalendar] = await client.postChart(ChartTypes.REWARDS_SUM, options);
 
-                dispatch.charts.SET_REWARDS_AVG(rewardsAvg);
+                dispatch.charts.SET_REWARDS_SUM_CALENDAR(rewardsSumCalendar);
+            },
+
+            async getRewardsSumColumn(options?: ChartOptions) {
+                const [rewardsSumColumn] = await client.postChart(ChartTypes.REWARDS_SUM, options);
+
+                dispatch.charts.SET_REWARDS_SUM_COLUMN(rewardsSumColumn);
             },
 
             async getRewardsLast() {

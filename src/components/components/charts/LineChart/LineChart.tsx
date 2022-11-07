@@ -90,11 +90,7 @@ const LineChart = ({ data, loading, title, color, yAxisTitle, timestamp }: IProp
                 type: 'datetime',
                 labels: {
                     formatter: ({ value }) => {
-                        if (timestamp) {
-                            return moment(value).format('DD MMM');
-                        } else {
-                            return moment(value, 'D/M/YYYY').format('DD MMM');
-                        }
+                        return moment(value).format('DD MMM');
                     },
                     style: {
                         color: isDarkMode ? '#FFFFFF' : '#2E2E2E',

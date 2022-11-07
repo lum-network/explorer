@@ -71,7 +71,7 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
                 type: 'datetime',
                 labels: {
                     formatter: (props) => {
-                        return moment(props.value, 'MM/YYYY').format('MMM YY');
+                        return moment(props.value).format('MMM YY');
                     },
                     style: {
                         color: isDarkMode ? '#FFFFFF' : '#2E2E2E',
@@ -107,7 +107,7 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
 
     return (
         <Card>
-            <h1 className="mb-4">{i18n.t('rewardsAverage')}</h1>
+            <h1 className="mb-4">{i18n.t('rewardsPerMonth')}</h1>
             <HighchartsReact highcharts={Highcharts} options={chartOptions} />
         </Card>
     );

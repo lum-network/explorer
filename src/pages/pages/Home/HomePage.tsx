@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { BlocksList, ColumnChart, Kpi, LastRewards, LineChart, RewardsCalendar, TransactionsList } from 'components';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { KpiType } from 'constant';
-import { ChartsUtils, i18n } from 'utils';
+import { ChartGroupType, KpiType } from 'constant';
+import { i18n } from 'utils';
 
 import Lum from './components/Lum/Lum';
 import Lumki from './components/Lumki/Lumki';
@@ -17,15 +17,17 @@ const HomePage = (): JSX.Element | null => {
     const reviewsSum = useSelector((state: RootState) => state.charts.reviewsSum);
     const rewardsSum = useSelector((state: RootState) => state.charts.rewardsSum);
     const rewardsLast = useSelector((state: RootState) => state.charts.rewardsLast);
-    const rewardsAvg = useSelector((state: RootState) => state.charts.rewardsAvg);
+    const rewardsSumCalendar = useSelector((state: RootState) => state.charts.rewardsSumCalendar);
+    const rewardsSumColumn = useSelector((state: RootState) => state.charts.rewardsSumColumn);
 
     const loadingAssetValue = useSelector((state: RootState) => state.loading.effects.charts.getAssetValue);
     const loadingReviewsAndRewardsSum = useSelector((state: RootState) => state.loading.effects.charts.getReviewsAndRewardsSum);
 
     useEffect(() => {
-        dispatch.charts.getAssetValue().finally(() => null);
-        dispatch.charts.getReviewsAndRewardsSum().finally(() => null);
-        dispatch.charts.getRewardsAvg({ daysOffset: 365 }).finally(() => null);
+        dispatch.charts.getAssetValue({ daysOffset: 7 }).finally(() => null);
+        dispatch.charts.getReviewsAndRewardsSum({ daysOffset: 30, groupType: ChartGroupType.DAILY }).finally(() => null);
+        dispatch.charts.getRewardsSumCalendar({ daysOffset: 30, groupType: ChartGroupType.DAILY }).finally(() => null);
+        dispatch.charts.getRewardsSumColumn({ daysOffset: 365, groupType: ChartGroupType.MONTHLY }).finally(() => null);
         dispatch.charts.getRewardsLast().finally(() => null);
     }, []);
 
@@ -53,15 +55,9 @@ const HomePage = (): JSX.Element | null => {
             <div className="col-12 mb-3">
                 <Kpi types={[KpiType.REWARDS, KpiType.REWARD_AVERAGE, KpiType.BEST_REWARD_EVER, KpiType.BEST_REWARD_TODAY]} />
             </div>
-            {reviewsSum && reviewsSum.length && rewardsSum && rewardsSum.length && (
+            {!!(reviewsSum && reviewsSum.length && rewardsSum && rewardsSum.length) && (
                 <div className="col-12 mb-4 mb-xxl-5">
-                    <LineChart
-                        yAxisTitle={[i18n.t('reviews'), i18n.t('rewards')]}
-                        color={['#FFC107', '#73ABFF']}
-                        loading={loadingReviewsAndRewardsSum}
-                        data={[ChartsUtils.reduceChartToDaily(reviewsSum), ChartsUtils.reduceChartToDaily(rewardsSum)]}
-                        title=""
-                    />
+                    <LineChart yAxisTitle={[i18n.t('reviews'), i18n.t('rewards')]} color={['#FFC107', '#73ABFF']} loading={loadingReviewsAndRewardsSum} data={[reviewsSum, rewardsSum]} title="" />
                 </div>
             )}
             {rewardsLast && rewardsLast.length > 0 && (
@@ -69,14 +65,14 @@ const HomePage = (): JSX.Element | null => {
                     <LastRewards data={rewardsLast} />
                 </div>
             )}
-            {rewardsAvg && (
+            {rewardsSumCalendar && (
                 <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                    <RewardsCalendar data={ChartsUtils.reduceChartToDaily(rewardsAvg)} />
+                    <RewardsCalendar data={rewardsSumCalendar} />
                 </div>
             )}
-            {rewardsAvg && (
+            {rewardsSumColumn && (
                 <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
-                    <ColumnChart data={ChartsUtils.reduceChartToMonthly(rewardsAvg).slice(-30)} />
+                    <ColumnChart data={rewardsSumColumn} />
                 </div>
             )}
             <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">

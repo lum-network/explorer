@@ -2,7 +2,7 @@ import * as ApiSearch from './api/search';
 import * as ApiGovernance from './api/governance';
 
 import { HttpClient } from 'utils';
-import { ApiConstants, ChartTypes } from 'constant';
+import { ApiConstants, ChartOptions, ChartTypes } from 'constant';
 import { AccountModel, BeamModel, BlocksModel, CoinModel, DelegationModel, LumModel, ParamsModel, TransactionsModel, ValidatorModel, KpiModel, ChartDataModel } from 'models';
 import { RedelegationModel, UnbondingModel } from '../models/models/account';
 import moment from 'moment';
@@ -77,7 +77,7 @@ class ExplorerApi extends HttpClient {
 
     // Charts
 
-    public postChart = (type: ChartTypes, options?: { startAt?: Date; endAt?: Date; daysOffset?: number }) =>
+    public postChart = (type: ChartTypes, options?: ChartOptions) =>
         this.request<ChartDataModel[]>(
             {
                 url: `${ApiConstants.CHART_URL}`,
@@ -85,9 +85,12 @@ class ExplorerApi extends HttpClient {
                 data: {
                     type,
                     end_at: moment(options?.endAt).format('YYYY-MM-DD'),
-                    start_at: moment(options?.startAt)
-                        .day(-1 * (options?.daysOffset || 30))
-                        .format('YYYY-MM-DD'),
+                    start_at: options?.daysOffset
+                        ? moment(options?.startAt)
+                              .day(-1 * options?.daysOffset)
+                              .format('YYYY-MM-DD')
+                        : moment(options?.startAt).format('YYYY-MM-DD'),
+                    group_type: options?.groupType,
                 },
             },
             Object,
