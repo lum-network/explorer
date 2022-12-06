@@ -6,6 +6,8 @@ export { default as DelegationModel } from './models/delegations';
 export { default as LogModel } from './models/log';
 export { default as KpiModel } from './models/kpi';
 export { default as ProposalsModel } from './models/proposals';
+export { default as ProposalVotersModel } from './models/proposal-votes';
+export { default as ProposalDepositorsModel } from './models/proposal-deposits';
 export { default as VotesResultModel } from './models/votesResult';
 export { default as LumModel } from './models/lum';
 export { default as BeamModel } from './models/beam';
