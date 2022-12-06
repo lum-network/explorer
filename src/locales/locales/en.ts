@@ -71,6 +71,7 @@ export default {
     noData: 'No data',
     secret: 'Secret',
     createdAt: 'Created at',
+    dispatchedAt: 'Dispatched at',
     discover: 'Discover',
     less: 'Less',
     of: 'of',
