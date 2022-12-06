@@ -212,6 +212,9 @@ class BeamModel {
     @Expose({ name: 'created_at' })
     createdAt: string;
 
+    @Expose({ name: 'dispatched_at' })
+    dispatchedAt: string;
+
     @Expose({ name: 'creator_address' })
     creatorAddress: string;
 

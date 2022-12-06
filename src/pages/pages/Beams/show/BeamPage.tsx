@@ -80,8 +80,8 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                         <span>{beam.id}</span>
                     </div>
                     <div className="col-12 col-lg-6">
-                        <h4 className="mb-2">{i18n.t('createdAt')}</h4>
-                        <span>{moment(beam.createdAt).format('lll')}</span>
+                        <h4 className="mb-2">{i18n.t('dispatchedAt')}</h4>
+                        <span>{moment(beam.dispatchedAt).format('lll')}</span>
                     </div>
                     <div className="col-12 col-lg-6">
                         <h4 className="mb-2">{i18n.t('walletMerchant')}</h4>
@@ -118,13 +118,13 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                             )}
                         </div>
                     </div>
-                    {beam.data && beam.data.merchantReview && beam.data.merchantReview.ratings && (
+                    {beam.data && beam.data.merchantReview && beam.data.merchantReview.ratings ? (
                         <div className="col-12 col-lg-6">
                             <h4 className="mb-2">{i18n.t('merchantRatings')}</h4>
                             {renderRatings(beam.data.merchantReview.ratings, true)}
                         </div>
-                    )}
-                    {beam.data && beam.data.productsReviews && beam.data.productsReviews.length && (
+                    ) : null}
+                    {beam.data && beam.data.productsReviews && beam.data.productsReviews.length ? (
                         <div className="col-12 col-lg-6">
                             <h4 className="mb-2">{i18n.t('products')}</h4>
                             {beam.data.productsReviews.map((product) => (
@@ -134,7 +134,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                                 </>
                             ))}
                         </div>
-                    )}
+                    ) : null}
                 </div>
             </Card>
         );
