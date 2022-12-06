@@ -14,9 +14,10 @@ interface IProps {
     color: string[];
     yAxisTitle: string[];
     timestamp?: boolean;
+    title?: string;
 }
 
-const LineChart = ({ data, loading, color, yAxisTitle, timestamp }: IProps): JSX.Element => {
+const LineChart = ({ data, loading, color, yAxisTitle, timestamp, title }: IProps): JSX.Element => {
     const isDarkMode = useDarkMode();
 
     const [chartOptions, setChartOptions] = useState<Highcharts.Options>({
@@ -152,6 +153,7 @@ const LineChart = ({ data, loading, color, yAxisTitle, timestamp }: IProps): JSX
 
     return (
         <Card>
+            {title && <h1 className="mb-4">{title}</h1>}
             <HighchartsReact highcharts={Highcharts} options={chartOptions} />
         </Card>
     );

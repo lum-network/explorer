@@ -57,7 +57,13 @@ const HomePage = (): JSX.Element | null => {
             </div>
             {!!(reviewsSum && reviewsSum.length && rewardsSum && rewardsSum.length) && (
                 <div className="col-12 mb-4 mb-xxl-5">
-                    <LineChart yAxisTitle={[i18n.t('reviews'), i18n.t('rewards')]} color={['#FFC107', '#73ABFF']} loading={loadingReviewsAndRewardsSum} data={[reviewsSum, rewardsSum]} />
+                    <LineChart
+                        title={i18n.t('rewardsAndReviews')}
+                        yAxisTitle={[i18n.t('reviews'), i18n.t('rewards')]}
+                        color={['#FFC107', '#73ABFF']}
+                        loading={loadingReviewsAndRewardsSum}
+                        data={[reviewsSum, rewardsSum]}
+                    />
                 </div>
             )}
             {rewardsLast && rewardsLast.length > 0 && (

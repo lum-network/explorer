@@ -52,11 +52,13 @@ const RewardsCalendar = ({ data }: { data: ChartDataModel[] }): JSX.Element => {
 
     const onActiveStartDateChange = ({ view, activeStartDate }: ViewCallbackProperties): void => {
         if (view === 'month') {
-            dispatch.charts.getRewardsSumCalendar({
-                startAt: moment(activeStartDate).startOf('month').format('YYYY-MM-DD'),
-                endAt: moment(activeStartDate).endOf('month').format('YYYY-MM-DD'),
-                groupType: ChartGroupType.DAILY,
-            }).finally(() => null);
+            dispatch.charts
+                .getRewardsSumCalendar({
+                    startAt: moment(activeStartDate).startOf('month').format('YYYY-MM-DD'),
+                    endAt: moment(activeStartDate).endOf('month').format('YYYY-MM-DD'),
+                    groupType: ChartGroupType.DAILY,
+                })
+                .finally(() => null);
         }
     };
 

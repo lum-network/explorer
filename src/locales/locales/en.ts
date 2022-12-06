@@ -103,6 +103,7 @@ export default {
     lastRewards: 'Last rewards',
     reviews: 'Reviews',
     merchantsOTW: 'Merchants of the week',
+    rewardsAndReviews: 'Rewards and reviews',
 
     // Transaction Messages
     messages: 'Messages',
