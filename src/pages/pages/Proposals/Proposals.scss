@@ -25,3 +25,19 @@
     right: 1rem;
     bottom: 4rem;
 }
+
+@include media-breakpoint-down(sm) {
+    .pagination-deposits {
+        position: absolute;
+        right: 1rem;
+        bottom: 2rem;
+    }
+}
+
+@include media-breakpoint-down(lg) {
+    .pagination-deposits {
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+    }
+}

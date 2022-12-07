@@ -1,7 +1,7 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import { MetadataModel, ProposalsModel, ProposalDepositorsModel, ProposalVotersModel } from 'models';
-import { ApiGovernance } from 'api';
+import Api from 'api';
 
 interface GovernanceState {
     proposals: ProposalsModel[];
@@ -55,7 +55,7 @@ const governance = createModel<RootModel>()({
     },
     effects: (dispatch) => ({
         async fetchProposals() {
-            const proposals = await ApiGovernance.fetchProposals();
+            const [proposals] = await Api.fetchProposals();
 
             dispatch.governance.SET_PROPOSALS(proposals);
         },
@@ -63,15 +63,15 @@ const governance = createModel<RootModel>()({
         async getProposal(id: string) {
             dispatch.governance.RESET_PROPOSAL();
 
-            const proposal = await ApiGovernance.getProposal(id);
+            const [proposal] = await Api.getProposal(id);
 
-            proposal.result = await ApiGovernance.getTally(id);
+            [proposal.result] = await Api.getTally(id);
 
             dispatch.governance.SET_PROPOSAL(proposal);
         },
 
         async getVoters({ id, page }: { id: string; page: number }) {
-            const [proposalVoter, proposalVoterMetadata] = await ApiGovernance.getVoters(id, page);
+            const [proposalVoter, proposalVoterMetadata] = await Api.getVoters(id, page);
 
             if (!proposalVoter) {
                 return;
@@ -81,7 +81,7 @@ const governance = createModel<RootModel>()({
         },
 
         async getDepositors({ id, page }: { id: string; page: number }) {
-            const [proposalDepositor, proposalDepositsMetadata] = await ApiGovernance.getDepositors(id, page);
+            const [proposalDepositor, proposalDepositsMetadata] = await Api.getDepositors(id, page);
 
             if (!proposalDepositor) {
                 return;
@@ -91,7 +91,8 @@ const governance = createModel<RootModel>()({
         },
 
         async getTally(id: string) {
-            return await ApiGovernance.getTally(id);
+            const [tally] = await Api.getTally(id);
+            return tally;
         },
     }),
 });
