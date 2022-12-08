@@ -59,7 +59,7 @@ const VotersList = (props: IProps): JSX.Element => {
                     </h3>
                 )}
             </div>
-            <Table pagination={metadata} onPageChange={onPageChange} head={head}>
+            <Table customPagination={'pagination-deposits'} pagination={metadata} onPageChange={onPageChange} head={head}>
                 {voters.map((voter, index) => renderRow(voter, index, head))}
             </Table>
         </Card>
