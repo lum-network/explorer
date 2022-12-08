@@ -34,7 +34,7 @@
     }
 }
 
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-down(xxl) {
     .pagination-deposits {
         position: absolute;
         right: 1rem;
