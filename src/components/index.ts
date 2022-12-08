@@ -8,6 +8,8 @@ export { default as Badge } from './components/Badge/Badge';
 export { default as DelegatorsList } from './components/delegations/DelegatorsList/DelegatorsList';
 export { default as DelegationsList } from './components/delegations/DelegationsList/DelegationsList';
 export { default as UnbondingsList } from './components/delegations/UnbondingsList/UnbondingsList';
+export { default as VotersList } from './components/Proposals/Voters/Voters';
+export { default as DepositorsList } from './components/Proposals/Depositors/Depositors';
 export { default as RedelegatesList } from './components/delegations/RedelegatesList/RedelegatesList';
 export { default as Tooltip } from './components/Tooltip/Tooltip';
 export { default as SmallerDecimal } from './components/SmallerDecimal/SmallerDecimal';

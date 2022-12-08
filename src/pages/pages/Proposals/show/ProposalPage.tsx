@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
 import { RouteComponentProps } from 'react-router';
 import { Card, Loading } from 'frontend-elements';
-import { Badge, SmallerDecimal } from 'components';
+import { DepositorsList, Badge, SmallerDecimal, VotersList } from 'components';
 import moment from 'moment';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import { ProposalStatus } from 'constant';
@@ -16,6 +16,10 @@ interface IProps extends RouteComponentProps<{ id: string }> {}
 
 const ProposalPage = ({ match }: IProps): JSX.Element => {
     const proposal = useSelector((state: RootState) => state.governance.proposal);
+    const voters = useSelector((state: RootState) => state.governance.voters);
+    const depositors = useSelector((state: RootState) => state.governance.depositors);
+    const votersMetadata = useSelector((state: RootState) => state.governance.votersMetadata);
+    const depositorsMetadata = useSelector((state: RootState) => state.governance.depositorsMetadata);
     const dispatch = useDispatch<Dispatch>();
     const loading = useSelector((state: RootState) => state.loading.effects.governance.getProposal);
     const params = useSelector((state: RootState) => state.core.params);
@@ -28,12 +32,22 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
     const [total, setTotal] = useState(0);
     const [quorum, setQuorum] = useState(0);
     const [totalVotingPower, setTotalVotingPower] = useState(0);
+    const [votersPage, setVotersPage] = useState(0);
+    const [depositorsPage, setDepositorsPage] = useState(0);
 
     const { id } = match.params;
 
     useEffect(() => {
         dispatch.governance.getProposal(id).finally(() => null);
     }, []);
+
+    useEffect(() => {
+        dispatch.governance.getVoters({ id, page: votersPage }).finally(() => null);
+    }, [votersPage]);
+
+    useEffect(() => {
+        dispatch.governance.getDepositors({ id, page: depositorsPage }).finally(() => null);
+    }, [depositorsPage]);
 
     useEffect(() => {
         if (!proposal || !proposal.result) {
@@ -224,6 +238,11 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                 {proposal && <Badge proposalStatus={proposal.status} />}
             </div>
             {renderInformation()}
+
+            <div className="row">
+                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">{voters && <VotersList title voters={voters} total metadata={votersMetadata} onPageChange={setVotersPage} />}</div>
+                <div className="col-12 col-xxl-6 mb-5">{depositors && <DepositorsList title depositors={depositors} total metadata={depositorsMetadata} onPageChange={setDepositorsPage} />}</div>
+            </div>
         </>
     );
 };
