@@ -33,13 +33,13 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
     const renderRating = (rating?: number): JSX.Element => {
         return (
             <div className="d-flex align-items-center">
-                <div className="ratings-number me-2">{rating ? `${rating}/10` : ''}</div>
-                <Rating size={26} initialRating={rating ? rating / 2 : 0} />
+                <div className="ratings-number me-2">{rating ? `${rating}/5` : ''}</div>
+                <Rating size={26} initialRating={rating || 0} />
             </div>
         );
     };
 
-    const renderRatings = (ratings: any): JSX.Element[] => {
+    const renderRatings = (ratings: any, isMerchant = false): JSX.Element[] => {
         const view: JSX.Element[] = [];
 
         for (const [key, value] of Object.entries(ratings)) {
@@ -50,7 +50,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
             view.push(
                 <div>
                     <span className="ratings-title">{i18n.t(key)}</span>
-                    {renderRating(value as number)}
+                    {renderRating(isMerchant ? (value as number) / 2 : (value as number))}
                 </div>,
             );
         }
@@ -105,8 +105,8 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                         <span>{beam.id}</span>
                     </div>
                     <div className="col-12 col-lg-6">
-                        <h4 className="mb-2">{i18n.t('createdAt')}</h4>
-                        <span>{moment(beam.createdAt).format('lll')}</span>
+                        <h4 className="mb-2">{i18n.t('dispatchedAt')}</h4>
+                        <span>{moment(beam.dispatchedAt).format('lll')}</span>
                     </div>
                     <div className="col-12 col-lg-6">
                         <h4 className="mb-2">{i18n.t('walletMerchant')}</h4>
@@ -143,13 +143,13 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                             )}
                         </div>
                     </div>
-                    {beam.data && beam.data.merchantReview && beam.data.merchantReview.ratings && (
+                    {beam.data && beam.data.merchantReview && beam.data.merchantReview.ratings ? (
                         <div className="col-12 col-lg-6">
                             <h4 className="mb-2">{i18n.t('merchantRatings')}</h4>
-                            {renderRatings(beam.data.merchantReview.ratings)}
+                            {renderRatings(beam.data.merchantReview.ratings, true)}
                         </div>
-                    )}
-                    {beam.data && beam.data.productsReviews && beam.data.productsReviews.length && (
+                    ) : null}
+                    {beam.data && beam.data.productsReviews && beam.data.productsReviews.length ? (
                         <div className="col-12 col-lg-6">
                             <h4 className="mb-2">{i18n.t('products')}</h4>
                             {beam.data.productsReviews.map((product) => (
@@ -159,7 +159,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                                 </>
                             ))}
                         </div>
-                    )}
+                    ) : null}
                 </div>
             </Card>
         );

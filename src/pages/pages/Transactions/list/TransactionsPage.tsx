@@ -25,7 +25,7 @@ const TransactionsPage = (): JSX.Element | null => {
             <h2 className="mt-3 mb-4">
                 <img alt="transaction" src={transactionLogo} /> {i18n.t('transactions')}
             </h2>
-            <TransactionsList metadata={metadata} onChangePage={setPage} transactions={transactions} />
+            <TransactionsList className="mb-5" metadata={metadata} onChangePage={setPage} transactions={transactions} />
         </>
     );
 };

@@ -1,9 +1,24 @@
 import * as ApiSearch from './api/search';
-import * as ApiStats from './api/stats';
-import * as ApiGovernance from './api/governance';
+
 import { HttpClient } from 'utils';
 import { ApiConstants } from 'constant';
-import { AccountModel, BeamModel, BlocksModel, DelegationModel, LumModel, TransactionsModel, ValidatorModel } from 'models';
+import {
+    AccountModel,
+    BeamModel,
+    BlocksModel,
+    CoinModel,
+    DelegationModel,
+    LumModel,
+    ParamsModel,
+    TransactionsModel,
+    ValidatorModel,
+    KpiModel,
+    ProposalsModel,
+    VotesResultModel,
+    ProposalVotersModel,
+    ProposalDepositorsModel,
+} from 'models';
+import { RedelegationModel, UnbondingModel } from '../models/models/account';
 
 class ExplorerApi extends HttpClient {
     private static instance?: ExplorerApi;
@@ -23,6 +38,12 @@ class ExplorerApi extends HttpClient {
     // Core
 
     public getLum = () => this.request<LumModel>({ url: ApiConstants.LUM_URL }, LumModel);
+
+    public getParams = () => this.request<ParamsModel>({ url: ApiConstants.PARAMETERS_URL }, ParamsModel);
+
+    public getAssets = () => this.request<CoinModel[]>({ url: ApiConstants.ASSETS_URL }, CoinModel);
+
+    public getKpi = () => this.request<KpiModel>({ url: ApiConstants.KPI_URL }, KpiModel);
 
     // Blocks
 
@@ -62,8 +83,26 @@ class ExplorerApi extends HttpClient {
 
     public fetchAccountTransactions = (address: string, page = 0) =>
         this.request<TransactionsModel[]>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}/${ApiConstants.TRANSACTIONS_URL}?limit=10&page=${page}` }, TransactionsModel);
+
+    public fetchAccountRedelegations = (address: string) => this.request<RedelegationModel[]>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}/${ApiConstants.REDELEGATIONS_URL}` }, RedelegationModel);
+
+    public fetchAccountUnbondings = (address: string) => this.request<UnbondingModel[]>({ url: `${ApiConstants.ACCOUNTS_URL}/${address}/${ApiConstants.UNBONDINGS_URL}` }, UnbondingModel);
+
+    // Governance
+
+    public fetchProposals = () => this.request<ProposalsModel[]>({ url: `${ApiConstants.GOVERNANCE_URL}/${ApiConstants.PROPOSALS_URL}` }, ProposalsModel);
+
+    public getProposal = (id: string) => this.request<ProposalsModel>({ url: `${ApiConstants.GOVERNANCE_URL}/${ApiConstants.PROPOSALS_URL}/${id}` }, ProposalsModel);
+
+    public getTally = (id: string) => this.request<VotesResultModel>({ url: `${ApiConstants.GOVERNANCE_URL}/${ApiConstants.PROPOSALS_URL}/${id}/tally` }, VotesResultModel);
+
+    public getVoters = (id: string, page = 0) =>
+        this.request<ProposalVotersModel[]>({ url: `${ApiConstants.GOVERNANCE_URL}/${ApiConstants.PROPOSALS_URL}/${id}/voters?page=${page}` }, ProposalVotersModel);
+
+    public getDepositors = (id: string, page = 0) =>
+        this.request<ProposalDepositorsModel[]>({ url: `${ApiConstants.GOVERNANCE_URL}/${ApiConstants.PROPOSALS_URL}/${id}/depositors?page=${page}` }, ProposalDepositorsModel);
 }
 
 export default ExplorerApi.getInstance();
 
-export { ApiSearch, ApiStats, ApiGovernance };
+export { ApiSearch };

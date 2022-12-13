@@ -3,7 +3,7 @@ import { Card, Table } from 'frontend-elements';
 import { Link } from 'react-router-dom';
 import { DelegationModel, MetadataModel } from 'models';
 import { i18n, NumbersUtils, StringsUtils } from 'utils';
-import { NavigationConstants, NumberConstants } from 'constant';
+import { NavigationConstants } from 'constant';
 import numeral from 'numeral';
 import { RewardModel } from 'models/models/account';
 import placeholderTx from 'assets/images/placeholderTx.svg';
@@ -33,7 +33,7 @@ const DelegationsList = (props: IProps): JSX.Element => {
             return 0;
         }
 
-        return parseFloat(result.reward[0].amount || '0') / NumberConstants.CLIENT_PRECISION;
+        return parseFloat(result.reward[0].amount || '0');
     };
 
     const renderRow = (delegation: DelegationModel, index: number, head: string[]) => {
@@ -45,7 +45,7 @@ const DelegationsList = (props: IProps): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(delegation.shares || 0) / NumberConstants.CLIENT_PRECISION).format('0,0.000000')} />
+                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(delegation.shares || 0)).format('0,0.000000')} />
                     <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td data-label={head[2]} className="text-end">

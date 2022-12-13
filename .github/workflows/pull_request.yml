@@ -3,41 +3,41 @@
 
 name: Lint, format, test and deploy the explorer on pull request events
 on:
-  pull_request:
-    types: [opened, edited, synchronize, reopened]
+    pull_request:
+        types: [opened, edited, synchronize, reopened]
 
 jobs:
-  build_and_preview:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Node version to 14
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+    build_and_preview:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Set up Node version to 14
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '14'
 
-      - name: Checkout repository and submodules
-        uses: actions/checkout@v2
-        with:
-          submodules: recursive
+            - name: Checkout repository and submodules
+              uses: actions/checkout@v2
+              with:
+                  submodules: recursive
 
-      - name: Install packages
-        run: node -v && yarn && cd src/frontend-elements && yarn
+            - name: Install packages
+              run: node -v && yarn && cd src/frontend-elements && yarn
 
-      - name: Build
-        run: yarn build
-        env:
-          REACT_APP_BASE_URL: "https://bridge.testnet.lum.network"
+            - name: Build
+              run: yarn build
+              env:
+                  REACT_APP_BASE_URL: 'https://explorer-mainnet.infra.lum.network'
 
-      - name: Test
-        run: yarn test --passWithNoTests
+            - name: Test
+              run: yarn test --passWithNoTests
 
-      - name: Deploy
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
-          expires: 7d
-          projectId: lum-network
-          target: lum-network-explorer-testnet
-        env:
-          FIREBASE_CLI_PREVIEWS: hostingchannels
+            - name: Deploy
+              uses: FirebaseExtended/action-hosting-deploy@v0
+              with:
+                  repoToken: '${{ secrets.GITHUB_TOKEN }}'
+                  firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+                  expires: 7d
+                  projectId: lum-network
+                  target: lum-network-explorer-testnet
+              env:
+                  FIREBASE_CLI_PREVIEWS: hostingchannels

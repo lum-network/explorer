@@ -7,7 +7,7 @@ import { Card, Loading, ValidatorLogo } from 'frontend-elements';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import { i18n, NumbersUtils, StringsUtils, ValidatorsUtils } from 'utils';
 import numeral from 'numeral';
-import { NavigationConstants, NumberConstants } from 'constant';
+import { NavigationConstants } from 'constant';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import genesisFlag from 'assets/images/genesisFlag.svg';
 
@@ -17,7 +17,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const validator = useSelector((state: RootState) => state.validators.validator);
     const validators = useSelector((state: RootState) => state.validators.validators);
-    const stats = useSelector((state: RootState) => state.core.stats);
+    const params = useSelector((state: RootState) => state.core.params);
     const loading = useSelector((state: RootState) => state.loading.effects.validators.fetchValidators);
     const blocksMetadata = useSelector((state: RootState) => state.validators.blocksMetadata);
     const delegationsMetadata = useSelector((state: RootState) => state.validators.delegationsMetadata);
@@ -112,7 +112,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                         </div>
                         <ValidatorLogo
                             validatorAddress={validator.operatorAddress || ''}
-                            chainId={stats && stats.chainId}
+                            chainId={params && params.chainId}
                             githubUrl={NavigationConstants.GITHUB_ASSETS}
                             className="validator-logo"
                             width={72}
@@ -170,7 +170,7 @@ const ValidatorPage = (props: IProps): JSX.Element => {
                             <h4>{i18n.t('commission')}</h4>
                         </div>
                         <div className="mb-4 col-lg-4 col-md-9 col-sm-8">
-                            <p>{numeral(parseFloat(validator.commission.rates.rate || '0') / NumberConstants.CLIENT_PRECISION).format('0.00%')}</p>
+                            <p>{numeral(parseFloat(validator.commission.rates.rate || '0')).format('0.00%')}</p>
                         </div>
                         <div className="mb-sm-4 col-lg-3 col-xl-2 offset-xl-1 col-md-3 col-sm-4">
                             <h4>{i18n.t('selfBonded')}</h4>

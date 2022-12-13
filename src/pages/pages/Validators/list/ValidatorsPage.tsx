@@ -7,7 +7,7 @@ import { Card, Loading, Table, ValidatorLogo } from 'frontend-elements';
 import { Kpi, Badge } from 'components';
 import { ValidatorModel } from 'models';
 import numeral from 'numeral';
-import { KpiType, NavigationConstants, NumberConstants } from 'constant';
+import { KpiType, NavigationConstants } from 'constant';
 import { Link } from 'react-router-dom';
 import '../Validators.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const ValidatorsPage = (): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const validators = useSelector((state: RootState) => state.validators.validators);
-    const stats = useSelector((state: RootState) => state.core.stats);
+    const params = useSelector((state: RootState) => state.core.params);
     const loading = useSelector((state: RootState) => state.loading.effects.validators.fetchValidators);
 
     const head = [i18n.t('rank'), i18n.t('validator'), i18n.t('status'), i18n.t('votingPower'), i18n.t('commission')];
@@ -59,7 +59,7 @@ const ValidatorsPage = (): JSX.Element => {
                                 width={34}
                                 height={34}
                                 validatorAddress={validator.operatorAddress || ''}
-                                chainId={stats && stats.chainId}
+                                chainId={params && params.chainId}
                                 githubUrl={NavigationConstants.GITHUB_ASSETS}
                                 className="me-3"
                             />
@@ -78,7 +78,7 @@ const ValidatorsPage = (): JSX.Element => {
                     </div>
                 </td>
                 <td data-label={head[4]} className="text-end">
-                    <p>{numeral(parseFloat(validator.commission.rates.rate || '') / NumberConstants.CLIENT_PRECISION).format('0.00%')}</p>
+                    <p>{numeral(parseFloat(validator.commission.rates.rate || '')).format('0.00%')}</p>
                 </td>
             </tr>
         );

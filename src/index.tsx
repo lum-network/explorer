@@ -8,6 +8,9 @@ import { BrowserTracing } from '@sentry/tracing';
 import App from './App';
 
 import reportWebVitals from './reportWebVitals';
+import '@popperjs/core';
+import 'bootstrap';
+import './styles/_main.scss';
 
 if (process.env.REACT_APP_SENTRY_DSN !== undefined && process.env.REACT_APP_SENTRY_DSN !== null) {
     Sentry.init({

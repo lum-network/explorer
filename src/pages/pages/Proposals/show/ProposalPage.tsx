@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import proposalLogo from 'assets/images/proposalDark.svg';
-import { GovernanceUtils, i18n, NumbersUtils } from 'utils';
+import { GovernanceUtils, i18n, NumbersUtils, ValidatorsUtils } from 'utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from 'redux/store';
 import { RouteComponentProps } from 'react-router';
 import { Card, Loading } from 'frontend-elements';
-import { Badge, SmallerDecimal } from 'components';
+import { DepositorsList, Badge, SmallerDecimal, VotersList } from 'components';
 import moment from 'moment';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import { ProposalStatus } from 'constant';
@@ -16,20 +16,38 @@ interface IProps extends RouteComponentProps<{ id: string }> {}
 
 const ProposalPage = ({ match }: IProps): JSX.Element => {
     const proposal = useSelector((state: RootState) => state.governance.proposal);
+    const voters = useSelector((state: RootState) => state.governance.voters);
+    const depositors = useSelector((state: RootState) => state.governance.depositors);
+    const votersMetadata = useSelector((state: RootState) => state.governance.votersMetadata);
+    const depositorsMetadata = useSelector((state: RootState) => state.governance.depositorsMetadata);
     const dispatch = useDispatch<Dispatch>();
     const loading = useSelector((state: RootState) => state.loading.effects.governance.getProposal);
+    const params = useSelector((state: RootState) => state.core.params);
+    const validators = useSelector((state: RootState) => state.validators.validators);
 
     const [voteYes, setVoteYes] = useState(0);
     const [voteNo, setVoteNo] = useState(0);
     const [voteNoWithVeto, setVoteNoWithVeto] = useState(0);
     const [voteAbstain, setVoteAbstain] = useState(0);
     const [total, setTotal] = useState(0);
+    const [quorum, setQuorum] = useState(0);
+    const [totalVotingPower, setTotalVotingPower] = useState(0);
+    const [votersPage, setVotersPage] = useState(0);
+    const [depositorsPage, setDepositorsPage] = useState(0);
 
     const { id } = match.params;
 
     useEffect(() => {
         dispatch.governance.getProposal(id).finally(() => null);
     }, []);
+
+    useEffect(() => {
+        dispatch.governance.getVoters({ id, page: votersPage }).finally(() => null);
+    }, [votersPage]);
+
+    useEffect(() => {
+        dispatch.governance.getDepositors({ id, page: depositorsPage }).finally(() => null);
+    }, [depositorsPage]);
 
     useEffect(() => {
         if (!proposal || !proposal.result) {
@@ -45,6 +63,15 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
         setVoteAbstain(NumbersUtils.getPercentage(proposal.result.abstain, total));
     }, [proposal]);
 
+    useEffect(() => {
+        if (!params || !params.gov || !params.gov.tally || !params.gov.tally.quorum || !validators || !validators.length) {
+            return;
+        }
+
+        setQuorum(params.gov.tally.quorum);
+        setTotalVotingPower(ValidatorsUtils.calculateTotalVotingPower(validators));
+    }, [params, validators]);
+
     const renderResult = (): JSX.Element | null => {
         if (!proposal || proposal.status === ProposalStatus.DEPOSIT_PERIOD) {
             return null;
@@ -52,10 +79,31 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
 
         return (
             <Card className="mt-5" flat>
-                <div className="mb-4 d-flex">
-                    <h4 className="me-2">{i18n.t('total')}:</h4>
-                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(total)).format('0,0.000000')} />
-                    <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                <div className="mb-4 d-flex justify-content-between flex-wrap">
+                    <div className="d-flex align-items-center">
+                        <h4 className="me-2">{i18n.t('total')}:</h4>
+                        <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(total)).format('0,0.000000')} />
+                        <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
+                    </div>
+                    {totalVotingPower && total && quorum && (
+                        <div className="d-flex">
+                            <div className="d-flex align-items-center">
+                                <h4 className="me-2">{i18n.t('turnout')}:</h4>
+                                <SmallerDecimal nb={`${numeral(NumbersUtils.getPercentage(total, totalVotingPower)).format('0.00')}%`} />
+                            </div>
+                            <div className="ms-2 ms-sm-4 d-flex align-items-center">
+                                <h4 className="me-2">{i18n.t('quorum')}:</h4>
+                                {/*FIXME: correctly compute those hex values*/}
+                                <SmallerDecimal nb={`${numeral(33.4).format('0.00')}%`} />
+                            </div>
+                            <div className="ms-2 ms-sm-4 d-flex align-items-center text-muted">
+                                <span>
+                                    {numeral(NumbersUtils.convertUnitNumber(total)).format('0.0a')} {i18n.t('of')} {numeral(NumbersUtils.convertUnitNumber(totalVotingPower)).format('0.0a')}{' '}
+                                    {i18n.t('hasVoted')}
+                                </span>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <VoteBar
                     results={{
@@ -190,6 +238,11 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                 {proposal && <Badge proposalStatus={proposal.status} />}
             </div>
             {renderInformation()}
+
+            <div className="row">
+                <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">{voters && <VotersList title voters={voters} total metadata={votersMetadata} onPageChange={setVotersPage} />}</div>
+                <div className="col-12 col-xxl-6 mb-5">{depositors && <DepositorsList title depositors={depositors} total metadata={depositorsMetadata} onPageChange={setDepositorsPage} />}</div>
+            </div>
         </>
     );
 };

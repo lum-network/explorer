@@ -159,6 +159,9 @@ class AccountModel {
 
     @Type(() => AirdropModel)
     airdrop: AirdropModel = new AirdropModel();
+
+    @Expose({ name: 'total_shares' })
+    totalShares: string;
 }
 
 export default AccountModel;

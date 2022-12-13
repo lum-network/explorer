@@ -10,8 +10,7 @@ import * as ApiConstants from './constant/api';
 import * as TimeConstants from './constant/time';
 import * as SocketConstants from './constant/sockets';
 import * as AddressConstants from './constant/address';
-import * as NumberConstants from './constant/number';
 
 import * as SystemConstants from './constant/system';
 
-export { NavigationConstants, ApiConstants, SystemConstants, TimeConstants, SocketConstants, AddressConstants, NumberConstants };
+export { NavigationConstants, ApiConstants, SystemConstants, TimeConstants, SocketConstants, AddressConstants };

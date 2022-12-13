@@ -15,6 +15,7 @@ interface IProps extends RouteComponentProps {
     more?: boolean;
     rej?: boolean;
     total?: boolean;
+    className?: string;
 }
 
 const BlocksList = (props: IProps): JSX.Element => {
@@ -41,12 +42,12 @@ const BlocksList = (props: IProps): JSX.Element => {
         );
     };
 
-    const { blocks, title, more, history, rej, metadata, onPageChange, total } = props;
+    const { blocks, title, more, history, rej, metadata, onPageChange, total, className } = props;
     const full = [i18n.t('height'), i18n.t('proposer'), i18n.t('transactions'), i18n.t('time')];
     const simplified = [i18n.t('height'), i18n.t('transactions'), i18n.t('time')];
 
     return (
-        <Card withoutPadding className="mb-5 pb-3">
+        <Card withoutPadding className={`pb-3 ${className}`}>
             <div className="d-flex justify-content-between">
                 {title && (
                     <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">

@@ -127,21 +127,32 @@ const MainLayout = (props: IProps): JSX.Element => {
                                 <img alt="logo" src={logo} /> <h1>Explorer</h1>
                             </Link>
                         </div>
-                        <div className="ms-sm-5 ms-3 button-wallet">
+                        <Link className="nav-title ms-lg-5 ms-4" to={NavigationConstants.BEAMS}>
+                            {i18n.t('beams')}
+                        </Link>
+                        <Link className="nav-title ms-lg-5 ms-4" to={NavigationConstants.ASSETS}>
+                            {i18n.t('assets')}
+                        </Link>
+                        <Link className="nav-title ms-lg-5 ms-4" to={NavigationConstants.PARAMETERS}>
+                            {i18n.t('parameters')}
+                        </Link>
+                        <div className="ms-lg-5 ms-4 button-wallet">
                             <a href={NavigationConstants.WALLET} rel="noreferrer" target="_blank">
                                 <img alt="wallet" src={walletBis} />
                                 {i18n.t('webWallet')}
                             </a>
                         </div>
                     </div>
-                    <div className="d-flex align-items-center flex-wrap-reverse">
-                        <span className="copyright">{i18n.t('copyright')}</span>
-                        <a href={NavigationConstants.DISCORD} rel="noreferrer" target="_blank">
-                            <img alt="discord" src={discord} className="link-icon" />
-                        </a>
-                        <a href={NavigationConstants.GITHUB} rel="noreferrer" target="_blank">
-                            <img alt="github" src={github} className="ms-2 link-icon" />
-                        </a>
+                    <div className="d-none d-sm-flex align-items-center flex-column-reverse flex-md-row">
+                        <span className="copyright mt-2 mt-md-0">{i18n.t('copyright')}</span>
+                        <div>
+                            <a href={NavigationConstants.DISCORD} rel="noreferrer" target="_blank">
+                                <img alt="discord" src={discord} className="link-icon" />
+                            </a>
+                            <a href={NavigationConstants.GITHUB} rel="noreferrer" target="_blank">
+                                <img alt="github" src={github} className="ms-2 link-icon" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </footer>
