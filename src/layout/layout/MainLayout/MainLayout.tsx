@@ -119,7 +119,7 @@ const MainLayout = (props: IProps): JSX.Element => {
                 {renderTestnetHeader()}
                 <div className="container">{children}</div>
             </div>
-            <footer>
+            <footer className="mt-5">
                 <div className="container-fluid d-flex align-items-center justify-content-between">
                     <div className="d-flex align-items-center">
                         <div className="logo">

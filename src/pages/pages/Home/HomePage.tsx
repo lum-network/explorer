@@ -15,20 +15,23 @@ const HomePage = (): JSX.Element | null => {
     }
 
     return (
-        <div className="row mt-5">
-            <div className="col-12 col-xxl-6 mb-4">
+        <div className="row mt-3 g-xxl-5 g-4">
+            <div className="col-12">
                 <Lum />
             </div>
-            <div className="col-12 col-xxl-6 mb-4">
+            <div className="col-12 col-xxl-6">
+                <Lumki />
+            </div>
+            <div className="col-12 col-xxl-6">
                 <Lumki />
             </div>
             <div className="col-12">
-                <Kpi className="mb-5" types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME, KpiType.BONDED_TOKEN, KpiType.INFLATION]} />
+                <Kpi types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME, KpiType.BONDED_TOKEN, KpiType.INFLATION]} />
             </div>
-            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+            <div className="col-12 col-xxl-6">
                 <BlocksList more title blocks={blocks.slice(0, 5)} />
             </div>
-            <div className="col-12 col-xxl-6 mb-5">
+            <div className="col-12 col-xxl-6">
                 <TransactionsList more title rej transactions={transactions.slice(0, 5)} />
             </div>
         </div>
