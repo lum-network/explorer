@@ -348,7 +348,7 @@ const Kpi = (props: IProps): JSX.Element => {
 
     const { types, className } = props;
     return (
-        <div className={`row g-4 ${className}`}>
+        <div className={`row g-3 g-xxl-4 ${className}`}>
             {types.map((value, index) => (
                 <div key={index} className="col-lg-3 col-sm-6">
                     {renderCard(value)}

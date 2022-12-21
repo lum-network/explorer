@@ -46,15 +46,14 @@ const HomePage = (): JSX.Element | null => {
             <div className="col-12 col-xxl-6">
                 <Lumki />
             </div>
-            <h1 className="my-2 placeholder-image">{i18n.t('overview')}</h1>
             <div className="col-12">
+                <h1 className="mb-2 placeholder-image">{i18n.t('overview')}</h1>
                 <Kpi types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME, KpiType.BONDED_TOKEN, KpiType.INFLATION, KpiType.TOTAL_REVIEWS, KpiType.MERCHANTS, KpiType.REWARDS, KpiType.BEST_REWARD_EVER]} />
             </div>
-            <h1 className="mb-2 placeholder-image">{i18n.t('lumsValue')}</h1>
-            <div className="col-12 mb-5">
+            <div className="col-12">
+                <h1 className="mb-2 placeholder-image">{i18n.t('lumsValue')}</h1>
                 <LineChart timestamp yAxisTitle={[i18n.t('price')]} color={['#149CF577']} loading={loadingAssetValue} data={[assetValue]} />
             </div>
-            <div className="col-12 col-xxl-6">
             {/*<h1 className="mb-2 placeholder-image">{i18n.t('rewards')}</h1>*/}
             {/*<div className="col-12 mb-3">*/}
             {/*    <Kpi types={[KpiType.REWARDS, KpiType.REWARD_AVERAGE, KpiType.BEST_REWARD_EVER, KpiType.BEST_REWARD_TODAY]} />*/}
@@ -85,7 +84,7 @@ const HomePage = (): JSX.Element | null => {
             {/*        <ColumnChart data={rewardsSumColumn} />*/}
             {/*    </div>*/}
             {/*)}*/}
-            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+            <div className="col-12 col-xxl-6">
                 <BlocksList more title blocks={blocks.slice(0, 5)} />
             </div>
             <div className="col-12 col-xxl-6">
