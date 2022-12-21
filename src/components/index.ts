@@ -16,3 +16,9 @@ export { default as SmallerDecimal } from './components/SmallerDecimal/SmallerDe
 export { default as VoteOption } from './components/VoteOption/VoteOption';
 export { default as VestingList } from './components/vesting/VestingList/VestingList';
 export { default as Rating } from './components/Rating/Rating';
+export { default as LineChart } from './components/charts/LineChart/LineChart';
+export { default as ColumnChart } from './components/charts/ColumnChart/ColumnChart';
+export { default as MerchantsOTW } from './components/charts/MerchantsOTW/MerchantsOTW';
+export { default as LastRewards } from './components/charts/LastRewards/LastRewards';
+export { default as RewardsCalendar } from './components/charts/RewardsCalendar/RewardsCalendar';
+export { default as BestRewardedWallets } from './components/charts/BestRewardedWallets/BestRewardedWallets';

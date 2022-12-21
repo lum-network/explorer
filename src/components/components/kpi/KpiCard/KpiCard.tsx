@@ -8,15 +8,16 @@ interface IProps {
     title: string;
     logo?: string;
     additionalInfo?: string;
+    color?: string;
 }
 
 const KpiCard = (props: IProps): JSX.Element => {
-    const { className, children, title, logo, additionalInfo } = props;
+    const { className, children, title, logo, additionalInfo, color } = props;
 
     return (
         <Card withoutPadding className={`mb-3 p-4 ${className}`}>
-            <h4 className="mb-3">
-                {logo && <img alt="logo" src={logo} />} {title}
+            <h4 className="mb-3" style={{ color: color }}>
+                {logo && <img style={{ filter: color ? 'inherit' : '' }} alt="logo" src={logo} />} {title}
             </h4>
             <div className="d-flex flex-row justify-content-between align-items-start">
                 <h6>{children}</h6>
