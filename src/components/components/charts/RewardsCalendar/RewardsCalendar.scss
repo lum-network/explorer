@@ -1,0 +1,156 @@
+@import 'src/frontend-elements/styles/main';
+
+.rewards-calendar .tiles {
+    position: relative;
+    border: none;
+    background-color: transparent;
+    margin-top: 2rem;
+    overflow: visible !important;
+    cursor: default !important;
+    :before {
+        content: '';
+        background-color: transparent;
+        position: absolute;
+        z-index: -1;
+        top: -2px;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%);
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+}
+
+.rewards-calendar .tiles-0 {
+    color: #bbbbbb;
+}
+
+.rewards-calendar .tiles-5 {
+    color: black;
+
+    :before {
+        background-color: rgba(240, 100, 81, 0.2);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        color: white;
+    }
+}
+
+.rewards-calendar .tiles-10 {
+    color: black;
+
+    :before {
+        background-color: rgba(240, 100, 81, 0.4);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        color: white;
+    }
+}
+
+.rewards-calendar .tiles-15 {
+    color: black;
+
+    :before {
+        background-color: rgba(240, 100, 81, 0.6);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        color: white;
+    }
+}
+
+.rewards-calendar .tiles-20 {
+    color: white;
+
+    :before {
+        background-color: rgba(240, 100, 81, 0.8);
+    }
+}
+
+.rewards-calendar .tiles-25 {
+    color: white;
+
+    :before {
+        background-color: rgba(240, 100, 81, 1);
+    }
+}
+
+.rewards-calendar .reward-count-tile {
+    height: 18px;
+    width: 18px;
+
+    &.tile-5 {
+        background-color: rgba(240, 100, 81, 0.2);
+    }
+
+    &.tile-10 {
+        background-color: rgba(240, 100, 81, 0.4);
+    }
+
+    &.tile-15 {
+        background-color: rgba(240, 100, 81, 0.6);
+    }
+
+    &.tile-20 {
+        background-color: rgba(240, 100, 81, 0.8);
+    }
+
+    &.tile-25 {
+        background-color: rgba(240, 100, 81, 1);
+    }
+}
+
+.react-calendar__navigation {
+    display: flex;
+    align-items: center;
+    background-color: #f2f3f7;
+    border-radius: 24px;
+    padding: 8px 10px;
+    margin-bottom: 1rem;
+}
+
+.react-calendar__navigation button {
+    border: none;
+}
+
+.react-calendar__navigation__label {
+    background-color: transparent;
+}
+
+.react-calendar__navigation__arrow {
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+.react-calendar__navigation__prev-button,
+.react-calendar__navigation__next2-button {
+    margin-left: 0.5rem;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    text-align: center;
+    & abbr {
+        text-decoration: none !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .react-calendar__navigation {
+        background-color: black;
+    }
+
+    .react-calendar__navigation__label__labelText {
+        color: white;
+    }
+
+    .react-calendar__navigation__arrow {
+        background-color: $color-primary;
+        color: white;
+    }
+}

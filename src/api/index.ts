@@ -1,7 +1,7 @@
 import * as ApiSearch from './api/search';
 
 import { HttpClient } from 'utils';
-import { ApiConstants } from 'constant';
+import { ApiConstants, ChartOptions, ChartTypes } from 'constant';
 import {
     AccountModel,
     BeamModel,
@@ -17,8 +17,10 @@ import {
     VotesResultModel,
     ProposalVotersModel,
     ProposalDepositorsModel,
+    ChartDataModel,
 } from 'models';
 import { RedelegationModel, UnbondingModel } from '../models/models/account';
+import moment from 'moment';
 
 class ExplorerApi extends HttpClient {
     private static instance?: ExplorerApi;
@@ -101,6 +103,27 @@ class ExplorerApi extends HttpClient {
 
     public getDepositors = (id: string, page = 0) =>
         this.request<ProposalDepositorsModel[]>({ url: `${ApiConstants.GOVERNANCE_URL}/${ApiConstants.PROPOSALS_URL}/${id}/depositors?page=${page}` }, ProposalDepositorsModel);
+
+    // Charts
+
+    public postChart = (type: ChartTypes, options?: ChartOptions) =>
+        this.request<ChartDataModel[]>(
+            {
+                url: `${ApiConstants.CHART_URL}`,
+                method: 'POST',
+                data: {
+                    type,
+                    end_at: moment(options?.endAt).format('YYYY-MM-DD'),
+                    start_at: options?.daysOffset
+                        ? moment(options?.startAt)
+                              .day(-1 * options?.daysOffset)
+                              .format('YYYY-MM-DD')
+                        : moment(options?.startAt).format('YYYY-MM-DD'),
+                    group_type: options?.groupType,
+                },
+            },
+            Object,
+        );
 }
 
 export default ExplorerApi.getInstance();
