@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import { BlocksList, Kpi, LineChart, TransactionsList } from 'components';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { KpiType } from 'constant';
+import { KpiType, NavigationConstants } from 'constant';
 import { i18n } from 'utils';
 
 import Lum from './components/Lum/Lum';
-import Lumki from './components/Lumki/Lumki';
+import PromotionCard from './components/PromotionCard/PromotionCard';
+import skrImage from 'assets/images/skeepersCard.png';
+import dfractImage from 'assets/images/dfractCard.png';
 
 const HomePage = (): JSX.Element | null => {
     const dispatch = useDispatch<Dispatch>();
@@ -41,10 +43,10 @@ const HomePage = (): JSX.Element | null => {
                 <Lum />
             </div>
             <div className="col-12 col-xxl-6">
-                <Lumki />
+                <PromotionCard title={i18n.t('skrTitle')} description={i18n.t('skrDescription')} cta={i18n.t('skrCta')} image={skrImage} link={NavigationConstants.SKEEPERS_REWARDS} />
             </div>
             <div className="col-12 col-xxl-6">
-                <Lumki />
+                <PromotionCard title={i18n.t('dfractTitle')} description={i18n.t('dfractDescription')} cta={i18n.t('dfractCta')} image={dfractImage} link={NavigationConstants.DFRACT} />
             </div>
             <div className="col-12">
                 <h1 className="mb-2 placeholder-image">{i18n.t('overview')}</h1>
