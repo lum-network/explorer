@@ -94,7 +94,7 @@ const ValidatorsPage = (): JSX.Element => {
                 <img alt="validator" src={validatorLogo} /> {i18n.t('validators')}
             </h2>
             {renderKpi()}
-            <Card withoutPadding className="mb-5">
+            <Card withoutPadding className="my-5">
                 {!validators || !validators.length || loading ? <Loading /> : <Table head={head}>{validators.map((value, index) => renderRow(value, index))}</Table>}
             </Card>
         </>
