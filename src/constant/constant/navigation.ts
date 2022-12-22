@@ -13,6 +13,7 @@ export const ASSETS = '/assets';
 
 export const WALLET = `https://wallet.${IS_TESTNET ? 'testnet.' : ''}lum.network`;
 export const GITHUB = 'https://github.com/lum-network/explorer';
-export const LUMKI = 'https://lumki.com';
+export const SKEEPERS_REWARDS = 'https://rwd.skeepers.io';
+export const DFRACT = 'https://dfract.lum.network';
 export const DISCORD = 'https://discord.gg/KwyVvnBcXF';
 export const GITHUB_ASSETS = 'https://github.com/lum-network/public-assets';

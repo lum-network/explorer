@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { KpiType } from 'constant';
-import { KpiCard } from 'components';
+import { KpiCard, SmallerDecimal } from 'components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { AssetsUtils, BlockUtils, i18n, NumbersUtils, ValidatorsUtils } from 'utils';
@@ -13,6 +13,12 @@ import validatorLogo from 'assets/images/validatorDark.svg';
 import clockLogo from 'assets/images/clockDark.svg';
 import bondedTokensLogo from 'assets/images/bondedTokensDark.svg';
 import inflationLogo from 'assets/images/inflationDark.svg';
+import totalReviewsLogo from 'assets/images/totalReviews.svg';
+import merchantsLogo from 'assets/images/merchants.svg';
+import rewardsLogo from 'assets/images/rewards.svg';
+import todayRewardsLogo from 'assets/images/rewardsToday.svg';
+import averageRewardLogo from 'assets/images/averageReward.svg';
+import bestRewardEverLogo from 'assets/images/bestRewardEver.svg';
 
 interface IProps {
     types: KpiType[];
@@ -25,6 +31,7 @@ const Kpi = (props: IProps): JSX.Element => {
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const validators = useSelector((state: RootState) => state.validators.validators);
     const assets = useSelector((state: RootState) => state.core.assets);
+    const kpi = useSelector((state: RootState) => state.core.kpi);
     const params = useSelector((state: RootState) => state.core.params);
 
     const processBlockTime = (blocks: BlocksModel[]): void => {
@@ -99,6 +106,76 @@ const Kpi = (props: IProps): JSX.Element => {
                 return (
                     <KpiCard title={i18n.t('inflation')} logo={inflationLogo}>
                         {numeral(params.mint.inflation.current).format('0.00%')}
+                    </KpiCard>
+                );
+
+            case KpiType.TOTAL_REVIEWS:
+                if (!kpi || !kpi.beams.total) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#FFC107'} title={i18n.t('totalReviews')} logo={totalReviewsLogo}>
+                        {numeral(kpi.beams.total).format('0,0')}
+                    </KpiCard>
+                );
+
+            case KpiType.MERCHANTS:
+                if (!kpi || !kpi.merchants.total) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#3BDCC4'} title={i18n.t('merchants')} logo={merchantsLogo}>
+                        {numeral(kpi.merchants.total).format('0,0')}
+                    </KpiCard>
+                );
+
+            case KpiType.REWARDS:
+                if (!kpi || !kpi.rewards.total) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#F06451'} title={i18n.t('totalRewards')} logo={rewardsLogo}>
+                        {<SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(kpi.rewards.total)).format('0,0.000000')} />}
+                        <span className="ms-1">{LumConstants.LumDenom}</span>
+                    </KpiCard>
+                );
+
+            case KpiType.BEST_REWARD_TODAY:
+                if (!kpi || !kpi.rewards.bestToday) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#F06451'} title={i18n.t('bestRewardToday')} logo={todayRewardsLogo}>
+                        {<SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(kpi.rewards.bestToday)).format('0,0.000000')} />}
+                        <span className="ms-1">{LumConstants.LumDenom}</span>
+                    </KpiCard>
+                );
+
+            case KpiType.REWARD_AVERAGE:
+                if (!kpi || !kpi.rewards.average) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#F06451'} title={i18n.t('averageReward')} logo={averageRewardLogo}>
+                        {<SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(kpi.rewards.average)).format('0,0.000000')} />}
+                        <span className="ms-1">{LumConstants.LumDenom}</span>
+                    </KpiCard>
+                );
+
+            case KpiType.BEST_REWARD_EVER:
+                if (!kpi || !kpi.rewards.bestAth) {
+                    return null;
+                }
+
+                return (
+                    <KpiCard color={'#F06451'} title={i18n.t('bestRewardEver')} logo={bestRewardEverLogo}>
+                        {<SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(kpi.rewards.bestAth)).format('0,0.000000')} />}
+                        <span className="ms-1">{LumConstants.LumDenom}</span>
                     </KpiCard>
                 );
 
@@ -207,15 +284,15 @@ const Kpi = (props: IProps): JSX.Element => {
             case KpiType.QUORUM:
                 // FIXME: correctly compute those hex values
 
-                return <KpiCard title={i18n.t('quorum')}>0.00</KpiCard>;
+                return <KpiCard title={i18n.t('quorum')}>33.40%</KpiCard>;
             case KpiType.THRESHOLD:
                 // FIXME: correctly compute those hex values
 
-                return <KpiCard title={i18n.t('threshold')}>0.00</KpiCard>;
+                return <KpiCard title={i18n.t('threshold')}>50%</KpiCard>;
             case KpiType.VETO_THRESHOLD:
                 // FIXME: correctly compute those hex values
 
-                return <KpiCard title={i18n.t('vetoThreshold')}>0.00</KpiCard>;
+                return <KpiCard title={i18n.t('vetoThreshold')}>33.40%</KpiCard>;
             case KpiType.BASE_PROPOSER_REWARD:
                 if (!params || !params.distribution || !params.distribution.baseProposerReward) {
                     return null;
@@ -271,7 +348,7 @@ const Kpi = (props: IProps): JSX.Element => {
 
     const { types, className } = props;
     return (
-        <div className={`row mb-4 ${className}`}>
+        <div className={`row g-3 g-xxl-4 ${className}`}>
             {types.map((value, index) => (
                 <div key={index} className="col-lg-3 col-sm-6">
                     {renderCard(value)}

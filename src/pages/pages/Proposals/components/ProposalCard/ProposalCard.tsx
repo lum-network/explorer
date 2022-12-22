@@ -144,7 +144,7 @@ const ProposalCard = ({ proposal }: IProps): JSX.Element => {
             <div className="mt-5 row">
                 <div className="col-12 mb-3">
                     <h4>{i18n.t('proposer')}</h4>
-                    <p>coming soon</p>
+                    <p>Coming soon</p>
                 </div>
                 {renderDates()}
                 <div className="col-12 mt-3">

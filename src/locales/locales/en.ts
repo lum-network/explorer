@@ -98,11 +98,13 @@ export default {
     averageReward: 'Average reward',
     bestRewardEver: 'Best reward ever',
     rewardsThisMonth: 'Rewards this month',
+    rewardsPerMonth: 'Rewards per month',
     rewardsAverage: 'Rewards average',
     bestRewardedWallet: 'Best rewarded wallet',
     lastRewards: 'Last rewards',
     reviews: 'Reviews',
     merchantsOTW: 'Merchants of the week',
+    rewardsAndReviews: 'Rewards and reviews',
 
     // Transaction Messages
     messages: 'Messages',
@@ -286,10 +288,15 @@ export default {
     assetName: 'Name',
     totalSupply: 'Total supply',
 
-    // Lumki
-    lumWallet: 'Lumki',
-    walletDescription: 'Available on the App Store<br/>and on the Google Store',
-    accessLumWallet: 'Discover Lumki',
+    // Skeepers Rewards
+    skrTitle: 'Skeepers Rewards',
+    skrDescription: 'Get rewarded<br/>for your reviews',
+    skrCta: 'Discover Skeepers Rewards',
+
+    // DFract
+    dfractTitle: 'DFract',
+    dfractDescription: 'The first Cosmos<br />Ecosystem yield earning index',
+    dfractCta: 'Discover DFract',
 
     // Errors
     errorOccurred: 'An error occurred',
