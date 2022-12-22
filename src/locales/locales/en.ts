@@ -278,10 +278,15 @@ export default {
     assetName: 'Name',
     totalSupply: 'Total supply',
 
-    // Lumki
-    lumWallet: 'Skeepers Rewards',
-    walletDescription: 'Get rewarded<br/>for your reviews',
-    accessLumWallet: 'Skeepers Rewards',
+    // Skeepers Rewards
+    skrTitle: 'Skeepers Rewards',
+    skrDescription: 'Get rewarded<br/>for your reviews',
+    skrCta: 'Discover Skeepers Rewards',
+
+    // DFract
+    dfractTitle: 'DFract',
+    dfractDescription: 'The first Cosmos<br />Ecosystem yield earning index',
+    dfractCta: 'Discover DFract',
 
     // Errors
     errorOccurred: 'An error occurred',

@@ -15,7 +15,7 @@ const KpiCard = (props: IProps): JSX.Element => {
     const { className, children, title, logo, additionalInfo, color } = props;
 
     return (
-        <Card withoutPadding className={`mb-3 p-4 ${className}`}>
+        <Card withoutPadding className={`p-4 ${className}`}>
             <h4 className="mb-3" style={{ color: color }}>
                 {logo && <img style={{ filter: color ? 'inherit' : '' }} alt="logo" src={logo} />} {title}
             </h4>

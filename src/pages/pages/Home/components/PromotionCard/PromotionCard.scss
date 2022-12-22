@@ -1,0 +1,38 @@
+@import 'src/frontend-elements/styles/main';
+
+.promotion-title {
+    font-weight: $semibold;
+}
+
+a.app-btn:hover {
+    color: $color-white;
+}
+
+@include media-breakpoint-up(sm) {
+    .promotion-image-container {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .promotion-image {
+        object-fit: cover;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        height: 100%;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .promotion-image-container {
+        order: 0;
+    }
+
+    .promotion-image {
+        object-fit: cover;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        width: 100%;
+    }
+}

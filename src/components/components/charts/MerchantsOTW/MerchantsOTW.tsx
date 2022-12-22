@@ -3,7 +3,7 @@ import { Card } from 'frontend-elements';
 import star from 'assets/images/starFull.svg';
 import './MerchantsOTW.scss';
 import { i18n } from 'utils';
-import { LUMKI } from 'constant/constant/navigation';
+import { NavigationConstants } from 'constant';
 
 const shops = [
     {
@@ -50,7 +50,7 @@ const MerchantsOTW = (): JSX.Element => {
                 <div className="d-flex flex-row align-items-center text-truncate">
                     <div className={`rank ${index === 0 ? 'first' : ''} me-2 me-sm-4`}>{index + 1}</div>
                     <img src={shop.logo} alt={shop.name} className="d-none d-sm-block me-2 me-sm-4" />
-                    <a href={`${LUMKI}/shops/${shop.storeIdUrlSafe}`} target="_blank" rel="noreferrer" className="text-truncate">
+                    <a href={`${NavigationConstants.SKEEPERS_REWARDS}/shops/${shop.storeIdUrlSafe}`} target="_blank" rel="noreferrer" className="text-truncate">
                         {shop.name}
                     </a>
                 </div>

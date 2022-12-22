@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import { BlocksList, Kpi, LineChart, TransactionsList } from 'components';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { KpiType } from 'constant';
+import { KpiType, NavigationConstants } from 'constant';
 import { i18n } from 'utils';
 
 import Lum from './components/Lum/Lum';
-import Lumki from './components/Lumki/Lumki';
+import PromotionCard from './components/PromotionCard/PromotionCard';
+import skrImage from 'assets/images/skeepersCard.png';
+import dfractImage from 'assets/images/dfractCard.png';
 
 const HomePage = (): JSX.Element | null => {
     const dispatch = useDispatch<Dispatch>();
@@ -36,19 +38,22 @@ const HomePage = (): JSX.Element | null => {
     }
 
     return (
-        <div className="row mt-5">
-            <div className="col-12 col-xxl-6 mb-4">
+        <div className="row mt-3 g-xxl-5 g-4">
+            <div className="col-12 col-xl-10">
                 <Lum />
             </div>
-            <div className="col-12 col-xxl-6 mb-4">
-                <Lumki />
+            <div className="col-12 col-lg-10 col-xxl-6">
+                <PromotionCard title={i18n.t('skrTitle')} description={i18n.t('skrDescription')} cta={i18n.t('skrCta')} image={skrImage} link={NavigationConstants.SKEEPERS_REWARDS} />
             </div>
-            <h1 className="my-2 placeholder-image">{i18n.t('overview')}</h1>
+            <div className="col-12 col-lg-10 col-xxl-6">
+                <PromotionCard title={i18n.t('dfractTitle')} description={i18n.t('dfractDescription')} cta={i18n.t('dfractCta')} image={dfractImage} link={NavigationConstants.DFRACT} />
+            </div>
             <div className="col-12">
+                <h1 className="mb-2 placeholder-image">{i18n.t('overview')}</h1>
                 <Kpi types={[KpiType.BLOCK_HEIGHT, KpiType.BLOCK_TIME, KpiType.BONDED_TOKEN, KpiType.INFLATION, KpiType.TOTAL_REVIEWS, KpiType.MERCHANTS, KpiType.REWARDS, KpiType.BEST_REWARD_EVER]} />
             </div>
-            <h1 className="mb-2 placeholder-image">{i18n.t('lumsValue')}</h1>
-            <div className="col-12 mb-5">
+            <div className="col-12">
+                <h1 className="mb-2 placeholder-image">{i18n.t('lumsValue')}</h1>
                 <LineChart timestamp yAxisTitle={[i18n.t('price')]} color={['#149CF577']} loading={loadingAssetValue} data={[assetValue]} />
             </div>
             {/*<h1 className="mb-2 placeholder-image">{i18n.t('rewards')}</h1>*/}
@@ -81,10 +86,10 @@ const HomePage = (): JSX.Element | null => {
             {/*        <ColumnChart data={rewardsSumColumn} />*/}
             {/*    </div>*/}
             {/*)}*/}
-            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+            <div className="col-12 col-xxl-6">
                 <BlocksList more title blocks={blocks.slice(0, 5)} />
             </div>
-            <div className="col-12 col-xxl-6 mb-4 mb-xxl-5">
+            <div className="col-12 col-xxl-6">
                 <TransactionsList more title rej transactions={transactions.slice(0, 5)} />
             </div>
         </div>
