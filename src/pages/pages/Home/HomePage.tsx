@@ -39,13 +39,13 @@ const HomePage = (): JSX.Element | null => {
 
     return (
         <div className="row mt-3 g-xxl-5 g-4">
-            <div className="col-12 col-xl-10">
+            <div className="col-12">
                 <Lum />
             </div>
-            <div className="col-12 col-lg-10 col-xxl-6">
+            <div className="col-12 col-xxl-6">
                 <PromotionCard title={i18n.t('skrTitle')} description={i18n.t('skrDescription')} cta={i18n.t('skrCta')} image={skrImage} link={NavigationConstants.SKEEPERS_REWARDS} />
             </div>
-            <div className="col-12 col-lg-10 col-xxl-6">
+            <div className="col-12 col-xxl-6">
                 <PromotionCard title={i18n.t('dfractTitle')} description={i18n.t('dfractDescription')} cta={i18n.t('dfractCta')} image={dfractImage} link={NavigationConstants.DFRACT} />
             </div>
             <div className="col-12">
