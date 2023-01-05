@@ -43,46 +43,42 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
         }
     }, [beam]);
 
-    const renderInformation = (): JSX.Element => {
-        if (loading) {
-            return (
-                <Card className="mb-5">
-                    <Loading />
-                </Card>
-            );
-        }
-
-        return (
-            <>
-                <h4>{i18n.t('beamHistory')}</h4>
-                <Card className="d-flex flex-column mt-4 mb-5 beam-history-card">
-                    {beam.status === BeamsStatus.CLOSED && <BeamClose date={moment(beam.closeAt).utc().format()} />}
-                    {claimEvent && <BeamClaim date={moment(claimEvent.time).utc().format()} address={claimEvent.value.claimerAddress || beam.claimAddress} amount={beam.amount} />}
-                    {updateEvents &&
-                        updateEvents.map((event, index) => (
-                            <BeamUpdate key={`beam-${beam.id}-update-${index}`} date={moment(event.time).utc().format()} reward={NumbersUtils.convertUnitNumber(event.value.amount?.amount || '')} />
-                        ))}
-                    {openEvent && (
-                        <BeamOpen
-                            date={moment(beam.createdAt).utc().format()}
-                            withLine={false}
-                            infos={{
-                                amount: openEvent.value.amount,
-                            }}
-                        />
-                    )}
-                </Card>
-            </>
-        );
-    };
-
     return (
         <div className="beam">
             <h2 className="mt-3 mb-4">
                 <img alt="Beam" src={beamLogo} /> {i18n.t('beamDetails')}&nbsp;&nbsp;
                 {beam ? <Badge beamsStatus={beam.status} /> : null}
             </h2>
-            {renderInformation()}
+            {loading ? (
+                <Card className="mb-5">
+                    <Loading />
+                </Card>
+            ) : (
+                <>
+                    <h4>{i18n.t('beamHistory')}</h4>
+                    <Card className="d-flex flex-column mt-4 mb-5 beam-history-card">
+                        {beam && beam.status === BeamsStatus.CLOSED && <BeamClose date={moment(beam.closeAt).utc().format()} />}
+                        {claimEvent && <BeamClaim date={moment(claimEvent.time).utc().format()} address={claimEvent.value.claimerAddress || beam.claimAddress} amount={beam.amount} />}
+                        {updateEvents &&
+                            updateEvents.map((event, index) => (
+                                <BeamUpdate
+                                    key={`beam-${beam.id}-update-${index}`}
+                                    date={moment(event.time).utc().format()}
+                                    reward={NumbersUtils.convertUnitNumber(event.value.amount?.amount || '')}
+                                />
+                            ))}
+                        {openEvent && (
+                            <BeamOpen
+                                date={moment(beam.createdAt).utc().format()}
+                                withLine={false}
+                                infos={{
+                                    amount: openEvent.value.amount,
+                                }}
+                            />
+                        )}
+                    </Card>
+                </>
+            )}
         </div>
     );
 };
