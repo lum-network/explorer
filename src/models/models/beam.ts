@@ -187,6 +187,57 @@ class DataResponse {
 }
 
 @Exclude()
+class BeamEventValue {
+    @Expose({ name: 'id' })
+    id: string;
+
+    @Expose({ name: 'secret' })
+    secret?: string;
+
+    @Expose({ name: 'amount' })
+    @Type(() => CoinModel)
+    amount?: CoinModel;
+
+    @Expose({ name: 'status' })
+    status?: number;
+
+    @Expose({ name: 'hideContent' })
+    hideContent?: boolean;
+
+    @Expose({ name: 'cancelReason' })
+    cancelReason?: string;
+
+    @Expose({ name: 'claimerAddress' })
+    claimerAddress?: string;
+
+    @Expose({ name: 'claimExpiresAtBlock' })
+    claimExpiresAtBlock?: number;
+
+    @Expose({ name: 'closesAtBlock' })
+    closesAtBlock?: number;
+
+    @Expose({ name: 'updaterAddress' })
+    updaterAddress?: string;
+
+    @Expose({ name: 'data' })
+    @Type(() => DataResponse)
+    data?: DataResponse;
+}
+
+@Exclude()
+export class EventModel {
+    @Expose({ name: 'time' })
+    time: string;
+    
+    @Expose({ name: 'type' })
+    type: string;
+
+    @Expose({ name: 'value' })
+    @Type(() => BeamEventValue)
+    value: BeamEventValue;
+}
+
+@Exclude()
 class BeamModel {
     @Expose({ name: 'amount' })
     amount: CoinModel;
@@ -239,6 +290,10 @@ class BeamModel {
     @Expose({ name: 'data' })
     @Type(() => DataResponse)
     data: DataResponse;
+
+    @Expose({ name: 'event' })
+    @Type(() => EventModel)
+    event: EventModel[];
 }
 
 export default BeamModel;

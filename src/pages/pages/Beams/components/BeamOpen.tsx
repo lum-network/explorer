@@ -1,15 +1,19 @@
 import React from 'react';
+
 import { Rating } from 'components';
 import { Card } from 'frontend-elements';
+import { i18n, NumbersUtils } from 'utils';
+import { CoinModel } from 'models';
+
 import beamRatingLogo from 'assets/images/beamUpdateRating.svg';
 import beamRewardLogo from 'assets/images/beamReward.svg';
+import lumLogo from 'assets/images/lum.svg';
 
 import BeamStatusUpdateCard from './BeamStatusUpdateCard';
 import BeamStatusHeader from './BeamStatusHeader';
-import { i18n } from 'utils';
 
 interface Props {
-    infos: { merchant: string; verifier: string; rating: number; amount: number };
+    infos: { merchantIcon?: string; verifierIcon?: string; rating?: number; amount?: CoinModel };
     date: string;
     withLine?: boolean;
 }
@@ -21,23 +25,29 @@ const BeamOpen = ({ date, infos, withLine }: Props): JSX.Element => {
             <BeamStatusUpdateCard withLine={withLine}>
                 <Card className="status-update-card">
                     <div>
-                        <div className="d-flex flex-row align-items-center mb-5">
-                            <div className="status-update-icon"></div>
-                            <h4 className="fw-normal">{i18n.t('beamMerchantAdded')}</h4>
-                        </div>
-                        <div className="d-flex flex-row align-items-center mb-5">
-                            <div className="status-update-icon"></div>
-                            <h4 className="fw-normal">{i18n.t('beamVerifierAdded')}</h4>
-                        </div>
-                        <div className="d-flex flex-row align-items-center mb-5">
-                            <div className="status-update-icon">
-                                <img src={beamRatingLogo} />
+                        {infos.merchantIcon && (
+                            <div className="d-flex flex-row align-items-center mb-5">
+                                <div className="status-update-icon"></div>
+                                <h4 className="fw-normal">{i18n.t('beamMerchantAdded')}</h4>
                             </div>
-                            <div className="d-flex flex-row align-items-center beam ratings-number">
-                                {`${infos.rating}/5`}
-                                <Rating className="ms-4 mb-2" size={26} initialRating={infos.rating} />
+                        )}
+                        {infos.verifierIcon && (
+                            <div className="d-flex flex-row align-items-center mb-5">
+                                <div className="status-update-icon"></div>
+                                <h4 className="fw-normal">{i18n.t('beamVerifierAdded')}</h4>
                             </div>
-                        </div>
+                        )}
+                        {infos.rating && (
+                            <div className="d-flex flex-row align-items-center mb-5">
+                                <div className="status-update-icon">
+                                    <img src={beamRatingLogo} />
+                                </div>
+                                <div className="d-flex flex-row align-items-center beam ratings-number">
+                                    {`${infos.rating}/5`}
+                                    <Rating className="ms-4 mb-2" size={26} initialRating={infos.rating} />
+                                </div>
+                            </div>
+                        )}
                         <div className="d-flex flex-row align-items-center">
                             <div className="status-update-icon">
                                 <img src={beamRewardLogo} />
@@ -45,7 +55,12 @@ const BeamOpen = ({ date, infos, withLine }: Props): JSX.Element => {
                             <h4 className="fw-normal">{i18n.t('beamRewardAdded')}</h4>
                         </div>
                     </div>
-                    <h1 className="display-4 mt-4 mt-lg-0 ms-2 ms-lg-0">{infos.amount}$</h1>
+                    <h1 className="display-4 mt-4 mt-lg-0 ms-2 ms-lg-0">
+                        {infos.amount ? NumbersUtils.formatNumber(infos.amount, true) : 0}
+                        <span className="lum-logo ms-2">
+                            <img src={lumLogo} height={28} />
+                        </span>
+                    </h1>
                 </Card>
             </BeamStatusUpdateCard>
         </>

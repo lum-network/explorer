@@ -17,4 +17,6 @@ export { default as CoinModel } from './models/coin';
 export { default as ChartDataModel } from './models/chart';
 
 import * as MessageModel from './models/message';
-export { MessageModel };
+import { EventModel } from './models/beam';
+
+export { EventModel, MessageModel };

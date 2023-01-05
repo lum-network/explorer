@@ -1,19 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { NavigationConstants } from 'constant';
 import { Card } from 'frontend-elements';
+import { CoinModel } from 'models';
+import { i18n, NumbersUtils, StringsUtils } from 'utils';
+import { useWindowSize } from 'utils/utils/hooks';
+
 import lumLogo from 'assets/images/lum.svg';
 import walletLogo from 'assets/images/beamWallet.svg';
 import beamClaimLogo from 'assets/images/beamClaim.svg';
+
 import BeamStatusUpdateCard from './BeamStatusUpdateCard';
 import BeamStatusHeader from './BeamStatusHeader';
-import { i18n } from 'utils';
-import { Link } from 'react-router-dom';
-import { NavigationConstants } from 'constant';
-import { useWindowSize } from 'utils/utils/hooks';
-import { trunc } from 'utils/utils/strings';
 
 interface Props {
     address: string;
-    amount: number;
+    amount: CoinModel;
     date: string;
 }
 
@@ -31,11 +34,11 @@ const BeamClaim = ({ address, amount, date }: Props): JSX.Element => {
                         </div>
                         <div>
                             <h4 className="mb-3">{i18n.t('walletDestination')}</h4>
-                            <Link to={`${NavigationConstants.ACCOUNT}/${address}`}>{winSizes.width <= 992 ? trunc(address) : address}</Link>
+                            <Link to={`${NavigationConstants.ACCOUNT}/${address}`}>{winSizes.width <= 992 ? StringsUtils.trunc(address) : address}</Link>
                         </div>
                     </div>
                     <h1 className="display-4 mt-4 mt-lg-0 ms-2 ms-lg-0">
-                        {amount}
+                        {NumbersUtils.formatNumber(amount, true)}
                         <span className="lum-logo ms-2">
                             <img src={lumLogo} height={28} />
                         </span>

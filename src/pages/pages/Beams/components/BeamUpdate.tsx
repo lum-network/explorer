@@ -19,47 +19,51 @@ interface Props {
 }
 
 const BeamUpdate = ({ reward, description, image, rating, date }: Props): JSX.Element => {
+    const isThereNewInfos = reward || description || image || rating;
+
     return (
         <>
             <BeamStatusHeader date={date} status={i18n.t('update')} />
             <BeamStatusUpdateCard>
-                <Card className="status-update-card">
-                    <div>
-                        {description && (
-                            <div className="d-flex flex-row align-items-center mb-5">
-                                <div className="status-update-icon">
-                                    <img src={beamDescLogo} />
+                {isThereNewInfos ? (
+                    <Card className="status-update-card">
+                        <div>
+                            {!!description && (
+                                <div className="d-flex flex-row align-items-center mb-5">
+                                    <div className="status-update-icon">
+                                        <img src={beamDescLogo} />
+                                    </div>
+                                    <h4 className="fw-normal">{i18n.t('beamDescriptionAdded')}</h4>
                                 </div>
-                                <h4 className="fw-normal">{i18n.t('beamDescriptionAdded')}</h4>
-                            </div>
-                        )}
-                        {image && (
-                            <div className="d-flex flex-row align-items-center mb-5">
-                                <div className="status-update-icon">
-                                    <img src={beamImageLogo} />
+                            )}
+                            {!!image && (
+                                <div className="d-flex flex-row align-items-center mb-5">
+                                    <div className="status-update-icon">
+                                        <img src={beamImageLogo} />
+                                    </div>
+                                    <h4 className="fw-normal">{i18n.t('beamImageAdded')}</h4>
                                 </div>
-                                <h4 className="fw-normal">{i18n.t('beamImageAdded')}</h4>
-                            </div>
-                        )}
-                        {rating && (
-                            <div className="d-flex flex-row align-items-center mb-5">
-                                <div className="status-update-icon">
-                                    <img src={beamRatingLogo} />
+                            )}
+                            {!!rating && (
+                                <div className="d-flex flex-row align-items-center mb-5">
+                                    <div className="status-update-icon">
+                                        <img src={beamRatingLogo} />
+                                    </div>
+                                    <h4 className="fw-normal">{i18n.t('beamRatingAdded')}</h4>
                                 </div>
-                                <h4 className="fw-normal">{i18n.t('beamRatingAdded')}</h4>
-                            </div>
-                        )}
-                        {reward && (
-                            <div className="d-flex flex-row align-items-center">
-                                <div className="status-update-icon">
-                                    <img src={beamRewardLogo} />
+                            )}
+                            {reward ? (
+                                <div className="d-flex flex-row align-items-center">
+                                    <div className="status-update-icon">
+                                        <img src={beamRewardLogo} />
+                                    </div>
+                                    <h4 className="fw-normal">{i18n.t('beamRewardAdded')}</h4>
                                 </div>
-                                <h4 className="fw-normal">{i18n.t('beamRewardAdded')}</h4>
-                            </div>
-                        )}
-                    </div>
-                    <h1 className="display-4 mt-4 mt-lg-0 ms-2 ms-lg-0">{reward}$</h1>
-                </Card>
+                            ) : null}
+                        </div>
+                        <h1 className="display-4 mt-4 mt-lg-0 ms-2 ms-lg-0">{reward}$</h1>
+                    </Card>
+                ) : null}
             </BeamStatusUpdateCard>
         </>
     );
