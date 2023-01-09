@@ -38,7 +38,13 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
     useEffect(() => {
         if (beam && beam.event) {
             setOpenEvent(beam.event.find((event) => event.type === LumMessages.MsgOpenBeamUrl));
-            setUpdateEvents(beam.event.filter((event) => event.type === LumMessages.MsgUpdateBeamUrl));
+            setUpdateEvents(
+                beam.event
+                    .filter((event) => event.type === LumMessages.MsgUpdateBeamUrl)
+                    .sort((eventA, eventB) => {
+                        return new Date(eventB.time).getTime() - new Date(eventA.time).getTime();
+                    }),
+            );
             setClaimEvent(beam.event.find((event) => event.type === LumMessages.MsgClaimBeamUrl));
         }
     }, [beam]);
@@ -62,6 +68,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                         {updateEvents &&
                             updateEvents.map((event, index) => (
                                 <BeamUpdate
+                                    index={updateEvents.length - index}
                                     key={`beam-${beam.id}-update-${index}`}
                                     date={moment(event.time).utc().format()}
                                     reward={NumbersUtils.convertUnitNumber(event.value.amount?.amount || '')}

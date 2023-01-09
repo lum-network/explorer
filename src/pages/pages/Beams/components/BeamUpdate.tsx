@@ -15,15 +15,16 @@ interface Props {
     description?: string;
     image?: { url: string };
     rating?: number;
+    index: number;
     date: string;
 }
 
-const BeamUpdate = ({ reward, description, image, rating, date }: Props): JSX.Element => {
+const BeamUpdate = ({ index, reward, description, image, rating, date }: Props): JSX.Element => {
     const isThereNewInfos = reward || description || image || rating;
 
     return (
         <>
-            <BeamStatusHeader date={date} status={i18n.t('update')} />
+            <BeamStatusHeader date={date} status={i18n.t('update')} index={index} />
             <BeamStatusUpdateCard>
                 {isThereNewInfos ? (
                     <Card className="status-update-card">
