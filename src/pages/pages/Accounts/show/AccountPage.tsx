@@ -17,6 +17,7 @@ import { LumConstants } from '@lum-network/sdk-javascript';
 import ReactTooltip from 'react-tooltip';
 import AssetsList from '../../../../components/components/AssetsList/AssetsList';
 import { processingAssets } from '../../../../utils/utils/account';
+import Tabs from '../../../../frontend-elements/components/Tabs/Tabs';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -192,20 +193,27 @@ const AccountPage = (props: IProps): JSX.Element => {
 
         return (
             <div className="row mb-5 g-5">
-                <div className="col-12 col-xxl-6 order-0">
+                <div className="col-12 col-xxl-6 order-1 order-xxl-0">
+                    <Card className="mb-5 h-100 min-h-475" withoutPadding>
+                        <Tabs
+                            className="pt-3 d-flex flex-column h-100"
+                            tabs={[
+                                { name: i18n.t('delegations'), id: 0 },
+                                { name: i18n.t('unbondings'), id: 1 },
+                                { name: i18n.t('redelegations'), id: 2 },
+                                { name: i18n.t('vesting'), id: 3 },
+                            ]}
+                            tabsContent={{
+                                0: <DelegationsList metadata={delegationsMetadata} onPageChange={setDelegationsPage} total title delegations={delegations} rewards={allRewards.rewards} />,
+                                1: <UnbondingsList unbondings={unbondings} title />,
+                                2: <RedelegatesList redelegates={redelegations} title />,
+                                3: <VestingList vesting={vesting} title />,
+                            }}
+                        />
+                    </Card>
+                </div>
+                <div className="col-12 col-xxl-6 order-0 order-xxl-1">
                     <AssetsList title head={[i18n.t('name'), i18n.t('amount'), i18n.t('totalValue')]} assets={assets} />
-                </div>
-                <div className="col-12 col-xxl-6">
-                    {allRewards && <DelegationsList metadata={delegationsMetadata} onPageChange={setDelegationsPage} total title delegations={delegations} rewards={allRewards.rewards} />}
-                </div>
-                <div className="col-12 col-xxl-6">
-                    <UnbondingsList unbondings={unbondings} title />
-                </div>
-                <div className="col-12 col-xxl-6">
-                    <RedelegatesList redelegates={redelegations} title />
-                </div>
-                <div className="col-12 col-xxl-6">
-                    <VestingList vesting={vesting} title />
                 </div>
             </div>
         );

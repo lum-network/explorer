@@ -9,7 +9,7 @@ import tickerUnknown from 'assets/images/tickers/ticker_unknown.svg';
 import numeral from 'numeral';
 import SmallerDecimal from '../SmallerDecimal/SmallerDecimal';
 
-type Asset = { amount: number; denom: string };
+export type Asset = { amount: number; denom: string };
 
 interface IProps {
     head: string[];
