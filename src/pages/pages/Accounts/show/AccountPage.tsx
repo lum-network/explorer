@@ -15,6 +15,8 @@ import placeholderTx from 'assets/images/placeholderTx.svg';
 import { AccountUtils, i18n, NumbersUtils } from 'utils';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import ReactTooltip from 'react-tooltip';
+import AssetsList from '../../../../components/components/AssetsList/AssetsList';
+import { processingAssets } from '../../../../utils/utils/account';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -68,9 +70,9 @@ const AccountPage = (props: IProps): JSX.Element => {
             return;
         }
 
-        const { balance, allRewards, totalShares, unbondings, commissions, vesting: vestingAccount, airdrop: airdropAccount } = account;
+        const { balances, allRewards, totalShares, unbondings, commissions, vesting: vestingAccount, airdrop: airdropAccount } = account;
 
-        let available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
+        let available = NumbersUtils.convertUnitNumber(balances.find((balance) => balance.denom === LumConstants.MicroLumDenom)?.amount || '0');
         const reward = NumbersUtils.convertUnitNumber(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0');
         const delegated = NumbersUtils.convertUnitNumber(totalShares);
         const unbonding = NumbersUtils.convertUnitNumber(AccountUtils.sumOfUnbonding(unbondings));
@@ -184,10 +186,15 @@ const AccountPage = (props: IProps): JSX.Element => {
             return null;
         }
 
-        const { delegations, allRewards, unbondings, redelegations, vesting } = account;
+        const { delegations, allRewards, unbondings, redelegations, vesting, balances } = account;
+
+        const assets = processingAssets(balances, total);
 
         return (
-            <div className="row mb-5 g-4 g-xxl-5">
+            <div className="row mb-5 g-5">
+                <div className="col-12 col-xxl-6 order-0">
+                    <AssetsList title head={[i18n.t('name'), i18n.t('amount'), i18n.t('totalValue')]} assets={assets} />
+                </div>
                 <div className="col-12 col-xxl-6">
                     {allRewards && <DelegationsList metadata={delegationsMetadata} onPageChange={setDelegationsPage} total title delegations={delegations} rewards={allRewards.rewards} />}
                 </div>

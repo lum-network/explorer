@@ -8,3 +8,7 @@ export const trunc = (str: string, nb = 6): string => {
 
     return str;
 };
+
+export const capitalize = (str: string): string => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+};
