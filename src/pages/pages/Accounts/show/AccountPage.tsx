@@ -3,8 +3,8 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
-import { DelegationsList, TransactionsList, Tooltip, UnbondingsList, SmallerDecimal, RedelegatesList, VestingList } from 'components';
-import { Card, CodeQr, Loading } from 'frontend-elements';
+import { DelegationsList, TransactionsList, Tooltip, UnbondingsList, SmallerDecimal, RedelegatesList, VestingList, AssetsList } from 'components';
+import { Card, CodeQr, Loading, Tabs } from 'frontend-elements';
 import '../Accounts.scss';
 import copyLogo from 'assets/images/copy.svg';
 import checkLogo from 'assets/images/check.svg';
@@ -15,9 +15,6 @@ import placeholderTx from 'assets/images/placeholderTx.svg';
 import { AccountUtils, i18n, NumbersUtils } from 'utils';
 import { LumConstants } from '@lum-network/sdk-javascript';
 import ReactTooltip from 'react-tooltip';
-import AssetsList from '../../../../components/components/AssetsList/AssetsList';
-import { processingAssets } from '../../../../utils/utils/account';
-import Tabs from '../../../../frontend-elements/components/Tabs/Tabs';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -189,7 +186,7 @@ const AccountPage = (props: IProps): JSX.Element => {
 
         const { delegations, allRewards, unbondings, redelegations, vesting, balances } = account;
 
-        const assets = processingAssets(balances, total);
+        const assets = AccountUtils.processingAssets(balances, total);
 
         return (
             <div className="row mb-5 g-5">

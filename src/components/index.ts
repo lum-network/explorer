@@ -22,4 +22,4 @@ export { default as MerchantsOTW } from './components/charts/MerchantsOTW/Mercha
 export { default as LastRewards } from './components/charts/LastRewards/LastRewards';
 export { default as RewardsCalendar } from './components/charts/RewardsCalendar/RewardsCalendar';
 export { default as BestRewardedWallets } from './components/charts/BestRewardedWallets/BestRewardedWallets';
-export { default as AsssetsList } from './components/AssetsList/AssetsList';
+export { default as AssetsList } from './components/AssetsList/AssetsList';
