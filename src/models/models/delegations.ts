@@ -1,4 +1,5 @@
 import { Expose } from 'class-transformer';
+import CoinModel from "./coin";
 
 class DelegationModel {
     @Expose({ name: 'delegator_address' })
@@ -8,6 +9,8 @@ class DelegationModel {
     validatorAddress?: string;
 
     shares?: string;
+
+    balance?: CoinModel;
 }
 
 export default DelegationModel;
