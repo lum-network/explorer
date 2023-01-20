@@ -1,5 +1,8 @@
 import { CoinModel } from 'models';
 import { UnbondingModel } from 'models/models/account';
+import { LumConstants } from '@lum-network/sdk-javascript';
+import { NumbersUtils } from '../index';
+import { Asset } from 'components/components/AssetsList/AssetsList';
 
 export const sumOfUnbonding = (unbondings: UnbondingModel[]): number => {
     const array = unbondings && unbondings.map((value) => value.entries.reduce((totalEntries, valueEntries) => totalEntries + parseFloat(valueEntries.balance || ''), 0));
@@ -13,4 +16,14 @@ export const sumOfUnbonding = (unbondings: UnbondingModel[]): number => {
 
 export const sumOfAirdrops = (airdrops: CoinModel[]): number => {
     return airdrops.reduce((total, value) => total + parseInt(value.amount), 0);
+};
+
+export const processingAssets = (balances: CoinModel[], totalLum: number): Asset[] => {
+    return balances.map((balance) => {
+        if (balance.denom === LumConstants.MicroLumDenom) {
+            return { ...balance, amount: totalLum };
+        } else {
+            return { ...balance, amount: NumbersUtils.convertUnitNumber(balance.amount) };
+        }
+    });
 };

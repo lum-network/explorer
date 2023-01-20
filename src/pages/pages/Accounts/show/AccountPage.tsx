@@ -3,8 +3,8 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch, RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import accountLogo from 'assets/images/accountDark.svg';
-import { DelegationsList, TransactionsList, Tooltip, UnbondingsList, SmallerDecimal, RedelegatesList, VestingList } from 'components';
-import { Card, CodeQr, Loading } from 'frontend-elements';
+import { DelegationsList, TransactionsList, Tooltip, UnbondingsList, SmallerDecimal, RedelegatesList, VestingList, AssetsList } from 'components';
+import { Card, CodeQr, Loading, Tabs } from 'frontend-elements';
 import '../Accounts.scss';
 import copyLogo from 'assets/images/copy.svg';
 import checkLogo from 'assets/images/check.svg';
@@ -68,9 +68,9 @@ const AccountPage = (props: IProps): JSX.Element => {
             return;
         }
 
-        const { balance, allRewards, totalShares, unbondings, commissions, vesting: vestingAccount, airdrop: airdropAccount } = account;
+        const { balances, allRewards, totalShares, unbondings, commissions, vesting: vestingAccount, airdrop: airdropAccount } = account;
 
-        let available = NumbersUtils.convertUnitNumber(balance ? balance.amount : '0');
+        let available = NumbersUtils.convertUnitNumber(balances.find((balance) => balance.denom === LumConstants.MicroLumDenom)?.amount || '0');
         const reward = NumbersUtils.convertUnitNumber(allRewards.total && allRewards.total.length ? allRewards.total[0].amount : '0');
         const delegated = NumbersUtils.convertUnitNumber(totalShares);
         const unbonding = NumbersUtils.convertUnitNumber(AccountUtils.sumOfUnbonding(unbondings));
@@ -184,21 +184,33 @@ const AccountPage = (props: IProps): JSX.Element => {
             return null;
         }
 
-        const { delegations, allRewards, unbondings, redelegations, vesting } = account;
+        const { delegations, allRewards, unbondings, redelegations, vesting, balances } = account;
+
+        const assets = AccountUtils.processingAssets(balances, total);
 
         return (
-            <div className="row mb-5 g-4 g-xxl-5">
-                <div className="col-12 col-xxl-6">
-                    {allRewards && <DelegationsList metadata={delegationsMetadata} onPageChange={setDelegationsPage} total title delegations={delegations} rewards={allRewards.rewards} />}
+            <div className="row mb-5 g-5">
+                <div className="col-12 col-xxl-6 order-1 order-xxl-0">
+                    <Card className="mb-5 h-100 min-h-475" withoutPadding>
+                        <Tabs
+                            className="pt-3 d-flex flex-column h-100"
+                            tabs={[
+                                { name: i18n.t('delegations'), id: 0 },
+                                { name: i18n.t('unbondings'), id: 1 },
+                                { name: i18n.t('redelegations'), id: 2 },
+                                { name: i18n.t('vesting'), id: 3 },
+                            ]}
+                            tabsContent={{
+                                0: <DelegationsList metadata={delegationsMetadata} onPageChange={setDelegationsPage} total title delegations={delegations} rewards={allRewards.rewards} />,
+                                1: <UnbondingsList unbondings={unbondings} title />,
+                                2: <RedelegatesList redelegates={redelegations} title />,
+                                3: <VestingList vesting={vesting} title />,
+                            }}
+                        />
+                    </Card>
                 </div>
-                <div className="col-12 col-xxl-6">
-                    <UnbondingsList unbondings={unbondings} title />
-                </div>
-                <div className="col-12 col-xxl-6">
-                    <RedelegatesList redelegates={redelegations} title />
-                </div>
-                <div className="col-12 col-xxl-6">
-                    <VestingList vesting={vesting} title />
+                <div className="col-12 col-xxl-6 order-0 order-xxl-1">
+                    <AssetsList title head={[i18n.t('name'), i18n.t('amount'), i18n.t('totalValue')]} assets={assets} />
                 </div>
             </div>
         );

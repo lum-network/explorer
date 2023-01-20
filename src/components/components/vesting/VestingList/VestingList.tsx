@@ -1,6 +1,6 @@
 import React from 'react';
 import { i18n, NumbersUtils } from 'utils';
-import { Card, Table } from 'frontend-elements';
+import { Table } from 'frontend-elements';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import { VestingModel } from 'models/models/account';
 import moment from 'moment';
@@ -19,16 +19,16 @@ const VestingList = ({ vesting, title }: IProps): JSX.Element => {
 
     if (!vesting) {
         return (
-            <Card className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
+            <div className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
                 <img className="mb-2 placeholder-image" alt="placeholder" src={placeholderTx} />
                 {i18n.t('noVestingToken')}
-            </Card>
+            </div>
         );
     }
 
     return (
-        <Card withoutPadding className="mb-5 h-100">
-            <div className="d-flex justify-content-between">{title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('vesting')}</h3>}</div>
+        <>
+            <div className="d-flex justify-content-between">{title && <h3 className="mx-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('vesting')}</h3>}</div>
             <Table head={head}>
                 <tr>
                     <td data-label={head[0]}>
@@ -51,7 +51,7 @@ const VestingList = ({ vesting, title }: IProps): JSX.Element => {
                     </td>
                 </tr>
             </Table>
-        </Card>
+        </>
     );
 };
 

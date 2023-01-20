@@ -76,6 +76,9 @@ export default {
     less: 'Less',
     of: 'of',
     price: 'Price',
+    name: 'Name',
+    totalValue: 'Total value',
+    noAssets: 'No assets',
 
     // Layout
     dashboard: 'Board',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { i18n, NumbersUtils, StringsUtils } from 'utils';
-import { Card, Table } from 'frontend-elements';
+import { Table } from 'frontend-elements';
 import { UnbondingModel } from 'models/models/account';
 import { Link } from 'react-router-dom';
 import { NavigationConstants, SystemConstants } from 'constant';
@@ -47,18 +47,18 @@ const UnbondingsList = (props: IProps): JSX.Element => {
 
     if (!unbondings || !unbondings.length) {
         return (
-            <Card className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
+            <div className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
                 <img className="mb-2 placeholder-image" alt="placeholder" src={placeholderTx} />
                 {i18n.t('noUnbondedToken')}
-            </Card>
+            </div>
         );
     }
 
     return (
-        <Card withoutPadding className="mb-5 h-100">
-            <div className="d-flex justify-content-between">{title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('unbondings')}</h3>}</div>
+        <>
+            <div className="d-flex justify-content-between">{title && <h3 className="mx-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('unbondings')}</h3>}</div>
             <Table head={head}>{unbondings.map((unbonding) => renderRow(unbonding, head))}</Table>
-        </Card>
+        </>
     );
 };
 

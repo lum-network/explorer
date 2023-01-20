@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table } from 'frontend-elements';
+import { Table } from 'frontend-elements';
 import { i18n, NumbersUtils, StringsUtils } from 'utils';
 import { RedelegationModel } from 'models/models/account';
 import placeholderTx from 'assets/images/placeholderTx.svg';
@@ -48,18 +48,18 @@ const RedelegatesList = ({ title, redelegates }: IProps): JSX.Element => {
 
     if (!redelegates || !redelegates.length) {
         return (
-            <Card className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
+            <div className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
                 <img className="mb-2 placeholder-image" alt="placeholder" src={placeholderTx} />
                 {i18n.t('noRedelegation')}
-            </Card>
+            </div>
         );
     }
 
     return (
-        <Card withoutPadding className="mb-5 h-100">
-            <div className="d-flex justify-content-between">{title && <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('redelegations')}</h3>}</div>
+        <>
+            <div className="d-flex justify-content-between">{title && <h3 className="mx-xl-5 mb-xl-2 mx-3 mt-3">{i18n.t('redelegations')}</h3>}</div>
             <Table head={head}>{redelegates.map((redelegate) => renderRow(redelegate, head))}</Table>
-        </Card>
+        </>
     );
 };
 
