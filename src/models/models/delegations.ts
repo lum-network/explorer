@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import CoinModel from "./coin";
+import CoinModel from './coin';
 
 class DelegationModel {
     @Expose({ name: 'delegator_address' })
