@@ -45,7 +45,7 @@ const DelegationsList = (props: IProps): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(delegation.shares || 0)).format('0,0.000000')} />
+                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(delegation.balance?.amount || 0)).format('0,0.000000')} />
                     <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td data-label={head[2]} className="text-end">
