@@ -43,8 +43,8 @@ const BeamOpen = ({ date, infos, withLine }: Props): JSX.Element => {
                                     <img src={beamRatingLogo} />
                                 </div>
                                 <div className="d-flex flex-row align-items-center beam ratings-number">
-                                    {`${infos.rating}/5`}
-                                    <Rating className="ms-4 mb-2" size={26} initialRating={infos.rating} />
+                                    {`${infos.rating / 2}/5`}
+                                    <Rating className="ms-4 mb-2" size={26} initialRating={infos.rating / 2} />
                                 </div>
                             </div>
                         )}

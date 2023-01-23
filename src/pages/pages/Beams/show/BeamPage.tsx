@@ -9,7 +9,7 @@ import { BeamsStatus } from 'constant';
 import { Card, Loading } from 'frontend-elements';
 import { EventModel } from 'models';
 import { Dispatch, RootState } from 'redux/store';
-import { i18n, NumbersUtils } from 'utils';
+import { i18n } from 'utils';
 
 import beamLogo from 'assets/images/beamDark.svg';
 
@@ -67,19 +67,15 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                         {claimEvent && <BeamClaim date={moment(claimEvent.time).utc().format()} address={claimEvent.value.claimerAddress || beam.claimAddress} amount={beam.amount} />}
                         {updateEvents &&
                             updateEvents.map((event, index) => (
-                                <BeamUpdate
-                                    index={updateEvents.length - index}
-                                    key={`beam-${beam.id}-update-${index}`}
-                                    date={moment(event.time).utc().format()}
-                                    reward={NumbersUtils.convertUnitNumber(event.value.amount?.amount || '')}
-                                />
+                                <BeamUpdate index={updateEvents.length - index} key={`beam-${beam.id}-update-${index}`} date={moment(event.time).utc().format()} event={event} />
                             ))}
                         {openEvent && (
                             <BeamOpen
-                                date={moment(beam.createdAt).utc().format()}
+                                date={moment(openEvent.time).utc().format()}
                                 withLine={false}
                                 infos={{
                                     amount: openEvent.value.amount,
+                                    rating: openEvent.value.data?.merchantReview?.ratings.overall,
                                 }}
                             />
                         )}

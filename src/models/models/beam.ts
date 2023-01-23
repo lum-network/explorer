@@ -43,6 +43,18 @@ class ProductsReviewsProductResponse {
 }
 
 @Exclude()
+class ProductsReviewsMediaResponse {
+    @Expose()
+    url: string;
+
+    @Expose()
+    thumbnailUrl: string;
+
+    @Expose()
+    mimetype: string;
+}
+
+@Exclude()
 class ProductsReviewsResponse {
     @Expose({ name: 'collection_method' })
     collectionMethod: string;
@@ -76,6 +88,10 @@ class ProductsReviewsResponse {
     @Expose({ name: 'products' })
     @Type(() => ProductsReviewsProductResponse)
     products: ProductsReviewsProductResponse[];
+
+    @Expose()
+    @Type(() => ProductsReviewsMediaResponse)
+    media: ProductsReviewsMediaResponse[];
 }
 
 @Exclude()
@@ -173,7 +189,7 @@ class MerchantReviewResponse {
 
 @Exclude()
 class DataResponse {
-    @Expose({ name: 'products_reviews' })
+    @Expose({ name: 'productsReviews' })
     @Type(() => ProductsReviewsResponse)
     productsReviews: ProductsReviewsResponse[];
 
@@ -181,7 +197,7 @@ class DataResponse {
     @Type(() => RewardResponse)
     reward: RewardResponse;
 
-    @Expose({ name: 'merchant_review' })
+    @Expose({ name: 'merchantReview' })
     @Type(() => MerchantReviewResponse)
     merchantReview: MerchantReviewResponse;
 }
