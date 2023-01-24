@@ -182,6 +182,7 @@ export default {
     beamRatingAdded: 'A rating has been added',
     beamMerchantAdded: 'A merchant has been added',
     beamVerifierAdded: 'A verifier has been added',
+    beamMerchantReviewAdded: 'A merchant review has been added',
     lumSent: 'LUM sent through the BEAM',
 
     // Block

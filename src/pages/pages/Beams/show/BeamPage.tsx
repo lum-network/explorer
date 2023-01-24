@@ -25,10 +25,7 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
     const beam = useSelector((state: RootState) => state.beams.beam);
     const loading = useSelector((state: RootState) => state.loading.models.beams);
 
-    const [openEvent, setOpenEvent] = useState<EventModel | undefined>();
-    const [updateEvents, setUpdateEvents] = useState<EventModel[] | undefined>();
-    const [claimEvent, setClaimEvent] = useState<EventModel | undefined>();
-
+    const [beamEvents, setBeamEvents] = useState<EventModel[] | undefined>();
     const { id } = match.params;
 
     useEffect(() => {
@@ -37,15 +34,11 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
 
     useEffect(() => {
         if (beam && beam.event) {
-            setOpenEvent(beam.event.find((event) => event.type === LumMessages.MsgOpenBeamUrl));
-            setUpdateEvents(
-                beam.event
-                    .filter((event) => event.type === LumMessages.MsgUpdateBeamUrl)
-                    .sort((eventA, eventB) => {
-                        return new Date(eventB.time).getTime() - new Date(eventA.time).getTime();
-                    }),
+            setBeamEvents(
+                beam.event.sort((eventA, eventB) => {
+                    return new Date(eventB.time).getTime() - new Date(eventA.time).getTime();
+                }),
             );
-            setClaimEvent(beam.event.find((event) => event.type === LumMessages.MsgClaimBeamUrl));
         }
     }, [beam]);
 
@@ -63,22 +56,41 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                 <>
                     <h4>{i18n.t('beamHistory')}</h4>
                     <Card className="d-flex flex-column mt-4 mb-5 beam-history-card">
-                        {beam && beam.status === BeamsStatus.CLOSED && <BeamClose date={moment(beam.closeAt).utc().format()} />}
-                        {claimEvent && <BeamClaim date={moment(claimEvent.time).utc().format()} address={claimEvent.value.claimerAddress || beam.claimAddress} amount={beam.amount} />}
-                        {updateEvents &&
-                            updateEvents.map((event, index) => (
-                                <BeamUpdate index={updateEvents.length - index} key={`beam-${beam.id}-update-${index}`} date={moment(event.time).utc().format()} event={event} />
-                            ))}
-                        {openEvent && (
-                            <BeamOpen
-                                date={moment(openEvent.time).utc().format()}
-                                withLine={false}
-                                infos={{
-                                    amount: openEvent.value.amount,
-                                    rating: openEvent.value.data?.merchantReview?.ratings.overall,
-                                }}
-                            />
-                        )}
+                        {beamEvents &&
+                            beamEvents.map((event, index) => {
+                                switch (event.type) {
+                                    case LumMessages.MsgOpenBeamUrl:
+                                        return (
+                                            <BeamOpen
+                                                key={`beam-${beam.id}-open-${index}`}
+                                                date={moment(event.time).utc().format()}
+                                                withLine={false}
+                                                infos={{
+                                                    rating: event.value.data?.merchantReview?.ratings.overall,
+                                                    amount: event.value.amount,
+                                                }}
+                                                productsReviews={
+                                                    event.value.data && event.value.data.productsReviews
+                                                        ? event.value.data.productsReviews.map((pReview) => ({
+                                                              id: pReview.reviewId,
+                                                              hasContent: !!(pReview.content.overall || pReview.content.pros || pReview.content.cons),
+                                                              hasMedia: pReview.media && pReview.media.length > 0,
+                                                              rating: pReview.ratings.overall,
+                                                          }))
+                                                        : undefined
+                                                }
+                                            />
+                                        );
+                                    case LumMessages.MsgClaimBeamUrl:
+                                        return <BeamClaim date={moment(event.time).utc().format()} address={event.value.claimerAddress || ''} amount={beam.amount} />;
+                                    default: {
+                                        if (event.value.status && event.value.status === BeamsStatus.CLOSED) {
+                                            return <BeamClose date={moment(event.time).utc().format()} />;
+                                        }
+                                        return <BeamUpdate key={`beam-${beam.id}-update-${index}`} date={moment(event.time).utc().format()} event={event} />;
+                                    }
+                                }
+                            })}
                     </Card>
                 </>
             )}
