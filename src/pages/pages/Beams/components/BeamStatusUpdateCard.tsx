@@ -6,7 +6,7 @@ const BeamStatusUpdateCard: React.FC<{ withLine?: boolean }> = ({ children, with
 
     return (
         <div className="beam-history d-flex flex-row align-items-stretch py-4">
-            <div className={`content ${withLine && winSizes.width >= 992 ? 'with-line' : ''}`}>{children}</div>
+            <div className={`beam-content ${withLine && winSizes.width >= 992 ? 'with-line' : ''}`}>{children}</div>
         </div>
     );
 };

@@ -50,9 +50,10 @@
     width: 100%;
 }
 
-.beam-history .content {
+.beam-history .beam-content {
     margin-left: 0.5rem;
     padding-bottom: 1rem;
+    width: 100%;
 }
 
 .beam-history .with-line {
@@ -99,7 +100,7 @@
 
     .status-update-card {
         flex-direction: column;
-        align-items: flex-start
+        align-items: flex-start;
     }
 
     .status-update-card h4 {
