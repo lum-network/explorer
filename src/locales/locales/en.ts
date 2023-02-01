@@ -184,7 +184,8 @@ export default {
     beamVerifierAdded: 'A verifier has been added',
     beamMerchantReviewAdded: 'A merchant review has been added',
     lumSent: 'LUM sent through the BEAM',
-
+    viewJson: 'View Json',
+    
     // Block
     blockTime: 'Block time',
     blockHash: 'Block hash',

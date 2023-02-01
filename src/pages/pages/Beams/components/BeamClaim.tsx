@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { NavigationConstants } from 'constant';
 import { Card } from 'frontend-elements';
 import { CoinModel } from 'models';
-import { i18n, NumbersUtils, StringsUtils } from 'utils';
-import { useWindowSize } from 'utils/utils/hooks';
+import { i18n, useWindowSize, NumbersUtils, StringsUtils } from 'utils';
 
 import lumLogo from 'assets/images/lum.svg';
 import walletLogo from 'assets/images/beamWallet.svg';

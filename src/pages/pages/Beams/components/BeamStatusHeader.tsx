@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { Button } from 'frontend-elements';
+import { i18n } from 'utils';
 
 interface Props {
     date: string;
@@ -21,7 +22,7 @@ const BeamStatusHeader = ({ date, status, onViewJson }: Props): JSX.Element => (
                 </span>
             </h4>
         </div>
-        {onViewJson && <Button onPress={onViewJson}>View Json</Button>}
+        {onViewJson && <Button onPress={onViewJson}>{i18n.t('viewJson')}</Button>}
     </div>
 );
 

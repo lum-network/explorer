@@ -1,5 +1,5 @@
 import React from 'react';
-import { useWindowSize } from 'utils/utils/hooks';
+import { useWindowSize } from 'utils';
 
 const BeamStatusUpdateCard: React.FC<{ withLine?: boolean }> = ({ children, withLine = true }): JSX.Element => {
     const winSizes = useWindowSize();
