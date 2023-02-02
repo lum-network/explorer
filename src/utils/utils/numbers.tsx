@@ -3,6 +3,7 @@ import { CoinModel } from 'models';
 import numeral from 'numeral';
 import { LumConstants, LumUtils } from '@lum-network/sdk-javascript';
 import { SmallerDecimal } from 'components';
+import { Asset } from 'components/components/AssetsList/AssetsList';
 
 export const getPercentage = (nb: number, total: number): number => {
     if (!total) {
@@ -51,6 +52,15 @@ export const convertUnitNumber = (nb: number | string): number => {
     };
 
     return parseFloat(LumUtils.convertUnit(coin, LumConstants.LumDenom));
+};
+
+export const convertCoinsArrayToAssetsArray = (coins: CoinModel[]): Asset[] => {
+    return coins.map((coin) => {
+        return {
+            denom: coin.denom,
+            amount: convertUnitNumber(coin.amount),
+        };
+    });
 };
 
 export const formatNumber = (coin: CoinModel, moreDecimal?: boolean): JSX.Element | null => {

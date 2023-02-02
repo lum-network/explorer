@@ -79,6 +79,7 @@ export default {
     name: 'Name',
     totalValue: 'Total value',
     noAssets: 'No assets',
+    unknown: 'Unknown',
 
     // Layout
     dashboard: 'Board',
