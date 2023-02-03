@@ -13,16 +13,19 @@ import transactionLogo from 'assets/images/transactionDark.svg';
 import clockLogo from 'assets/images/clockDark.svg';
 import hashLogo from 'assets/images/hashDark.svg';
 import validatorLogo from 'assets/images/validatorDark.svg';
-import { i18n, StringsUtils } from 'utils';
+import { BlockUtils, i18n, StringsUtils } from 'utils';
 import copyLogo from 'assets/images/copyDark.svg';
 import placeholderTx from 'assets/images/placeholderTx.svg';
 import arrowLeft from 'assets/images/arrowLeft.svg';
 import arrowRight from 'assets/images/arrowRight.svg';
+import { BlocksModel } from 'models';
+import Countdown from '../components/Countdown';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
 const BlockPage = (props: IProps): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
+    const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const block = useSelector((state: RootState) => state.blocks.block);
     const loading = useSelector((state: RootState) => state.loading.effects.blocks.getBlock);
 
@@ -30,10 +33,22 @@ const BlockPage = (props: IProps): JSX.Element => {
     const { push } = props.history;
 
     const [copied, setCopied] = useState(false);
+    const [blockTime, setBlockTime] = useState(5000);
 
     useEffect(() => {
         dispatch.blocks.getBlock(id).finally(() => null);
     }, [id]);
+
+    const processBlockTime = (blocks: BlocksModel[]): void => {
+        const time = BlockUtils.processBlockTime(blocks);
+        setBlockTime(time);
+    };
+
+    useEffect(() => {
+        if (blocks && blocks.length) {
+            processBlockTime(blocks);
+        }
+    }, [blocks]);
 
     const copyHash = (): void => {
         if (!block.hash) {
@@ -81,7 +96,7 @@ const BlockPage = (props: IProps): JSX.Element => {
         return <TransactionsList title transactions={transactions} />;
     };
 
-    const renderInformation = (): JSX.Element => {
+    const renderInformation = (): JSX.Element | null => {
         if (loading) {
             return (
                 <Card className="mb-5">
@@ -91,12 +106,16 @@ const BlockPage = (props: IProps): JSX.Element => {
         }
 
         if (!block) {
-            return (
-                <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
-                    <img width={44} height={44} className="mb-2 placeholder-image" alt="placeholder" src={blockLogo} />
-                    {i18n.t('noBlockFound')}
-                </Card>
-            );
+            if (!blocks || !blocks.length || blocks.length < 30 || !blocks[0].height || Number(id) < Number(blocks[0].height)) {
+                return (
+                    <Card className="mb-5 d-flex justify-content-center align-items-center flex-column">
+                        <img width={44} height={44} className="mb-2 placeholder-image" alt="placeholder" src={blockLogo} />
+                        {i18n.t('noBlockFound')}
+                    </Card>
+                );
+            }
+
+            return <Countdown getUserBlock={() => dispatch.blocks.getBlock(id).finally(() => null)} blockTime={blockTime} currentBlockHeight={blocks[0].height} userBlockHeight={id} />;
         }
 
         return (

@@ -8,3 +8,13 @@ export const differenceBetweenDates = (dateStr1: string, dateStr2: string): numb
 
     return Math.abs(date2.getTime() - date1.getTime());
 };
+
+export const getDaysHoursMinutesSeconds = (time: number): [number, number, number, number] => {
+    const days = Math.floor(time / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((time % (1000 * 60)) / 1000);
+    console.log('seconds', time, seconds);
+
+    return [days, hours, minutes, seconds];
+};
