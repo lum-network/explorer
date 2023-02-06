@@ -115,7 +115,17 @@ const BlockPage = (props: IProps): JSX.Element => {
                 );
             }
 
-            return <Countdown getUserBlock={() => dispatch.blocks.getBlock(id).finally(() => null)} blockTime={blockTime} currentBlockHeight={blocks[0].height} userBlockHeight={id} />;
+            return (
+                <Countdown
+                    getUserBlock={() => {
+                        dispatch.blocks.getBlock(id).finally(() => null);
+                        dispatch.blocks.fetchBlocks().finally(() => null);
+                    }}
+                    blockTime={blockTime}
+                    currentBlockHeight={blocks[0].height}
+                    userBlockHeight={id}
+                />
+            );
         }
 
         return (
