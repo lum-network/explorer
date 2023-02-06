@@ -1,0 +1,13 @@
+@import 'src/frontend-elements/styles/main';
+
+.countdown-number {
+    font-weight: $light;
+    font-size: 82px;
+    color: $color-link;
+}
+
+.countdown-unit {
+    font-weight: $bold;
+    font-size: $font-md;
+    color: $color-primary;
+}

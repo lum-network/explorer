@@ -80,6 +80,9 @@ export default {
     totalValue: 'Total value',
     noAssets: 'No assets',
     unknown: 'Unknown',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
 
     // Layout
     dashboard: 'Board',
@@ -89,7 +92,7 @@ export default {
     wallet: 'Wallet',
     webWallet: 'Web Wallet',
     testnet: '⚠️ You are connected to the Testnet ⚠️',
-    copyright: '© LUM Explorer 2021',
+    copyright: '© LUM Explorer 2021 - 2023',
 
     // Home
     overview: 'Overview',
@@ -184,6 +187,10 @@ export default {
     blockHeight: 'Block height',
     detailsForBlock: 'Details for block',
     noBlockFound: 'Block not found',
+    countdownForBlock: 'Countdown for block',
+    currentBlock: 'Current block',
+    remainingBlocks: 'Remaining blocks',
+    estimatedTargetTime: 'Estimated target time',
 
     // Transaction
     txHash: 'Tx hash',
