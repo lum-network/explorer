@@ -48,8 +48,6 @@ const Countdown = ({ currentBlockHeight, userBlockHeight, blockTime, getUserBloc
 
         const [days, hours, minutes, seconds] = TimesUtils.getDaysHoursMinutesSeconds(remainingTime);
 
-        console.log(remainingTime, seconds);
-
         setDays(days);
         setHours(hours);
         setMinutes(minutes);
