@@ -29,7 +29,7 @@ jobs:
                   REACT_APP_BASE_URL: 'https://explorer-mainnet.infra.lum.network'
 
             - name: Test
-              run: yarn test --passWithNoTests
+              run: yarn test
 
             - name: Deploy
               uses: FirebaseExtended/action-hosting-deploy@v0
