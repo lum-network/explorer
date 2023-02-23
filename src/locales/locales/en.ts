@@ -168,6 +168,8 @@ export default {
     beamDetails: 'Beam details',
     noBeamFound: 'Beam not found',
     closed: 'Closed',
+    claim: 'Claim',
+    update: 'Update',
     canceled: 'Canceled',
     unspecified: 'Unspecified',
     rewardAmount: 'Reward amount',
@@ -180,7 +182,18 @@ export default {
     quality: 'Quality',
     nps: 'Nps',
     customerService: 'Customer service',
-
+    beamHistory: 'Beam\'s history',
+    beamDescriptionAdded: 'A description has been added',
+    beamImageAdded: 'An image has been added',
+    beamRewardAdded: 'A reward has been added',
+    beamRatingAdded: 'A rating has been added',
+    beamMerchantAdded: 'A merchant has been added',
+    beamVerifierAdded: 'A verifier has been added',
+    beamMerchantReviewAdded: 'A merchant review has been added',
+    lumSent: 'LUM sent through the BEAM',
+    viewJson: 'View Json',
+    nProduct: '%{number} product',
+    
     // Block
     blockTime: 'Block time',
     blockHash: 'Block hash',

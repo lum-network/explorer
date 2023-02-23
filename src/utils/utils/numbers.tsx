@@ -1,7 +1,7 @@
 import React from 'react';
 import { CoinModel } from 'models';
 import numeral from 'numeral';
-import { LumConstants, LumUtils } from '@lum-network/sdk-javascript';
+import { LumConstants, LumTypes, LumUtils } from '@lum-network/sdk-javascript';
 import { SmallerDecimal } from 'components';
 import { Asset } from 'components/components/AssetsList/AssetsList';
 
@@ -29,6 +29,10 @@ export const getDifferencePercentage = (nb1: number, nb2: number): number => {
 
 export const getRandomInt = (max: number): number => {
     return Math.floor(Math.random() * Math.floor(max));
+};
+
+export const formatUnit = (coin: LumTypes.Coin, moreDecimal?: boolean): string => {
+    return numeral(LumUtils.convertUnit(coin, LumConstants.LumDenom)).format(moreDecimal ? '0,0.000000' : '0,0.000');
 };
 
 export const convertUnitNumber = (nb: number | string): number => {
