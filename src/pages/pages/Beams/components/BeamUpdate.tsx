@@ -29,7 +29,7 @@ const BeamUpdate = ({ event, date, key }: Props): JSX.Element => {
                         {event.value.data.productsReviews.map((productReview, index) => (
                             <div key={`${key}-product-review-${productReview.reviewId}`}>
                                 <h6 className="mb-4 text-uppercase opacity-50">{numeral(index + 1).format('0o')} Product</h6>
-                                {!!productReview.content.overall && (
+                                {!!(productReview.content.overall || productReview.content.pros || productReview.content.cons) && (
                                     <div className="d-flex flex-row align-items-center mb-5">
                                         <div className="status-update-icon">
                                             <img src={beamDescLogo} />
@@ -51,8 +51,8 @@ const BeamUpdate = ({ event, date, key }: Props): JSX.Element => {
                                             <img src={beamRatingLogo} />
                                         </div>
                                         <div className="d-flex flex-row align-items-center beam ratings-number">
-                                            {`${productReview.ratings.overall / 2}/5`}
-                                            <Rating className="ms-4 mb-2" size={26} initialRating={productReview.ratings.overall / 2} />
+                                            {`${productReview.ratings.overall}/5`}
+                                            <Rating className="ms-4 mb-2" size={26} initialRating={productReview.ratings.overall} />
                                         </div>
                                     </div>
                                 )}
@@ -74,8 +74,8 @@ const BeamUpdate = ({ event, date, key }: Props): JSX.Element => {
                                         <img src={beamRatingLogo} />
                                     </div>
                                     <div className="d-flex flex-row align-items-center beam ratings-number">
-                                        {`${event.value.data.merchantReview.ratings.overall / 2}/5`}
-                                        <Rating className="ms-4 mb-2" size={26} initialRating={event.value.data.merchantReview.ratings.overall / 2} />
+                                        {`${event.value.data.merchantReview.ratings.overall}/5`}
+                                        <Rating className="ms-4 mb-2" size={26} initialRating={event.value.data.merchantReview.ratings.overall} />
                                     </div>
                                 </div>
                             )}
@@ -88,7 +88,7 @@ const BeamUpdate = ({ event, date, key }: Props): JSX.Element => {
                                 </div>
                             )}
                         </div>
-                        {!!event.value.data?.reward ? (
+                        {!!event.value.data.reward ? (
                             <h1 className="display-4 mt-4 mt-lg-0 ms-2 ms-lg-0">
                                 {event.value.data.reward.amount} {event.value.data.reward.currency}
                             </h1>

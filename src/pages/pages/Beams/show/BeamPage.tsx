@@ -67,7 +67,13 @@ const BeamPage = ({ match }: IProps): JSX.Element => {
                                                 withLine={false}
                                                 infos={{
                                                     rating: event.value.data?.merchantReview?.ratings.overall,
-                                                    amount: event.value.amount,
+                                                    amount:
+                                                        event.value.data && event.value.data.reward
+                                                            ? {
+                                                                  amount: event.value.data.reward.amount.toFixed(),
+                                                                  denom: event.value.data.reward.currency,
+                                                              }
+                                                            : undefined,
                                                 }}
                                                 productsReviews={
                                                     event.value.data && event.value.data.productsReviews

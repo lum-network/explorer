@@ -192,6 +192,7 @@ export default {
     beamMerchantReviewAdded: 'A merchant review has been added',
     lumSent: 'LUM sent through the BEAM',
     viewJson: 'View Json',
+    nProduct: '%{number} product',
     
     // Block
     blockTime: 'Block time',
