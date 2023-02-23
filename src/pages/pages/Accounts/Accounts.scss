@@ -60,6 +60,10 @@
     cursor: pointer;
 }
 
+.min-h-475 {
+    min-height: 475px;
+}
+
 @media (prefers-color-scheme: dark) {
     .help {
         background-color: $color-white;

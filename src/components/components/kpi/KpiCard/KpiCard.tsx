@@ -9,14 +9,16 @@ interface IProps {
     logo?: string;
     additionalInfo?: string;
     color?: string;
+    flat?: boolean;
+    dark?: boolean;
 }
 
 const KpiCard = (props: IProps): JSX.Element => {
-    const { className, children, title, logo, additionalInfo, color } = props;
+    const { flat, dark, className, children, title, logo, additionalInfo, color } = props;
 
     return (
-        <Card withoutPadding className={`p-4 ${className}`}>
-            <h4 className="mb-3" style={{ color: color }}>
+        <Card dark={dark} flat={flat} withoutPadding className={`p-4 ${className}`}>
+            <h4 className="mb-3" style={{ color: dark ? '#FFFFFF' : color }}>
                 {logo && <img style={{ filter: color ? 'inherit' : '' }} alt="logo" src={logo} />} {title}
             </h4>
             <div className="d-flex flex-row justify-content-between align-items-start">

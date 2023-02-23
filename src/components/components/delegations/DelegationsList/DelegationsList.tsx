@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table } from 'frontend-elements';
+import { Table } from 'frontend-elements';
 import { Link } from 'react-router-dom';
 import { DelegationModel, MetadataModel } from 'models';
 import { i18n, NumbersUtils, StringsUtils } from 'utils';
@@ -45,7 +45,7 @@ const DelegationsList = (props: IProps): JSX.Element => {
                     </Link>
                 </td>
                 <td data-label={head[1]}>
-                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(delegation.shares || 0)).format('0,0.000000')} />
+                    <SmallerDecimal nb={numeral(NumbersUtils.convertUnitNumber(delegation.balance?.amount || 0)).format('0,0.000000')} />
                     <span className="ms-2 color-type">{LumConstants.LumDenom}</span>
                 </td>
                 <td data-label={head[2]} className="text-end">
@@ -61,18 +61,18 @@ const DelegationsList = (props: IProps): JSX.Element => {
 
     if (!delegations || !delegations.length) {
         return (
-            <Card className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
+            <div className="mb-5 d-flex justify-content-center align-items-center flex-column h-100">
                 <img className="mb-2 placeholder-image" alt="placeholder" src={placeholderTx} />
                 {i18n.t('noDelegatedToken')}
-            </Card>
+            </div>
         );
     }
 
     return (
-        <Card withoutPadding className="mb-5 h-100">
+        <>
             <div className="d-flex justify-content-between">
                 {title && (
-                    <h3 className="mx-xl-5 mt-xl-5 mb-xl-2 mx-3 mt-3">
+                    <h3 className="mx-xl-5 mb-xl-2 mx-3 mt-3">
                         {i18n.t('delegations')} {total && metadata && <span> ({numeral(metadata.itemsTotal).format('0,0')})</span>}
                     </h3>
                 )}
@@ -80,7 +80,7 @@ const DelegationsList = (props: IProps): JSX.Element => {
             <Table pagination={metadata} onPageChange={onPageChange} head={head}>
                 {delegations.map((delegation, index) => renderRow(delegation, index, head))}
             </Table>
-        </Card>
+        </>
     );
 };
 
