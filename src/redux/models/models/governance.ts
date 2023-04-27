@@ -23,7 +23,7 @@ const governance = createModel<RootModel>()({
         SET_PROPOSALS(state, proposals: ProposalsModel[]) {
             return {
                 ...state,
-                proposals: proposals.sort((a, b) => b.proposalId.toNumber() - a.proposalId.toNumber()),
+                proposals: proposals.sort((a, b) => b.proposalId - a.proposalId),
             };
         },
         SET_PROPOSAL(state, proposal: ProposalsModel) {
