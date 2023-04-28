@@ -35,9 +35,6 @@ class ProposalsModel {
     @Type(() => CoinModel)
     totalDeposit: CoinModel[] = [];
 
-    @Type(() => VotesResultModel)
-    result: VotesResultModel = new VotesResultModel();
-
     @Expose({ name: 'final_result' })
     @Type(() => VotesResultModel)
     finalResult: VotesResultModel = new VotesResultModel();

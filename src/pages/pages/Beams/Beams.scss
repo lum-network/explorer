@@ -34,7 +34,7 @@
 }
 
 .status-header .date-badge {
-    background-color: #D1E6FF;
+    background-color: #d1e6ff;
     border-radius: 18px;
     padding: 5px 15px;
     color: black;
@@ -69,10 +69,10 @@
         border-radius: 1rem;
         width: 3px;
         height: 100%;
-        z-index: 400;;
+        z-index: 400;
         background-color: black;
     }
-} 
+}
 
 .status-update-card .status-update-icon {
     display: flex;
@@ -110,7 +110,7 @@
 
 @media (prefers-color-scheme: dark) {
     .status-update-card .status-update-icon {
-        background-color: #1A1A1A;
+        background-color: #1a1a1a;
     }
 
     .status-update-card .lum-logo {

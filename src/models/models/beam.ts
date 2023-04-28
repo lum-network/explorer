@@ -244,7 +244,7 @@ class BeamEventValue {
 export class EventModel {
     @Expose({ name: 'time' })
     time: string;
-    
+
     @Expose({ name: 'type' })
     type: string;
 
