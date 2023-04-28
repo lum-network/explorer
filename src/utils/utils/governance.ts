@@ -6,7 +6,7 @@ export const sumOfVotes = (results: VotesResultModel): number => {
         return 0;
     }
 
-    return results.abstain + results.no + results.yes + results.noWithVeto;
+    return (results.abstain || 0) + (results.no || 0) + (results.yes || 0) + (results.noWithVeto || 0);
 };
 
 export const isNoVoteYet = (results: VotesResultModel): boolean => {

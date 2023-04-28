@@ -182,7 +182,7 @@ export default {
     quality: 'Quality',
     nps: 'Nps',
     customerService: 'Customer service',
-    beamHistory: 'Beam\'s history',
+    beamHistory: "Beam's history",
     beamDescriptionAdded: 'A description has been added',
     beamImageAdded: 'An image has been added',
     beamRewardAdded: 'A reward has been added',
@@ -193,7 +193,7 @@ export default {
     lumSent: 'LUM sent through the BEAM',
     viewJson: 'View Json',
     nProduct: '%{number} product',
-    
+
     // Block
     blockTime: 'Block time',
     blockHash: 'Block hash',

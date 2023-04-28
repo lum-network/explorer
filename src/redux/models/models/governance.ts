@@ -2,6 +2,7 @@ import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import { MetadataModel, ProposalsModel, ProposalDepositorsModel, ProposalVotersModel } from 'models';
 import Api from 'api';
+import { ProposalStatus } from 'constant';
 
 interface GovernanceState {
     proposals: ProposalsModel[];
@@ -23,7 +24,7 @@ const governance = createModel<RootModel>()({
         SET_PROPOSALS(state, proposals: ProposalsModel[]) {
             return {
                 ...state,
-                proposals: proposals.sort((a, b) => b.proposalId.toNumber() - a.proposalId.toNumber()),
+                proposals: proposals.sort((a, b) => b.proposalId - a.proposalId),
             };
         },
         SET_PROPOSAL(state, proposal: ProposalsModel) {
@@ -65,7 +66,9 @@ const governance = createModel<RootModel>()({
 
             const [proposal] = await Api.getProposal(id);
 
-            [proposal.result] = await Api.getTally(id);
+            if (proposal.status === ProposalStatus.VOTING_PERIOD) {
+                [proposal.finalResult] = await Api.getTally(id);
+            }
 
             dispatch.governance.SET_PROPOSAL(proposal);
         },
@@ -92,6 +95,7 @@ const governance = createModel<RootModel>()({
 
         async getTally(id: string) {
             const [tally] = await Api.getTally(id);
+
             return tally;
         },
     }),

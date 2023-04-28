@@ -1,8 +1,7 @@
-import { Expose, Transform, Type } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import VotesResultModel from './votesResult';
 import CoinModel from './coin';
 import { ProposalStatus } from 'constant';
-import Long from 'long';
 
 class ContentModel {
     title?: string;
@@ -12,10 +11,7 @@ class ContentModel {
 
 class ProposalsModel {
     @Expose({ name: 'proposal_id' })
-    @Transform(({ value }) => {
-        return new Long(value.low, value.high, value.unsigned);
-    })
-    proposalId = new Long(0);
+    proposalId: number;
 
     @Type(() => ContentModel)
     content: ContentModel = new ContentModel();
@@ -38,9 +34,6 @@ class ProposalsModel {
     @Expose({ name: 'total_deposit' })
     @Type(() => CoinModel)
     totalDeposit: CoinModel[] = [];
-
-    @Type(() => VotesResultModel)
-    result: VotesResultModel = new VotesResultModel();
 
     @Expose({ name: 'final_result' })
     @Type(() => VotesResultModel)
