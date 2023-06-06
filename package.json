@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@lum-network/sdk-javascript": "^0.7.5",
+        "@lum-network/sdk-javascript": "^0.8.4",
         "@popperjs/core": "^2.10.2",
         "@rematch/core": "^2.1.0",
         "@rematch/loading": "^2.1.0",
@@ -13,11 +13,13 @@
         "bootstrap": "^5.1.2",
         "class-transformer": "^0.4.0",
         "currency-symbol-map": "^5.1.0",
+        "dompurify": "^3.0.3",
         "firebase": "^8.10.0",
         "highcharts": "^10.1.0",
         "highcharts-react-official": "^3.1.0",
         "i18n-js": "^3.8.0",
         "long": "^5.1.0",
+        "marked": "^4",
         "moment": "^2.29.1",
         "moment-timezone": "^0.5.33",
         "numeral": "^2.0.6",
@@ -38,11 +40,17 @@
         "web-vitals": "^1.1.0"
     },
     "devDependencies": {
+        "@babel/core": "^7.22.1",
+        "@babel/preset-env": "^7.22.4",
+        "@babel/preset-react": "^7.22.3",
+        "@babel/preset-typescript": "^7.21.5",
         "@testing-library/jest-dom": "^5.11.4",
         "@testing-library/react": "12",
         "@testing-library/user-event": "^12.1.10",
+        "@types/dompurify": "^3.0.2",
         "@types/i18n-js": "^3.8.2",
         "@types/jest": "^26.0.15",
+        "@types/marked": "^4",
         "@types/node": "^14.14.25",
         "@types/numeral": "^2.0.0",
         "@types/react": "^17.0.20",
@@ -71,16 +79,9 @@
             "react-app/jest"
         ]
     },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    }
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+    ]
 }
