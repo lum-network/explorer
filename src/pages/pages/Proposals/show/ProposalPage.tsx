@@ -11,6 +11,8 @@ import { LumConstants } from '@lum-network/sdk-javascript';
 import { ProposalStatus } from 'constant';
 import VoteBar from '../components/VoteBar/VoteBar';
 import numeral from 'numeral';
+import DOMPurify from 'dompurify';
+import { marked } from 'marked';
 
 interface IProps extends RouteComponentProps<{ id: string }> {}
 
@@ -166,7 +168,7 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
         }
 
         return (
-            <Card className="mb-5">
+            <Card className="proposal-card mb-5">
                 <div className="row gy-4">
                     <div className="col-md-6">
                         <h4 className="mb-2">{i18n.t('title')}</h4>
@@ -214,14 +216,11 @@ const ProposalPage = ({ match }: IProps): JSX.Element => {
                     </div>
                     <div className="col-12">
                         <h4 className="mb-2">{i18n.t('details')}</h4>
-                        {proposal.content.description
-                            ? proposal.content.description.split('\\n').map((line, i) => (
-                                  <span key={i}>
-                                      {line}
-                                      <br />
-                                  </span>
-                              ))
-                            : ''}
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: proposal.content.description ? DOMPurify.sanitize(marked.parse(proposal.content.description.replace(/\\n/g, '<br />'))) : '',
+                            }}
+                        />
                     </div>
                 </div>
                 {renderResult()}

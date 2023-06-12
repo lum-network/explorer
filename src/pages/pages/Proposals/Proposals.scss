@@ -33,3 +33,10 @@
         bottom: 2rem;
     }
 }
+
+.proposal-card {
+    ul {
+        list-style-position: inside;
+    }
+    white-space: pre-line;
+}
