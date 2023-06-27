@@ -14,7 +14,7 @@ const Core = (): JSX.Element => {
 
     useEffect(() => {
         fetch();
-        sockets();
+        // sockets();
 
         return () => {
             if (socket) {
