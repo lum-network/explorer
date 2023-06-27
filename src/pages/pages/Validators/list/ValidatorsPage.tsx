@@ -3,7 +3,7 @@ import { Dispatch, RootState } from 'redux/store';
 import validatorLogo from 'assets/images/validatorDark.svg';
 import genesisFlag from 'assets/images/genesisFlag.svg';
 import { i18n, NumbersUtils, StringsUtils, ValidatorsUtils } from 'utils';
-import { Card, Loading, Table, ValidatorLogo } from 'frontend-elements';
+import { Card, Loading, Table, Tabs, ValidatorLogo } from 'frontend-elements';
 import { Kpi, Badge } from 'components';
 import { ValidatorModel } from 'models';
 import numeral from 'numeral';
@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 const ValidatorsPage = (): JSX.Element => {
     const dispatch = useDispatch<Dispatch>();
     const validators = useSelector((state: RootState) => state.validators.validators);
+    const activeValidators = useSelector((state: RootState) => state.validators.validatorsActive);
+    const inactiveValidators = useSelector((state: RootState) => state.validators.validatorsInactive);
     const params = useSelector((state: RootState) => state.core.params);
     const loading = useSelector((state: RootState) => state.loading.effects.validators.fetchValidators);
 
@@ -46,11 +48,11 @@ const ValidatorsPage = (): JSX.Element => {
         );
     };
 
-    const renderRow = (validator: ValidatorModel, index: number): JSX.Element => {
+    const renderRow = (validator: ValidatorModel, index: number, inactive = false): JSX.Element => {
         return (
             <tr key={index}>
                 <td data-label={head[0]}>
-                    <p className={index + 1 > 5 ? 'rank' : 'top-rank'}>{index + 1}</p>
+                    <p className={index + 1 > 5 || inactive ? 'rank' : 'top-rank'}>{inactive ? activeValidators.length + index + 1 : index + 1}</p>
                 </td>
                 <td data-label={head[1]}>
                     <Link title={validator.operatorAddress} to={`${NavigationConstants.VALIDATORS}/${validator.operatorAddress}`}>
@@ -94,8 +96,22 @@ const ValidatorsPage = (): JSX.Element => {
                 <img alt="validator" src={validatorLogo} /> {i18n.t('validators')}
             </h2>
             {renderKpi()}
-            <Card withoutPadding className="my-5">
-                {!validators || !validators.length || loading ? <Loading /> : <Table head={head}>{validators.map((value, index) => renderRow(value, index))}</Table>}
+            <Card withoutPadding className="my-5 pt-4">
+                <Tabs
+                    tabs={[
+                        { name: i18n.t('active'), id: 0 },
+                        { name: i18n.t('inactive'), id: 1 },
+                    ]}
+                    tabsContent={{
+                        0: !activeValidators || !activeValidators.length || loading ? <Loading /> : <Table head={head}>{activeValidators.map((value, index) => renderRow(value, index))}</Table>,
+                        1:
+                            !inactiveValidators || !inactiveValidators.length || loading ? (
+                                <Loading />
+                            ) : (
+                                <Table head={head}>{inactiveValidators.map((value, index) => renderRow(value, index, true))}</Table>
+                            ),
+                    }}
+                />
             </Card>
         </>
     );
