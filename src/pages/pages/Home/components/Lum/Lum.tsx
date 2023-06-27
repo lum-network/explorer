@@ -56,7 +56,7 @@ const Lum = (): JSX.Element => {
                         <span className={`me-1 ${previousDayPercentage >= 0 ? 'arrow-up' : 'arrow-down'}`} />
                         {numeral(previousDayPercentage).format('+0.00%')} ({i18n.t('day')})
                     </p>
-                    <p className="big-text">{numeral(lum.price).format('$0,0.0000')}</p>
+                    <p className="big-text">{numeral(lum.price).format('$0,0.000000')}</p>
                 </div>
             </div>
         </Card>

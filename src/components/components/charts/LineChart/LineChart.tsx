@@ -27,6 +27,9 @@ const LineChart = ({ data, loading, color, yAxisTitle, timestamp, title }: IProp
                 fontFamily: 'Work Sans',
             },
         },
+        accessibility: {
+            enabled: false,
+        },
         title: {
             text: '',
         },

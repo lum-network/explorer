@@ -30,6 +30,7 @@ const Kpi = (props: IProps): JSX.Element => {
 
     const blocks = useSelector((state: RootState) => state.blocks.blocks);
     const validators = useSelector((state: RootState) => state.validators.validators);
+    const activeValidators = useSelector((state: RootState) => state.validators.validatorsActive);
     const assets = useSelector((state: RootState) => state.core.assets);
     const kpi = useSelector((state: RootState) => state.core.kpi);
     const params = useSelector((state: RootState) => state.core.params);
@@ -59,13 +60,13 @@ const Kpi = (props: IProps): JSX.Element => {
                 );
 
             case KpiType.VALIDATORS:
-                if (!validators || !validators.length) {
+                if (!validators || !validators.length || !activeValidators || !activeValidators.length) {
                     return null;
                 }
 
                 return (
                     <KpiCard title={i18n.t('validators')} logo={validatorLogo}>
-                        {numeral(validators.length).format('0,0')}
+                        {numeral(activeValidators.length).format('0,0')}/{numeral(validators.length).format('0,0')}
                     </KpiCard>
                 );
 

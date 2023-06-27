@@ -83,7 +83,8 @@ export default {
     hours: 'hours',
     minutes: 'minutes',
     seconds: 'seconds',
-
+    active: 'Active',
+    inactive: 'Inactive',
     // Layout
     dashboard: 'Board',
     blocks: 'Blocks',

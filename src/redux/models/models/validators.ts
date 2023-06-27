@@ -3,9 +3,12 @@ import { createModel } from '@rematch/core';
 import { RootModel } from '../index';
 import { plainToClass } from 'class-transformer';
 import Api from 'api';
+import { ValidatorsType } from '../../../constant';
 
 interface ValidatorsState {
     validators: ValidatorModel[];
+    validatorsActive: ValidatorModel[];
+    validatorsInactive: ValidatorModel[];
     validator: ValidatorModel;
     blocksMetadata?: MetadataModel;
     delegationsMetadata?: MetadataModel;
@@ -14,6 +17,8 @@ interface ValidatorsState {
 const validators = createModel<RootModel>()({
     state: {
         validators: [],
+        validatorsActive: [],
+        validatorsInactive: [],
         validator: plainToClass(ValidatorModel, null),
     } as ValidatorsState,
     reducers: {
@@ -21,6 +26,20 @@ const validators = createModel<RootModel>()({
             return {
                 ...state,
                 validators: validators.sort((a, b) => parseInt((b && b.tokens) || '0', 10) - parseInt((a && a.tokens) || '0', 10)),
+            };
+        },
+
+        SET_VALIDATORS_ACTIVE(state, validators: ValidatorModel[]) {
+            return {
+                ...state,
+                validatorsActive: validators.sort((a, b) => parseInt((b && b.tokens) || '0', 10) - parseInt((a && a.tokens) || '0', 10)),
+            };
+        },
+
+        SET_VALIDATORS_INACTIVE(state, validators: ValidatorModel[]) {
+            return {
+                ...state,
+                validatorsInactive: validators.sort((a, b) => parseInt((b && b.tokens) || '0', 10) - parseInt((a && a.tokens) || '0', 10)),
             };
         },
 
@@ -49,7 +68,12 @@ const validators = createModel<RootModel>()({
             try {
                 const [validators] = await Api.fetchValidators();
 
+                const activeValidators = validators.filter((validator) => validator.status === ValidatorsType.ACTIVE && !validator.jailed);
+                const inactiveValidators = validators.filter((validator) => validator.status !== ValidatorsType.ACTIVE || validator.jailed);
+
                 dispatch.validators.SET_VALIDATORS(validators);
+                dispatch.validators.SET_VALIDATORS_ACTIVE(activeValidators);
+                dispatch.validators.SET_VALIDATORS_INACTIVE(inactiveValidators);
             } catch (e) {}
         },
 
