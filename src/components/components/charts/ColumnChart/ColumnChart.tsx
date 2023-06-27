@@ -23,6 +23,9 @@ const ColumnChart = ({ options, data, loading }: Props): JSX.Element => {
                 fontFamily: 'Work Sans',
             },
         },
+        accessibility: {
+            enabled: false,
+        },
         credits: {
             enabled: false,
         },
