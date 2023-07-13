@@ -40,18 +40,18 @@ const Lum = (): JSX.Element => {
     }
 
     return (
-        <Card className="h-100">
-            <img alt="Lum" className="placeholder-image mb-4" src={lumLogo} />
-            <div className="row">
-                <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
+        <Card className="d-flex flex-column h-100">
+            <img alt="Lum" className="placeholder-image align-self-start lum-logo" src={lumLogo} />
+            <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-end h-100 mt-5">
+                <div className="mt-auto">
                     <h4 className="mb-3">{i18n.t('marketCap')}</h4>
-                    <p>{numeral(AssetsUtils.getTotalSupply(assets) * lum.price).format('$0,0')}</p>
+                    <h6 className="fw-light">{numeral(AssetsUtils.getTotalSupply(assets) * lum.price).format('$0,0')}</h6>
                 </div>
-                <div className="col-6 col-md-3 col-xxl-4 mb-4 mb-md-0">
+                <div className="mt-5 mt-sm-auto">
                     <h4 className="mb-3">{i18n.t('dayVolume')}</h4>
-                    {numeral(lum.volume24h).format('$0,0')}
+                    <h6 className="fw-light">{numeral(lum.volume24h).format('$0,0')}</h6>
                 </div>
-                <div className="col-12 offset-md-2 offset-xxl-0 col-md-4">
+                <div className="mt-5 mt-sm-auto">
                     <p className="d-flex flex-row align-items-center">
                         <span className={`me-1 ${previousDayPercentage >= 0 ? 'arrow-up' : 'arrow-down'}`} />
                         {numeral(previousDayPercentage).format('+0.00%')} ({i18n.t('day')})
