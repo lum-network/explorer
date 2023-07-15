@@ -2,7 +2,7 @@
 
 .big-text {
     font-size: 42px;
-    line-height: 49px;
+    line-height: 41px;
 }
 
 .arrow-up {
@@ -21,4 +21,11 @@
     border-right: 6px solid transparent;
 
     border-top: 6px solid $color-red;
+}
+
+.lum-logo {
+    height: 40px;
+    @media screen and (min-width: 1700px) {
+        height: 120px;
+    }
 }

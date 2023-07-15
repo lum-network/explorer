@@ -17,3 +17,4 @@ export const SKEEPERS_REWARDS = 'https://rwd.skeepers.io';
 export const DFRACT = 'https://dfract.lum.network';
 export const DISCORD = 'https://discord.gg/KwyVvnBcXF';
 export const GITHUB_ASSETS = 'https://github.com/lum-network/public-assets';
+export const MILLIONS = 'https://cosmosmillions.com';
