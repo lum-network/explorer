@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node version to 16
         uses: actions/setup-node@v2
         with:
-          node-version: '16.13.0'
+          node-version: '16'
 
       - name: Checkout repository and submodules
         uses: actions/checkout@v2
@@ -56,7 +56,7 @@ jobs:
       - name: Set up Node version to 16
         uses: actions/setup-node@v2
         with:
-          node-version: '16.13.0'
+          node-version: '16'
 
       - name: Install packages
         run: yarn && cd src/frontend-elements && yarn
