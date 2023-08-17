@@ -85,6 +85,11 @@ export default {
     seconds: 'seconds',
     active: 'Active',
     inactive: 'Inactive',
+    winnerAddress: 'Winner address',
+    prizeId: 'Prize id',
+    drawId: 'Draw id',
+    poolId: 'Pool id',
+
     // Layout
     dashboard: 'Board',
     blocks: 'Blocks',
@@ -141,6 +146,10 @@ export default {
     ibcRecvPacketMessage: 'IBC Receive packet',
     execMessage: 'Exec',
     grantMessage: 'Grant',
+    setWithdrawAddressMessage: 'Set withdraw address',
+    millionsDepositMessage: 'Millions deposit',
+    millionsClaimPrizeMessage: "Millions Claim Prize",
+    millionsWithdrawMessage: "Millions Leave Pool",
 
     // Badge status
     badgeJailed: 'Jailed',

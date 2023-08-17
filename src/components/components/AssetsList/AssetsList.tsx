@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Table, Card } from 'frontend-elements';
 import { i18n } from 'utils';
 import placeholderTx from 'assets/images/placeholderTx.svg';
+import tickerAtom from 'assets/images/tickers/ticker_atom.svg';
 import tickerLum from 'assets/images/tickers/ticker_lum.svg';
 import tickerDfr from 'assets/images/tickers/ticker_dfr.svg';
 import tickerUsdc from 'assets/images/tickers/ticker_usdc.svg';
@@ -33,6 +34,9 @@ const AssetsList = ({ head, assets, title }: IProps): JSX.Element => {
             case 'ibc/05554A9BFDD28894D7F18F4C707AA0930D778751A437A9FE1F4684A3E1199728':
             case 'uusdc':
                 return ['USDC', tickerUsdc];
+            case 'ibc/A8C2D23A1E6F95DA4E48BA349667E322BD7A6C996D8A4AAE8BA72E190F3D1477':
+            case 'uatom':
+                return ['ATOM', tickerAtom];
             default:
                 return [i18n.t('unknown'), tickerUnknown];
         }
@@ -43,7 +47,7 @@ const AssetsList = ({ head, assets, title }: IProps): JSX.Element => {
         return (
             <tr key={index}>
                 <td title={asset.denom} className="d-flex align-items-center" data-label={head[0]}>
-                    <img className="me-2" alt={name} src={logo} /> {name}
+                    <img width={26} height={26} className="me-2" alt={name} src={logo} /> {name}
                 </td>
                 <td data-label={head[1]}>
                     <SmallerDecimal nb={numeral(asset.amount).format('0,0.000000')} />

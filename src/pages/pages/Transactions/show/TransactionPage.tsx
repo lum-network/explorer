@@ -425,7 +425,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
             );
         }
 
-        if (message instanceof MessageModel.Vote) {
+        if (message instanceof MessageModel.Vote || message instanceof MessageModel.Vote2) {
             const { value } = message;
 
             return (
@@ -436,12 +436,16 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId.toString()}`}>{value.proposalId.toString()}</Link>
                     </div>
-                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>{i18n.t('voterAddress')}</h5>
-                    </div>
-                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.voterAddress}`}>{value.voterAddress}</Link>
-                    </div>
+                    {value.voterAddress ? (
+                        <>
+                            <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                                <h5>{i18n.t('voterAddress')}</h5>
+                            </div>
+                            <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                                <Link to={`${NavigationConstants.ACCOUNT}/${value.voterAddress}`}>{value.voterAddress}</Link>
+                            </div>
+                        </>
+                    ) : null}
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('option')}</h5>
                     </div>
@@ -604,6 +608,33 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>{value.validatorAddress}</Link>
                     </div>
+                </div>
+            );
+        }
+
+        if (message instanceof MessageModel.MillionsClaimPrize) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('winnerAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.VALIDATORS}/${value.winnerAddress}`}>{value.winnerAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('prizeId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.prizeId.toString()}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('poolId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.poolId.toString()}</div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('drawId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">{value.drawId.toString()}</div>
                 </div>
             );
         }
@@ -781,6 +812,8 @@ const TransactionPage = (props: IProps): JSX.Element => {
             </Card>
         );
     };
+
+    console.log(transaction, loading);
 
     return (
         <>
