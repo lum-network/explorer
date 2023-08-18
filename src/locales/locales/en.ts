@@ -86,9 +86,11 @@ export default {
     active: 'Active',
     inactive: 'Inactive',
     winnerAddress: 'Winner address',
+    isSponsor: 'Sponsor',
     prizeId: 'Prize id',
     drawId: 'Draw id',
     poolId: 'Pool id',
+    depositId: 'Deposit id',
 
     // Layout
     dashboard: 'Board',

@@ -25,7 +25,7 @@ enum MessagesType {
     EXEC = '/cosmos.authz.v1beta1.MsgExec',
     GRANT = '/cosmos.authz.v1beta1.MsgGrant',
     MILLIONS_DEPOSIT = '/lum.network.millions.MsgDeposit',
-    MILLIONS_WITHDRAW = '/lum.network.millions.MsgWithdraw',
+    MILLIONS_WITHDRAW = '/lum.network.millions.MsgWithdrawDeposit',
     MILLIONS_CLAIM_PRIZE = '/lum.network.millions.MsgClaimPrize',
     SET_WITHDRAW_ADDRESS = '/cosmos.distribution.v1beta1.MsgSetWithdrawAddress',
 }

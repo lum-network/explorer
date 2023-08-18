@@ -325,14 +325,51 @@ export class Grant extends MessageModel {
     value: GrantValue = new GrantValue();
 }
 
-class MillionsDepositValue {}
+class MillionsDepositValue {
+    @Expose()
+    @Transform(({ value }) => {
+        return new Long(value.low, value.high, value.unsigned);
+    })
+    poolId: Long = new Long(0);
+
+    @Expose()
+    isSponsor?: boolean;
+
+    @Expose()
+    winnerAddress?: string;
+
+    @Expose()
+    depositorAddress?: string;
+
+    @Expose()
+    @Type(() => CoinModel)
+    amount: CoinModel = new CoinModel();
+}
 
 export class MillionsDeposit extends MessageModel {
     @Type(() => MillionsDepositValue)
     value: MillionsDepositValue = new MillionsDepositValue();
 }
 
-class MillionsWithdrawValue {}
+class MillionsWithdrawValue {
+    @Expose()
+    @Transform(({ value }) => {
+        return new Long(value.low, value.high, value.unsigned);
+    })
+    poolId: Long = new Long(0);
+
+    @Expose()
+    @Transform(({ value }) => {
+        return new Long(value.low, value.high, value.unsigned);
+    })
+    depositId: Long = new Long(0);
+
+    @Expose({ name: 'toAddress' })
+    winnerAddress?: string;
+
+    @Expose()
+    depositorAddress?: string;
+}
 
 export class MillionsWithdraw extends MessageModel {
     @Type(() => MillionsWithdrawValue)
@@ -358,6 +395,7 @@ class MillionsClaimPrizeValue {
     })
     prizeId: Long = new Long(0);
 
+    @Expose()
     winnerAddress?: string;
 }
 
