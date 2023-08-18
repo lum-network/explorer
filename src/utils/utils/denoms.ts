@@ -1,4 +1,4 @@
-export const getFormattedDenom = (denom: string) => {
+export const getFormattedDenom = (denom: string): string => {
     switch (denom) {
         case 'ulum':
             return 'lum';
@@ -10,5 +10,7 @@ export const getFormattedDenom = (denom: string) => {
         case 'ibc/A8C2D23A1E6F95DA4E48BA349667E322BD7A6C996D8A4AAE8BA72E190F3D1477':
         case 'uatom':
             return 'atom';
+        default:
+            return denom;
     }
 }
