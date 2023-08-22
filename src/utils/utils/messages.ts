@@ -18,6 +18,9 @@ import redelegateLogo from 'assets/images/messageTypes/redelegate.svg';
 import gearsLogo from 'assets/images/messageTypes/gears.svg';
 import commissionLogo from 'assets/images/messageTypes/commission.svg';
 import unjailLogo from 'assets/images/messageTypes/unjail.svg';
+import millionsDepositLogo from 'assets/images/messageTypes/millionsDeposit.svg';
+import millionsClaimPrizeLogo from 'assets/images/messageTypes/millionsClaimPrize.svg';
+import millionsWithdrawLogo from 'assets/images/messageTypes/millionsWithdraw.svg';
 
 export const name = (type?: MessagesType | null): { text: string; icon: string } => {
     switch (type) {
@@ -58,6 +61,7 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
             return { text: i18n.t('depositMessage'), icon: depositLogo };
 
         case MessagesType.VOTE:
+        case MessagesType.VOTE2:
             return { text: i18n.t('voteMessage'), icon: voteLogo };
 
         case MessagesType.BEGIN_REDELEGATE:
@@ -92,6 +96,18 @@ export const name = (type?: MessagesType | null): { text: string; icon: string }
 
         case MessagesType.GRANT:
             return { text: i18n.t('grantMessage'), icon: placeholderLogo };
+
+        case MessagesType.SET_WITHDRAW_ADDRESS:
+            return { text: i18n.t('setWithdrawAddressMessage'), icon: placeholderLogo };
+
+        case MessagesType.MILLIONS_DEPOSIT:
+            return { text: i18n.t('millionsDepositMessage'), icon: millionsDepositLogo };
+
+        case MessagesType.MILLIONS_CLAIM_PRIZE:
+            return { text: i18n.t('millionsClaimPrizeMessage'), icon: millionsClaimPrizeLogo };
+
+        case MessagesType.MILLIONS_WITHDRAW:
+            return { text: i18n.t('millionsWithdrawMessage'), icon: millionsWithdrawLogo };
 
         default:
             return { text: type || '', icon: placeholderLogo };

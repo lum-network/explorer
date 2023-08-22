@@ -215,6 +215,11 @@ export class Vote extends MessageModel {
     value: VoteValue = new VoteValue();
 }
 
+export class Vote2 extends MessageModel {
+    @Type(() => VoteValue)
+    value: VoteValue = new VoteValue();
+}
+
 class OpenBeamValue {
     id?: string;
 
@@ -320,6 +325,92 @@ export class Grant extends MessageModel {
     value: GrantValue = new GrantValue();
 }
 
+class MillionsDepositValue {
+    @Expose()
+    @Transform(({ value }) => {
+        return new Long(value.low, value.high, value.unsigned);
+    })
+    poolId: Long = new Long(0);
+
+    @Expose()
+    isSponsor?: boolean;
+
+    @Expose()
+    winnerAddress?: string;
+
+    @Expose()
+    depositorAddress?: string;
+
+    @Expose()
+    @Type(() => CoinModel)
+    amount: CoinModel = new CoinModel();
+}
+
+export class MillionsDeposit extends MessageModel {
+    @Type(() => MillionsDepositValue)
+    value: MillionsDepositValue = new MillionsDepositValue();
+}
+
+class MillionsWithdrawValue {
+    @Expose()
+    @Transform(({ value }) => {
+        return new Long(value.low, value.high, value.unsigned);
+    })
+    poolId: Long = new Long(0);
+
+    @Expose()
+    @Transform(({ value }) => {
+        return new Long(value.low, value.high, value.unsigned);
+    })
+    depositId: Long = new Long(0);
+
+    @Expose({ name: 'toAddress' })
+    winnerAddress?: string;
+
+    @Expose()
+    depositorAddress?: string;
+}
+
+export class MillionsWithdraw extends MessageModel {
+    @Type(() => MillionsWithdrawValue)
+    value: MillionsWithdrawValue = new MillionsWithdrawValue();
+}
+
+class MillionsClaimPrizeValue {
+    @Expose()
+    @Transform(({ value }) => {
+        return new Long(value.low, value.high, value.unsigned);
+    })
+    drawId: Long = new Long(0);
+
+    @Expose()
+    @Transform(({ value }) => {
+        return new Long(value.low, value.high, value.unsigned);
+    })
+    poolId: Long = new Long(0);
+
+    @Expose()
+    @Transform(({ value }) => {
+        return new Long(value.low, value.high, value.unsigned);
+    })
+    prizeId: Long = new Long(0);
+
+    @Expose()
+    winnerAddress?: string;
+}
+
+export class MillionsClaimPrize extends MessageModel {
+    @Type(() => MillionsClaimPrizeValue)
+    value: MillionsClaimPrizeValue = new MillionsClaimPrizeValue();
+}
+
+class SetWithdrawAddressValue {}
+
+export class SetWithdrawAddress extends MessageModel {
+    @Type(() => SetWithdrawAddressValue)
+    value: SetWithdrawAddressValue = new SetWithdrawAddressValue();
+}
+
 export type Value =
     | Send
     | CreateValidator
@@ -334,9 +425,14 @@ export type Value =
     | SubmitProposal
     | Deposit
     | Vote
+    | Vote2
     | CreateVestingAccount
     | BeginRedelegate
     | WithdrawValidatorCommission
     | Unjail
     | Exec
-    | Grant;
+    | Grant
+    | MillionsDeposit
+    | MillionsWithdraw
+    | MillionsClaimPrize
+    | SetWithdrawAddress;

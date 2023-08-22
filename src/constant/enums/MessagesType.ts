@@ -12,6 +12,7 @@ enum MessagesType {
     SUBMIT_PROPOSAL = '/cosmos.gov.v1beta1.MsgSubmitProposal',
     DEPOSIT = '/cosmos.gov.v1beta1.MsgDeposit',
     VOTE = '/cosmos.gov.v1beta1.MsgVote',
+    VOTE2 = '/cosmos.gov.v1.MsgVote',
     CREATE_VESTING_ACCOUNT = '/cosmos.vesting.v1beta1.MsgCreateVestingAccount',
     BEGIN_REDELEGATE = '/cosmos.staking.v1beta1.MsgBeginRedelegate',
     WITHDRAW_VALIDATOR_COMMISSION = '/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission',
@@ -23,6 +24,10 @@ enum MessagesType {
     IBC_RECV_PACKET = '/ibc.core.channel.v1.MsgRecvPacket',
     EXEC = '/cosmos.authz.v1beta1.MsgExec',
     GRANT = '/cosmos.authz.v1beta1.MsgGrant',
+    MILLIONS_DEPOSIT = '/lum.network.millions.MsgDeposit',
+    MILLIONS_WITHDRAW = '/lum.network.millions.MsgWithdrawDeposit',
+    MILLIONS_CLAIM_PRIZE = '/lum.network.millions.MsgClaimPrize',
+    SET_WITHDRAW_ADDRESS = '/cosmos.distribution.v1beta1.MsgSetWithdrawAddress',
 }
 
 export default MessagesType;

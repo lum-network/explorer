@@ -6,7 +6,7 @@ import { MessageType, Badge, Tooltip, SmallerDecimal, VoteOption } from 'compone
 import { Card, Loading } from 'frontend-elements';
 import moment from 'moment-timezone';
 import { NavigationConstants, SystemConstants } from 'constant';
-import { i18n, StringsUtils, NumbersUtils } from 'utils';
+import {i18n, StringsUtils, NumbersUtils, DenomsUtils} from 'utils';
 import { MessageModel } from 'models';
 import blockLogo from 'assets/images/blockDark.svg';
 import transactionLogo from 'assets/images/transactionDark.svg';
@@ -425,7 +425,7 @@ const TransactionPage = (props: IProps): JSX.Element => {
             );
         }
 
-        if (message instanceof MessageModel.Vote) {
+        if (message instanceof MessageModel.Vote || message instanceof MessageModel.Vote2) {
             const { value } = message;
 
             return (
@@ -436,12 +436,16 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
                         <Link to={`${NavigationConstants.PROPOSALS}/${value.proposalId.toString()}`}>{value.proposalId.toString()}</Link>
                     </div>
-                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
-                        <h5>{i18n.t('voterAddress')}</h5>
-                    </div>
-                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
-                        <Link to={`${NavigationConstants.ACCOUNT}/${value.voterAddress}`}>{value.voterAddress}</Link>
-                    </div>
+                    {value.voterAddress ? (
+                        <>
+                            <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                                <h5>{i18n.t('voterAddress')}</h5>
+                            </div>
+                            <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                                <Link to={`${NavigationConstants.ACCOUNT}/${value.voterAddress}`}>{value.voterAddress}</Link>
+                            </div>
+                        </>
+                    ) : null}
                     <div className="col-12 col-md-3 col-xl-2">
                         <h5>{i18n.t('option')}</h5>
                     </div>
@@ -603,6 +607,106 @@ const TransactionPage = (props: IProps): JSX.Element => {
                     </div>
                     <div className="col-12 col-md-9 col-xl-10 text-break">
                         <Link to={`${NavigationConstants.VALIDATORS}/${value.validatorAddress}`}>{value.validatorAddress}</Link>
+                    </div>
+                </div>
+            );
+        }
+
+        if (message instanceof MessageModel.MillionsClaimPrize) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('winnerAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.winnerAddress}`}>{value.winnerAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('prizeId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.prizeId.toString()}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('poolId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.poolId.toString()}</div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('drawId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">{value.drawId.toString()}</div>
+                </div>
+            );
+        }
+
+        if (message instanceof MessageModel.MillionsDeposit) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('depositorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.depositorAddress}`}>{value.depositorAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('winnerAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.winnerAddress}`}>{value.winnerAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('poolId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.poolId.toString()}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('amount')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <div className="d-flex">
+                            {value.amount ? (
+                                <>
+                                    {NumbersUtils.formatNumber(value.amount, true)}
+                                    <span className="ms-2 color-type">{DenomsUtils.getFormattedDenom(value.amount.denom)}</span>
+                                </>
+                            ) : (
+                                '-'
+                            )}
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('isSponsor')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">{value.isSponsor ? 'Yes' : 'No'}</div>
+                </div>
+            );
+        }
+
+        if (message instanceof MessageModel.MillionsWithdraw) {
+            const { value } = message;
+
+            return (
+                <div className="row align-items-center">
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('depositorAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.depositorAddress}`}>{value.depositorAddress}</Link>
+                    </div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('poolId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.poolId.toString()}</div>
+                    <div className="col-12 col-md-3 col-xl-2 mb-md-3">
+                        <h5>{i18n.t('depositId')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 mb-3 text-break">{value.depositId.toString()}</div>
+                    <div className="col-12 col-md-3 col-xl-2">
+                        <h5>{i18n.t('winnerAddress')}</h5>
+                    </div>
+                    <div className="col-12 col-md-9 col-xl-10 text-break">
+                        <Link to={`${NavigationConstants.ACCOUNT}/${value.winnerAddress}`}>{value.winnerAddress}</Link>
                     </div>
                 </div>
             );
